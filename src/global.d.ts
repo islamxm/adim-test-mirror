@@ -3,4 +3,10 @@ declare global {
   type DispatchType = import('./_app/providers/store/config').AppDispatch
   // type DefFunc = (...args:any[]) => any
 }
+declare module "next-auth" {
+  interface Session {
+    refreshToken?: string,
+    accessToken?: string
+  }
+}
 export {}

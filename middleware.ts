@@ -1,13 +1,10 @@
-import createMiddleware from 'next-intl/middleware';
-import { locales, defaultLocale } from '@/shared/i18n';
- 
-export default createMiddleware({
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/shared/i18n";
+
+const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localeDetection: true
+  localeDetection: true,
 });
- 
-export const config = {
-  // Игнорируем API, статические файлы и служебные пути Next.js
-  matcher: ['/((?!api|_next|.*\\..*).*)']
-};
+
+export default intlMiddleware;

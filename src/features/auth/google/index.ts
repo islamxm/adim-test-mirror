@@ -1,0 +1,1 @@
+export { AuthWithGoogleBtn } from "./ui/AuthWithGoogleBtn/AuthWithGoogleBtn";
