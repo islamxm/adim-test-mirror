@@ -28,3 +28,14 @@ export const AuthSuccessGoogleResponseSchema = z.object({
   refreshToken: z.string(),
   userId: z.number(),
 });
+
+export const UserSchema = z.object({
+  avatarUrl: z.string(),
+  backupEmail: z.email(),
+  birthday: z.string(),
+  email: z.email(),
+  phone: z.string(),
+  id: z.number(),
+  profileName: z.string(),
+  username: z.string()
+})

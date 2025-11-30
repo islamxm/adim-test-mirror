@@ -1,0 +1,32 @@
+.wrapper {
+  padding: 3.5rem 0;
+
+  .slide {
+    border-radius: 3rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    
+    .content {
+      max-width: 416px;
+      width: 100%;
+    }
+  }
+
+  .slider_btn {
+    position: absolute;
+    top: calc(50% - (4.8rem / 2));
+    z-index: 10;
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+
+  .slider_btn.slider_next_btn {
+    right: 2rem;
+  }
+
+  .slider_btn.slider_prev_btn {
+    left: 2rem;
+  }
+
+}

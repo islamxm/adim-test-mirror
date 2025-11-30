@@ -1,0 +1,24 @@
+import { SvgIcon, SvgIconProps } from "@mui/material";
+import { FC } from "react";
+
+export const PlayIcon: FC<SvgIconProps> = (props) => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.3335 11.5558V4.44466C3.3335 3.85828 3.3335 3.56476 3.45689 3.39127C3.56459 3.23985 3.73059 3.14043 3.91488 3.11666C4.12595 3.08944 4.38483 3.2275 4.90186 3.50325L11.5685 7.0588L11.5709 7.05988C12.1423 7.36461 12.4281 7.51705 12.5219 7.72022C12.6037 7.89746 12.6037 8.10205 12.5219 8.27929C12.428 8.48275 12.1415 8.63581 11.5685 8.9414L4.90186 12.497C4.38446 12.7729 4.12603 12.9104 3.91488 12.8832C3.73059 12.8594 3.56459 12.76 3.45689 12.6086C3.3335 12.4351 3.3335 12.1421 3.3335 11.5558Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </SvgIcon>
+  );
+};

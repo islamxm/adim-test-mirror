@@ -6,6 +6,8 @@ export type WithUIStatuses<OtherProps extends object = object> = OtherProps & {
 
 export type UIStatus = "loading" | "success" | "error" | "idle";
 
+export type UISize = "sm" | "md" | "lg" | "xlg"
+
 export type Response<Success, Error> = {
   success: Success,
   error: Error

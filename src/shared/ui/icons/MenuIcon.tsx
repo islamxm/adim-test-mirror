@@ -1,0 +1,24 @@
+import { SvgIcon, SvgIconProps } from "@mui/material";
+import { FC } from "react";
+
+export const MenuIcon: FC<SvgIconProps> = (props) => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.3335 11.3332H8.66683M3.3335 7.99984H12.6668M3.3335 4.6665H8.66683"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </SvgIcon>
+  );
+};

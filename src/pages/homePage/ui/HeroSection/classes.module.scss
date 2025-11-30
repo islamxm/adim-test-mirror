@@ -1,0 +1,17 @@
+.wrapper {
+  position: relative;
+
+  .bg {
+    position: absolute;
+    left: calc(50% - (526px / 2));
+  }
+
+  .bg.bg_top {
+    top: 0;
+  }
+
+  .bg.bg_bottom {
+    bottom: -5px;
+  }
+  
+}

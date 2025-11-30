@@ -11,15 +11,21 @@ declare module "@mui/material/styles" {
   }
 }
 
+const customShadow = "0px 0px 10px 0px rgba(0, 0, 0, 0.15)"
+
 export const themeConfig = createTheme({
   typography: {
     fontSize: 10,
     fontFamily: "var(--font-geist-sans)",
+    allVariants: {
+      transition: "all .2s ease",
+    },
     h1: {
       fontWeight: "bold",
     },
     h2: {
       fontWeight: "bold",
+      fontSize: "3.4rem"
     },
     h3: {
       fontWeight: "bold",
@@ -38,6 +44,10 @@ export const themeConfig = createTheme({
     },
     body2: {
       fontSize: "1rem",
+    },
+    subtitle1: {
+      fontSize: "2.4rem",
+      lineHeight: "3.2rem"
     },
   },
   shape: {
@@ -67,6 +77,33 @@ export const themeConfig = createTheme({
       default: "#FAF0E6",
     },
   },
+  shadows: [
+    "none",
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+    customShadow,
+  ],
   components: {
     MuiButton: {
       styleOverrides: {
@@ -100,6 +137,7 @@ export const themeConfig = createTheme({
       styleOverrides: {
         root: {
           color: "#158A13",
+          textDecoration: "none",
         },
       },
     },
@@ -121,6 +159,13 @@ export const themeConfig = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          transition: "all .2s ease",
+        }
+      }
+    }
   },
 });
 
