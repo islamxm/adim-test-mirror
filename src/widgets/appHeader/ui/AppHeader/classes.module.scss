@@ -1,0 +1,20 @@
+.wrapper {
+  display: grid;
+  grid-template-areas: 
+  "left main right"
+  ;
+  grid-template-columns: 1fr auto 1fr;
+
+  .left {
+    grid-area: left;
+    justify-self: start;
+  }
+  .right {
+    grid-area: right;
+    justify-self: end;
+  }
+  .main {
+    grid-area: main;
+    justify-self: center;
+  }
+}

@@ -2,8 +2,15 @@ import { Paper, Stack, Typography } from "@mui/material";
 import img from "../../../../../public/category-icon.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
+import { Category } from "../../model";
 
-export const CategoryCard = () => {
+
+
+export const CategoryCard:FC<Category> = ({
+  name,
+  iconPath,
+}) => {
   return (
     <Paper
       sx={(theme) => ({
@@ -12,6 +19,7 @@ export const CategoryCard = () => {
         p: "3.4rem",
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.background.default,
+        flexGrow: 1,
         "&:hover": {
           backgroundColor: theme.palette.primary.main,
           color: theme.palette.common.white,
@@ -23,11 +31,11 @@ export const CategoryCard = () => {
     >
       <Stack gap={"2.4rem"}>
         <Image src={img} alt="" />
-        <Typography variant={"h2"} textTransform={"uppercase"}>Programming</Typography>
-        <Typography variant={"body2"}>
+        <Typography variant={"h2"} textTransform={"uppercase"}>{name}</Typography>
+        {/* <Typography variant={"body2"}>
           Lorem ipsum dolor sit amet consectetur. Facilisi sollicitudin tempus
           sit ac. Tellus ac cras in metus curabitur aliquet.
-        </Typography>
+        </Typography> */}
       </Stack>
     </Paper>
   );

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const CourseSchema = z.object({
-  depth: z.number(),
+  depth: z.number().optional(),
   description: z.string(),
   explanation: z.string(),
   icon: z.string(),
@@ -9,12 +9,12 @@ export const CourseSchema = z.object({
   isFinished: z.boolean(),
   languages: z.array(z.string()),
   // LessonSchema or Omitted LessonSchema
-  lessons: z.unknown(),
+  lessons: z.unknown().optional(),
   name: z.string(),
-  nextLessonId: z.number(),
-  parent_id: z.number(),
+  nextLessonId: z.number().optional(),
+  parent_id: z.number().optional(),
   totalLessons: z.number(),
-  totalUnits: z.number(),
+  totalUnits: z.number().optional(),
   // UnitSchema or Omitted UnitSchema
-  units: z.unknown(),
+  units: z.unknown().optional(),
 });

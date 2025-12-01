@@ -8,5 +8,6 @@ type Props = {
 };
 
 export const Avatar: FC<Props> = ({ size, avatarUrl }) => {
+
   return <MuiAvatar sx={{width: size, height: size}} src={avatarUrl} />;
 };
