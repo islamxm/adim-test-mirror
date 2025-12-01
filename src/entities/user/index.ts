@@ -1,6 +1,6 @@
 export { type AuthType } from "./model";
-export { authConfig } from "./config";
-export { getUserDeviceInfo } from "./lib";
+export { getAuthOptions } from "./config";
+export { getUserDeviceInfo, authHandler } from "./lib";
 
 export { AuthFormLayout } from "./ui/AuthFormLayout/AuthFormLayout";
 export { Avatar } from "./ui/Avatar/Avatar";

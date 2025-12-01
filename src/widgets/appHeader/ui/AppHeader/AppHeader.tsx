@@ -1,3 +1,4 @@
+"use client";
 import { Stack } from "@mui/material"
 import { Navbar } from "../Navbar/Navbar"
 import { StreakBadge } from "@/entities/user"

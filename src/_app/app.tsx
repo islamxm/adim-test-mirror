@@ -2,11 +2,8 @@
 import { FC, PropsWithChildren } from "react";
 import { StyleProvider } from "./providers/style";
 import { createStore, StoreProvider } from "./providers/store";
-// import { AnimationProvider } from "./providers/animation";
 import { SessionProvider } from "next-auth/react";
-import { MainLayout } from "@/widgets/mainLayout";
-import { AppHeader } from "@/widgets/appHeader";
-import { AppFooter } from "@/widgets/appFooter";
+// import { AnimationProvider } from "./providers/animation";
 
 export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
@@ -14,11 +11,7 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
   return (
     <SessionProvider>
       <StyleProvider>
-        <StoreProvider preloadedState={store}>
-          <MainLayout footer={<AppFooter/>} header={<AppHeader/>}>
-            {children}
-          </MainLayout>
-        </StoreProvider>
+        <StoreProvider preloadedState={store}>{children}</StoreProvider>
       </StyleProvider>
     </SessionProvider>
   );

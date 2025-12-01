@@ -56,3 +56,14 @@ export const api = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
 });
+
+// export const authInstance = betterAuth({
+//   socialProviders: {
+//     google: {
+//       clientId: process.env.GOOGLE_CLIENT_ID || "",
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
+//     },
+//   },
+// })
+
+// export const authClient = createAuthClient()

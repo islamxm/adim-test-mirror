@@ -1,6 +1,6 @@
 import { UIStatus } from "@/shared/types";
 import { Button, Input, Stack, TextField } from "@mui/material";
-import { FC, useEffect } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { InputErrorText } from "@/shared/ui/InputErrorText";
 type Props = {
   setStatus?: (status: UIStatus) => void;
   isActive?: boolean;
+  oauth?: ReactNode;
 };
 
 const RegisterFormSchema = z
@@ -33,7 +34,7 @@ const RegisterFormSchema = z
 
 type RegisterFormType = z.infer<typeof RegisterFormSchema>;
 
-export const RegisterForm: FC<Props> = ({ setStatus, isActive }) => {
+export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
   const {
     register,
     formState: { errors },
@@ -86,6 +87,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive }) => {
           <InputErrorText>{errors?.repeatPassword?.message}</InputErrorText>
         }
       />
+      {oauth}
       <Button variant={"contained"} color={"primary"} type="submit">
         Continue
       </Button>

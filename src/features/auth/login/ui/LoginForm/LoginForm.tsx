@@ -1,6 +1,6 @@
 import { UIStatus } from "@/shared/types";
 import { Button, Stack, TextField } from "@mui/material";
-import { FC, useEffect } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { InputErrorText } from "@/shared/ui/InputErrorText";
 type Props = {
   setStatus?: (status: UIStatus) => void;
   isActive?: boolean;
+  oauth?: ReactNode;
 };
 
 const LoginFormSchema = z.object({
@@ -21,7 +22,7 @@ const LoginFormSchema = z.object({
 
 type LoginFormType = z.infer<typeof LoginFormSchema>;
 
-export const LoginForm: FC<Props> = ({ setStatus, isActive }) => {
+export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
   const {
     register,
     handleSubmit,
@@ -46,7 +47,6 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive }) => {
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>
       <Stack>
         <TextField
-          // label="E-mail"
           placeholder="E-mail"
           {...register("email")}
           fullWidth
@@ -56,7 +56,6 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive }) => {
       </Stack>
 
       <TextField
-        // label="Password"
         placeholder="Password"
         {...register("password")}
         fullWidth
@@ -66,6 +65,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive }) => {
           <InputErrorText>{errors?.password?.message}</InputErrorText>
         }
       />
+      {oauth}
       <Button type={"submit"} variant={"contained"}>
         Continue
       </Button>

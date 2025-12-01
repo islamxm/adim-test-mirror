@@ -1,3 +1,4 @@
+"use client";
 import { Stack } from "@mui/material";
 import { Copyright } from "../Copyright/Copyright";
 import { Container } from "@/shared/ui/Container";

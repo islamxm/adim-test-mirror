@@ -162,7 +162,7 @@ export const themeConfig = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          transition: "all .2s ease",
+          // transition: "all .2s ease",
         }
       }
     }
