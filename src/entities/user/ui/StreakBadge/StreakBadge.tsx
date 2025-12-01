@@ -2,6 +2,7 @@ import { Paper, Typography } from "@mui/material";
 import { StreakIcon } from "@/shared/ui/icons";
 
 export const StreakBadge = () => {
+
   return (
     <Paper
       sx={theme => ({

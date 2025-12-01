@@ -1,12 +1,15 @@
 "use client";
-import { Stack } from "@mui/material"
-import { Navbar } from "../Navbar/Navbar"
-import { StreakBadge } from "@/entities/user"
-import { LeagueBadge } from "@/entities/league"
+import { Box } from "@mui/material";
+import { Navbar } from "../Navbar/Navbar";
+import { StreakBadge } from "@/entities/user";
+import { LeagueBadge } from "@/entities/league";
+import classes from "./classes.module.scss";
+import { useAuth } from "@/shared/lib/useAuth";
 
 export const AppHeader = () => {
+  const isAuth = useAuth();
   return (
-    <Stack
+    <Box
       sx={{
         p: "4rem 3rem",
         position: "fixed",
@@ -14,14 +17,23 @@ export const AppHeader = () => {
         left: 0,
         width: "100%",
         alignItems: "center",
-        zIndex: 10
+        zIndex: 10,
       }}
-      direction={"row"}
-      justifyContent={"center"}
-      >
-      <StreakBadge/>
-      <Navbar />
-      <LeagueBadge/>
-    </Stack>
-  )
-}
+      className={classes.wrapper}
+    >
+      <div className={classes.main}>
+        <Navbar />
+      </div>
+      {isAuth && (
+        <>
+          <div className={classes.left}>
+            <StreakBadge />
+          </div>
+          <div className={classes.right}>
+            <LeagueBadge />
+          </div>
+        </>
+      )}
+    </Box>
+  );
+};

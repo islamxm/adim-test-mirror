@@ -1,11 +1,12 @@
 import { Logo } from "@/shared/ui/Logo";
 import { Paper, Link as MuiLink, Stack } from "@mui/material";
 import Link from "next/link";
-import { Avatar } from "@/entities/user";
+import { UserAvatar } from "@/features/user/user-avatar";
 
 const routes = ["Courses", "Points", "Rating"];
 
 export const Navbar = () => {
+
   return (
     <Paper
       sx={(theme) => ({
@@ -19,7 +20,7 @@ export const Navbar = () => {
       })}
     >
       <Stack direction={"row"} alignItems={"center"} gap={"3rem"}>
-        <Logo sx={{ml: "2.4rem"}}/>
+        <Logo sx={{ ml: "2.4rem" }} />
         {routes.map((route) => (
           <MuiLink
             key={route}
@@ -31,16 +32,14 @@ export const Navbar = () => {
               fontSize: "1.8rem",
               color: theme.palette.primary.dark,
               "&:hover": {
-                color: theme.palette.primary.light
-              }
+                color: theme.palette.primary.light,
+              },
             })}
           >
             {route}
           </MuiLink>
         ))}
-        <Avatar
-          size="4.8rem"
-          />
+        <UserAvatar/>
       </Stack>
     </Paper>
   );

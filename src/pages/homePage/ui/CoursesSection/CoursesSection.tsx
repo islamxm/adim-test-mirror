@@ -1,18 +1,23 @@
 "use client";
-import { CourseCard } from "@/entities/course";
+import { Course, CourseCard } from "@/entities/course";
 import { Container } from "@/shared/ui/Container";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { Box, Button, Stack } from "@mui/material";
+import { FC } from "react";
 
-export const CoursesSection = () => {
+type Props = {
+  data: Array<Course>;
+};
+
+export const CoursesSection: FC<Props> = ({ data }) => {
   return (
     <Box
-      sx={theme => ({
+      sx={(theme) => ({
         backgroundColor: theme.palette.common.white,
-        py: "3.5rem"
+        py: "3.5rem",
       })}
-      >
+    >
       <Container>
         <SectionHead
           title="Popular courses"
@@ -24,10 +29,9 @@ export const CoursesSection = () => {
           }
         />
         <Stack direction={"row"} gap={"20px"}>
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
+          {data.map((course) => (
+            <CourseCard key={course.id} {...course}/>
+          ))}
         </Stack>
       </Container>
     </Box>

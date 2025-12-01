@@ -3,9 +3,15 @@ import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { Box, Button, Stack } from "@mui/material";
 import { ArrowRightIcon } from "@/shared/ui/icons";
-import { CategoryCard } from "@/entities/category";
+import { Category, CategoryCard } from "@/entities/category";
+import { FC } from "react";
 
-export const CategoriesSection = () => {
+type Props = {
+  data: Array<Category>
+}
+
+export const CategoriesSection:FC<Props> = ({data}) => {
+
   return (
     <Box py={"3.5rem"} sx={theme => ({backgroundColor: theme.palette.common.white})}>
       <Container>
@@ -19,9 +25,14 @@ export const CategoriesSection = () => {
           }
         />
         <Stack direction={"row"} gap={"2rem"}>
+          {/* <CategoryCard/>
           <CategoryCard/>
-          <CategoryCard/>
-          <CategoryCard/>
+          <CategoryCard/> */}
+          {
+            data.map(category => (
+              <CategoryCard key={category.id} {...category}/>
+            ))
+          }
         </Stack>
       </Container>
     </Box>

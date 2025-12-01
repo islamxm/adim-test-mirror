@@ -3,8 +3,10 @@ import Image from "next/image";
 import img from "../../../../../public/course-img.png";
 import Link from "next/link";
 import { MenuIconRound, PlayIconRound } from "@/shared/ui/icons";
+import { FC } from "react";
+import { Course } from "../../model";
 
-export const CourseCard = () => {
+export const CourseCard: FC<Course> = ({ name, description }) => {
   return (
     <Paper
       sx={(theme) => ({
@@ -14,6 +16,7 @@ export const CourseCard = () => {
         display: "flex",
         flexDirection: "column",
         color: theme.palette.primary.main,
+        flex: 1,
         "&:hover": {
           backgroundColor: theme.palette.primary.main,
           color: theme.palette.common.white,
@@ -35,27 +38,28 @@ export const CourseCard = () => {
         sx={{
           p: "1.6rem",
           height: "100%",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         <Stack gap={".8rem"}>
-          <Typography variant="h4">Course name</Typography>
-          <Typography variant="body1">
-            Lorem ipsum ut ultricies aliquet mattis blandit blandit venenatis
-            interdum.
+          <Typography variant="h4">{name}</Typography>
+          <Typography
+            sx={{
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 2, // Здесь задается максимальное количество строк
+              WebkitBoxOrient: "vertical",
+            }}
+            variant="body1"
+          >
+            {description}
           </Typography>
         </Stack>
         <Stack direction={"row"} justifyContent={"flex-end"}>
-          <Button
-            color="inherit"
-            startIcon={<PlayIconRound/>}
-            >
+          <Button color="inherit" startIcon={<PlayIconRound />}>
             24
           </Button>
-          <Button
-            color="inherit"
-            startIcon={<MenuIconRound/>}
-            >
+          <Button color="inherit" startIcon={<MenuIconRound />}>
             24
           </Button>
         </Stack>

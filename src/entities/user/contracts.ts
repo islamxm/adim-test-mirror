@@ -37,5 +37,22 @@ export const UserSchema = z.object({
   phone: z.string(),
   id: z.number(),
   profileName: z.string(),
-  username: z.string()
-})
+  username: z.string(),
+});
+
+export const UserHomeDataSuccessResponse = z.object({
+  continueLearning: z.array(
+    z.object({
+      courseIcon: z.string(),
+      courseId: z.number(),
+      courseName: z.string(),
+      percent: z.number(),
+    })
+  ),
+  userStreak: z.object({
+    currentStreak: z.number(),
+    daysForPoint: z.number(),
+    pointsFromStreak: z.number(),
+    todayActive: z.boolean(),
+  }),
+});

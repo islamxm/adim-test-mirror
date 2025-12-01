@@ -34,7 +34,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
         if ((data as any)?.error) {
           console.error("Backend Error");
         } else {
-          redirect('/home')
+          redirect("/home");
         }
       }
       setStatus?.("success");
@@ -42,18 +42,15 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
   }, [status, data, setStatus]);
 
   return (
-    <>
-      <Button
-        startIcon={
-          <Image src={googleIcon.src} alt="Google" width={20} height={20} />
-        }
-        variant={"contained"}
-        color={"secondary"}
-        onClick={onSubmit}
-      >
-        Continue with google
-      </Button>
-      <Button onClick={() => signOut()}>Sign out</Button>
-    </>
+    <Button
+      startIcon={
+        <Image src={googleIcon.src} alt="Google" width={20} height={20} />
+      }
+      variant={"contained"}
+      color={"secondary"}
+      onClick={onSubmit}
+    >
+      Continue with google
+    </Button>
   );
 };

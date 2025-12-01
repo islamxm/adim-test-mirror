@@ -5,15 +5,21 @@ import { CategoriesSection } from "../CategoriesSection/CategoriesSection"
 import { NewsSection } from "../NewsSection/NewsSection"
 import { CoursesSection } from "../CoursesSection/CoursesSection"
 import { PromoSection } from "../PromoSection/PromoSection"
+import { FC } from "react";
+import { HomePagePublicDataResponse } from "../../model";
 
-export const HomePage = () => {
+type Props = {
+  data: HomePagePublicDataResponse['success']
+}
 
+export const HomePage:FC<Props> = ({data}) => {
+  
   return (
     <Stack>
       <HeroSection/>
-      <CategoriesSection/>
+      <CategoriesSection data={data.categories}/>
       <NewsSection/>
-      <CoursesSection/>
+      <CoursesSection data={data.popularCourses}/>
       <PromoSection/>
     </Stack>
   )
