@@ -32,6 +32,7 @@ export const Avatar: FC<Props> = ({
         sx={{
           width: size,
           height: size,
+          objectFit: "cover",
           boxShadow: isShadow ? "0 0 10px #00000026" : "none",
         }}
         src={avatarUrl}

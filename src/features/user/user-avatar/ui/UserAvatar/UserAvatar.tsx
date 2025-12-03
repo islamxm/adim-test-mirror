@@ -1,9 +1,10 @@
-import { Avatar, User } from "@/entities/user";
+import { Avatar, userApi } from "@/entities/user";
 import { motion } from "motion/react";
 import { useSelector } from "@/shared/lib";
 
 export const UserAvatar = () => {
-  const {isAuth} = useSelector(s => s.user)
+  const { isAuth } = useSelector((s) => s.user);
+  const {data} = userApi.useGetUserProfileQuery(undefined)
 
   if (!isAuth) {
     return null;
@@ -14,7 +15,7 @@ export const UserAvatar = () => {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
     >
-      <Avatar size="4.8rem"/>
+      <Avatar isShadow size="4.8rem" avatarUrl={data?.avatarUrl}/>
     </motion.div>
   );
 };

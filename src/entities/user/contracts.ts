@@ -31,10 +31,10 @@ export const AuthSuccessGoogleResponseSchema = z.object({
 
 export const UserSchema = z.object({
   avatarUrl: z.string(),
-  backupEmail: z.email(),
-  birthday: z.string(),
+  backupEmail: z.email().optional(),
+  birthday: z.string().optional(),
   email: z.email(),
-  phone: z.string(),
+  phone: z.string().optional(),
   id: z.number(),
   profileName: z.string(),
   username: z.string(),
