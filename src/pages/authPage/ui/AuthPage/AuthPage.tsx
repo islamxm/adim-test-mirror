@@ -6,6 +6,7 @@ import { RegisterForm } from "@/features/auth/register";
 import { UIStatus } from "@/shared/types";
 import { Box, Stack } from "@mui/material";
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
+import { AuthBg } from "../AuthBg/AuthBg";
 
 const renderAuthForm = (
   type: AuthType,
@@ -34,8 +35,13 @@ const renderAuthForm = (
 export const AuthPage = () => {
   return (
     <PageEnterAnimationLayout>
-      <Stack justifyContent={"center"} alignItems={"center"} height={"100%"}>
-        <AuthFormLayout>
+      <Stack
+        sx={{ position: "relative" }}
+        justifyContent={"center"}
+        alignItems={"center"}
+        height={"100%"}
+      >
+        <AuthFormLayout  bg={({type}) => <AuthBg type={type}/>}>
           {({ setStatus, type }) => renderAuthForm(type, setStatus)}
         </AuthFormLayout>
       </Stack>
