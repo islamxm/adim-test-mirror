@@ -15,8 +15,6 @@ export const CoursesPage = () => {
 
   const courses = data?.pages.map((d) => d.courses).flat() || [];
 
-  console.log(data);
-
   return (
     <Box bgcolor={(theme) => theme.palette.common.white}>
       <Container>

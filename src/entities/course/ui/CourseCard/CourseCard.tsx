@@ -6,7 +6,9 @@ import { MenuIconRound, PlayIconRound } from "@/shared/ui/icons";
 import { FC } from "react";
 import { Course } from "../../model";
 
-export const CourseCard: FC<Course> = ({ name, description }) => {
+export const CourseCard: FC<
+  Pick<Course, "name" | "id" | "icon"> & Partial<Pick<Course, 'description'>>
+> = ({ name, description }) => {
   return (
     <Paper
       sx={(theme) => ({
