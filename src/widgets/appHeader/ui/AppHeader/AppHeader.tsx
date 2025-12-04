@@ -1,10 +1,10 @@
 "use client";
 import { Box } from "@mui/material";
 import { Navbar } from "../Navbar/Navbar";
-import { LeaguePanel } from "@/entities/league";
 import classes from "./classes.module.scss";
 import { StreakInfo } from "@/features/user/streak-info";
 import { useSelector } from "@/shared/lib";
+
 
 export const AppHeader = () => {
   const {isAuth} = useSelector(s => s.user)
@@ -30,9 +30,8 @@ export const AppHeader = () => {
           <div className={classes.left}>
             <StreakInfo/>
           </div>
-          <div className={classes.right}>
-            {/* <LeaguePanel /> */}
-          </div>
+          {/* <div className={classes.right}>            
+          </div> */}
         </>
       )}
     </Box>

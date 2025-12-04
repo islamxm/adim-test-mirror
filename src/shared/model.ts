@@ -1,3 +1,9 @@
+export type Route = {
+  id: number;
+  path: string;
+  label: string
+}
+
 export const getHomePage = () => "/home";
 export const getCoursesPage = () => "/courses";
 export const getPointsPage = () => "/points";

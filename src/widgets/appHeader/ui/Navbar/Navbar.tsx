@@ -1,17 +1,17 @@
 import { Logo } from "@/shared/ui/Logo";
-import { Paper, Link as MuiLink, Stack } from "@mui/material";
-import Link from "next/link";
+import { Paper, Stack } from "@mui/material";
 import { UserAvatar } from "@/features/user/user-avatar";
 import { getHomePage, routesMap } from "@/shared/model";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
-
+import { usePathname } from "next/navigation";
+import { NavLink } from "../NavLink/NavLink";
 
 const routes = Object.entries(routesMap)
   .map((route) => route[1])
   .filter((route) => route.path !== getHomePage());
 
 export const Navbar = () => {
+  const pathname = usePathname()
 
   return (
     <Paper
@@ -33,21 +33,10 @@ export const Navbar = () => {
         <Logo sx={{ ml: "2.4rem" }} />
         {routes.map((route) => (
           <motion.div key={route.id} layout>
-            <MuiLink
-              component={Link}
-              href={route.path}
-              sx={(theme) => ({
-                padding: "0.6rem 2.5rem",
-                fontWeight: 600,
-                fontSize: "1.8rem",
-                color: theme.palette.primary.dark,
-                "&:hover": {
-                  color: theme.palette.primary.light,
-                },
-              })}
-            >
-              {route.label}
-            </MuiLink>
+            <NavLink
+              {...route}
+              isActive={pathname?.startsWith(route.path)}
+              />
           </motion.div>
         ))}
         <UserAvatar />
