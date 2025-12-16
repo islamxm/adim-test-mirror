@@ -5,12 +5,14 @@ import { getHomePage, routesMap } from "@/shared/model";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { NavLink } from "../NavLink/NavLink";
+import { useSelector } from "@/shared/lib";
 
 const routes = Object.entries(routesMap)
   .map((route) => route[1])
   .filter((route) => route.path !== getHomePage());
 
 export const Navbar = () => {
+  const {isAuth} = useSelector(s => s.user)
   const pathname = usePathname();
 
   return (
@@ -42,7 +44,7 @@ export const Navbar = () => {
             <NavLink {...route} isActive={pathname?.startsWith(route.path)} />
           </motion.div>
         ))}
-        <UserAvatar />
+        {isAuth && <UserAvatar />}
       </Stack>
     </Paper>
   );

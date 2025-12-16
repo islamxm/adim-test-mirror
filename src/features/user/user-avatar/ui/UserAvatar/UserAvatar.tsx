@@ -1,14 +1,8 @@
 import { Avatar, userApi } from "@/entities/user";
 import { motion } from "motion/react";
-import { useSelector } from "@/shared/lib";
 
 export const UserAvatar = () => {
-  const { isAuth } = useSelector((s) => s.user);
   const {data} = userApi.useGetUserProfileQuery(undefined)
-
-  if (!isAuth) {
-    return null;
-  }
 
   return (
     <motion.div

@@ -23,7 +23,7 @@
       "@app/*": ["./src/_app"],
       "@shared/*": ["./src/shared"],
       "@entities/*": ["./src/entities"],
-      "@pages/*": ["./src/pages"],
+      "@pages/*": ["./src/_pages"],
       "@widgets/*": ["./src/widgets"],
       "@features/*": ["./src/features"]
     }

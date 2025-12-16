@@ -1,6 +1,6 @@
 import { createStore } from "@/_app/providers/store";
-import { HomePage as HomePageComponent, HomePagePublicDataResponse } from "@/pages/homePage";
-import { homePageApi } from "@/pages/homePage";
+import { HomePage as HomePageComponent, HomePagePublicDataResponse } from "@/_pages/homePage";
+import { homePageApi } from "@/_pages/homePage";
 
 export default async function HomePage() {
   const store = createStore();
