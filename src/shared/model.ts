@@ -9,6 +9,8 @@ export const getHomePage = () => "/home";
 export const getCoursesPage = () => "/courses";
 export const getPointsPage = () => "/points";
 export const getRatingPage = () => "/rating";
+export const getCoursePage = (courseId: number) => `/course/${courseId}`
+export const getAboutCoursePage = (courseId: number) => `${getCoursePage(courseId)}/about`
 
 export const routesMap = {
   home: { id: 1, path: getHomePage(), label: "Home" },

@@ -1,16 +1,15 @@
 import { z } from "zod";
 
 export const CourseSchema = z.object({
-  depth: z.number().optional(),
+  id: z.number(),
+  name: z.string(),
+  icon: z.string(),
   description: z.string(),
   explanation: z.string(),
-  icon: z.string(),
-  id: z.number(),
-  isFinished: z.boolean(),
   languages: z.array(z.string()),
-  // LessonSchema or Omitted LessonSchema
-  lessons: z.unknown().optional(),
-  name: z.string(),
+  depth: z.number().optional(),
+  isFinished: z.boolean(),
+  lessons: z.array(z.any()).optional(),
   nextLessonId: z.number().optional(),
   parent_id: z.number().optional(),
   totalLessons: z.number(),
@@ -19,7 +18,10 @@ export const CourseSchema = z.object({
   units: z.unknown().optional(),
 });
 
-export const GetCoursesByCategoryIdSuccessResponseSchema = z.object({
+export const Response_GetCoursesByCategoryIdSuccessSchema = z.object({
   courses: z.array(CourseSchema),
   cursor: z.string().optional()
+})
+export const Response_GetCourseByIdSuccessSchema = z.object({
+  course: CourseSchema
 })

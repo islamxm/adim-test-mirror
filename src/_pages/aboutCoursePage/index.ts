@@ -1,0 +1,1 @@
+export { AboutCoursePage } from "./ui/AboutCoursePage/AboutCoursePage";

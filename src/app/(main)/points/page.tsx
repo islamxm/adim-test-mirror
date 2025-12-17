@@ -1,4 +1,4 @@
-import { PointsPage } from "@/pages/pointsPage";
+import { PointsPage } from "@/_pages/pointsPage";
 
 export default function Page() {
   return (
