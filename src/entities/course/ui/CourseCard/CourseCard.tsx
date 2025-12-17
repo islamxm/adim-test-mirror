@@ -5,14 +5,14 @@ import { Course } from "../../model";
 import { InfoChip } from "../InfoChip/InfoChip";
 import { motion } from "motion/react";
 import { getLanguageName } from "@/shared/lib";
-import { Language } from "@/shared/model";
+import { getAboutCoursePage, Language } from "@/shared/model";
 
 export const CourseCard: FC<
   Pick<Course, "name" | "id" | "icon" | "totalLessons" | "languages"> &
     Partial<Pick<Course, "description">>
-> = ({ name, description, totalLessons, languages }) => {
+> = ({ name, description, totalLessons, languages, id }) => {
   return (
-    <Box component={Link} href={"#"} sx={{ flex: 1 }}>
+    <Box component={Link} href={getAboutCoursePage(id)} sx={{ flex: 1 }}>
       <Paper
         elevation={0}
         component={motion.div}

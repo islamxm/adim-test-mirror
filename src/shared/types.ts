@@ -18,3 +18,4 @@ export type DefaultResponseErrorData = {
   code: number,
   message: string
 }
+export type Nullable<T> = T | null;

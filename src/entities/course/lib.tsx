@@ -1,9 +1,15 @@
 import { Course, CourseDto } from "./model";
 
 export const courseDtoMap = (courseDto: CourseDto): Course => {
-  const { parent_id, ...pureCourseDto } = courseDto;
   return {
-    ...pureCourseDto,
-    parentId: parent_id,
+    id: courseDto.id,
+      name: courseDto.name,
+      image: courseDto.icon,
+      description: courseDto.description,
+      explanation: courseDto.explanation,
+      languages: courseDto.languages,
+      isFinished: courseDto.isFinished,
+      lessons: courseDto.lessons,
+      totalLessonsCount: courseDto.totalLessons,
   };
 };
