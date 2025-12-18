@@ -8,6 +8,8 @@ export const UserAvatar = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
+      style={{flex: "0 0 auto"}}
+      layout={"position"}
     >
       <Avatar isShadow size="4.8rem" avatarUrl={data?.avatarUrl}/>
     </motion.div>

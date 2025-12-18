@@ -1,21 +1,29 @@
 .wrapper {
   display: grid;
-  grid-template-areas: 
-  "left main right"
-  ;
+  grid-template-areas: "left main right";
   grid-template-columns: 1fr auto 1fr;
   gap: 2.4rem;
 
   .left {
     grid-area: left;
     justify-self: end;
+    position: relative;
+    z-index: 2;
   }
   .right {
     grid-area: right;
     justify-self: start;
+    position: relative;
+    z-index: 2;
   }
-  .main {
-    grid-area: main;
-    justify-self: center;
+}
+
+.wrapper.courseMainPage_variant {
+  grid-template-areas: "left main";
+  grid-template-columns: 1fr auto;
+  justify-content: start;
+
+  .left {
+    justify-self: start;
   }
 }

@@ -4,9 +4,10 @@ import pl from "../../../../../public/course-img.png";
 import { Course } from "@/entities/course";
 import { FC } from "react";
 import { CourseLanguagesBadge } from "../CourseLanguagesBadge/CourseLanguagesBadge";
-import { getCoursePage, Language } from "@/shared/model";
+import { getCoursePage, getMainCoursePage, Language } from "@/shared/model";
 import { CourseLessonsCountBadge } from "../CourseLessonsCountBadge/CourseLessonsCountBadge";
 import Link from "next/link";
+import { objectToSearchParams } from "@/shared/lib";
 
 type Props = Pick<Course, "image" | "id" | "languages" | "totalLessonsCount">;
 
@@ -38,7 +39,7 @@ export const CourseDetailsCard:FC<Props> = ({
             alt=""
           />
         </Paper>
-        <Button variant={"contained"} component={Link} href={getCoursePage(id)}>Start now</Button>
+        <Button variant={"contained"} component={Link} href={getMainCoursePage(id) + objectToSearchParams({tab: "units"})}>Start now</Button>
         <Stack gap={"1.6rem"}>
           <Typography sx={{fontSize: "1.8rem", fontWeight: 600}}>Course includes</Typography>
           <CourseLanguagesBadge languages={languages as Array<Language>}/>

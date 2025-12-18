@@ -1,8 +1,12 @@
 import { api } from "@/shared/api";
 import { objectToSearchParams } from "@/shared/lib";
-import { CourseSchema, Response_GetCoursesByCategoryIdSuccessSchema, Response_GetCourseByIdSuccessSchema } from "./contract";
+import {
+  Response_GetCoursesByCategoryIdSuccessSchema,
+  Response_GetCourseByIdSuccessSchema,
+} from "./contract";
 import { courseDtoMap } from "./lib";
-import {z} from "zod";
+import { unitDtoMap } from "@/entities/unit/@x/course";
+import { z } from "zod";
 
 type GetCoursesByCategoryIdInputType = {
   categoryId?: string;
@@ -60,15 +64,21 @@ export const courseApi = api.injectEndpoints({
     }),
     getCourseById: builder.query({
       query: (id: number) => ({
-        url: `courses/course_info${objectToSearchParams({id})}`,
+        url: `courses/course_info${objectToSearchParams({ id })}`,
       }),
       transformResponse: (res) => {
         try {
-          return courseDtoMap(Response_GetCourseByIdSuccessSchema.parse(res).course)
-        } catch(err) {
+          const validated = courseDtoMap(
+            Response_GetCourseByIdSuccessSchema.parse(res).course
+          );
+          return {
+            ...validated,
+            units: validated.units.map(unitDtoMap),
+          };
+        } catch (err) {
           console.log("VALIDATE ERROR", err);
         }
-      }
-    })
+      },
+    }),
   }),
 });

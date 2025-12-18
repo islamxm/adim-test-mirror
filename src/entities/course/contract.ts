@@ -1,3 +1,4 @@
+import { UnitSchema } from "@/entities/unit/@x/course";
 import { z } from "zod";
 
 export const CourseSchema = z.object({
@@ -9,13 +10,11 @@ export const CourseSchema = z.object({
   languages: z.array(z.string()),
   depth: z.number().optional(),
   isFinished: z.boolean(),
-  lessons: z.array(z.any()).optional(),
   nextLessonId: z.number().optional(),
   parent_id: z.number().optional(),
   totalLessons: z.number(),
   totalUnits: z.number().optional(),
-  // UnitSchema or Omitted UnitSchema
-  units: z.unknown().optional(),
+  units: z.array(UnitSchema).optional(),
 });
 
 export const Response_GetCoursesByCategoryIdSuccessSchema = z.object({
