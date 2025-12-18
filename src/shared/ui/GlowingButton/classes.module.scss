@@ -1,0 +1,103 @@
+.button {
+  overflow: visible;
+  // border: 1px solid black;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 1.6rem;
+    
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff9900,
+      #00ffcc,
+      #0066ff,
+      #ff00ff,
+      #ff0000
+    );
+    background-size: 400% 400%;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6),
+    0 0 30px rgba(255, 153, 0, 0.6),
+    0 0 45px rgba(0, 255, 204, 0.6),
+    0 0 60px rgba(0, 102, 255, 0.6),
+    0 0 75px rgba(255, 0, 255, 0.6);
+
+    // background: linear-gradient(
+    //   45deg,
+    //   #158A13,
+    //   #89c788ff,
+    //   #FFD24E,
+    //   #063B29,
+    // );
+    // background-size: 400% 400%;
+
+    // box-shadow:
+    //   0 0 50px #158A13,
+    //   0 0 40px #89c788ff,
+    //   0 0 60px #FFD24E,
+    //   0 0 100px #063B29,
+    //   ;
+
+    filter: blur(20px);
+    animation: 
+    gradientShift 2s linear infinite,
+      pulseGlow 2s ease-in-out infinite
+      ;
+    z-index: 0;
+    transition: all 0.3s ease;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 1.3rem;
+    opacity: 1;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+
+  & > 
+  span,
+  .content,
+  .MuiButton-startIcon,
+  .MuiButton-endIcon {
+    position: relative;
+    z-index: 2;
+    // color: transparent;
+    // -webkit-background-clip: text;
+    // background-clip: text;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 150% 50%;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    filter: blur(6px) brightness(1);
+  }
+  50% {
+    filter: blur(10px) brightness(1.5);
+  }
+  100% {
+    filter: blur(6px) brightness(1);
+  }
+}
+
+.button:hover::before {
+  transform: scale(1.1);
+  inset: 0;
+}

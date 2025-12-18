@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserMatchStatsSchema } from "./contracts";
 
 export const CnServerEventSchema = z.object({
   IN_QUEUE: z.object({
@@ -42,3 +43,6 @@ export const CnServerMessageSchema = z.object({
   event: CnServerEventSchema.keyof(),
   data: z.unknown()
 })
+
+export type UserMatchStatsDto = z.infer<typeof UserMatchStatsSchema>;
+export type UserMatchStats = UserMatchStatsDto

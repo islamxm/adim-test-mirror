@@ -115,6 +115,12 @@ export const themeConfig = createTheme({
             transform: "scale(0.98)",
           },
         },
+        outlinedPrimary: {
+          borderColor: "#042f21"
+        },
+        outlined: {
+          borderWidth: "2px",
+        }
       },
     },
     MuiTab: {

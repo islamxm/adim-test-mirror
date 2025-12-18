@@ -16,3 +16,4 @@ export { CheckCircleFilledIcon } from "./CheckCircleFilledIcon";
 export { ArrowUpIcon } from "./ArrowUpIcon";
 export { BookOpenIcon } from "./BookOpenIcon";
 export { ArrowRightCircleIcon } from "./ArrowRightCircleIcon";
+export { InfoCircleIcon } from "./InfoCircleIcon";

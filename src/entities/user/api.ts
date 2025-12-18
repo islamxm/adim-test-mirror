@@ -26,6 +26,6 @@ export const userApi = api.injectEndpoints({
           console.error("VALIDATE ERROR", err)
         }
       }
-    })
+    }),
   }),
 });
