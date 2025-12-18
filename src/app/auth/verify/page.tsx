@@ -1,4 +1,4 @@
-import { VerifyPage as VerifyPageComponent } from "@/pages/verifyPage"
+import { VerifyPage as VerifyPageComponent } from "@/_pages/verifyPage"
 
 export default function VerifyPage() {
   return <VerifyPageComponent/>
