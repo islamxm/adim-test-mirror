@@ -1,51 +1,61 @@
-import { Logo } from "@/shared/ui/Logo";
-import { Paper, Stack } from "@mui/material";
-import { UserAvatar } from "@/features/user/user-avatar";
+import { Paper, PaperOwnProps, Stack, SxProps, Theme } from "@mui/material";
 import { getHomePage, routesMap } from "@/shared/model";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { NavLink } from "../NavLink/NavLink";
-import { useSelector } from "@/shared/lib";
+import { FC, ReactNode } from "react";
+import { Logo } from "@/shared/ui";
 
-const routes = Object.entries(routesMap)
-  .map((route) => route[1])
-  .filter((route) => route.path !== getHomePage());
+const routes = Object.entries(routesMap).map((route) => route[1]);
+// .filter((route) => route.path !== getHomePage());
 
-export const Navbar = () => {
-  const {isAuth} = useSelector(s => s.user)
+type Props = {
+  endSlot?: ReactNode;
+  disableShadow?: boolean;
+  disableNavigation?: boolean;
+  sx?: PaperOwnProps["sx"];
+};
+
+export const Navbar: FC<Props> = ({
+  endSlot,
+  disableShadow,
+  disableNavigation,
+  sx,
+}) => {
   const pathname = usePathname();
 
   return (
     <Paper
-      sx={(theme) => ({
-        backgroundColor: theme.palette.common.white,
+      sx={{
         borderRadius: "3rem",
         p: "0 .5rem",
         margin: "0 auto",
         height: "5.8rem",
         alignItems: "center",
         display: "flex",
-      })}
+        width: "100%",
+        overflow: "hidden",
+        gap: "3rem",
+        ...sx,
+      }}
       component={motion.div}
-      layout
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
+      layout="position"
+      elevation={disableShadow ? 0 : 1}
+      initial={{opacity: 0, scale: 0}}
+      exit={{opacity: 0, scale: 0}}
+      animate={{opacity: 1, scale: 1}}
     >
-      <Stack
-        direction={"row"}
-        alignItems={"center"}
-        gap={"3rem"}
-        component={motion.div}
-        layout
-      >
-        <Logo sx={{ ml: "2.4rem" }} />
-        {routes.map((route) => (
-          <motion.div key={route.id} layout>
-            <NavLink {...route} isActive={pathname?.startsWith(route.path)} />
+      {!disableNavigation &&
+        routes.map((route) => (
+          <motion.div style={{ overflow: "hidden" }} key={route.id} layout="position">
+            {route.path === getHomePage() ? (
+              <Logo sx={{ ml: "2.4rem" }} />
+            ) : (
+              <NavLink {...route} isActive={pathname?.startsWith(route.path)} />
+            )}
           </motion.div>
         ))}
-        {isAuth && <UserAvatar />}
-      </Stack>
+      {endSlot}
     </Paper>
   );
 };

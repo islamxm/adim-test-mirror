@@ -9,8 +9,12 @@ export const getHomePage = () => "/home";
 export const getCoursesPage = () => "/courses";
 export const getPointsPage = () => "/points";
 export const getRatingPage = () => "/rating";
-export const getCoursePage = (courseId: number) => `/course/${courseId}`
-export const getAboutCoursePage = (courseId: number) => `${getCoursePage(courseId)}/about`
+export const getCoursePage = (courseId: number) => `/course/${courseId}`;
+export const getAboutCoursePage = (courseId: number) =>
+  `${getCoursePage(courseId)}/about`;
+export const getMainCoursePage = (courseId: number) =>
+  `${getCoursePage(courseId)}/main`;
+export const getLessonPage = (courseId: number, unitId: number, lessonId: number) => `${getMainCoursePage(courseId)}/${unitId}/${lessonId}`;
 
 export const routesMap = {
   home: { id: 1, path: getHomePage(), label: "Home" },
@@ -35,6 +39,6 @@ export type DeviceInfo = {
 
 export const languagesMap = {
   ["tk"]: { label: "Türkmençe" },
-  ["ru"]: { label: "Русский" }
+  ["ru"]: { label: "Русский" },
 };
 export type Language = keyof typeof languagesMap;

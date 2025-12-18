@@ -1,0 +1,24 @@
+import { SvgIcon, SvgIconProps } from "@mui/material";
+import { FC } from "react";
+
+export const ArrowLeftCircleIcon: FC<SvgIconProps> = (props) => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M17.3333 20L13.3333 16L17.3333 12M28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28C22.6274 28 28 22.6274 28 16Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </SvgIcon>
+  );
+};

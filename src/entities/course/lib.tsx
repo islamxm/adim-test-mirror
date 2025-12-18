@@ -9,7 +9,7 @@ export const courseDtoMap = (courseDto: CourseDto): Course => {
       explanation: courseDto.explanation,
       languages: courseDto.languages,
       isFinished: courseDto.isFinished,
-      lessons: courseDto.lessons,
+      units: courseDto.units || [],
       totalLessonsCount: courseDto.totalLessons,
   };
 };
