@@ -1,2 +1,2 @@
-export type { Lesson } from "./model";
+export type { Lesson, Comment } from "./model";
 export { lessonApi } from "./api";

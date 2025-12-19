@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserSchema } from "@/entities/user/@x/lesson";
 
 export const LessonTypeSchema = z.literal(["BLOG", "VIDEO"]);
 
@@ -25,6 +26,23 @@ export const LessonDetailsSchema = z.object({
   video: z.any(),
 });
 
-export const Response_GetLessonSuccessSchema = z.object({
+export const Response_GetLessonSchema = z.object({
   lesson: LessonDetailsSchema,
 });
+
+export const CommentSchema = z.object({
+  IsEdited: z.boolean().optional(),
+  createdAt: z.string(),
+  id: z.number(),
+  isOwn: z.boolean(),
+  lessonId: z.number(),
+  parent_id: z.number().optional(),
+  replies: z.array(z.any()).optional(),
+  text: z.string(),
+  user: UserSchema
+})
+
+export const Response_GetLessonCommentsSchema = z.object({
+  comments: z.array(CommentSchema),
+  cursor: z.string()
+})

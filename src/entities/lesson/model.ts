@@ -1,8 +1,10 @@
 import { z } from "zod";
 import {
+  CommentSchema,
   LessonDetailsSchema,
   LessonSchema,
   LessonTypeSchema,
+  Response_GetLessonCommentsSchema,
 } from "./contracts";
 import { Nullable } from "@/shared/types";
 
@@ -27,3 +29,21 @@ export type LessonDetails = {
   type: LessonType;
   video: any;
 };
+
+export type CommentDto = z.infer<typeof CommentSchema>;
+export type Comment = {
+  userName: Nullable<string>;
+  id: number;
+  createdAt: string;
+  isOwn: boolean;
+  hasReplies: boolean;
+  text: string;
+  userAvatar?: string;
+};
+export type Params_GetLessonComments = {
+  lessonId: number;
+  cursor?: string;
+  limit?: number
+  direction?: "asc" | "desc";
+}
+export type API_ResponseGetLessonComments = z.infer<typeof Response_GetLessonCommentsSchema>;
