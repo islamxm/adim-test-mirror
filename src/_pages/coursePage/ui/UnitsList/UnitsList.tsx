@@ -17,6 +17,7 @@ export const UnitsList = () => {
 
   return (
     <Stack
+      sx={{overflowY: "auto"}}
       component={motion.div}
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}

@@ -3,11 +3,14 @@ import { Button, Stack, TextField } from "@mui/material";
 
 export const CommentTextAction = () => {
   return (
-    <Stack p={".8rem"} direction={"row"} gap={"1.4rem"}>
+    <Stack alignItems={"flex-start"} py={"2rem"} direction={"row"} gap={"1.4rem"}>
       <TextField
         sx={{ "& .MuiInputBase-root": {borderRadius: "2.4rem"} }}
         placeholder="Your comment"
         fullWidth
+        maxRows={5}
+        minRows={1}
+        multiline
       />
       <Button
         variant={"contained"}

@@ -1,5 +1,5 @@
 import { lessonApi } from "@/entities/lesson";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
 import { useParams } from "next/navigation";
 import { Comment } from "../Comment/Comment";
@@ -21,8 +21,6 @@ export const Comments = () => {
     { skip: !lessonId || isNaN(lessonId) }
   );
 
-  
-
   const comments = data?.pages[0].comments || [];
 
   return (
@@ -32,14 +30,14 @@ export const Comments = () => {
       exit={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       gap={".5rem"}
-      sx={{height: "100%"}}
+      sx={{ flexGrow: 1, minHeight: 0, overflowY: "auto" }}
     >
-      <Stack sx={{ flexGrow: 1 }} gap={".5rem"}>
+      <Stack sx={{flexGrow: 1}} gap={".5rem"}>
         {comments.map((comment: any) => (
           <Comment {...comment} key={comment.id} />
         ))}
       </Stack>
-      <CommentTextAction />
+      <Box sx={{flex: "0 0 auto", position: "sticky", bottom: 0}}><CommentTextAction /></Box>
     </Stack>
   );
 };
