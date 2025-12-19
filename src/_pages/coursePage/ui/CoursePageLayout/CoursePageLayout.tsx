@@ -6,7 +6,7 @@ import { LessonsNavigation } from "../LessonsNavigation/LessonsNavigation";
 import { useParams } from "next/navigation";
 
 export const CoursePageLayout: FC<PropsWithChildren> = ({ children }) => {
-  const {lesson} = useParams()
+  const { lesson } = useParams()
 
   return (
     <Stack
@@ -21,9 +21,13 @@ export const CoursePageLayout: FC<PropsWithChildren> = ({ children }) => {
       <Box sx={{ flex: "0 0 39rem" }}>
         <CourseSidebar />
       </Box>
-      <Box sx={{ flex: "1 1 auto"}}>
-        {lesson && <LessonsNavigation/>}
-        {children}
+      <Box sx={{ flex: "1 1 auto" }}>
+        <Box sx={{ height: "7.2rem" }}>
+          {lesson && <LessonsNavigation />}
+        </Box>
+        <Box px={"5rem"}>
+          {children}
+        </Box>
       </Box>
     </Stack>
   );
