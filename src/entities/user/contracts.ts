@@ -38,6 +38,8 @@ export const UserSchema = z.object({
   id: z.number(),
   profileName: z.string(),
   username: z.string(),
+  totalPoints: z.number(),
+  leagueName: z.string()
 });
 
 export const UserHomeDataSuccessResponseSchema = z.object({

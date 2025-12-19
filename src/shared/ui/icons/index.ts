@@ -17,3 +17,4 @@ export { ArrowUpIcon } from "./ArrowUpIcon";
 export { BookOpenIcon } from "./BookOpenIcon";
 export { ArrowRightCircleIcon } from "./ArrowRightCircleIcon";
 export { InfoCircleIcon } from "./InfoCircleIcon";
+export { ArrowSubRightDownIcon } from "./ArrowSubRightDownIcon";
