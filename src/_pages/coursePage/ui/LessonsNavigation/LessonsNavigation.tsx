@@ -24,13 +24,25 @@ export const LessonsNavigation = () => {
     if (currentLessonIndex === 0) {
       return;
     }
-    router.push(`${getLessonPage(Number(courseId), Number(unitId), lessons[currentLessonIndex - 1].id)}?${new URLSearchParams({tab})}`)
+    router.push(
+      `${getLessonPage(
+        Number(courseId),
+        Number(unitId),
+        lessons[currentLessonIndex - 1].id
+      )}?${new URLSearchParams({ tab })}`
+    );
   };
   const onNext = () => {
-    if(currentLessonIndex + 1 === lessonsCount) {
+    if (currentLessonIndex + 1 === lessonsCount) {
       return;
     }
-    router.push(`${getLessonPage(Number(courseId), Number(unitId), lessons[currentLessonIndex + 1].id)}?${new URLSearchParams({tab})}`)
+    router.push(
+      `${getLessonPage(
+        Number(courseId),
+        Number(unitId),
+        lessons[currentLessonIndex + 1].id
+      )}?${new URLSearchParams({ tab })}`
+    );
   };
 
   if (currentLessonIndex === -1) {
@@ -40,7 +52,14 @@ export const LessonsNavigation = () => {
   return (
     <Stack
       direction={"row"}
-      sx={{ p: "2rem 5rem", width: "100%" }}
+      sx={(theme) => ({
+        p: "2rem 5rem",
+        width: "100%",
+        borderRadius: "2rem",
+        backgroundColor: theme.palette.common.white,
+        background:
+          "linear-gradient(180deg,rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.67) 87%, rgba(255, 255, 255, 0) 100%)",
+      })}
       gap={"2rem"}
       justifyContent={"space-between"}
     >

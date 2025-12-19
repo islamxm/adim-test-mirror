@@ -9,18 +9,24 @@ type Props = PropsWithChildren<{
 }>;
 
 export const MainLayout: FC<Props> = ({ children, header, footer }) => {
-  const pathname = usePathname()
-  const isAuthPage = pathname === '/auth'
+  const pathname = usePathname();
+  const isAuthPage = pathname === "/auth";
 
   return (
-    <Stack sx={theme => ({ height: "100%", backgroundColor: theme.palette.gold.light })}>
-      {(header && !isAuthPage) && header}
+    <Stack
+      sx={(theme) => ({
+        backgroundColor: theme.palette.gold.light,
+        height: "100vh",
+        overflowY: "scroll",
+      })}
+    >
+      {header && !isAuthPage && header}
       {children && (
-        <Box component={"main"} sx={{ flex: "1 0 auto", }}>
+        <Box sx={{ flexGrow: 1, flexShrink: 0 }} component={"main"}>
           {children}
         </Box>
       )}
-      {(footer && !isAuthPage) && footer}
+      {footer && !isAuthPage && <Box sx={{ flexShrink: 0 }}>{footer}</Box>}
     </Stack>
   );
 };
