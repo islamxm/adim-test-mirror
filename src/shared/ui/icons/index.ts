@@ -18,3 +18,5 @@ export { BookOpenIcon } from "./BookOpenIcon";
 export { ArrowRightCircleIcon } from "./ArrowRightCircleIcon";
 export { InfoCircleIcon } from "./InfoCircleIcon";
 export { ArrowSubRightDownIcon } from "./ArrowSubRightDownIcon";
+export { MultipleChoiceIcon } from "./MultipleChoiceIcon";
+export { ChevronRightDuo } from "./ChevronRightDuo";

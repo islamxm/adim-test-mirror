@@ -1,0 +1,10 @@
+.wrap {
+  .img {
+    transition: all .2s ease;
+  }
+  &:hover {
+    .img {
+      transform: scale(1.3) translateX(1.3rem);
+    }
+  }
+}

@@ -15,6 +15,8 @@ type Props = {
   isShadow?: boolean;
   direction?: StackProps["direction"];
   gap?: StackProps["gap"];
+  backgroundColor?: string;
+  isRounded?: boolean;
 };
 
 export const Avatar: FC<Props> = ({
@@ -24,17 +26,24 @@ export const Avatar: FC<Props> = ({
   extra,
   isShadow,
   direction,
-  gap = ".5rem"
+  gap = ".5rem",
+  backgroundColor,
+  isRounded = true
 }) => {
   return (
     <Stack direction={direction} gap={gap} alignItems={"center"}>
       <MuiAvatar
-        sx={{
+        sx={(theme) => ({
           width: size,
           height: size,
-          objectFit: "cover",
+          backgroundColor: backgroundColor || theme.palette.common.white,
           boxShadow: isShadow ? "0 0 10px #00000026" : "none",
-        }}
+          "& img": {
+            width: "110%",
+            height: "110%",
+          },
+          borderRadius: isRounded ? "50%" : "0",
+        })}
         src={avatarUrl}
       />
       {label && (

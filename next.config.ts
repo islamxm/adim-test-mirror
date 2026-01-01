@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       { protocol: "http", hostname: "193.47.42.164", port: "8605" },
     ],
   },
+  reactStrictMode: false
 };
 
 export default nextConfig;

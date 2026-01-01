@@ -7,7 +7,7 @@ import { AuthProvider } from "./providers/auth";
 import { MainLayout } from "@/widgets/mainLayout";
 import { AppHeader } from "@/widgets/appHeader";
 import { AppFooter } from "@/widgets/appFooter";
-// import { AnimationProvider } from "./providers/animation";
+import { AnimationProvider } from "./providers/animation";
 
 export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
@@ -16,9 +16,13 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
     <SessionProvider>
       <StyleProvider>
         <StoreProvider preloadedState={store}>
-          <AuthProvider>
-            <MainLayout header={<AppHeader/>} footer={<AppFooter/>}>{children}</MainLayout>
-          </AuthProvider>
+          <AnimationProvider animate={true}>
+            <AuthProvider>
+              <MainLayout header={<AppHeader />} footer={<AppFooter />}>
+                {children}
+              </MainLayout>
+            </AuthProvider>
+          </AnimationProvider>
         </StoreProvider>
       </StyleProvider>
     </SessionProvider>

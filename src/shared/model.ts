@@ -14,7 +14,14 @@ export const getAboutCoursePage = (courseId: number) =>
   `${getCoursePage(courseId)}/about`;
 export const getMainCoursePage = (courseId: number) =>
   `${getCoursePage(courseId)}/main`;
-export const getLessonPage = (courseId: number, unitId: number, lessonId: number) => `${getMainCoursePage(courseId)}/${unitId}/${lessonId}`;
+export const getLessonPage = (
+  courseId: number,
+  unitId: number,
+  lessonId: number
+) => `${getMainCoursePage(courseId)}/${unitId}/${lessonId}`;
+export const getGamePage = () => `${getPointsPage()}/game`;
+export const getGameCategoryPage = (categoryId: number) => `${getGamePage()}/${categoryId}`
+export const getGameMatchPage = (categoryId: number, subcategoryId: number) => `${getGameCategoryPage(categoryId)}/${subcategoryId}`
 
 export const routesMap = {
   home: { id: 1, path: getHomePage(), label: "Home" },

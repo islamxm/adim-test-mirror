@@ -9,6 +9,10 @@ import { ProgressPanel } from "../ProgressPanel/ProgressPanel";
 import { competitionApi } from "@/entities/competition";
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 import { motion } from "motion/react";
+import { getGamePage } from "@/shared/model";
+import { useDispatch } from "@/shared/lib";
+import { screenFillingCircleActions, setCallback_screenFillingCircle } from "@/animations/screen-filling-circle";
+import { useRouter } from "next/navigation";
 
 const getPercent = (total: number, part: number) => {
   const result = (part / total) * 100;
@@ -20,8 +24,8 @@ const getPercent = (total: number, part: number) => {
 
 export const PointsPage = () => {
   const { data } = competitionApi.useGetUserStatsQuery({});
-
-  console.log(data);
+  const dispatch = useDispatch()
+  const router = useRouter();
 
   if (!data) {
     return null;
@@ -74,6 +78,17 @@ export const PointsPage = () => {
                 <GlowingButton
                   endIcon={<ArrowRightIcon />}
                   variant={"contained"}
+                  // component={Link}
+                  // href={getGamePage()}
+                  onClick={(e) => {
+                    setCallback_screenFillingCircle("1", () => router.push(getGamePage()))
+                    dispatch(screenFillingCircleActions.start({
+                      x: e.clientX,
+                      y: e.clientY,
+                      color: '#063B29',
+                      completeCbId: "1"
+                    }))
+                  }}
                 >
                   {"Let's play"}
                 </GlowingButton>

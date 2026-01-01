@@ -1,3 +1,4 @@
-export { CompetitionWS } from "./lib";
+export { competitionWs, getGameResult } from "./lib";
 export { CompetitionRules } from "./ui/CompetitionRules/CompetitionRules";
-export { competitionApi } from "./api";
+export { competitionApi, COMPETITION_WS_URL } from "./api";
+export type { Question, Answer, CnServerEventsMap, GameResult } from "./model";

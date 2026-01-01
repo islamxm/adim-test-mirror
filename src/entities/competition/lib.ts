@@ -1,3 +1,4 @@
+import { COMPETITION_WS_URL } from "./api";
 import {
   CnClientEventName,
   CnClientEventsMap,
@@ -5,6 +6,7 @@ import {
   CnServerEventName,
   CnServerEventsMap,
   CnServerEventSchema,
+  GameResult,
 } from "./model";
 import { WsState } from "@/shared/model";
 
@@ -15,7 +17,7 @@ export class CompetitionWS {
 
   constructor(
     private url: string,
-    private token: string
+    // private token: string
   ) {}
 
   private onOpenCb?: () => void;
@@ -32,11 +34,11 @@ export class CompetitionWS {
     if(readyState === WebSocket.CLOSED) return "CLOSED";
   }
 
-  connect() {
+  connect(token: string) {
     if (this._wsState() === "OPEN") {
       return;
     }
-    this.ws = new WebSocket(this.url + `/?token=${this.token}`);
+    this.ws = new WebSocket(this.url + `/?token=${token}`);
     this.ws.onopen = () => {
       console.log("OPENED")
       //логика при установлении соединения
@@ -55,15 +57,16 @@ export class CompetitionWS {
       this.onErrorCb?.();
     };
     this.ws.onmessage = (e) => {
+      const d = JSON.parse(e.data);
       try {
-        const { event, data } = CnServerMessageSchema.parse(e.data);
+        const { event, data } = CnServerMessageSchema.parse(d);
         if (this.handlers.has(event)) {
           const EventDataSchema = CnServerEventSchema.shape[event]
           const validatedData = EventDataSchema.parse(data);
           this.handlers.get(event)?.(validatedData)
         }
       } catch (err) {
-        console.error("WS: [EVENT NAME ERROR]", err);
+        console.error(`WS: [EVENT NAME: ${d.event}]`, err);
       }
     };
   }
@@ -121,4 +124,19 @@ export class CompetitionWS {
       this.ws?.send(payload);
     }
   }
+}
+
+export const competitionWs = new CompetitionWS(COMPETITION_WS_URL);
+
+export const getGameResult = (result: CnServerEventsMap['RESULT']['winnerId'] | undefined, selfId?: number): GameResult | undefined => {
+  if(result === null) {
+    return "DRAFT"
+  }
+  if(result && result === selfId) {
+    return "WIN"
+  }
+  if(result && result !== selfId) {
+    return "LOSE"
+  }
+  return undefined;
 }
