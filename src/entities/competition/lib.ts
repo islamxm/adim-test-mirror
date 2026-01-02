@@ -17,7 +17,6 @@ export class CompetitionWS {
 
   constructor(
     private url: string,
-    // private token: string
   ) {}
 
   private onOpenCb?: () => void;
@@ -40,8 +39,7 @@ export class CompetitionWS {
     }
     this.ws = new WebSocket(this.url + `/?token=${token}`);
     this.ws.onopen = () => {
-      console.log("OPENED")
-      //логика при установлении соединения
+      
       while (this.pendingMessages.length > 0) {
         const message = this.pendingMessages.shift();
         if(message) {

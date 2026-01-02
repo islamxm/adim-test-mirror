@@ -3,6 +3,7 @@ import { Box, Stack } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { FC, PropsWithChildren, ReactNode } from "react";
 
+
 type Props = PropsWithChildren<{
   header?: ReactNode;
   footer?: ReactNode;
@@ -11,7 +12,7 @@ type Props = PropsWithChildren<{
 export const MainLayout: FC<Props> = ({ children, header, footer }) => {
   const pathname = usePathname();
   const isAuthPage = pathname === "/auth";
-
+  
   return (
     <Stack
       sx={(theme) => ({

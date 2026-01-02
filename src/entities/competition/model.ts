@@ -62,17 +62,16 @@ export const CnServerEventSchema = z.object({
     eventId: EventIdSchema,
   }),
   WAIT_RESULT: z.object({
-    answers: z.any(), //[mapped answers + questions (localized) */]
+    answers: z.array(AnswerSchema),
     eventId: EventIdSchema,
   }),
   RESULT: z.object({
-    winnerId: z.number().nullable(), // or null on draw
-    answers: z.array(AnswerSchema), //[ your answers ]
-    opponentAnswers: z.array(AnswerSchema), //[ opponent answers ]
+    winnerId: z.number().nullable(),
+    answers: z.array(AnswerSchema),
+    opponentAnswers: z.array(AnswerSchema),
     eventId: EventIdSchema,
   }),
   OPPONENT_READY: z.object({
-    // opponentId: PlayerSchema,
     opponentId: z.number(),
   }),
   CANCELLED: z.object({

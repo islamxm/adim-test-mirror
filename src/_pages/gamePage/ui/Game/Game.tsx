@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
 import { useGame } from "../../lib/useGame";
 import { GameStatus } from "../../model";
@@ -10,8 +10,12 @@ import { ReadyView } from "../views/ReadyView/ReadyView";
 import { StartView } from "../views/StartView/StartView";
 import { WaitResultView } from "../views/WaitResultView/WaitResultView";
 import { ResultView } from "../views/ResultView/ResultView";
+import { competitionWs } from "@/entities/competition";
+import { useSession } from "next-auth/react";
+import { OfflineScreen } from "../OfflineScreen/OfflineScreen";
 
 export const Game = () => {
+  const {data: sessionData} = useSession()
   const {
     question,
     selfStatus,
@@ -20,7 +24,7 @@ export const Game = () => {
     result,
     startCountdownSecs,
     gameStatus,
-    // isConnected,
+    isConnected,
 
     enterQueue,
     compete,
@@ -61,13 +65,32 @@ export const Game = () => {
 
   const activeView = views[gameStatus];
 
+  const onTest = () => {
+    competitionWs.disconnect();
+  };
+
+  const onTestt = () => {
+    if(sessionData?.accessToken) {
+      competitionWs.connect(sessionData.accessToken);
+    }
+  };
+
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box sx={{ height: "100%", position: "relative" }}>
+      {!isConnected && <OfflineScreen/>}
       <Box
         sx={{ height: "100%", maxWidth: "99.4rem", width: "100%", m: "0 auto" }}
         component={motion.div}
         layout
       >
+        <Stack alignItems={"center"}>
+          <Button onClick={onTest} variant="contained">
+            Disconnect
+          </Button>
+          <Button onClick={onTestt} variant="contained">
+            Connect
+          </Button>
+        </Stack>
         {activeView}
       </Box>
     </Box>

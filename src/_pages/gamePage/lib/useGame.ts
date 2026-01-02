@@ -24,6 +24,8 @@ const removeTimer = (timeoutId?: NodeJS.Timeout) => {
   clearTimeout(timeoutId);
 };
 
+let wsReconnectDelay = 1000;
+
 /** для того чтобы инкапсулировать логику игры от UI-компонента */
 export const useGame = () => {
   const { subcategory } = useParams();
@@ -32,6 +34,7 @@ export const useGame = () => {
   const subCategoryId = Number(subcategory);
 
   const retryTimer = useRef<NodeJS.Timeout>(undefined);
+  const reconnectTimer = useRef<NodeJS.Timeout>(undefined);
 
   const [gameStatus, setGameStatus] = useState<GameStatus>("LOBBY");
 
@@ -51,7 +54,7 @@ export const useGame = () => {
     opponentResult?: CnServerEventsMap["RESULT"]["opponentAnswers"];
   }>();
   const [startCountdownSecs, setStartCountdownSecs] = useState(0);
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
 
   const clearTimer = () => {
     removeTimer(retryTimer.current);
@@ -66,9 +69,17 @@ export const useGame = () => {
   const onWsClose = () => {
     setIsConnected(false);
     console.log("[ws]: Closed");
-    if (sessionData?.accessToken) {
-      competitionWs.connect(sessionData.accessToken);
+    if (reconnectTimer.current) {
+      return;
     }
+    reconnectTimer.current = setTimeout(() => {
+      if (sessionData?.accessToken) {
+        competitionWs.connect(sessionData.accessToken);
+        wsReconnectDelay = Math.min(wsReconnectDelay * 2, 30000);
+        clearTimeout(reconnectTimer.current)
+        reconnectTimer.current = undefined
+      }
+    }, wsReconnectDelay);
   };
 
   const onWsError = () => {
@@ -207,16 +218,22 @@ export const useGame = () => {
   };
 
   const onOpponentRejected = (data: CnServerEventsMap["OPPONENT_REJECTED"]) => {
-    removeTimer(retryTimer.current);
+    // generateEventId(data.eventId);
+    clearTimer();
+    setGameStatus("SEARCH");
+    setOpponentData(undefined);
+    setSelfStatus("WAIT");
+    setOpponentStatus(undefined);
+    setMatchData(undefined);
   };
   const onCancelled = (data: CnServerEventsMap["CANCELLED"]) => {
+    console.log(`[ws: CANCELLED]: ${data.code} - ${data.message}`);
     clearTimer();
   };
   const onError = (data: CnServerEventsMap["ERROR"]) => {
+    console.log(`[ws: ERROR]: ${data.code} - ${data.message}`);
     clearTimer();
   };
-
-  useEffect(() => console.log(gameStatus), [gameStatus]);
 
   useEffect(() => {
     if (!sessionData?.accessToken) {
@@ -244,6 +261,12 @@ export const useGame = () => {
 
     return () => {
       competitionWs.disconnect();
+      if(retryTimer.current) {
+        clearTimeout(retryTimer.current);
+      }
+      if(reconnectTimer.current) {
+        clearTimeout(reconnectTimer.current);
+      }
     };
   }, [sessionData]);
 
