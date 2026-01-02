@@ -1,5 +1,4 @@
 import { Paper, Typography } from "@mui/material";
-import { BronzeIcon } from "../../icons";
 import { FC } from "react";
 import { League, leagueMap } from "../../model";
 

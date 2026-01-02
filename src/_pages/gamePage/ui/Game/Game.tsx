@@ -11,8 +11,11 @@ import { StartView } from "../views/StartView/StartView";
 import { WaitResultView } from "../views/WaitResultView/WaitResultView";
 import { ResultView } from "../views/ResultView/ResultView";
 import { OfflineScreen } from "../OfflineScreen/OfflineScreen";
+import { userApi } from "@/entities/user";
 
 export const Game = () => {
+  const { data: selfData } = userApi.useGetUserProfileQuery({});
+
   const {
     question,
     selfStatus,
@@ -31,8 +34,8 @@ export const Game = () => {
   } = useGame();
 
   const views: Partial<Record<GameStatus, ReactNode>> = {
-    LOBBY: <LobbyView selfStatus={selfStatus} onStartSearching={enterQueue} />,
-    SEARCH: <SearchView selfStatus={selfStatus} />,
+    LOBBY: <LobbyView selfData={selfData} selfStatus={selfStatus} onStartSearching={enterQueue} />,
+    SEARCH: <SearchView selfData={selfData} selfStatus={selfStatus} />,
     WAIT: (
       <WaitView
         selfStatus={selfStatus}
@@ -40,6 +43,7 @@ export const Game = () => {
         opponentData={opponentData}
         onReady={compete}
         onSkipPlayer={nextOpponent}
+        selfData={selfData}
       />
     ),
     READY: (
@@ -47,6 +51,7 @@ export const Game = () => {
         onComplete={() => setGameStatus("START")}
         opponentData={opponentData}
         startCountdownSecs={startCountdownSecs}
+        selfData={selfData}
       />
     ),
     START: (
@@ -54,10 +59,17 @@ export const Game = () => {
         onSubmitAnswer={submitAnswer}
         question={question}
         opponentData={opponentData}
+        selfData={selfData}
       />
     ),
-    WAIT_RESULT: <WaitResultView result={result} opponentData={opponentData} />,
-    RESULT: <ResultView winnerId={result?.winner} />,
+    WAIT_RESULT: (
+      <WaitResultView
+        selfData={selfData}
+        result={result}
+        opponentData={opponentData}
+      />
+    ),
+    RESULT: <ResultView selfData={selfData} winnerId={result?.winner} />,
   };
 
   const activeView = views[gameStatus];

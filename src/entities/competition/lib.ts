@@ -130,10 +130,10 @@ export const getGameResult = (result: CnServerEventsMap['RESULT']['winnerId'] | 
   if(result === null) {
     return "DRAFT"
   }
-  if(result && result === selfId) {
+  if(selfId !== undefined && result === selfId) {
     return "WIN"
   }
-  if(result && result !== selfId) {
+  if(selfId !== undefined && result !== selfId) {
     return "LOSE"
   }
   return undefined;

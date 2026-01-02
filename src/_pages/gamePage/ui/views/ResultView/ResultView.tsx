@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
 import { Player } from "../../Player/Player";
-import { userApi } from "@/entities/user";
+import { User, userApi } from "@/entities/user";
 import { winnerConfettiRun } from "@/animations/winner-confetti";
 import {
   CnServerEventsMap,
@@ -15,12 +15,12 @@ import { DraftText } from "../../DraftText/DraftText";
 type Props = {
   winnerId?: CnServerEventsMap["RESULT"]["winnerId"];
   onGoBack?: () => void;
-  onPlay?: () => void
+  onPlay?: () => void,
+  selfData?: User
 };
 
-export const ResultView: FC<Props> = ({ winnerId }) => {
-  const { data } = userApi.useGetUserProfileQuery({});
-  const result = getGameResult(winnerId, data?.id);
+export const ResultView: FC<Props> = ({ winnerId, selfData }) => {
+  const result = getGameResult(winnerId, selfData?.id);
 
   useEffect(() => {
     if (result === "WIN") {
@@ -45,9 +45,9 @@ export const ResultView: FC<Props> = ({ winnerId }) => {
           <motion.div layoutId="player" layout="preserve-aspect">
             <Player
               data={{
-                profileName: data?.profileName,
-                avatarUrl: data?.avatarUrl,
-                leagueName: data?.leagueName,
+                profileName: selfData?.profileName,
+                avatarUrl: selfData?.avatarUrl,
+                leagueName: selfData?.leagueName,
               }}
               size="30rem"
             />

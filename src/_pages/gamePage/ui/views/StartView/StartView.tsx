@@ -5,17 +5,20 @@ import { GameHeader } from "../../GameHeader/GameHeader";
 import { CnServerEventsMap } from "@/entities/competition";
 import { Question } from "../../Question/Question";
 import { Variant } from "../../Variant/Variant";
+import { User } from "@/entities/user";
 
 type Props = {
   opponentData: any;
   question?: CnServerEventsMap["NEXT_QUESTION"];
   onSubmitAnswer?: (key: string, ms: number) => void;
+  selfData?: User
 };
 
 export const StartView: FC<Props> = ({
   opponentData,
   question,
   onSubmitAnswer,
+  selfData
 }) => {
   const [answer, setAnswer] = useState<Array<string>>([]);
   const time = useRef<number>(0);
@@ -64,6 +67,7 @@ export const StartView: FC<Props> = ({
           onComplete={onSubmit}
           opponentData={opponentData}
           question={question}
+          selfData={selfData}
         />
         <Stack sx={{ height: "100%", width: "100%" }} gap={"2rem"}>
           <AnimatePresence mode="wait">

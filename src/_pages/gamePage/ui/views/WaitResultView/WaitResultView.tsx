@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { FC } from "react";
 import { CnServerEventsMap } from "@/entities/competition";
 import { Player } from "../../Player/Player";
-import { userApi } from "@/entities/user";
+import { User, userApi } from "@/entities/user";
 import { SearchDots } from "../../Player/SearchDots";
 
 type Props = {
@@ -13,14 +13,10 @@ type Props = {
     selfResult: CnServerEventsMap["RESULT"]["answers"];
     opponentResult?: CnServerEventsMap["RESULT"]["opponentAnswers"];
   };
+  selfData?: User
 };
 
-export const WaitResultView: FC<Props> = ({ opponentData, result }) => {
-  const { data } = userApi.useGetUserProfileQuery({});
-
-  if (!result) {
-    return null;
-  }
+export const WaitResultView: FC<Props> = ({ opponentData, result, selfData }) => {
 
   return (
     <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
@@ -34,9 +30,9 @@ export const WaitResultView: FC<Props> = ({ opponentData, result }) => {
         <motion.div layoutId="player" layout="preserve-aspect">
           <Player
             data={{
-              profileName: data?.profileName,
-              avatarUrl: data?.avatarUrl,
-              leagueName: data?.leagueName,
+              profileName: selfData?.profileName,
+              avatarUrl: selfData?.avatarUrl,
+              leagueName: selfData?.leagueName,
             }}
             status={"READY"}
             size="22rem"

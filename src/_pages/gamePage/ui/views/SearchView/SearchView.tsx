@@ -1,15 +1,15 @@
 import { Box, Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
 import { Player } from "../../Player/Player";
-import { userApi } from "@/entities/user";
+import { User } from "@/entities/user";
 import { FC } from "react";
 
 type Props = {
   selfStatus: any;
+  selfData?: User
 };
 
-export const SearchView: FC<Props> = ({ selfStatus }) => {
-  const { data } = userApi.useGetUserProfileQuery(undefined);
+export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
 
   return (
     <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
@@ -23,9 +23,9 @@ export const SearchView: FC<Props> = ({ selfStatus }) => {
         <motion.div layoutId="player">
           <Player
             data={{
-              profileName: data?.profileName,
-              avatarUrl: data?.avatarUrl,
-              leagueName: data?.leagueName
+              profileName: selfData?.profileName,
+              avatarUrl: selfData?.avatarUrl,
+              leagueName: selfData?.leagueName
             }}
             status={selfStatus}
             size="22rem"

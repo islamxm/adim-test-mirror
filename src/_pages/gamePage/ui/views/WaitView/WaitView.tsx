@@ -1,7 +1,7 @@
 import { Box, Button, Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 import { Player } from "../../Player/Player";
-import { userApi } from "@/entities/user";
+import { User, userApi } from "@/entities/user";
 import { FC } from "react";
 import { Versus } from "../../Versus/Versus";
 import { ChevronRightDuo } from "@/shared/ui/icons";
@@ -12,6 +12,7 @@ type Props = {
   opponentData: any;
   onReady?: () => void;
   onSkipPlayer?: () => void;
+  selfData?: User
 };
 
 export const WaitView: FC<Props> = ({
@@ -19,9 +20,9 @@ export const WaitView: FC<Props> = ({
   opponentStatus,
   opponentData,
   onReady,
-  onSkipPlayer
+  onSkipPlayer,
+  selfData
 }) => {
-  const { data } = userApi.useGetUserProfileQuery(undefined);
 
   return (
     <Stack
@@ -39,9 +40,9 @@ export const WaitView: FC<Props> = ({
         <motion.div layoutId="player" layout="preserve-aspect">
           <Player
             data={{
-              profileName: data?.profileName,
-              avatarUrl: data?.avatarUrl,
-              leagueName: data?.leagueName,
+              profileName: selfData?.profileName,
+              avatarUrl: selfData?.avatarUrl,
+              leagueName: selfData?.leagueName,
             }}
             status={selfStatus}
             size="22rem"
