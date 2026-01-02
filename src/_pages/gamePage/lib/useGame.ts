@@ -201,6 +201,7 @@ export const useGame = () => {
 
   /** SERVER: получаем результат матча, RESULT */
   const onResult = (data: CnServerEventsMap["RESULT"]) => {
+    userApi.endpoints.getUserProfile.initiate({});
     generateEventId(data.eventId);
     clearTimer();
     setResult({
