@@ -15,7 +15,7 @@ import { screenFillingCircleActions, setCallback_screenFillingCircle } from "@/a
 import { useRouter } from "next/navigation";
 
 const getPercent = (total: number, part: number) => {
-  const result = (part / total) * 100;
+  const result = Math.round((part / total) * 100);
   if (isNaN(result)) {
     return 0;
   }
@@ -78,8 +78,6 @@ export const PointsPage = () => {
                 <GlowingButton
                   endIcon={<ArrowRightIcon />}
                   variant={"contained"}
-                  // component={Link}
-                  // href={getGamePage()}
                   onClick={(e) => {
                     setCallback_screenFillingCircle("1", () => router.push(getGamePage()))
                     dispatch(screenFillingCircleActions.start({
@@ -135,7 +133,7 @@ export const PointsPage = () => {
                   <ProgressPanel
                     title="Competitions"
                     value={data.totalMatches}
-                    percent={getPercent(data.wins, data.losses)}
+                    percent={data.totalMatches > 0 ? 100 : 0}
                   />
                 </motion.div>
                 <motion.div
