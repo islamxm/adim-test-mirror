@@ -1,12 +1,24 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import { LeagueTopThree } from "@/features/league/league-top-three";
-import { LeagueRatingTabs } from "@/features/league/select-league-rating";
-import { LeagueLeaderBoard } from "@/features/league/league-leader-board";
+import { RatingTopThree } from "../RatingTopThree/RatingTopThree";
 import { Container } from "@/shared/ui/Container";
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
+import { League, leagueApi } from "@/entities/league";
+import { userApi } from "@/entities/user";
+import { ResourceList } from "@/widgets/resourceList";
+import { RatingProfileItem } from "../RatingProfileItem/RatingProfileItem";
+import { RatingProfileItemSkeleton } from "../RatingProfileItem/RatingProfileItem.skeleton";
+import { UserCurrentLeague } from "../UserCurrentLeague/UserCurrentLeague";
 
 export const RatingPage = () => {
+  const { data: userData } = userApi.useGetUserProfileQuery({})
+  const { data: rawData, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = leagueApi.useGetLeaderboardInfiniteQuery({ cursor: 0 });
+
+  console.log(userData)
+
+  const data = rawData?.pages.length ? rawData.pages.map(f => f.board).flat() : []
+  const topThree = data.filter(d => d.rank <= 3) || []
+
   return (
     <PageEnterAnimationLayout>
       <Stack
@@ -14,10 +26,8 @@ export const RatingPage = () => {
         gap={"9.6rem"}
         alignItems={"center"}
       >
-        <Stack alignItems={"center"} gap={"6.4rem"}>
-          <LeagueRatingTabs />
-          <LeagueTopThree />
-        </Stack>
+        <UserCurrentLeague leagueName={userData?.leagueName as League} />
+        <RatingTopThree data={topThree} />
         <Stack
           gap={"2.4rem"}
           sx={(theme) => ({
@@ -30,7 +40,28 @@ export const RatingPage = () => {
           <Container>
             <Stack gap={"2.4rem"}>
               <Typography variant="h2">Leaderboard</Typography>
-              <LeagueLeaderBoard />
+              <ResourceList
+                isError={isError}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+                canLoadMore={hasNextPage}
+                onLoadMore={fetchNextPage}
+                skeleton={{
+                  count: 5,
+                  component: <RatingProfileItemSkeleton />
+                }}
+              >
+                {data.filter(d => d.rank > 3).map(profile => (
+                  <RatingProfileItem data={profile} isActive={userData?.id === profile.user.id} key={profile.user.id} />
+                ))}
+                {!data.find(d => d.user.id === userData?.id) && userData && (
+                  <RatingProfileItem data={{
+                    points: userData.totalPoints,
+                    rank: userData.rank || 0,
+                    user: userData
+                  }} />
+                )}
+              </ResourceList>
             </Stack>
           </Container>
         </Stack>

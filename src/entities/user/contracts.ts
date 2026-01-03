@@ -39,7 +39,8 @@ export const UserSchema = z.object({
   profileName: z.string(),
   username: z.string(),
   totalPoints: z.number(),
-  leagueName: z.string()
+  leagueName: z.string(),
+  rank: z.number().optional()
 });
 
 export const UserHomeDataSuccessResponseSchema = z.object({

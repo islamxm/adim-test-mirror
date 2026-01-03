@@ -1,1 +1,0 @@
-export { LeagueTopThree } from "./ui";

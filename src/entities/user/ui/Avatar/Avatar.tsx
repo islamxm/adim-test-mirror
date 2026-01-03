@@ -28,7 +28,7 @@ export const Avatar: FC<Props> = ({
   direction,
   gap = ".5rem",
   backgroundColor,
-  isRounded = true
+  isRounded = true,
 }) => {
   return (
     <Stack direction={direction} gap={gap} alignItems={"center"}>
@@ -48,6 +48,7 @@ export const Avatar: FC<Props> = ({
       />
       {label && (
         <Typography
+          textAlign={"center"}
           variant={"body1"}
           sx={{ fontSize: "2.2rem", fontWeight: 600 }}
         >
