@@ -38,9 +38,12 @@ export const Avatar: FC<Props> = ({
           height: size,
           backgroundColor: backgroundColor || theme.palette.common.white,
           boxShadow: isShadow ? "0 0 10px #00000026" : "none",
+          alignItems: "flex-start",
           "& img": {
             width: "110%",
             height: "110%",
+            scale: .8,
+            transform: "translateY(10px)"
           },
           borderRadius: isRounded ? "50%" : "0",
         })}

@@ -76,7 +76,7 @@ export const Game = () => {
 
   return (
     <Box sx={{ height: "100%", position: "relative" }}>
-      {!isConnected && <OfflineScreen />}
+      {/* {!isConnected && <OfflineScreen />} */}
       <Box
         sx={{ height: "100%", maxWidth: "99.4rem", width: "100%", m: "0 auto" }}
         component={motion.div}

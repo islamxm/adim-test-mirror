@@ -19,6 +19,8 @@ import av10 from "../../assets/avatar-10.png";
 import av11 from "../../assets/avatar-11.png";
 import av12 from "../../assets/avatar-12.png";
 import { SearchDots } from "./SearchDots";
+import searchRollImg from '../../../../../public/search-roll.webp';
+import { SearchPlayer } from "../SearchPlayer/SearchPlayer";
 
 type Props = {
   status?: PlayerStatusType;
@@ -87,24 +89,7 @@ export const Player: FC<Props> = ({
       >
         <AnimatePresence mode="wait">
           {isSearching ? (
-            searchRoll[currentSearchAvatar].img.src && (
-              <motion.div
-                style={{ opacity: 0.5 }}
-                key={currentSearchAvatar}
-                initial={{ x: "-100%" }}
-                exit={{ x: "100%" }}
-                animate={{ x: "0%" }}
-                // animate={{x: ["-100%", "0%", "100%"]}}
-                // transition={{times: [0, .5, 1], duration: .2, ease: "linear"}}
-              >
-                <Avatar
-                  backgroundColor="transparent"
-                  avatarUrl={searchRoll[currentSearchAvatar].img.src}
-                  size={size}
-                  isRounded={false}
-                />
-              </motion.div>
-            )
+            <SearchPlayer size={size}/>
           ) : (
             <motion.div>
               <Avatar
@@ -115,7 +100,7 @@ export const Player: FC<Props> = ({
             </motion.div>
           )}
         </AnimatePresence>
-        {isSearching && (
+        {/* {isSearching && (
           <Box
             component={motion.div}
             sx={{ position: "absolute", inset: 0, scale: 0.5 }}
@@ -133,7 +118,7 @@ export const Player: FC<Props> = ({
           >
             <SearchLupa />
           </Box>
-        )}
+        )} */}
       </Box>
       <Stack
         component={motion.div}
