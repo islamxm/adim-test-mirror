@@ -13,12 +13,15 @@ export const LessonsNavigation = () => {
   const tab = searchParams.get("tab") || "";
   const { course: courseId, unit: unitId, lesson: lessonId } = useParams();
   const { data } = courseApi.useGetCourseByIdQuery(Number(courseId));
-  const lessonsCount = data?.totalLessonsCount;
+  // const lessonsCount = data?.totalLessonsCount;
   const lessons =
     data?.units.find((unit) => unit.id === Number(unitId))?.lessons || [];
   const currentLessonIndex = Number(
     lessons.findIndex((lesson) => lesson.id === Number(lessonId))
   );
+  const lessonsCount = lessons.length;
+
+  console.log(data?.units)
 
   const onPrev = () => {
     if (currentLessonIndex === 0) {
