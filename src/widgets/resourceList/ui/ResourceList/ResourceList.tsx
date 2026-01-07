@@ -8,14 +8,18 @@ import {
 import { WithUIStatuses } from "@/shared/types";
 import { useIntersectionObserver } from "react-intersection-observer-hook";
 
-type Props = PropsWithChildren<WithUIStatuses<{
-  skeleton?: {
-    component: ReactNode;
-    count: number;
-  };
-  onLoadMore?: (...args: any[]) => any;
-  canLoadMore?: boolean;
-}>> &
+type Props = PropsWithChildren<
+  WithUIStatuses<{
+    skeleton?: {
+      component: ReactNode;
+      count: number;
+    };
+    onLoadMore?: (...args: any[]) => any;
+    canLoadMore?: boolean;
+    disableInfiniteScroll?: boolean;
+    loadMoreElement?: (onClick: () => void) => ReactNode;
+  }>
+> &
   Pick<StackProps, "gap" | "direction">;
 
 const LoadingFallback = () => {
@@ -30,12 +34,16 @@ export const ResourceList: FC<Props> = ({
   isSuccess,
   onLoadMore,
   canLoadMore,
+  disableInfiniteScroll,
+  loadMoreElement
 }) => {
   const [ref, { entry }] = useIntersectionObserver();
   const isVisible = entry && entry.isIntersecting;
+  const isShowInfiniteTrigger = !isError && canLoadMore && !disableInfiniteScroll;
+  const isShowClickTrigger = !isError && canLoadMore && disableInfiniteScroll && onLoadMore;
 
   useEffect(() => {
-    if(isVisible) {
+    if (isVisible) {
       onLoadMore?.();
     }
   }, [isVisible, children, onLoadMore]);
@@ -51,7 +59,8 @@ export const ResourceList: FC<Props> = ({
           ))}
         {isSuccess && children}
       </Grid>
-      {!isError && canLoadMore && <div ref={ref} style={{ height: 1, width: '100%' }}></div>}
+      {isShowInfiniteTrigger && <div ref={ref} style={{ height: 1, width: "100%" }}></div>}
+      {isShowClickTrigger && loadMoreElement?.(onLoadMore)}
     </>
   );
 };

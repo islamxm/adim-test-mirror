@@ -20,3 +20,5 @@ export { InfoCircleIcon } from "./InfoCircleIcon";
 export { ArrowSubRightDownIcon } from "./ArrowSubRightDownIcon";
 export { MultipleChoiceIcon } from "./MultipleChoiceIcon";
 export { ChevronRightDuo } from "./ChevronRightDuo";
+export { CloseIcon } from "./CloseIcon";
+export { MoreMenuIcon } from "./MoreMenuIcon";

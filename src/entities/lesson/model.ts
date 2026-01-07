@@ -4,7 +4,7 @@ import {
   LessonDetailsSchema,
   LessonSchema,
   LessonTypeSchema,
-  Response_GetLessonCommentsSchema,
+  Response_CreateCommentSchema,
 } from "./contracts";
 import { Nullable } from "@/shared/types";
 
@@ -31,6 +31,7 @@ export type LessonDetails = {
 };
 
 export type CommentDto = z.infer<typeof CommentSchema>;
+export type CommentStatus = "loading" | "success" | "error";
 export type Comment = {
   userName: Nullable<string>;
   id: number;
@@ -39,11 +40,37 @@ export type Comment = {
   hasReplies: boolean;
   text: string;
   userAvatar?: string;
+  status?: CommentStatus;
 };
 export type Params_GetLessonComments = {
   lessonId: number;
   cursor?: string;
-  limit?: number
+  limit?: number;
   direction?: "asc" | "desc";
-}
-export type API_ResponseGetLessonComments = z.infer<typeof Response_GetLessonCommentsSchema>;
+};
+export type Params_GetLessonCommentReplies = {
+  lessonId: number;
+  commentId: number;
+  cursor?: string;
+  limit?: number;
+  direction?: "asc" | "desc";
+};
+export type Response_GetLessonComments = {
+  cursor: string;
+  comments: Array<Comment>;
+};
+
+export type Response_CreateComment = z.infer<
+  typeof Response_CreateCommentSchema
+>;
+
+export type CreateCommentDto = {
+  lessonId: number;
+  text: string;
+};
+
+export type CreateReplyCommentDto = {
+  lessonId: number;
+  parentId: number;
+  text: string;
+};
