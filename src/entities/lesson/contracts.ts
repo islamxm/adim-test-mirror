@@ -39,10 +39,14 @@ export const CommentSchema = z.object({
   parent_id: z.number().optional(),
   replies: z.array(z.any()).optional(),
   text: z.string(),
-  user: UserSchema
+  user: UserSchema,
 })
 
 export const Response_GetLessonCommentsSchema = z.object({
-  comments: z.array(CommentSchema),
+  comments: z.array(CommentSchema).nullable(),
   cursor: z.string()
+})
+
+export const Response_CreateCommentSchema = z.object({
+  comment: CommentSchema
 })

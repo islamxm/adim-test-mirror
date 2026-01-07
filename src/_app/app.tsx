@@ -8,6 +8,7 @@ import { MainLayout } from "@/widgets/mainLayout";
 import { AppHeader } from "@/widgets/appHeader";
 import { AppFooter } from "@/widgets/appFooter";
 import { AnimationProvider } from "./providers/animation";
+import { ToastContainer } from "react-toastify";
 
 export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
@@ -20,6 +21,10 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
             <AuthProvider>
               <MainLayout header={<AppHeader />} footer={<AppFooter />}>
                 {children}
+                <ToastContainer
+                  // hideProgressBar
+                  position={"bottom-right"}
+                />
               </MainLayout>
             </AuthProvider>
           </AnimationProvider>

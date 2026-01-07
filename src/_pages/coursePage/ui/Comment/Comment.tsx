@@ -1,40 +1,58 @@
 "use client";
 import { Comment as CommentType } from "@/entities/lesson";
 import { Avatar } from "@/entities/user";
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { alpha, Button, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import 'dayjs/locale/tk'
+import "dayjs/locale/tk";
+import { ArrowSubRightDownIcon, MoreMenuIcon } from "@/shared/ui/icons";
+import { Replies } from "../Replies/Replies";
+import { useParams } from "next/navigation";
+
 dayjs.extend(relativeTime);
-dayjs.locale("tk")
+dayjs.locale("tk");
 
-import { ArrowSubRightDownIcon } from "@/shared/ui/icons";
+type Props = {
+  data: CommentType;
+  onReply?: (parent: {
+    id: number;
+    text: string;
+    userAvatar: string | undefined;
+  }) => void;
+};
 
-type Props = CommentType;
+export const Comment: FC<Props> = ({ data, onReply }) => {
+  const { lesson } = useParams();
+  const lessonId = Number(lesson);
+  const { userAvatar, userName, createdAt, text, status, id, hasReplies, isOwn } =
+    data;
+  const [isOpenReplies, setIsOpenReplies] = useState(false);
 
-export const Comment: FC<Props> = ({
-  userAvatar,
-  userName,
-  createdAt,
-  text,
-}) => {
   return (
     <Paper
       component={motion.div}
       initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       sx={(theme) => ({
         p: "1.6rem",
-        // backgroundColor: alpha(theme.palette.primary[100], 0.1),
+        width: "100%",
+        minHeight: "15.6rem",
+        backgroundColor: isOwn ? alpha(theme.palette.primary[100], 0.1) : "none",
       })}
+      layout={"preserve-aspect"}
       elevation={0}
     >
-      <Stack gap={"1.3rem"}>
-        <Stack gap={"1.2rem"} alignItems={"center"} direction={"row"}>
+      <Stack
+        gap={"1.3rem"}
+        component={motion.div}
+        style={{ opacity: status === "loading" ? 0.4 : 1 }}
+      >
+        <Stack gap={"1.2rem"} alignItems={"flex-start"} direction={"row"}>
           <Avatar isShadow avatarUrl={userAvatar} size="3.8rem" />
-          <Stack gap={".4rem"}>
+          <Stack gap={".4rem"} sx={{flexGrow: 1}}>
             <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>
               {userName}
             </Typography>
@@ -47,34 +65,65 @@ export const Comment: FC<Props> = ({
               {dayjs(createdAt).fromNow()}
             </Typography>
           </Stack>
+          {/* {
+            isOwn && (
+              <IconButton>
+                <MoreMenuIcon sx={{fontSize: "2.4rem"}}/>
+              </IconButton>
+            ) 
+          } */}
         </Stack>
         <Typography>{text}</Typography>
-        <Stack direction={"row"} justifyContent={"space-between"}>
-          <Button
-            sx={{
-              fontSize: "1.4rem",
-              p: "1rem",
-              minHeight: "unset",
-              backgroundColor: "unset",
-            }}
-            variant="text"
-            endIcon={<ArrowSubRightDownIcon />}
-          >
-            Show replies
-          </Button>
-          <Button
-            color="success"
-            sx={{
-              fontSize: "1.4rem",
-              p: "1rem",
-              minHeight: "unset",
-              backgroundColor: "unset",
-            }}
-            variant="text"
-          >
-            Reply
-          </Button>
-        </Stack>
+        <Grid container>
+          <Grid size={6}>
+            {hasReplies && (
+              <Button
+                sx={{
+                  fontSize: "1.4rem",
+                  p: "1rem",
+                  minHeight: "unset",
+                  backgroundColor: "unset",
+                }}
+                variant="text"
+                endIcon={
+                  <ArrowSubRightDownIcon
+                    sx={{
+                      rotate: isOpenReplies ? "180deg" : "0deg",
+                      transition: "all .2s ease",
+                    }}
+                  />
+                }
+                onClick={() => setIsOpenReplies((s) => !s)}
+              >
+                {isOpenReplies ? "Hide" : "Show"} replies
+              </Button>
+            )}
+          </Grid>
+          <Grid size={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {onReply && !isOwn && (
+              <Button
+                color="success"
+                sx={{
+                  fontSize: "1.4rem",
+                  p: "1rem",
+                  minHeight: "unset",
+                  backgroundColor: "unset",
+                }}
+                variant="text"
+                onClick={() =>
+                  onReply?.({
+                    id,
+                    text,
+                    userAvatar,
+                  })
+                }
+              >
+                Reply
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+        {isOpenReplies && <Replies lessonId={lessonId} commentId={id} />}
       </Stack>
     </Paper>
   );

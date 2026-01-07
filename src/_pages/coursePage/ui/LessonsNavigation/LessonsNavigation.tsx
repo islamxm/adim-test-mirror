@@ -32,7 +32,7 @@ export const LessonsNavigation = () => {
         Number(courseId),
         Number(unitId),
         lessons[currentLessonIndex - 1].id
-      )}?${new URLSearchParams({ tab })}`
+      )}?tab=units`
     );
   };
   const onNext = () => {
@@ -44,7 +44,7 @@ export const LessonsNavigation = () => {
         Number(courseId),
         Number(unitId),
         lessons[currentLessonIndex + 1].id
-      )}?${new URLSearchParams({ tab })}`
+      )}?tab=units`
     );
   };
 
