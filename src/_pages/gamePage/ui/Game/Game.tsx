@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useGame } from "../../lib/useGame";
 import { GameStatus } from "../../model";
 import { ReactNode } from "react";
@@ -10,7 +10,6 @@ import { ReadyView } from "../views/ReadyView/ReadyView";
 import { StartView } from "../views/StartView/StartView";
 import { WaitResultView } from "../views/WaitResultView/WaitResultView";
 import { ResultView } from "../views/ResultView/ResultView";
-import { OfflineScreen } from "../OfflineScreen/OfflineScreen";
 import { userApi } from "@/entities/user";
 
 export const Game = () => {
@@ -24,8 +23,7 @@ export const Game = () => {
     result,
     startCountdownSecs,
     gameStatus,
-    isConnected,
-
+    // isConnected,
     enterQueue,
     compete,
     nextOpponent,
@@ -33,8 +31,16 @@ export const Game = () => {
     setGameStatus,
   } = useGame();
 
+  const isDoubleBg = gameStatus !== "LOBBY" && gameStatus !== "RESULT";
+
   const views: Partial<Record<GameStatus, ReactNode>> = {
-    LOBBY: <LobbyView selfData={selfData} selfStatus={selfStatus} onStartSearching={enterQueue} />,
+    LOBBY: (
+      <LobbyView
+        selfData={selfData}
+        selfStatus={selfStatus}
+        onStartSearching={enterQueue}
+      />
+    ),
     SEARCH: <SearchView selfData={selfData} selfStatus={selfStatus} />,
     WAIT: (
       <WaitView
@@ -76,13 +82,61 @@ export const Game = () => {
 
   return (
     <Box sx={{ height: "100%", position: "relative" }}>
-      {/* {!isConnected && <OfflineScreen />} */}
       <Box
         sx={{ height: "100%", maxWidth: "99.4rem", width: "100%", m: "0 auto" }}
         component={motion.div}
         layout
       >
-        {activeView}
+        <AnimatePresence>
+          <Box
+            sx={{
+              position: "fixed",
+              height: "100%",
+              width: "100%",
+              top: 0,
+              left: 0,
+              background:
+                "linear-gradient(270deg,rgba(2, 120, 255, 0) 0%, rgba(2, 120, 255, 1) 50%, rgba(2, 120, 255, 0) 100%)",
+            }}
+            component={motion.div}
+            initial={{ x: "0", opacity: 0 }}
+            exit={{ x: "0", opacity: 0 }}
+            // animate={{ x: 0, opacity: 1 }}
+            transition={{ ease: "circInOut", duration: 1 }}
+            variants={{
+              double: {
+                x: "-40%",
+                opacity: 1,
+              },
+              single: {
+                x: "0",
+                opacity: 1,
+              },
+            }}
+            animate={isDoubleBg ? "double" : "single"}
+          ></Box>
+          {isDoubleBg && (
+            <Box
+              sx={{
+                position: "fixed",
+                height: "100%",
+                width: "100%",
+                top: 0,
+                right: 0,
+                background:
+                  "linear-gradient(270deg,rgba(223, 2, 2, 0) 0%, rgba(223, 2, 2, 1) 50%, rgba(223, 2, 2, 0) 100%)",
+              }}
+              component={motion.div}
+              initial={{ x: "100%", opacity: 0 }}
+              exit={{ x: "100%", opacity: 0 }}
+              animate={{ x: "40%", opacity: 1 }}
+              transition={{ ease: "circInOut", duration: 1 }}
+            ></Box>
+          )}
+        </AnimatePresence>
+        <Box sx={{ position: "relative", height: "100%", zIndex: 2 }}>
+          {activeView}
+        </Box>
       </Box>
     </Box>
   );

@@ -38,19 +38,19 @@ export const VideoMask = () => {
     }
   };
 
-  // clean effect
-  useEffect(() => {
-    return () => {
-      deleteMaskTimer();
-    };
-  }, []);
-
   useEffect(() => {
     if (isEnded) {
       deleteMaskTimer();
       setIsShowMask(true);
     }
   }, [isEnded]);
+
+  // clean effect
+  useEffect(() => {
+    return () => {
+      deleteMaskTimer();
+    };
+  }, []);
 
   return (
     <Box

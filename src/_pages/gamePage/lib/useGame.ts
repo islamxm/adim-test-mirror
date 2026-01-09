@@ -40,6 +40,7 @@ export const useGame = () => {
 
   const [opponentStatus, setOpponentStatus] = useState<PlayerStatus>();
   const [selfStatus, setSelfStatus] = useState<PlayerStatus>();
+  const selfStatusPrev = useRef<PlayerStatus>(undefined);
   const [matchData, setMatchData] =
     useState<
       Pick<CnServerEventsMap["OPPONENT_FOUND"], "roomCode" | "matchId">
@@ -62,12 +63,17 @@ export const useGame = () => {
   };
 
   const onWsOpen = () => {
+    setSelfStatus(selfStatusPrev.current);
     setIsConnected(true);
     console.log("[ws]: Open");
   };
 
   const onWsClose = () => {
     setIsConnected(false);
+    setSelfStatus((s) => {
+      selfStatusPrev.current = s;
+      return "NETWORK_ERROR";
+    });
     console.log("[ws]: Closed");
     if (reconnectTimer.current) {
       return;
@@ -76,8 +82,8 @@ export const useGame = () => {
       if (sessionData?.accessToken) {
         competitionWs.connect(sessionData.accessToken);
         wsReconnectDelay = Math.min(wsReconnectDelay * 2, 30000);
-        clearTimeout(reconnectTimer.current)
-        reconnectTimer.current = undefined
+        clearTimeout(reconnectTimer.current);
+        reconnectTimer.current = undefined;
       }
     }, wsReconnectDelay);
   };
@@ -262,10 +268,10 @@ export const useGame = () => {
 
     return () => {
       competitionWs.disconnect();
-      if(retryTimer.current) {
+      if (retryTimer.current) {
         clearTimeout(retryTimer.current);
       }
-      if(reconnectTimer.current) {
+      if (reconnectTimer.current) {
         clearTimeout(reconnectTimer.current);
       }
     };

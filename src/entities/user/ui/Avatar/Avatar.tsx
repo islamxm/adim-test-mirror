@@ -7,12 +7,16 @@ import {
 import { FC, ReactNode } from "react";
 import { type User } from "../../model";
 
+type ShadowType = "light" | "dark"
+
 type Props = {
   avatarUrl?: User["avatarUrl"];
   size?: string;
   label?: ReactNode;
   extra?: ReactNode;
+  /**@deprecated */
   isShadow?: boolean;
+  shadowType?: ShadowType; 
   direction?: StackProps["direction"];
   gap?: StackProps["gap"];
   backgroundColor?: string;
@@ -29,7 +33,21 @@ export const Avatar: FC<Props> = ({
   gap = ".5rem",
   backgroundColor,
   isRounded = true,
+  shadowType
 }) => {
+
+  const boxShadow = () => {
+    switch(shadowType) {
+      case("dark"):
+        return "0 0 10px #00000026";
+      case("light"):
+      return "0 0 10px #fff";
+      default:
+        return undefined;
+      
+    }
+  }
+
   return (
     <Stack direction={direction} gap={gap} alignItems={"center"}>
       <MuiAvatar
@@ -37,7 +55,7 @@ export const Avatar: FC<Props> = ({
           width: size,
           height: size,
           backgroundColor: backgroundColor || theme.palette.common.white,
-          boxShadow: isShadow ? "0 0 10px #00000026" : "none",
+          boxShadow: boxShadow(),
           alignItems: "flex-start",
           "& img": {
             width: "110%",
