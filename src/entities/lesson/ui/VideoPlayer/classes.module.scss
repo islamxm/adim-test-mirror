@@ -1,0 +1,62 @@
+.controls,
+.prev_timeline {
+  width: 100%;
+  padding: 2rem;
+
+  .timeline {
+    flex: 1 0 auto;
+    height: 6px;
+    position: relative;
+
+    .timeline_track {
+      height: 6px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      
+      .timeline_track_fill {
+        background-color: #ffd24e;
+        position: absolute;
+        height: 100%;
+      }
+
+      .timeline_track_progress {
+        background-color: rgba(#fff, 0.4);
+        position: absolute;
+        height: 100%;
+      }
+    }
+    .timeline_thumb {
+      width: 12px;
+      height: 12px;
+      transform: translateY(-3px) translateX(-6px);
+      border-radius: 100%;
+      background-color: #fff;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: scale 0.2s ease;
+
+      &:hover {
+        scale: 1.1;
+      }
+    }
+  }
+}
+.time {
+  color: #fff;
+}
+
+.prev_timeline {
+  padding: 1rem 0 0 0;
+  .timeline {
+    .timeline_track {
+      border-radius: 0;
+    }
+  }
+}

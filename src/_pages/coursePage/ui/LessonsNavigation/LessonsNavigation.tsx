@@ -4,13 +4,10 @@ import { useParams } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@/shared/ui/icons";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import { getLessonPage } from "@/shared/model";
 
 export const LessonsNavigation = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const tab = searchParams.get("tab") || "";
   const { course: courseId, unit: unitId, lesson: lessonId } = useParams();
   const { data } = courseApi.useGetCourseByIdQuery(Number(courseId));
   // const lessonsCount = data?.totalLessonsCount;
@@ -20,8 +17,6 @@ export const LessonsNavigation = () => {
     lessons.findIndex((lesson) => lesson.id === Number(lessonId))
   );
   const lessonsCount = lessons.length;
-
-  console.log(data?.units)
 
   const onPrev = () => {
     if (currentLessonIndex === 0) {
