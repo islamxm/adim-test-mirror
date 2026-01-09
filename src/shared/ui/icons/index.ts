@@ -28,3 +28,4 @@ export { FullScreenIcon } from "./FullScreenIcon";
 export { SettingsIcon } from "./SettingsIcon";
 export { PauseIcon } from "./PauseIcon";
 export { RetryIcon } from "./RetryIcon";
+export { NetworkErrorIcon } from "./NetworkErrorIcon";
