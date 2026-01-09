@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import { LessonIsNotSelected } from "@/_pages/lessonPage";
 
 export const CoursePageLayout: FC<PropsWithChildren> = ({ children }) => {
-  const { lesson } = useParams()
+  const { lesson } = useParams();
 
   return (
     <Stack
@@ -19,17 +19,14 @@ export const CoursePageLayout: FC<PropsWithChildren> = ({ children }) => {
       })}
       direction={"row"}
     >
-      <Box sx={{ flex: "0 0 39rem"}}>
+      <Box sx={{ flex: "0 0 39rem" }}>
         <CourseSidebar />
       </Box>
       <Box sx={{ flex: "1 1 auto", overflowY: "auto" }}>
-        <Box sx={{ height: "7.2rem", position: "sticky", top: 0 }}>
+        <Box sx={{ height: "7.2rem", position: "sticky", top: 0, zIndex: 2 }}>
           {lesson && <LessonsNavigation />}
         </Box>
-        <Box px={"5rem"}>
-
-          {!lesson ? <LessonIsNotSelected/> : children}
-        </Box>
+        <Box px={"5rem"}>{!lesson ? <LessonIsNotSelected /> : children}</Box>
       </Box>
     </Stack>
   );

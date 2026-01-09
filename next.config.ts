@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: false,
+  async rewrites() {
+    return [
+      {
+        source: "/video-proxy/:path*",
+        destination: "http://89.124.73.183:8605/:path*", // Куда шлем запрос
+      },
+    ];
+  },
 };
 
 export default nextConfig;
