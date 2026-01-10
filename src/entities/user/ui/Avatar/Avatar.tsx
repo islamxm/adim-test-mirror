@@ -63,6 +63,12 @@ export const Avatar: FC<Props> = ({
             scale: .8,
             transform: "translateY(10px)"
           },
+          "& svg": {
+            width: "110%",
+            height: "110%",
+            scale: .8,
+            transform: "translateY(10px)"
+          },
           borderRadius: isRounded ? "50%" : "0",
         })}
         src={avatarUrl}
