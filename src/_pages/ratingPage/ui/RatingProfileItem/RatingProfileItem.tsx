@@ -14,6 +14,7 @@ export const RatingProfileItem: FC<Props> = ({
   isActive
 }) => {
   const { user, rank, points } = data
+  
   return (
     <Paper
       sx={theme => ({ p: "1.6rem", borderRadius: "2.5rem", width: "100%", height: "9.6rem", overflow: "hidden", border: isActive ? `2px solid ${theme.palette.primary.main}` : "2px solid transparent" })}
@@ -36,6 +37,7 @@ export const RatingProfileItem: FC<Props> = ({
             size="6.4rem"
             direction={"row"}
             label={user.profileName}
+            shadowType={"dark"}
           />
         </Box>
         <PointsBadge value={points} />

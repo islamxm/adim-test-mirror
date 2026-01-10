@@ -27,13 +27,23 @@ export const RatingTopThree: FC<Props> = ({ data }) => {
       <Box sx={{ minWidth: 0, flex: 1 }}>
         {second ? (
           <RatingTopProfile place={"SECOND"} data={second} />
-        ) : <RatingTopProfileSkeleton />}
+        ) : (
+          <RatingTopProfileSkeleton />
+        )}
       </Box>
       <Box sx={{ minWidth: 0, flex: 1 }}>
-        {first ? <RatingTopProfile place={"FIRST"} data={first} /> : <RatingTopProfileSkeleton isFirst />}
+        {first ? (
+          <RatingTopProfile place={"FIRST"} data={first} />
+        ) : (
+          <RatingTopProfileSkeleton isFirst />
+        )}
       </Box>
       <Box sx={{ minWidth: 0, flex: 1 }}>
-        {third ? <RatingTopProfile place={"THIRD"} data={third} /> : <RatingTopProfileSkeleton />}
+        {third ? (
+          <RatingTopProfile place={"THIRD"} data={third} />
+        ) : (
+          <RatingTopProfileSkeleton />
+        )}
       </Box>
     </Stack>
   );

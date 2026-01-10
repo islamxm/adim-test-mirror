@@ -1,1 +1,0 @@
-export { LeagueLeaderBoard } from "./ui";
