@@ -11,7 +11,7 @@ export const UserAvatar = () => {
       style={{flex: "0 0 auto"}}
       layout={"position"}
     >
-      <Avatar isShadow size="4.8rem" avatarUrl={data?.avatarUrl}/>
+      <Avatar shadowType={"dark"} size="4.8rem" avatarUrl={data?.avatarUrl}/>
     </motion.div>
   );
 };

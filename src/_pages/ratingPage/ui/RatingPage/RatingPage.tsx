@@ -11,13 +11,20 @@ import { RatingProfileItemSkeleton } from "../RatingProfileItem/RatingProfileIte
 import { UserCurrentLeague } from "../UserCurrentLeague/UserCurrentLeague";
 
 export const RatingPage = () => {
-  const { data: userData } = userApi.useGetUserProfileQuery({})
-  const { data: rawData, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = leagueApi.useGetLeaderboardInfiniteQuery({ cursor: 0 });
+  const { data: userData } = userApi.useGetUserProfileQuery({});
+  const {
+    data: rawData,
+    isLoading,
+    isError,
+    isSuccess,
+    hasNextPage,
+    fetchNextPage,
+  } = leagueApi.useGetLeaderboardInfiniteQuery({ cursor: 0 });
 
-  console.log(userData)
-
-  const data = rawData?.pages.length ? rawData.pages.map(f => f.board).flat() : []
-  const topThree = data.filter(d => d.rank <= 3) || []
+  const data = rawData?.pages.length
+    ? rawData.pages.map((f) => f.board).flat()
+    : [];
+  const topThree = data.filter((d) => d.rank <= 3) || [];
 
   return (
     <PageEnterAnimationLayout>
@@ -48,18 +55,26 @@ export const RatingPage = () => {
                 onLoadMore={fetchNextPage}
                 skeleton={{
                   count: 5,
-                  component: <RatingProfileItemSkeleton />
+                  component: <RatingProfileItemSkeleton />,
                 }}
               >
-                {data.filter(d => d.rank > 3).map(profile => (
-                  <RatingProfileItem data={profile} isActive={userData?.id === profile.user.id} key={profile.user.id} />
-                ))}
-                {!data.find(d => d.user.id === userData?.id) && userData && (
-                  <RatingProfileItem data={{
-                    points: userData.totalPoints,
-                    rank: userData.rank || 0,
-                    user: userData
-                  }} />
+                {data
+                  .filter((d) => d.rank > 3)
+                  .map((profile) => (
+                    <RatingProfileItem
+                      data={profile}
+                      isActive={userData?.id === profile.user.id}
+                      key={profile.user.id}
+                    />
+                  ))}
+                {!data.find((d) => d.user.id === userData?.id) && userData && (
+                  <RatingProfileItem
+                    data={{
+                      points: userData.totalPoints,
+                      rank: userData.rank || 0,
+                      user: userData,
+                    }}
+                  />
                 )}
               </ResourceList>
             </Stack>

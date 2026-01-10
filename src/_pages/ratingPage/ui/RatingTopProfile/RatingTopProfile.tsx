@@ -11,23 +11,36 @@ type Props = {
 };
 
 export const RatingTopProfile: FC<Props> = ({ data, place }) => {
-
   return (
-    <Stack component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ transform: `translateY(${place === "FIRST" ? "-2rem" : 0})` }} gap={"1.2rem"} justifyContent={"center"} alignItems={"center"}>
-      <Avatar size={place === 'FIRST' ? "16.4rem" : "14.4rem"} avatarUrl={data?.user.avatarUrl} isShadow />
+    <Stack
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      sx={{
+        transform: `translateY(${place === "FIRST" ? "-2rem" : 0})`,
+        minWidth: 0,
+      }}
+      gap={"1.2rem"}
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
+      <Avatar
+        size={place === "FIRST" ? "16.4rem" : "14.4rem"}
+        avatarUrl={data?.user.avatarUrl}
+        shadowType={"dark"}
+      />
       <Typography
-        textAlign={"center"}
-        variant={"body1"}
-        sx={{
-          fontSize: "2.2rem",
-          fontWeight: 600,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap"
-        }}
-      >
-        {`${data?.rank}. ${data?.user.profileName}`}
-      </Typography>
+          textAlign={"center"}
+          variant={"body1"}
+          noWrap
+          sx={{
+            fontSize: "2.2rem",
+            fontWeight: 600,
+            width: "100%"
+          }}
+        >
+          {`${data?.rank}. ${data?.user.profileName}`}
+        </Typography>
       <PointsBadge value={data?.points} />
     </Stack>
   );
