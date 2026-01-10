@@ -24,8 +24,8 @@ export const GameCategory: FC<Props> = ({
   useEffect(() => {
     if (imgRef.current && iconPath) {
       imgRef.current.onload = () => {
-        const color = new ColorThief().getColor(imgRef.current);
-        setBg(`rgba(${color}, .3)`);
+        // const color = new ColorThief().getColor(imgRef.current);
+        // setBg(`rgba(${color}, .3)`);
       };
     }
   }, [imgRef, iconPath]);

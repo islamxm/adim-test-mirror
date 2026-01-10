@@ -1,5 +1,5 @@
 "use client";
-import { courseApi, CourseCard, CourseCardSkeleton } from "@/entities/course";
+import { courseApi, CourseCard, CourseCardSkeleton, courseDtoMap } from "@/entities/course";
 import { useParams } from "next/navigation";
 import { Box, Grid, Stack } from "@mui/material";
 import { Container, SectionHead } from "@/shared/ui";
@@ -12,7 +12,7 @@ export const CoursesPage = () => {
       categoryId: params?.category,
     });
 
-  const courses = data?.pages.map((d) => d.courses).flat() || [];
+  const courses = data?.pages.map((d) => d.courses).flat().map(courseDtoMap) || [];
 
   return (
     <Box sx={theme => ({backgroundColor: theme.palette.background.default,})}>

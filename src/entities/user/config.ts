@@ -19,6 +19,7 @@ export const getAuthOptions = (
         credentials: {
           accessToken: { label: "accessToken", type: "text" },
         },
+        // @ts-ignore
         async authorize(credentials) {
           return {
             accessToken: credentials?.accessToken,

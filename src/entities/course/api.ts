@@ -26,6 +26,7 @@ export const courseApi = api.injectEndpoints({
           return lastPage?.cursor ? Number(lastPage.cursor) : undefined;
         },
       },
+      // @ts-ignore
       queryFn: async (
         { queryArg, pageParam = 0 },
         _api,

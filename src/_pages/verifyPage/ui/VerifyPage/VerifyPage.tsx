@@ -23,6 +23,7 @@ export const VerifyPage = () => {
               You need to verificate yor email address Please check your email <strong>example@gmail.com</strong>
             </Typography>
           </Stack>
+          {/* @ts-ignore */}
           <Button
             variant={"contained"}
             color={"primary"}
