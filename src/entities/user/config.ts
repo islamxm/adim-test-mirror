@@ -2,6 +2,7 @@ import { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { getLoginPage } from "@/shared/model";
 
 export const getAuthOptions = (
   cookies: () => Promise<ReadonlyRequestCookies>
@@ -29,7 +30,7 @@ export const getAuthOptions = (
       strategy: "jwt",
     },
     pages: {
-      signIn: "/auth",
+      signIn: getLoginPage(),
       error: "/auth",
     },
     callbacks: {

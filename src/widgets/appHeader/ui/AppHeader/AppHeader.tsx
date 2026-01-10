@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { Navbar } from "../Navbar/Navbar";
 import classes from "./classes.module.scss";
 import { StreakInfo } from "@/features/user/streak-info";
@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { UserAvatar } from "@/features/user/user-avatar";
 import { CourseHeadGoBack } from "@/features/course/course-head-go-back";
+import { RegisterButton } from "@/features/auth/register/ui/RegisterButton/RegisterButton";
+import { LoginButton } from "@/features/auth/login/ui/LoginButton/LoginButton";
 
 export const AppHeader = () => {
   const { isAuth } = useSelector((s) => s.user);
@@ -16,7 +18,7 @@ export const AppHeader = () => {
 
   return (
     <Box
-      sx={theme => ({
+      sx={(theme) => ({
         p: isCourseMainPage ? "2rem 1rem" : "2rem 0",
         position: "fixed",
         top: 0,
@@ -25,7 +27,9 @@ export const AppHeader = () => {
         zIndex: 10,
         height: "9.8rem",
         overflow: "hidden",
-        borderBottom: `1px solid ${isCourseMainPage ? theme.palette.grey[300] : "transparent"}`
+        borderBottom: `1px solid ${
+          isCourseMainPage ? theme.palette.grey[300] : "transparent"
+        }`,
       })}
       className={cn([
         classes.wrapper,
@@ -66,9 +70,15 @@ export const AppHeader = () => {
             <div className={classes.left}>
               <StreakInfo />
             </div>
-            {/* <div className={classes.right}>            
-          </div> */}
           </>
+        )}
+        {!isAuth && (
+          <div className={classes.right} style={{width: "100%"}}>
+            <Stack justifyContent={"flex-end"} direction={"row"} gap={"1rem"} sx={{width: "100%", px: "1rem"}}>
+              <RegisterButton />
+              <LoginButton />
+            </Stack>
+          </div>
         )}
       </AnimatePresence>
     </Box>
