@@ -27,7 +27,7 @@ export const RightSide = () => {
           />
         </Box>
       )}
-      {!data && !isAuth && !isLoading && (
+      {!data && !isAuth && !isLoading && isError && (
         <Stack
           initial={{ opacity: 0, scale: 0 }}
           exit={{ opacity: 0, scale: 0 }}

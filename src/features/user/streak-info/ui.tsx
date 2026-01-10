@@ -2,9 +2,13 @@ import { StreakPanel, StreakDetailsPanel, userApi } from "@/entities/user";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import { Box, Popover } from "@mui/material";
 import { motion } from "motion/react";
+import { useSelector } from "@/shared/lib";
 
 export const StreakInfo = () => {
-  const { data, isError } = userApi.useGetHomeUserDataQuery(undefined);
+  const { isAuth } = useSelector((s) => s.user);
+  const { data, isError } = userApi.useGetHomeUserDataQuery(undefined, {
+    skip: !isAuth,
+  });
 
   if (isError || !data) {
     return null;
@@ -14,7 +18,7 @@ export const StreakInfo = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{opacity: 0, scale: 0}}
+      exit={{ opacity: 0, scale: 0 }}
     >
       <PopupState variant={"popover"} popupId={"streak-info"}>
         {(popupState) => (
@@ -32,7 +36,7 @@ export const StreakInfo = () => {
                 vertical: "top",
                 horizontal: "left",
               }}
-              sx={{mt: "1.6rem"}}
+              sx={{ mt: "1.6rem" }}
             >
               <StreakDetailsPanel data={data.userStreak} />
             </Popover>
