@@ -33,10 +33,10 @@ export type UserHomeDataResponse = Response<
 export type StreakStatus = "disabled" | "current" | "active" | "final" | "complete"
 
 type UserSliceInitialType = {
-  isAuth: boolean
+  isAuth: boolean | undefined;
 }
 const userSliceInitialState: UserSliceInitialType = {
-  isAuth: false
+  isAuth: undefined
 }
 
 export const userSlice = createSlice({
