@@ -8,9 +8,9 @@ import { getLanguageName } from "@/shared/lib";
 import { getAboutCoursePage, Language } from "@/shared/model";
 
 export const CourseCard: FC<
-  Pick<Course, "name" | "id" | "icon" | "totalLessons" | "languages"> &
+  Pick<Course, "name" | "id" | "image" | "totalLessonsCount" | "languages"> &
     Partial<Pick<Course, "description">>
-> = ({ name, description, totalLessons, languages, id }) => {
+> = ({ name, description, totalLessonsCount, languages, id }) => {
   return (
     <Box component={Link} href={getAboutCoursePage(id)} sx={{ flex: 1 }}>
       <Paper
@@ -30,7 +30,7 @@ export const CourseCard: FC<
           },
         })}
         whileHover={{
-          scale: 1.2,
+          scale: 1.05,
           zIndex: 2,
         }}
       >
@@ -55,10 +55,10 @@ export const CourseCard: FC<
           {/* На данный момент информация о категории не приходит с бэка */}
           {/* <InfoChip value={"Programming"} type={"category"} /> */}
 
-          {totalLessons > 0 && (
+          {totalLessonsCount > 0 && (
             <InfoChip
-              value={`${totalLessons} ${
-                totalLessons > 1 ? "lessons" : "lesson"
+              value={`${totalLessonsCount} ${
+                totalLessonsCount > 1 ? "lessons" : "lesson"
               }`}
               type={"lessons_count"}
             />
