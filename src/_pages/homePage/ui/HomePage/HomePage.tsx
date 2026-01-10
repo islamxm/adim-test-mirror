@@ -5,13 +5,13 @@ import { CategoriesSection } from "../CategoriesSection/CategoriesSection";
 import { CoursesSection } from "../CoursesSection/CoursesSection";
 import { StartSection } from "../StartSection/StartSection";
 import { FC } from "react";
-import { HomePagePublicDataResponse } from "../../model";
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 import { PromoSection } from "@/widgets/promoSection";
 import { ContinueLearningSection } from "../ContinueLearningSection/ContinueLearningSection";
+import { PublicHomePageData } from "../../model";
 
 type Props = {
-  data: HomePagePublicDataResponse["success"];
+  data: PublicHomePageData;
 };
 
 export const HomePage: FC<Props> = ({ data }) => {
