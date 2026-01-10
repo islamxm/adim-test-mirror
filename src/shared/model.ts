@@ -5,6 +5,8 @@ export type Route = {
 };
 export type WsState = "CONNECTING" | "OPEN" | "CLOSING" | "CLOSED";
 
+export const getLoginPage = () => "auth?type=login";
+export const getRegisterPage = () => "auth?type=register";
 export const getHomePage = () => "/home";
 export const getCoursesPage = () => "/courses";
 export const getPointsPage = () => "/points";
@@ -20,8 +22,10 @@ export const getLessonPage = (
   lessonId: number
 ) => `${getMainCoursePage(courseId)}/${unitId}/${lessonId}`;
 export const getGamePage = () => `${getPointsPage()}/game`;
-export const getGameCategoryPage = (categoryId: number) => `${getGamePage()}/${categoryId}`
-export const getGameMatchPage = (categoryId: number, subcategoryId: number) => `${getGameCategoryPage(categoryId)}/${subcategoryId}`
+export const getGameCategoryPage = (categoryId: number) =>
+  `${getGamePage()}/${categoryId}`;
+export const getGameMatchPage = (categoryId: number, subcategoryId: number) =>
+  `${getGameCategoryPage(categoryId)}/${subcategoryId}`;
 
 export const routesMap = {
   home: { id: 1, path: getHomePage(), label: "Home" },

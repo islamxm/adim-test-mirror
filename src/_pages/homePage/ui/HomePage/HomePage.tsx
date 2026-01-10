@@ -15,7 +15,6 @@ type Props = {
 };
 
 export const HomePage: FC<Props> = ({ data }) => {
-
   return (
     <PageEnterAnimationLayout>
       <Stack>
@@ -23,7 +22,7 @@ export const HomePage: FC<Props> = ({ data }) => {
         <ContinueLearningSection />
         <CategoriesSection data={data.categories} />
         <PromoSection
-          bgcolor={theme => theme.palette.background.default}
+          bgcolor={(theme) => theme.palette.background.default}
           head={{
             title: "platform News",
             subtitle:

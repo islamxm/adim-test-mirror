@@ -5,11 +5,14 @@ import { ArrowRightIcon } from "@/shared/ui/icons";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { Box, Button, Stack } from "@mui/material";
 import { userApi } from "@/entities/user";
+import { useSelector } from "@/shared/lib";
 
 export const ContinueLearningSection = () => {
-  const { data, isError } = userApi.useGetHomeUserDataQuery(undefined);
+  const {isAuth} = useSelector(s => s.user)
+  const { data, isError } = userApi.useGetHomeUserDataQuery(undefined, {skip: !isAuth});
 
   if (
+    !isAuth ||
     isError ||
     !data?.continueLearning ||
     data.continueLearning.length === 0

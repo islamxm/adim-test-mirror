@@ -41,7 +41,7 @@ export const AuthPage = () => {
         alignItems={"center"}
         height={"100%"}
       >
-        <AuthFormLayout  bg={({type}) => <AuthBg type={type}/>}>
+        <AuthFormLayout bg={({ type }) => <AuthBg type={type} />}>
           {({ setStatus, type }) => renderAuthForm(type, setStatus)}
         </AuthFormLayout>
       </Stack>

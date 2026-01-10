@@ -6,6 +6,7 @@ import { AuthType } from "../../model";
 import { motion } from "motion/react";
 import { UIStatus } from "@/shared/types";
 import { PanelFormLoading } from "../PanelFormLoading/PanelFormLoading";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Props = {
   children?: (body: {
@@ -13,20 +14,16 @@ type Props = {
     type: AuthType;
   }) => ReactNode;
   extra?: ReactNode;
-  initType?: AuthType;
   bg?: (body: {
     setStatus: (status: UIStatus) => void;
     type: AuthType;
   }) => ReactNode;
 };
 
-export const AuthFormLayout: FC<Props> = ({
-  children,
-  extra,
-  initType = "login",
-  bg
-}) => {
-  const [type, setType] = useState<AuthType>(initType);
+export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
+  const router = useRouter();
+  const params = useSearchParams();
+  const type = params.get("type") as AuthType;
   const [status, setStatus] = useState<UIStatus>("idle");
 
   return (
@@ -56,7 +53,7 @@ export const AuthFormLayout: FC<Props> = ({
             <Tabs
               value={type}
               onChange={(_, type) => {
-                setType(type);
+                router.push("/auth?type=" + type);
               }}
               aria-label="product category tabs"
               sx={(theme) => ({
@@ -107,7 +104,7 @@ export const AuthFormLayout: FC<Props> = ({
           <PrivacyPolicyLink />
         </Stack>
       </Paper>
-      {bg?.({setStatus, type})}
+      {bg?.({ setStatus, type })}
     </>
   );
 };
