@@ -1,5 +1,5 @@
 "use client";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { Navbar } from "../Navbar/Navbar";
 import classes from "./classes.module.scss";
 import { StreakInfo } from "@/features/user/streak-info";
@@ -8,8 +8,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { UserAvatar } from "@/features/user/user-avatar";
 import { CourseHeadGoBack } from "@/features/course/course-head-go-back";
-import { RegisterButton } from "@/features/auth/register/ui/RegisterButton/RegisterButton";
-import { LoginButton } from "@/features/auth/login/ui/LoginButton/LoginButton";
+import { RightSide } from "../RightSide/RightSide";
 
 export const AppHeader = () => {
   const { isAuth } = useSelector((s) => s.user);
@@ -66,19 +65,14 @@ export const AppHeader = () => {
       />
       <AnimatePresence>
         {isAuth && !isCourseMainPage && (
-          <>
-            <div className={classes.left}>
-              <StreakInfo />
-            </div>
-          </>
-        )}
-        {!isAuth && (
-          <div className={classes.right} style={{width: "100%"}}>
-            <Stack justifyContent={"flex-end"} direction={"row"} gap={"1rem"} sx={{width: "100%", px: "1rem"}}>
-              <RegisterButton />
-              <LoginButton />
-            </Stack>
+          <div className={classes.left}>
+            <StreakInfo />
           </div>
+        )}
+        {!isCourseMainPage && (
+          <motion.div layout className={classes.right} style={{ width: "100%" }}>
+            <RightSide />
+          </motion.div>
         )}
       </AnimatePresence>
     </Box>

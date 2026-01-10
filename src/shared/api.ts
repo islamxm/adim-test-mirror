@@ -1,7 +1,10 @@
-import { BaseQueryFn, fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryFn,
+  fetchBaseQuery,
+  createApi,
+} from "@reduxjs/toolkit/query/react";
 import { getSession, signIn, signOut } from "next-auth/react";
 import { Mutex } from "async-mutex";
-import { getToken } from "next-auth/jwt";
 import { getDeviceInfo } from "./lib";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -41,7 +44,7 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
           result = await baseQuery(args, api, extraOptions);
         } else {
           await signOut({ redirect: false });
-          window.location.href = "/auth";
+          window.location.href = "/auth?type=login";
         }
       } catch (err) {
         console.log("REFRESH ERROR", err);
