@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FC, useEffect } from "react";
 import { getUserDeviceInfo } from "@/entities/user";
 import Cookies from "js-cookie";
-import { signIn, useSession, signOut } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { UIStatus } from "@/shared/types";
 import { redirect } from "next/navigation";
 
@@ -21,7 +21,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       expires: 1 / 24,
     });
     await signIn("google", {
-      callbackUrl: "/auth",
+      callbackUrl: "/auth?type=login",
     });
     setStatus?.("success");
   };
@@ -49,6 +49,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       variant={"contained"}
       color={"secondary"}
       onClick={onSubmit}
+      type="button"
     >
       Continue with google
     </Button>

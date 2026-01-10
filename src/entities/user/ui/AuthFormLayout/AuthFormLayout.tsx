@@ -1,12 +1,13 @@
 "use client";
 import { Paper, Stack, Typography, Tabs, Tab } from "@mui/material";
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { PrivacyPolicyLink } from "@/shared/ui/PrivacyPolicyLink";
 import { AuthType } from "../../model";
 import { motion } from "motion/react";
 import { UIStatus } from "@/shared/types";
 import { PanelFormLoading } from "../PanelFormLoading/PanelFormLoading";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getLoginPage } from "@/shared/model";
 
 type Props = {
   children?: (body: {
@@ -26,6 +27,15 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
   const type = params.get("type") as AuthType;
   const [status, setStatus] = useState<UIStatus>("idle");
 
+  useEffect(() => {
+    if(!type) {
+      router.push(getLoginPage())
+    }
+  }, [type, router])
+
+  if(!type) {
+    return null
+  }
   return (
     <>
       <Paper

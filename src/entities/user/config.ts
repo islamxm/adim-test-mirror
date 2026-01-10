@@ -31,7 +31,7 @@ export const getAuthOptions = (
     },
     pages: {
       signIn: getLoginPage(),
-      error: "/auth",
+      error: "/auth?type=login",
     },
     callbacks: {
       async jwt({ token, account, user }) {
