@@ -1,5 +1,5 @@
-import "@vidstack/react/player/styles/base.css";
-import classes from "./classes.module.scss";
+import { FC, useRef } from "react";
+
 import {
   MediaPlayer,
   MediaPlayerInstance,
@@ -7,9 +7,10 @@ import {
   MediaProviderAdapter,
   isHLSProvider,
 } from "@vidstack/react";
+import "@vidstack/react/player/styles/base.css";
 
-import { FC, useRef } from "react";
 import { VideoMask } from "./VideoMask";
+import classes from "./classes.module.scss";
 
 type Props = {
   src: string;
@@ -41,7 +42,7 @@ export const VideoPlayer: FC<Props> = ({ src, title }) => {
       onProviderChange={onProviderChange}
     >
       <MediaProvider />
-      <VideoMask/>
+      <VideoMask />
     </MediaPlayer>
   );
 };

@@ -1,7 +1,9 @@
-import { AuthType } from "@/entities/user";
+import { FC } from "react";
+
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
-import { FC } from "react";
+
+import { AuthType } from "@/entities/user";
 
 type Props = {
   type: AuthType;
@@ -25,7 +27,7 @@ export const AuthBg: FC<Props> = ({ type }) => {
             <Box
               sx={{ position: "absolute", top: 0, left: 0 }}
               component={motion.div}
-              exit={{x: "-100%", y: "-100%"}}
+              exit={{ x: "-100%", y: "-100%" }}
             >
               <motion.svg
                 width="464"
@@ -88,7 +90,7 @@ export const AuthBg: FC<Props> = ({ type }) => {
                 bottom: 0,
                 right: 0,
               }}
-              exit={{x: "100%", y: "100%"}}
+              exit={{ x: "100%", y: "100%" }}
             >
               <motion.svg
                 width="436"

@@ -1,14 +1,16 @@
-import { CnServerEventsMap, competitionWs } from "@/entities/competition";
-import { userApi } from "@/entities/user";
+import { useEffect, useRef, useState } from "react";
+
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+
+import { CnServerEventsMap, competitionWs } from "@/entities/competition";
+import { userApi } from "@/entities/user";
+
 import { GameStatus, PlayerStatus } from "../model";
 
 let eventId = "1";
 
-const isEventIdCorrect = (inEventId: number): boolean =>
-  Number(eventId) === Number(inEventId);
+const isEventIdCorrect = (inEventId: number): boolean => Number(eventId) === Number(inEventId);
 const generateEventId = (inEventId: string) => {
   if (isEventIdCorrect(Number(inEventId))) {
     eventId = Number(Number(inEventId) + 1).toString();
@@ -42,13 +44,9 @@ export const useGame = () => {
   const [selfStatus, setSelfStatus] = useState<PlayerStatus>();
   const selfStatusPrev = useRef<PlayerStatus>(undefined);
   const [matchData, setMatchData] =
-    useState<
-      Pick<CnServerEventsMap["OPPONENT_FOUND"], "roomCode" | "matchId">
-    >();
-  const [opponentData, setOpponentData] =
-    useState<CnServerEventsMap["OPPONENT_FOUND"]>();
-  const [question, setQuestion] =
-    useState<CnServerEventsMap["NEXT_QUESTION"]>();
+    useState<Pick<CnServerEventsMap["OPPONENT_FOUND"], "roomCode" | "matchId">>();
+  const [opponentData, setOpponentData] = useState<CnServerEventsMap["OPPONENT_FOUND"]>();
+  const [question, setQuestion] = useState<CnServerEventsMap["NEXT_QUESTION"]>();
   const [result, setResult] = useState<{
     winner?: number | null;
     selfResult: CnServerEventsMap["RESULT"]["answers"];
@@ -275,6 +273,7 @@ export const useGame = () => {
         clearTimeout(reconnectTimer.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionData]);
 
   return {

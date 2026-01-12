@@ -1,14 +1,17 @@
 "use client";
-import { Stack } from "@mui/material";
-import { HeroSection } from "../HeroSection/HeroSection";
-import { CategoriesSection } from "../CategoriesSection/CategoriesSection";
-import { CoursesSection } from "../CoursesSection/CoursesSection";
-import { StartSection } from "../StartSection/StartSection";
 import { FC } from "react";
+
+import { Stack } from "@mui/material";
+
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 import { PromoSection } from "@/widgets/promoSection";
-import { ContinueLearningSection } from "../ContinueLearningSection/ContinueLearningSection";
+
 import { PublicHomePageData } from "../../model";
+import { CategoriesSection } from "../CategoriesSection/CategoriesSection";
+import { ContinueLearningSection } from "../ContinueLearningSection/ContinueLearningSection";
+import { CoursesSection } from "../CoursesSection/CoursesSection";
+import { HeroSection } from "../HeroSection/HeroSection";
+import { StartSection } from "../StartSection/StartSection";
 
 type Props = {
   data: PublicHomePageData;

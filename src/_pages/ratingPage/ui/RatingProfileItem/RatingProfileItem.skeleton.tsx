@@ -1,10 +1,16 @@
-import { Paper, Skeleton, Stack } from "@mui/material"
-import { motion } from "motion/react"
+import { Paper, Skeleton, Stack } from "@mui/material";
+import { motion } from "motion/react";
 
 export const RatingProfileItemSkeleton = () => {
   return (
     <Paper
-      sx={{ p: "1.6rem", borderRadius: "2.5rem", width: "100%", height: "9.6rem", overflow: "hidden" }}
+      sx={{
+        p: "1.6rem",
+        borderRadius: "2.5rem",
+        width: "100%",
+        height: "9.6rem",
+        overflow: "hidden",
+      }}
       elevation={1}
       component={motion.div}
       initial={{ opacity: 0 }}
@@ -19,5 +25,5 @@ export const RatingProfileItemSkeleton = () => {
         <Skeleton variant={"rounded"} width={"5rem"} height={"4rem"} />
       </Stack>
     </Paper>
-  )
-}
+  );
+};

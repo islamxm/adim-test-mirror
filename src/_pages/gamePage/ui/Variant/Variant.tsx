@@ -1,6 +1,8 @@
-import { Question } from "@/entities/competition";
-import { Button, Stack, Typography } from "@mui/material";
 import { FC } from "react";
+
+import { Button, Stack, Typography } from "@mui/material";
+
+import { Question } from "@/entities/competition";
 
 type Props = Omit<Question["choices"][0], "key"> & {
   variant: string;
@@ -14,12 +16,8 @@ export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
       sx={(theme) => ({
         minHeight: "14.2rem",
         p: "2.5rem",
-        color: isActive
-          ? theme.palette.primary.contrastText
-          : theme.palette.text.primary,
-        backgroundColor: isActive
-          ? theme.palette.primary.main
-          : theme.palette.common.white,
+        color: isActive ? theme.palette.primary.contrastText : theme.palette.text.primary,
+        backgroundColor: isActive ? theme.palette.primary.main : theme.palette.common.white,
       })}
       onClick={onChange}
     >

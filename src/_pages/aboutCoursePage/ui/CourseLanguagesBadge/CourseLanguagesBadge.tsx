@@ -1,7 +1,9 @@
+import { FC } from "react";
+
+import { Stack, Typography } from "@mui/material";
+
 import { Language, languagesMap } from "@/shared/model";
 import { GlobeIcon } from "@/shared/ui/icons";
-import { Stack, Typography } from "@mui/material";
-import { FC } from "react";
 
 type Props = {
   languages: Array<Language>;
@@ -10,7 +12,13 @@ type Props = {
 export const CourseLanguagesBadge: FC<Props> = ({ languages }) => {
   return (
     <Stack gap={"1.2rem"} direction={"row"} alignItems={"flex-start"}>
-      <GlobeIcon sx={theme => ({ fontSize: "2.4rem", verticalAlign: "top", color: theme.palette.text.disabled })} />
+      <GlobeIcon
+        sx={(theme) => ({
+          fontSize: "2.4rem",
+          verticalAlign: "top",
+          color: theme.palette.text.disabled,
+        })}
+      />
       <Typography
         sx={(theme) => ({
           fontSize: "1.8rem",

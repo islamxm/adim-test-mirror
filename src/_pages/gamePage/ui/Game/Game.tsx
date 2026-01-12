@@ -1,16 +1,19 @@
+import { ReactNode } from "react";
+
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
+
+import { userApi } from "@/entities/user";
+
 import { useGame } from "../../lib/useGame";
 import { GameStatus } from "../../model";
-import { ReactNode } from "react";
 import { LobbyView } from "../views/LobbyView/LobbyView";
-import { SearchView } from "../views/SearchView/SearchView";
-import { WaitView } from "../views/WaitView/WaitView";
 import { ReadyView } from "../views/ReadyView/ReadyView";
+import { ResultView } from "../views/ResultView/ResultView";
+import { SearchView } from "../views/SearchView/SearchView";
 import { StartView } from "../views/StartView/StartView";
 import { WaitResultView } from "../views/WaitResultView/WaitResultView";
-import { ResultView } from "../views/ResultView/ResultView";
-import { userApi } from "@/entities/user";
+import { WaitView } from "../views/WaitView/WaitView";
 
 export const Game = () => {
   const { data: selfData } = userApi.useGetUserProfileQuery({});
@@ -34,13 +37,7 @@ export const Game = () => {
   const isDoubleBg = gameStatus !== "LOBBY" && gameStatus !== "RESULT";
 
   const views: Partial<Record<GameStatus, ReactNode>> = {
-    LOBBY: (
-      <LobbyView
-        selfData={selfData}
-        selfStatus={selfStatus}
-        onStartSearching={enterQueue}
-      />
-    ),
+    LOBBY: <LobbyView selfData={selfData} selfStatus={selfStatus} onStartSearching={enterQueue} />,
     SEARCH: <SearchView selfData={selfData} selfStatus={selfStatus} />,
     WAIT: (
       <WaitView
@@ -68,22 +65,26 @@ export const Game = () => {
         selfData={selfData}
       />
     ),
-    WAIT_RESULT: (
-      <WaitResultView
-        selfData={selfData}
-        result={result}
-        opponentData={opponentData}
-      />
-    ),
+    WAIT_RESULT: <WaitResultView selfData={selfData} result={result} opponentData={opponentData} />,
     RESULT: <ResultView selfData={selfData} winnerId={result?.winner} />,
   };
 
   const activeView = views[gameStatus];
 
   return (
-    <Box sx={{ height: "100%", position: "relative" }}>
+    <Box
+      sx={{
+        height: "100%",
+        position: "relative",
+      }}
+    >
       <Box
-        sx={{ height: "100%", maxWidth: "99.4rem", width: "100%", m: "0 auto" }}
+        sx={{
+          height: "100%",
+          maxWidth: "99.4rem",
+          width: "100%",
+          m: "0 auto",
+        }}
         component={motion.div}
         layout
       >
@@ -102,7 +103,10 @@ export const Game = () => {
             initial={{ x: "0", opacity: 0 }}
             exit={{ x: "0", opacity: 0 }}
             // animate={{ x: 0, opacity: 1 }}
-            transition={{ ease: "circInOut", duration: 1 }}
+            transition={{
+              ease: "circInOut",
+              duration: 1,
+            }}
             variants={{
               double: {
                 x: "-40%",
@@ -130,11 +134,20 @@ export const Game = () => {
               initial={{ x: "100%", opacity: 0 }}
               exit={{ x: "100%", opacity: 0 }}
               animate={{ x: "40%", opacity: 1 }}
-              transition={{ ease: "circInOut", duration: 1 }}
+              transition={{
+                ease: "circInOut",
+                duration: 1,
+              }}
             ></Box>
           )}
         </AnimatePresence>
-        <Box sx={{ position: "relative", height: "100%", zIndex: 2 }}>
+        <Box
+          sx={{
+            position: "relative",
+            height: "100%",
+            zIndex: 2,
+          }}
+        >
           {activeView}
         </Box>
       </Box>

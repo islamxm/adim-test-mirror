@@ -1,12 +1,17 @@
 "use client";
-import { Lesson } from "@/entities/lesson";
-import { getLessonPage } from "@/shared/model";
-import { CheckCircleFilledIcon } from "@/shared/ui/icons";
-import { alpha, Stack, Typography } from "@mui/material";
-import { AnimatePresence, motion } from "motion/react";
+import { FC } from "react";
+
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { FC } from "react";
+
+import { Stack, Typography, alpha } from "@mui/material";
+import { AnimatePresence, motion } from "motion/react";
+
+import { getLessonPage } from "@/shared/model";
+import { CheckCircleFilledIcon } from "@/shared/ui/icons";
+
+import { Lesson } from "@/entities/lesson";
+
 import { LessonTypeIcon } from "../LessonTypeIcon/LessonTypeIcon";
 
 type Props = Lesson & {};
@@ -38,23 +43,14 @@ export const LessonItem: FC<Props> = ({ id, name, type, isFinished, unitId }) =>
         },
       })}
       component={Link}
-      href={`${getLessonPage(Number(courseId), unitId, id)}?${new URLSearchParams({tab: "units"})}`}
+      href={`${getLessonPage(Number(courseId), unitId, id)}?${new URLSearchParams({ tab: "units" })}`}
     >
       <LessonTypeIcon type={type} />
-      <Typography sx={{ fontSize: "1.6rem", fontWeight: 600, flexGrow: 1 }}>
-        {name}
-      </Typography>
+      <Typography sx={{ fontSize: "1.6rem", fontWeight: 600, flexGrow: 1 }}>{name}</Typography>
       <AnimatePresence>
         {isFinished && (
-          <motion.div
-            initial={{ scale: 0 }}
-            exit={{ scale: 0 }}
-            animate={{ scale: 1 }}
-          >
-            <CheckCircleFilledIcon
-              sx={{ fontSize: "2.4rem" }}
-              color={"primary"}
-            />
+          <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
+            <CheckCircleFilledIcon sx={{ fontSize: "2.4rem" }} color={"primary"} />
           </motion.div>
         )}
       </AnimatePresence>

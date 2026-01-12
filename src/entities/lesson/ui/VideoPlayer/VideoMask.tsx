@@ -1,12 +1,14 @@
-import { alpha, Box, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import { VideoControls } from "./VideoControls";
+
+import { Box, Stack, alpha } from "@mui/material";
 import { useMediaState } from "@vidstack/react";
 import { AnimatePresence, motion } from "motion/react";
-import { PlayBigButton } from "./PlayBigButton";
+
 import { PauseBigButton } from "./PauseBigButton";
-import { WaitingBigButton } from "./WaitingBigButton";
+import { PlayBigButton } from "./PlayBigButton";
 import { ReplayBigButton } from "./ReplayBigButton";
+import { VideoControls } from "./VideoControls";
+import { WaitingBigButton } from "./WaitingBigButton";
 
 export const VideoMask = () => {
   const [isShowMask, setIsShowMask] = useState(true);

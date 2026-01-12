@@ -1,10 +1,8 @@
-import {
-  BaseQueryFn,
-  fetchBaseQuery,
-  createApi,
-} from "@reduxjs/toolkit/query/react";
 import { getSession, signIn, signOut } from "next-auth/react";
+
+import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";
+
 import { getDeviceInfo } from "./lib";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;

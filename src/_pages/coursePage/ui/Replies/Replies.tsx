@@ -1,9 +1,13 @@
-import { lessonApi } from "@/entities/lesson";
-import { Box, Typography } from "@mui/material";
 import { FC } from "react";
+
+import { Box, Typography } from "@mui/material";
+
+import { lessonApi } from "@/entities/lesson";
+
+import { ResourceList } from "@/widgets/resourceList";
+
 import { Comment } from "../Comment/Comment";
 import { CommentSkeleton } from "../Comment/Comment.skeleton";
-import { ResourceList } from "@/widgets/resourceList";
 
 type Props = {
   commentId: number;
@@ -11,21 +15,15 @@ type Props = {
 };
 
 export const Replies: FC<Props> = ({ commentId, lessonId }) => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = lessonApi.useGetLessonCommentRepliesInfiniteQuery(
-    { commentId, limit: 20, lessonId },
-    { skip: !commentId || isNaN(lessonId) }
-  );
+  const { data, fetchNextPage, hasNextPage, isLoading, isSuccess, isError, error } =
+    lessonApi.useGetLessonCommentRepliesInfiniteQuery(
+      { commentId, limit: 20, lessonId },
+      { skip: !commentId || isNaN(lessonId) },
+    );
 
-  const comments = data?.pages && data?.pages.length > 0 ? data.pages.map(p => p.comments).flat() : [];
-  
+  const comments =
+    data?.pages && data?.pages.length > 0 ? data.pages.map((p) => p.comments).flat() : [];
+
   return (
     <Box
       sx={(theme) => ({
@@ -50,8 +48,8 @@ export const Replies: FC<Props> = ({ commentId, lessonId }) => {
             sx={(theme) => ({
               fontSize: "1.2rem",
               color: theme.palette.text.secondary,
-              textAlign:"center",
-              cursor: "pointer"
+              textAlign: "center",
+              cursor: "pointer",
             })}
           >
             Load more

@@ -1,9 +1,12 @@
 "use client";
-import { courseApi } from "@/entities/course";
-import { Stack } from "@mui/material";
 import { useParams } from "next/navigation";
-import { UnitPart } from "../UnitPart/UnitPart";
+
+import { Stack } from "@mui/material";
 import { motion } from "motion/react";
+
+import { courseApi } from "@/entities/course";
+
+import { UnitPart } from "../UnitPart/UnitPart";
 
 export const UnitsList = () => {
   const { course } = useParams();
@@ -17,7 +20,7 @@ export const UnitsList = () => {
 
   return (
     <Stack
-      sx={{overflowY: "auto"}}
+      sx={{ overflowY: "auto" }}
       component={motion.div}
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}

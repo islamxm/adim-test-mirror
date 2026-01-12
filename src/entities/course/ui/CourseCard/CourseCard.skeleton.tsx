@@ -1,11 +1,5 @@
-import { Skeleton } from "@mui/material"
+import { Skeleton } from "@mui/material";
 
 export const CourseCardSkeleton = () => {
-  return (
-    <Skeleton
-      variant={"rounded"}
-      height={"21.5rem"}
-      sx={{flex: 1}}
-      />
-  )
-}
+  return <Skeleton variant={"rounded"} height={"21.5rem"} sx={{ flex: 1 }} />;
+};

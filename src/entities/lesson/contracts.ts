@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { UserSchema } from "@/entities/user/@x/lesson";
 
 export const LessonTypeSchema = z.literal(["BLOG", "VIDEO"]);

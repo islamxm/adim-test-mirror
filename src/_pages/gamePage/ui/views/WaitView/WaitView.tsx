@@ -1,10 +1,14 @@
+import { FC } from "react";
+
 import { Box, Button, Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
-import { Player } from "../../Player/Player";
-import { User, userApi } from "@/entities/user";
-import { FC } from "react";
-import { Versus } from "../../Versus/Versus";
+
 import { ChevronRightDuo } from "@/shared/ui/icons";
+
+import { User, userApi } from "@/entities/user";
+
+import { Player } from "../../Player/Player";
+import { Versus } from "../../Versus/Versus";
 
 type Props = {
   selfStatus: any;
@@ -12,7 +16,7 @@ type Props = {
   opponentData: any;
   onReady?: () => void;
   onSkipPlayer?: () => void;
-  selfData?: User
+  selfData?: User;
 };
 
 export const WaitView: FC<Props> = ({
@@ -21,15 +25,10 @@ export const WaitView: FC<Props> = ({
   opponentData,
   onReady,
   onSkipPlayer,
-  selfData
+  selfData,
 }) => {
-
   return (
-    <Stack
-      gap={"3rem"}
-      justifyContent={"center"}
-      sx={{ height: "100%", position: "relative" }}
-    >
+    <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%", position: "relative" }}>
       <Stack
         alignItems={"flex-start"}
         direction={"row"}
@@ -61,7 +60,7 @@ export const WaitView: FC<Props> = ({
             </Box>
           </AnimatePresence>
         </Box>
-        <motion.div style={{position: "relative"}} layoutId="opponent">
+        <motion.div style={{ position: "relative" }} layoutId="opponent">
           <Player
             data={{
               profileName: opponentData?.opponentId.profileName,

@@ -1,9 +1,12 @@
+import { FC } from "react";
+
+import { Stack, Typography } from "@mui/material";
+import { motion } from "motion/react";
+
 import { LeaderBoardUser } from "@/entities/league";
 import { Avatar, PointsBadge } from "@/entities/user";
-import { Stack, Typography } from "@mui/material";
-import { FC } from "react";
+
 import { TopPlace } from "../../model";
-import { motion } from "motion/react";
 
 type Props = {
   data?: LeaderBoardUser;
@@ -30,17 +33,17 @@ export const RatingTopProfile: FC<Props> = ({ data, place }) => {
         shadowType={"dark"}
       />
       <Typography
-          textAlign={"center"}
-          variant={"body1"}
-          noWrap
-          sx={{
-            fontSize: "2.2rem",
-            fontWeight: 600,
-            width: "100%"
-          }}
-        >
-          {`${data?.rank}. ${data?.user.profileName}`}
-        </Typography>
+        textAlign={"center"}
+        variant={"body1"}
+        noWrap
+        sx={{
+          fontSize: "2.2rem",
+          fontWeight: 600,
+          width: "100%",
+        }}
+      >
+        {`${data?.rank}. ${data?.user.profileName}`}
+      </Typography>
       <PointsBadge value={data?.points} />
     </Stack>
   );

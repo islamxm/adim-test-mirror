@@ -1,5 +1,9 @@
+import { useState } from "react";
+
 import { Box, IconButton, Stack } from "@mui/material";
-import classes from "./classes.module.scss";
+import { Time, TimeSlider, useMediaPlayer, useMediaState } from "@vidstack/react";
+import { motion } from "motion/react";
+
 import {
   FullScreenIcon,
   PauseIcon,
@@ -7,14 +11,8 @@ import {
   SettingsIcon,
   VolumeIcon,
 } from "@/shared/ui/icons";
-import {
-  Time,
-  TimeSlider,
-  useMediaPlayer,
-  useMediaState,
-} from "@vidstack/react";
-import { useState } from "react";
-import { motion } from "motion/react";
+
+import classes from "./classes.module.scss";
 
 export const VideoControls = () => {
   const player = useMediaPlayer();
@@ -82,10 +80,7 @@ export const VideoControls = () => {
           animate={{ opacity: 1 }}
         >
           {/* Play/Pause button */}
-          <IconButton
-            onClick={togglePlay}
-            sx={{ color: "#fff", width: "5rem", height: "5rem" }}
-          >
+          <IconButton onClick={togglePlay} sx={{ color: "#fff", width: "5rem", height: "5rem" }}>
             {isPaused ? (
               <PlayIconFilled sx={{ fontSize: "3.8rem" }} />
             ) : (
@@ -94,11 +89,7 @@ export const VideoControls = () => {
           </IconButton>
 
           {/* Timeline */}
-          <Box
-            component={motion.div}
-            layoutId="timeline"
-            sx={{ flex: "1 0 auto" }}
-          >
+          <Box component={motion.div} layoutId="timeline" sx={{ flex: "1 0 auto" }}>
             <TimeSlider.Root className={classes.timeline}>
               <TimeSlider.Track className={classes.timeline_track}>
                 <TimeSlider.Progress

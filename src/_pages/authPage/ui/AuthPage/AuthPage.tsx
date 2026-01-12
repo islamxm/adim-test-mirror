@@ -1,18 +1,20 @@
 "use client";
+import { Box, Stack } from "@mui/material";
+
+import { UIStatus } from "@/shared/types";
+
 import { AuthType } from "@/entities/user";
+
 import { AuthWithGoogleBtn } from "@/features/auth/google";
 import { LoginForm } from "@/features/auth/login";
 import { RegisterForm } from "@/features/auth/register";
-import { UIStatus } from "@/shared/types";
-import { Box, Stack } from "@mui/material";
+
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
+
 import { AuthBg } from "../AuthBg/AuthBg";
 import { AuthFormLayout } from "../AuthFormLayout/AuthFormLayout";
 
-const renderAuthForm = (
-  type: AuthType,
-  setStatus?: (status: UIStatus) => void
-) => {
+const renderAuthForm = (type: AuthType, setStatus?: (status: UIStatus) => void) => {
   return (
     <>
       <Box hidden={type !== "login"}>

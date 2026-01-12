@@ -1,12 +1,15 @@
-import { Avatar, User } from "@/entities/user";
-import { Box, Stack, StackProps, Typography } from "@mui/material";
 import { FC } from "react";
-import { PlayerStatus as PlayerStatusType } from "../../model";
-import { League, LeagueBadge } from "@/entities/league";
-import { PlayerStatus } from "../PlayerStatus/PlayerStatus";
+
+import { Box, Stack, StackProps, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
-import { SearchDots } from "./SearchDots";
+
+import { League, LeagueBadge } from "@/entities/league";
+import { Avatar, User } from "@/entities/user";
+
+import { PlayerStatus as PlayerStatusType } from "../../model";
+import { PlayerStatus } from "../PlayerStatus/PlayerStatus";
 import { SearchPlayer } from "../SearchPlayer/SearchPlayer";
+import { SearchDots } from "./SearchDots";
 
 type Props = {
   status?: PlayerStatusType;
@@ -82,9 +85,7 @@ export const Player: FC<Props> = ({
           {profileName || <SearchDots />}
         </Typography>
         <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
-          {!isSearching && leagueName && (
-            <LeagueBadge leagueName={leagueName as League} />
-          )}
+          {!isSearching && leagueName && <LeagueBadge leagueName={leagueName as League} />}
         </Box>
         <PlayerStatus status={status} />
       </Stack>

@@ -1,5 +1,6 @@
-import { SvgIcon, SvgIconProps } from "@mui/material";
 import { FC } from "react";
+
+import { SvgIcon, SvgIconProps } from "@mui/material";
 
 export const EmeraldIcon: FC<SvgIconProps> = (props) => {
   return (

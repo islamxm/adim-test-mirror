@@ -1,6 +1,8 @@
-import { Lesson } from "@/entities/lesson";
-import { BookOpenIcon, PlayIconRound } from "@/shared/ui/icons";
 import { FC } from "react";
+
+import { BookOpenIcon, PlayIconRound } from "@/shared/ui/icons";
+
+import { Lesson } from "@/entities/lesson";
 
 type Props = Pick<Lesson, "type">;
 

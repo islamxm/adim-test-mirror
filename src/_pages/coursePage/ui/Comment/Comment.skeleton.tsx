@@ -11,7 +11,7 @@ export const CommentSkeleton = () => {
       sx={{
         p: "1.6rem",
         width: "100%",
-        minHeight: "15.6rem"
+        minHeight: "15.6rem",
       }}
     >
       <Stack gap={"1.3rem"}>

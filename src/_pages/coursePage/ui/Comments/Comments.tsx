@@ -1,37 +1,34 @@
-import { lessonApi } from "@/entities/lesson";
+import { useState } from "react";
+
+import { useParams } from "next/navigation";
+
 import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
-import { useParams } from "next/navigation";
-import { Comment } from "../Comment/Comment";
-import { CommentTextAction } from "../CommentTextAction/CommentTextAction";
+
+import { lessonApi } from "@/entities/lesson";
+
 import { ResourceList } from "@/widgets/resourceList";
-import { useState } from "react";
+
+import { Comment } from "../Comment/Comment";
 import { CommentSkeleton } from "../Comment/Comment.skeleton";
+import { CommentTextAction } from "../CommentTextAction/CommentTextAction";
 
 export const Comments = () => {
   const { lesson } = useParams();
   const lessonId = Number(lesson);
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-    isSuccess,
-    isError,
-  } = lessonApi.useGetLessonCommentsInfiniteQuery(
-    { lessonId, limit: 20 },
-    { skip: !lessonId || isNaN(lessonId) }
-  );
-  
+  const { data, fetchNextPage, hasNextPage, isLoading, isSuccess, isError } =
+    lessonApi.useGetLessonCommentsInfiniteQuery(
+      { lessonId, limit: 20 },
+      { skip: !lessonId || isNaN(lessonId) },
+    );
+
   const [replyData, setReplyData] = useState<{
     parent: { id: number; text: string; userAvatar: string | undefined };
     lessonId: number;
   }>();
 
   const comments =
-    data?.pages && data?.pages.length > 0
-      ? data.pages.map((p) => p.comments).flat()
-      : [];
+    data?.pages && data?.pages.length > 0 ? data.pages.map((p) => p.comments).flat() : [];
 
   return (
     <Stack
@@ -72,10 +69,7 @@ export const Comments = () => {
         </ResourceList>
       </Stack>
       <Box sx={{ flex: "0 0 auto", position: "sticky", bottom: 0 }}>
-        <CommentTextAction
-          onCancelReply={() => setReplyData(undefined)}
-          replyData={replyData}
-        />
+        <CommentTextAction onCancelReply={() => setReplyData(undefined)} replyData={replyData} />
       </Box>
     </Stack>
   );

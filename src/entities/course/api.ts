@@ -1,12 +1,15 @@
+import { z } from "zod";
+
 import { api } from "@/shared/api";
 import { objectToSearchParams } from "@/shared/lib";
+
+import { unitDtoMap } from "@/entities/unit/@x/course";
+
 import {
-  Response_GetCoursesByCategoryIdSuccessSchema,
   Response_GetCourseByIdSuccessSchema,
+  Response_GetCoursesByCategoryIdSuccessSchema,
 } from "./contract";
 import { courseDtoMap } from "./lib";
-import { unitDtoMap } from "@/entities/unit/@x/course";
-import { z } from "zod";
 
 type GetCoursesByCategoryIdInputType = {
   categoryId?: string;
@@ -27,12 +30,7 @@ export const courseApi = api.injectEndpoints({
         },
       },
       // @ts-ignore
-      queryFn: async (
-        { queryArg, pageParam = 0 },
-        _api,
-        _opts,
-        fetchWithBQ
-      ) => {
+      queryFn: async ({ queryArg, pageParam = 0 }, _api, _opts, fetchWithBQ) => {
         const result = await fetchWithBQ({
           url: `home/category_courses${objectToSearchParams({
             ...queryArg,
@@ -43,9 +41,7 @@ export const courseApi = api.injectEndpoints({
           return { error: result.error };
         }
         try {
-          const validated = Response_GetCoursesByCategoryIdSuccessSchema.parse(
-            result.data
-          );
+          const validated = Response_GetCoursesByCategoryIdSuccessSchema.parse(result.data);
           return {
             data: {
               ...validated,
@@ -69,9 +65,7 @@ export const courseApi = api.injectEndpoints({
       }),
       transformResponse: (res) => {
         try {
-          const validated = courseDtoMap(
-            Response_GetCourseByIdSuccessSchema.parse(res).course
-          );
+          const validated = courseDtoMap(Response_GetCourseByIdSuccessSchema.parse(res).course);
           return {
             ...validated,
             units: validated.units.map(unitDtoMap),

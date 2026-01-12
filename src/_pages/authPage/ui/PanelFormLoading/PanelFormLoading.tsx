@@ -1,6 +1,7 @@
-import { Box, Stack } from "@mui/material"
-import classes from './classes.module.scss';
-import {motion} from 'motion/react'
+import { Box, Stack } from "@mui/material";
+import { motion } from "motion/react";
+
+import classes from "./classes.module.scss";
 
 export const PanelFormLoading = () => {
   return (
@@ -18,15 +19,16 @@ export const PanelFormLoading = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      >
-      <Box 
+    >
+      <Box
         sx={{
           height: "5px",
           overflow: "hidden",
         }}
-        className={classes.indicator}>
-        <Box 
-          sx={theme => ({
+        className={classes.indicator}
+      >
+        <Box
+          sx={(theme) => ({
             width: "200%",
             height: "100%",
             backgroundColor: theme.palette.primary[100],
@@ -35,9 +37,9 @@ export const PanelFormLoading = () => {
           className={classes.thumb}
           component={motion.div}
           animate={{ translateX: ["-100%", "0%", "100%"] }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}  
-          />
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
       </Box>
     </Stack>
-  )
-}
+  );
+};

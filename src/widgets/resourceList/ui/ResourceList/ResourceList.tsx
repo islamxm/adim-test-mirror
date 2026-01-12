@@ -1,12 +1,9 @@
-import { Grid, type StackProps } from "@mui/material";
-import {
-  useEffect,
-  type FC,
-  type PropsWithChildren,
-  type ReactNode,
-} from "react";
-import { WithUIStatuses } from "@/shared/types";
+import { type FC, type PropsWithChildren, type ReactNode, useEffect } from "react";
 import { useIntersectionObserver } from "react-intersection-observer-hook";
+
+import { Grid, type StackProps } from "@mui/material";
+
+import { WithUIStatuses } from "@/shared/types";
 
 type Props = PropsWithChildren<
   WithUIStatuses<{
@@ -35,7 +32,7 @@ export const ResourceList: FC<Props> = ({
   onLoadMore,
   canLoadMore,
   disableInfiniteScroll,
-  loadMoreElement
+  loadMoreElement,
 }) => {
   const [ref, { entry }] = useIntersectionObserver();
   const isVisible = entry && entry.isIntersecting;

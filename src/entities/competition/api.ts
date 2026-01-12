@@ -1,8 +1,6 @@
 import { api } from "@/shared/api";
-import {
-  Response_GetCompetitionCategoriesSchema,
-  UserMatchStatsSchema,
-} from "./contracts";
+
+import { Response_GetCompetitionCategoriesSchema, UserMatchStatsSchema } from "./contracts";
 
 export const competitionApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,5 +32,4 @@ export const competitionApi = api.injectEndpoints({
   }),
 });
 
-export const COMPETITION_WS_URL =
-  (process.env.NEXT_PUBLIC_API_URL || "") + "competition/ws";
+export const COMPETITION_WS_URL = (process.env.NEXT_PUBLIC_API_URL || "") + "competition/ws";

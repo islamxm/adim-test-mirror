@@ -1,6 +1,6 @@
 import { DeviceInfo } from "../model";
 
-export function getDeviceInfo(): DeviceInfo{
+export function getDeviceInfo(): DeviceInfo {
   const userAgent = navigator.userAgent;
   const locale = navigator.language;
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;

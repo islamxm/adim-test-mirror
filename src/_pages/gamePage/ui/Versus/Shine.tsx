@@ -1,5 +1,6 @@
-import { motion } from "motion/react";
 import { FC } from "react";
+
+import { motion } from "motion/react";
 
 type ShineType = {
   angle: number;

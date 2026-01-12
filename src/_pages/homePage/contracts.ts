@@ -1,6 +1,7 @@
+import { z } from "zod";
+
 import { CategorySchema } from "@/entities/category";
 import { CourseSchema } from "@/entities/course";
-import { z } from "zod";
 
 export const PublicHomePageDataDtoSchema = z.object({
   categories: z.array(CategorySchema),

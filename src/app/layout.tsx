@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
-import "../_app/styles/main.scss";
-import { App } from "@/_app/app";
-import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+import { Open_Sans } from "next/font/google";
+
+import { App } from "@/_app/app";
+
+import "../_app/styles/main.scss";
 
 const openSans = Open_Sans({
   variable: "--font-geist-sans",

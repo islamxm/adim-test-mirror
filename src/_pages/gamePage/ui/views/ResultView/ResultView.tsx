@@ -1,22 +1,22 @@
+import { FC, useEffect } from "react";
+
+import { winnerConfettiRun } from "@/animations/winner-confetti";
 import { Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
-import { Player } from "../../Player/Player";
+
+import { CnServerEventsMap, getGameResult } from "@/entities/competition";
 import { User, userApi } from "@/entities/user";
-import { winnerConfettiRun } from "@/animations/winner-confetti";
-import {
-  CnServerEventsMap,
-  getGameResult,
-} from "@/entities/competition";
-import { FC, useEffect } from "react";
-import { LoseText } from "../../LoseText/LoseText";
-import { WinText } from "../../WinText/WinText";
+
 import { DraftText } from "../../DraftText/DraftText";
+import { LoseText } from "../../LoseText/LoseText";
+import { Player } from "../../Player/Player";
+import { WinText } from "../../WinText/WinText";
 
 type Props = {
   winnerId?: CnServerEventsMap["RESULT"]["winnerId"];
   onGoBack?: () => void;
-  onPlay?: () => void,
-  selfData?: User
+  onPlay?: () => void;
+  selfData?: User;
 };
 
 export const ResultView: FC<Props> = ({ winnerId, selfData }) => {
@@ -28,12 +28,19 @@ export const ResultView: FC<Props> = ({ winnerId, selfData }) => {
     }
   }, [result]);
 
-  if(result === undefined) {
-    return null
+  if (result === undefined) {
+    return null;
   }
 
   return (
-    <Stack component={motion.div} initial={{opacity: 0}} animate={{opacity: 1}} gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
+    <Stack
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      gap={"3rem"}
+      justifyContent={"center"}
+      sx={{ height: "100%" }}
+    >
       <Stack
         alignItems={"flex-start"}
         direction={"row"}

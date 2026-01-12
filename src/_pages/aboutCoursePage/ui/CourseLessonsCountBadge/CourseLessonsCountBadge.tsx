@@ -1,7 +1,10 @@
-import { Course } from "@/entities/course";
-import { BookIcon } from "@/shared/ui/icons";
-import { Stack, Typography } from "@mui/material";
 import { FC } from "react";
+
+import { Stack, Typography } from "@mui/material";
+
+import { BookIcon } from "@/shared/ui/icons";
+
+import { Course } from "@/entities/course";
 
 type Props = Pick<Course, "totalLessonsCount">;
 

@@ -11,11 +11,7 @@ export const LessonPageSkeleton = () => {
       gap={"2.4rem"}
     >
       <Skeleton variant={"text"} height={"4.8rem"} />
-      <Skeleton
-        sx={{ aspectRatio: "16/9" }}
-        variant={"rounded"}
-        height={"auto"}
-      />
+      <Skeleton sx={{ aspectRatio: "16/9" }} variant={"rounded"} height={"auto"} />
       <Stack gap={".5rem"}>
         <Skeleton variant={"text"} height={"2rem"} />
         <Skeleton variant={"text"} height={"2rem"} />

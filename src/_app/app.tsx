@@ -1,22 +1,26 @@
 "use client";
 import { FC, PropsWithChildren } from "react";
-import { StyleProvider } from "./providers/style";
-import { createStore, StoreProvider } from "./providers/store";
-import { SessionProvider } from "next-auth/react";
-import { AuthProvider } from "./providers/auth";
-import { MainLayout } from "@/widgets/mainLayout";
-import { AppHeader } from "@/widgets/appHeader";
-import { AppFooter } from "@/widgets/appFooter";
-import { AnimationProvider } from "./providers/animation";
 import { ToastContainer } from "react-toastify";
+
+import { SessionProvider } from "next-auth/react";
+
 import { LocaleDetector } from "@/shared/i18n/ui";
+
+import { AppFooter } from "@/widgets/appFooter";
+import { AppHeader } from "@/widgets/appHeader";
+import { MainLayout } from "@/widgets/mainLayout";
+
+import { AnimationProvider } from "./providers/animation";
+import { AuthProvider } from "./providers/auth";
+import { StoreProvider, createStore } from "./providers/store";
+import { StyleProvider } from "./providers/style";
 
 export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
 
   return (
     <SessionProvider>
-      <LocaleDetector/>
+      <LocaleDetector />
       <StyleProvider>
         <StoreProvider preloadedState={store}>
           <AnimationProvider animate={true}>

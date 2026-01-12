@@ -1,7 +1,9 @@
-import classes from "./classes.module.scss";
 import { AnimatePresence, motion } from "motion/react";
-import { UserAvatar } from "@/features/user/user-avatar";
+
 import { CourseHeadGoBack } from "@/features/course/course-head-go-back";
+import { UserAvatar } from "@/features/user/user-avatar";
+
+import classes from "./classes.module.scss";
 
 export const CourseHeader = () => {
   return (

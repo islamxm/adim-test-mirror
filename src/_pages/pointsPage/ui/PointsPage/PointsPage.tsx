@@ -1,18 +1,26 @@
 "use client";
-import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import {
+  screenFillingCircleActions,
+  setCallback_screenFillingCircle,
+} from "@/animations/screen-filling-circle";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { motion } from "motion/react";
+
+import { useDispatch } from "@/shared/lib";
+import { getGamePage } from "@/shared/model";
+import { GlowingButton } from "@/shared/ui";
+import { ArrowRightIcon, InfoCircleIcon } from "@/shared/ui/icons";
+
+import { competitionApi } from "@/entities/competition";
+
+import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
+
 import leftImg from "../../assets/points-start-left.png";
 import rightImg from "../../assets/points-start-right.png";
-import { ArrowRightIcon, InfoCircleIcon } from "@/shared/ui/icons";
-import { GlowingButton } from "@/shared/ui";
 import { ProgressPanel } from "../ProgressPanel/ProgressPanel";
-import { competitionApi } from "@/entities/competition";
-import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
-import { motion } from "motion/react";
-import { getGamePage } from "@/shared/model";
-import { useDispatch } from "@/shared/lib";
-import { screenFillingCircleActions, setCallback_screenFillingCircle } from "@/animations/screen-filling-circle";
-import { useRouter } from "next/navigation";
 
 const getPercent = (total: number, part: number) => {
   const result = Math.round((part / total) * 100);
@@ -24,7 +32,7 @@ const getPercent = (total: number, part: number) => {
 
 export const PointsPage = () => {
   const { data } = competitionApi.useGetUserStatsQuery({});
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const router = useRouter();
 
   if (!data) {
@@ -43,8 +51,8 @@ export const PointsPage = () => {
           <Stack direction={"row"}>
             <Box
               component={motion.div}
-              initial={{scale: 0}}
-              animate={{scale: 1}}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
               sx={{
                 "& img": {
                   width: "100%",
@@ -53,13 +61,7 @@ export const PointsPage = () => {
                 },
               }}
             >
-              <Image
-                src={leftImg}
-                alt=""
-                width={290}
-                height={290}
-                objectFit={"contain"}
-              />
+              <Image src={leftImg} alt="" width={290} height={290} objectFit={"contain"} />
             </Box>
             <Stack
               gap={"4rem"}
@@ -71,21 +73,22 @@ export const PointsPage = () => {
                 Compete and get more points
               </Typography>
               <Typography textAlign={"center"} sx={{ fontSize: "1.8rem" }}>
-                Lorem ipsum at in lacus sed at eu tellus nunc faucibus pretium
-                auctor orci aenean.
+                Lorem ipsum at in lacus sed at eu tellus nunc faucibus pretium auctor orci aenean.
               </Typography>
               <Stack gap={"2rem"} direction={"row"}>
                 <GlowingButton
                   endIcon={<ArrowRightIcon />}
                   variant={"contained"}
                   onClick={(e) => {
-                    setCallback_screenFillingCircle("1", () => router.push(getGamePage()))
-                    dispatch(screenFillingCircleActions.start({
-                      x: e.clientX,
-                      y: e.clientY,
-                      color: '#063B29',
-                      completeCbId: "1"
-                    }))
+                    setCallback_screenFillingCircle("1", () => router.push(getGamePage()));
+                    dispatch(
+                      screenFillingCircleActions.start({
+                        x: e.clientX,
+                        y: e.clientY,
+                        color: "#063B29",
+                        completeCbId: "1",
+                      }),
+                    );
                   }}
                 >
                   {"Let's play"}
@@ -159,17 +162,11 @@ export const PointsPage = () => {
                 },
               }}
               component={motion.div}
-              initial={{scale: 0}}
-              animate={{scale: 1}}
-              transition={{delay: .2}}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2 }}
             >
-              <Image
-                src={rightImg}
-                alt=""
-                width={290}
-                height={290}
-                objectFit={"contain"}
-              />
+              <Image src={rightImg} alt="" width={290} height={290} objectFit={"contain"} />
             </Box>
           </Stack>
         </Stack>

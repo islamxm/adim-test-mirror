@@ -11,9 +11,9 @@ export const SearchDots = () => {
       direction={"row"}
       gap={"1rem"}
       component={motion.div}
-      initial={{opacity: 0}}
-      exit={{opacity: 0}}
-      animate={{opacity: 1}}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
     >
       {dots.map((_, index) => (
         <motion.div
@@ -30,7 +30,7 @@ export const SearchDots = () => {
           transition={{
             repeat: Infinity,
             times: [0, 0.3, 0, 6, 1],
-            duration: .7,
+            duration: 0.7,
             ease: "linear",
             repeatDelay: 0.5,
             delay: index * 0.2,

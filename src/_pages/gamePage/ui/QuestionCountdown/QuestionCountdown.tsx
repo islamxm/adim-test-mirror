@@ -1,13 +1,8 @@
 import { FC } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { Box, Stack, Typography } from "@mui/material";
-import { useRef, useEffect, useState } from "react";
-import {
-  animate,
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useTransform,
-} from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "motion/react";
 
 const CIRCLE_SIZE_PX = 100;
 const STORKE_WIDTH = 12;
@@ -35,7 +30,7 @@ export const QuestionCountdown: FC<Props> = ({ duration, onComplete, id }) => {
   const stroke = useTransform(
     progress,
     [0, 0.5, 0.8, 1],
-    [COLOR_START, COLOR_START, COLOR_WARN, COLOR_ALERT]
+    [COLOR_START, COLOR_START, COLOR_WARN, COLOR_ALERT],
   );
 
   useEffect(() => {
@@ -74,6 +69,7 @@ export const QuestionCountdown: FC<Props> = ({ duration, onComplete, id }) => {
       controls.stop();
       clearInterval(timer.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration, id, progress]);
 
   return (
@@ -98,11 +94,7 @@ export const QuestionCountdown: FC<Props> = ({ duration, onComplete, id }) => {
         stop: { scale: 1 },
       }}
     >
-      <svg
-        style={{ overflow: "visible" }}
-        width={CIRCLE_SIZE_PX}
-        height={CIRCLE_SIZE_PX}
-      >
+      <svg style={{ overflow: "visible" }} width={CIRCLE_SIZE_PX} height={CIRCLE_SIZE_PX}>
         <circle
           r={RADIUS}
           cx={CIRCLE_SIZE_PX / 2}

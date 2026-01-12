@@ -1,21 +1,21 @@
-import { courseApi } from "@/entities/course";
-import { IconButton, Stack, Typography } from "@mui/material";
 import { useParams } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@/shared/ui/icons";
 import { useRouter } from "next/navigation";
+
+import { IconButton, Stack, Typography } from "@mui/material";
+import { AnimatePresence, motion } from "motion/react";
+
 import { getLessonPage } from "@/shared/model";
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@/shared/ui/icons";
+
+import { courseApi } from "@/entities/course";
 
 export const LessonsNavigation = () => {
   const router = useRouter();
   const { course: courseId, unit: unitId, lesson: lessonId } = useParams();
   const { data } = courseApi.useGetCourseByIdQuery(Number(courseId));
   // const lessonsCount = data?.totalLessonsCount;
-  const lessons =
-    data?.units.find((unit) => unit.id === Number(unitId))?.lessons || [];
-  const currentLessonIndex = Number(
-    lessons.findIndex((lesson) => lesson.id === Number(lessonId))
-  );
+  const lessons = data?.units.find((unit) => unit.id === Number(unitId))?.lessons || [];
+  const currentLessonIndex = Number(lessons.findIndex((lesson) => lesson.id === Number(lessonId)));
   const lessonsCount = lessons.length;
 
   const onPrev = () => {
@@ -26,8 +26,8 @@ export const LessonsNavigation = () => {
       `${getLessonPage(
         Number(courseId),
         Number(unitId),
-        lessons[currentLessonIndex - 1].id
-      )}?tab=units`
+        lessons[currentLessonIndex - 1].id,
+      )}?tab=units`,
     );
   };
   const onNext = () => {
@@ -38,8 +38,8 @@ export const LessonsNavigation = () => {
       `${getLessonPage(
         Number(courseId),
         Number(unitId),
-        lessons[currentLessonIndex + 1].id
-      )}?tab=units`
+        lessons[currentLessonIndex + 1].id,
+      )}?tab=units`,
     );
   };
 

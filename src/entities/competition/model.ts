@@ -1,9 +1,11 @@
 import { z } from "zod";
-import { CompetitionCategorySchema, UserMatchStatsSchema } from "./contracts";
+
 import { UserSchema } from "@/entities/user/@x/competition";
 
+import { CompetitionCategorySchema, UserMatchStatsSchema } from "./contracts";
+
 const EventIdSchema = z.string();
-export const QuestionTypeSchema = z.literal(["Single_Choice", "Multiple_Choice"])
+export const QuestionTypeSchema = z.literal(["Single_Choice", "Multiple_Choice"]);
 
 export const PlayerSchema = UserSchema.omit({
   backupEmail: true,
@@ -12,14 +14,14 @@ export const PlayerSchema = UserSchema.omit({
 });
 
 export const QuestionSchema = z.object({
-  choices: z.array(z.object({key: z.string(), value: z.string()})),
+  choices: z.array(z.object({ key: z.string(), value: z.string() })),
   deadlineSec: z.number(),
   id: z.number(),
   stem: z.string(),
   subCategoryId: z.number().optional(),
   type: QuestionTypeSchema,
-  unitUd: z.number().optional()
-})
+  unitUd: z.number().optional(),
+});
 
 export const AnswerSchema = z.object({
   answer: z.string(),
@@ -29,7 +31,7 @@ export const AnswerSchema = z.object({
   question: QuestionSchema,
   questionOrder: z.number(),
   userId: z.number(),
-})
+});
 
 export const CnServerEventSchema = z.object({
   IN_QUEUE: z.object({

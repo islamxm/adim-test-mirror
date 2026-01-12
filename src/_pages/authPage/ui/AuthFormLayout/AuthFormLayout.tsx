@@ -1,25 +1,24 @@
 "use client";
-import { Paper, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { FC, ReactNode, useEffect, useState } from "react";
-import { PrivacyPolicyLink } from "@/shared/ui/PrivacyPolicyLink";
-import { AuthType } from "@/entities/user";
-import { motion } from "motion/react";
-import { UIStatus } from "@/shared/types";
-import { PanelFormLoading } from "../PanelFormLoading/PanelFormLoading";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getLoginPage } from "@/shared/model";
+
 import { useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { motion } from "motion/react";
+
+import { getLoginPage } from "@/shared/model";
+import { UIStatus } from "@/shared/types";
+import { PrivacyPolicyLink } from "@/shared/ui/PrivacyPolicyLink";
+
+import { AuthType } from "@/entities/user";
+
+import { PanelFormLoading } from "../PanelFormLoading/PanelFormLoading";
 
 type Props = {
-  children?: (body: {
-    setStatus: (status: UIStatus) => void;
-    type: AuthType;
-  }) => ReactNode;
+  children?: (body: { setStatus: (status: UIStatus) => void; type: AuthType }) => ReactNode;
   extra?: ReactNode;
-  bg?: (body: {
-    setStatus: (status: UIStatus) => void;
-    type: AuthType;
-  }) => ReactNode;
+  bg?: (body: { setStatus: (status: UIStatus) => void; type: AuthType }) => ReactNode;
 };
 
 export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {

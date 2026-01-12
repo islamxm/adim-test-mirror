@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { UserSchema } from "@/entities/user/@x/competition";
 
 export const CompetitionCategorySchema = z.object({
@@ -26,7 +27,7 @@ export const Response_GetLeaderboardSchema = z.object({
       points: z.number(),
       rank: z.number(),
       user: UserSchema,
-    })
+    }),
   ),
   cursor: z.string(),
 });
@@ -40,7 +41,7 @@ export const Response_GetMatchesHistorySchema = z.object({
       startedAt: z.string(),
       winnerId: z.number(),
       opponent: UserSchema,
-    })
+    }),
   ),
 });
 export const Response_GetCompetitionCategoriesSchema = z.object({
@@ -57,5 +58,3 @@ export const Payload_GetMatchesHistorySchema = z.object({
   direction: z.string(),
   limit: z.number(),
 });
-
-

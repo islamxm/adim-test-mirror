@@ -1,9 +1,11 @@
-import { Stack } from "@mui/material";
-import { StreakDay } from "../StreakDay/StreakDay";
-import { UserStreak } from "../../model";
 import { FC } from "react";
-import { getStreakStatus } from "../../lib";
+
+import { Stack } from "@mui/material";
 import { motion } from "motion/react";
+
+import { getStreakStatus } from "../../lib";
+import { UserStreak } from "../../model";
+import { StreakDay } from "../StreakDay/StreakDay";
 
 const DAYS = 7;
 type Props = {

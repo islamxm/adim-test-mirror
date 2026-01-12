@@ -1,11 +1,15 @@
 "use client";
-import { Course, CourseCard } from "@/entities/course";
-import { Container } from "@/shared/ui/Container";
-import { ArrowRightIcon } from "@/shared/ui/icons";
-import { SectionHead } from "@/shared/ui/SectionHead";
-import { Box, Button, Stack } from "@mui/material";
-import { useTranslations } from "next-intl";
 import { FC } from "react";
+
+import { useTranslations } from "next-intl";
+
+import { Box, Button, Stack } from "@mui/material";
+
+import { Container } from "@/shared/ui/Container";
+import { SectionHead } from "@/shared/ui/SectionHead";
+import { ArrowRightIcon } from "@/shared/ui/icons";
+
+import { Course, CourseCard } from "@/entities/course";
 
 type Props = {
   data: Array<Course>;

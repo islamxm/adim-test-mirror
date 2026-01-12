@@ -1,11 +1,13 @@
-import { League, LeagueBadge } from "@/entities/league"
-import { Box } from "@mui/material"
-import { FC } from "react"
-import { motion } from 'motion/react';
+import { FC } from "react";
+
+import { Box } from "@mui/material";
+import { motion } from "motion/react";
+
+import { League, LeagueBadge } from "@/entities/league";
 
 type Props = {
-  leagueName?: League
-}
+  leagueName?: League;
+};
 
 export const UserCurrentLeague: FC<Props> = ({ leagueName }) => {
   return (
@@ -16,5 +18,5 @@ export const UserCurrentLeague: FC<Props> = ({ leagueName }) => {
         </motion.div>
       )}
     </Box>
-  )
-}
+  );
+};

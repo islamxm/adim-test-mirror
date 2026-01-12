@@ -1,11 +1,14 @@
 "use client";
-import { Container } from "@/shared/ui/Container";
-import { Box, Button, Stack, Typography } from "@mui/material";
-import classes from "./classes.module.scss";
-import img from "./assets/promo-img.png";
-import Image from "next/image";
-import { ArrowRightIcon } from "@/shared/ui/icons";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+
+import { Box, Button, Stack, Typography } from "@mui/material";
+
+import { Container } from "@/shared/ui/Container";
+import { ArrowRightIcon } from "@/shared/ui/icons";
+
+import img from "./assets/promo-img.png";
+import classes from "./classes.module.scss";
 
 export const StartSection = () => {
   const t = useTranslations("pages.homePage.StartSection");
@@ -32,15 +35,10 @@ export const StartSection = () => {
               gap={"2.4rem"}
               className={classes.content_in}
             >
-              <Typography
-                sx={{ fontSize: "5.4rem", textTransform: "uppercase" }}
-                variant={"h2"}
-              >
+              <Typography sx={{ fontSize: "5.4rem", textTransform: "uppercase" }} variant={"h2"}>
                 {t("title")}
               </Typography>
-              <Typography variant={"subtitle1"}>
-                {t("subtitle")}
-              </Typography>
+              <Typography variant={"subtitle1"}>{t("subtitle")}</Typography>
               <Button endIcon={<ArrowRightIcon />} variant={"contained"}>
                 {t("start_button")}
               </Button>

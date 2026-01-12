@@ -1,10 +1,10 @@
 "use client";
 import { Box } from "@mui/material";
-import { Game } from "../Game/Game";
 import { motion } from "motion/react";
 
+import { Game } from "../Game/Game";
+
 export const GamePage = () => {
-  
   return (
     <Box
       component={motion.div}
@@ -15,4 +15,4 @@ export const GamePage = () => {
       <Game />
     </Box>
   );
-}
+};

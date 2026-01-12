@@ -1,5 +1,7 @@
 import { FC, PropsWithChildren, useEffect } from "react";
+
 import { useAuth, useDispatch } from "@/shared/lib";
+
 import { userSlice } from "@/entities/user";
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {

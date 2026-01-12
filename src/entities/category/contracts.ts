@@ -7,5 +7,5 @@ export const CategorySchema = z.object({
 });
 
 export const Response_GetCategoriesSchema = z.object({
-  categories: z.array(CategorySchema)
-})
+  categories: z.array(CategorySchema),
+});

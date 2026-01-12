@@ -35,7 +35,7 @@ export const Response_UserHomeDataSchema = z.object({
       courseId: z.number(),
       courseName: z.string(),
       percent: z.number(),
-    })
+    }),
   ),
   userStreak: z.object({
     currentStreak: z.number(),

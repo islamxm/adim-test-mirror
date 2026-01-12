@@ -1,7 +1,9 @@
+import { FC, useEffect, useRef, useState } from "react";
+
 import { Box, Stack, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
+
 import { Shine } from "../Versus/Shine";
-import { FC, useEffect, useRef, useState } from "react";
 
 type Props = {
   duration?: number;
@@ -54,8 +56,8 @@ export const GameCountdown: FC<Props> = ({ duration = 10, onComplete }) => {
           })}
           component={motion.div}
           initial={{ scale: 0, opacity: 0 }}
-          animate={{scale: 1, opacity: 1}}
-          exit={{scale: 0, opacity: 0}}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
           transition={{
             ease: "easeIn",
             duration: 0.2,

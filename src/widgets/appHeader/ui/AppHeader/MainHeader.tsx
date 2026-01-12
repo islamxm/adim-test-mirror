@@ -1,10 +1,13 @@
-import { Navbar } from "../Navbar/Navbar";
-import classes from "./classes.module.scss";
-import { StreakInfo } from "@/features/user/streak-info";
-import { useSelector } from "@/shared/lib";
 import { AnimatePresence } from "motion/react";
+
+import { useSelector } from "@/shared/lib";
+
+import { StreakInfo } from "@/features/user/streak-info";
 import { UserAvatar } from "@/features/user/user-avatar";
+
+import { Navbar } from "../Navbar/Navbar";
 import { RightSide } from "../RightSide/RightSide";
+import classes from "./classes.module.scss";
 
 export const MainHeader = () => {
   const { isAuth } = useSelector((s) => s.user);

@@ -1,13 +1,17 @@
-import { Paper, PaperOwnProps } from "@mui/material";
-import { getHomePage, routesMap } from "@/shared/model";
-import { motion } from "motion/react";
-import { usePathname } from "next/navigation";
-import { NavLink } from "../NavLink/NavLink";
 import { FC, ReactNode } from "react";
-import { Logo } from "@/shared/ui";
-import { useTranslations } from "next-intl";
 
-const routes = Object.entries(routesMap).map(([key, value]) => ({...value, key}));
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
+
+import { Paper, PaperOwnProps } from "@mui/material";
+import { motion } from "motion/react";
+
+import { getHomePage, routesMap } from "@/shared/model";
+import { Logo } from "@/shared/ui";
+
+import { NavLink } from "../NavLink/NavLink";
+
+const routes = Object.entries(routesMap).map(([key, value]) => ({ ...value, key }));
 
 type Props = {
   endSlot?: ReactNode;
@@ -16,14 +20,9 @@ type Props = {
   sx?: PaperOwnProps["sx"];
 };
 
-export const Navbar: FC<Props> = ({
-  endSlot,
-  disableShadow,
-  disableNavigation,
-  sx,
-}) => {
+export const Navbar: FC<Props> = ({ endSlot, disableShadow, disableNavigation, sx }) => {
   const pathname = usePathname();
-  const t = useTranslations("widgets.appHeader.Navbar.routes")
+  const t = useTranslations("widgets.appHeader.Navbar.routes");
 
   return (
     <Paper
@@ -42,9 +41,9 @@ export const Navbar: FC<Props> = ({
       component={motion.div}
       layout="position"
       elevation={disableShadow ? 0 : 1}
-      initial={{opacity: 0, scale: 0}}
-      exit={{opacity: 0, scale: 0}}
-      animate={{opacity: 1, scale: 1}}
+      initial={{ opacity: 0, scale: 0 }}
+      exit={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
     >
       {!disableNavigation &&
         routes.map((route) => (
@@ -52,7 +51,11 @@ export const Navbar: FC<Props> = ({
             {route.path === getHomePage() ? (
               <Logo sx={{ ml: "2.4rem" }} />
             ) : (
-              <NavLink {...route} label={t(route.key)} isActive={pathname?.startsWith(route.path)} />
+              <NavLink
+                {...route}
+                label={t(route.key)}
+                isActive={pathname?.startsWith(route.path)}
+              />
             )}
           </motion.div>
         ))}

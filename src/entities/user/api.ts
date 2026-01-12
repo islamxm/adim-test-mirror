@@ -1,4 +1,5 @@
 import { api } from "@/shared/api";
+
 import { Response_UserHomeDataSchema, UserSchema } from "./contracts";
 
 export const userApi = api.injectEndpoints({

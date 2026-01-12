@@ -1,8 +1,10 @@
 "use client";
-import { Tab, Tabs } from "@mui/material";
-import { categoryApi } from "@/entities/category";
-import { motion } from "motion/react";
 import { useParams, useRouter } from "next/navigation";
+
+import { Tab, Tabs } from "@mui/material";
+import { motion } from "motion/react";
+
+import { categoryApi } from "@/entities/category";
 
 export const CategoryTabs = () => {
   const router = useRouter();
@@ -24,20 +26,20 @@ export const CategoryTabs = () => {
         scrollButtons={false}
         value={!isNaN(Number(params?.category)) && Number(params?.category)}
         onChange={handleChange}
-        sx={theme => ({
+        sx={(theme) => ({
           "& .MuiTabs-indicator": {
             // height: ".3rem",
             height: "100%",
             backgroundColor: theme.palette.background.default,
-            borderRadius: "1.5rem 1.5rem 0 0"
+            borderRadius: "1.5rem 1.5rem 0 0",
           },
           "& .MuiTabs-list": {
             // gap: "2.4rem",
           },
           "& .MuiTab-root": {
             zIndex: 2,
-            p: "1.6rem 3.7rem"
-          }
+            p: "1.6rem 3.7rem",
+          },
         })}
       >
         {data.categories.map((category) => (

@@ -1,9 +1,12 @@
+import { useSearchParams } from "next/navigation";
+
 import { Box, Stack } from "@mui/material";
+
+import { COURSE_TABS } from "@/entities/course";
+
+import { Comments } from "../Comments/Comments";
 import { CourseTabs } from "../CourseTabs/CourseTabs";
 import { UnitsList } from "../UnitsList/UnitsList";
-import { useSearchParams } from "next/navigation";
-import { COURSE_TABS } from "@/entities/course";
-import { Comments } from "../Comments/Comments";
 
 export const CourseSidebar = () => {
   const params = useSearchParams();

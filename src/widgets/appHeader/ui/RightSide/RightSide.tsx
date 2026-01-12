@@ -1,15 +1,17 @@
-import { useSelector } from "@/shared/lib";
+import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
+
+import { useSelector } from "@/shared/lib";
+
 import { League, LeagueBadge } from "@/entities/league";
 import { userApi } from "@/entities/user";
-import { Box, Stack } from "@mui/material";
-import { RegisterButton } from "@/features/auth/register";
+
 import { LoginButton } from "@/features/auth/login";
+import { RegisterButton } from "@/features/auth/register";
 
 export const RightSide = () => {
   const { isAuth } = useSelector((s) => s.user);
-  const { data, isError, isLoading } =
-    userApi.useGetUserProfileQuery(undefined, {skip: !isAuth});
+  const { data, isError, isLoading } = userApi.useGetUserProfileQuery(undefined, { skip: !isAuth });
 
   return (
     <>
@@ -27,7 +29,7 @@ export const RightSide = () => {
           />
         </Box>
       )}
-      {typeof isAuth === 'boolean' && isAuth === false && (
+      {typeof isAuth === "boolean" && isAuth === false && (
         <Stack
           initial={{ opacity: 0, scale: 0 }}
           exit={{ opacity: 0, scale: 0 }}
