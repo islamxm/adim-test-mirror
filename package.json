@@ -6,11 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,md,json}\"",
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,md,json}\"",
-    "check": "npm run lint && npm run format:check",
+    "check": "npm run type-check && npm run lint && npm run format:check",
     "fix": "npm run format:fix && npm run lint:fix",
     "prepare": "husky && husky install"
   },

@@ -16,18 +16,18 @@ import classes from "./classes.module.scss";
 type Props = CompetitionCategory & { parentId?: string };
 
 export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, parentId }) => {
-  const imgRef = useRef<HTMLImageElement>(null);
+  // const imgRef = useRef<HTMLImageElement>(null);
   const router = useRouter();
-  const [bg, setBg] = useState<string>();
+  // const [bg, setBg] = useState<string>();
 
-  useEffect(() => {
-    if (imgRef.current && iconPath) {
-      imgRef.current.onload = () => {
-        const color = new ColorThief().getColor(imgRef.current);
-        setBg(`rgba(${color}, .3)`);
-      };
-    }
-  }, [imgRef, iconPath]);
+  // useEffect(() => {
+  //   if (imgRef.current && iconPath) {
+  //     imgRef.current.onload = () => {
+  //       const color = new ColorThief().getColor(imgRef.current);
+  //       setBg(`rgba(${color}, .3)`);
+  //     };
+  //   }
+  // }, [imgRef, iconPath]);
 
   const onClick = () => {
     console.log(parentId);

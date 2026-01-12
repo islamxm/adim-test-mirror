@@ -51,7 +51,7 @@ export const Comment: FC<Props> = ({ data, onReply }) => {
         style={{ opacity: status === "loading" ? 0.4 : 1 }}
       >
         <Stack gap={"1.2rem"} alignItems={"flex-start"} direction={"row"}>
-          <Avatar isShadow avatarUrl={userAvatar} size="3.8rem" />
+          <Avatar shadowType={"light"} avatarUrl={userAvatar} size="3.8rem" />
           <Stack gap={".4rem"} sx={{ flexGrow: 1 }}>
             <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>{userName}</Typography>
             <Typography

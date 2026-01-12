@@ -1,6 +1,6 @@
-import { AuthCredentials, StreakStatus, UserStreak } from "./model";
+import { Payload_Auth, StreakStatus, UserStreak } from "./model";
 
-export function getUserDeviceInfo(): Omit<AuthCredentials["deviceInfo"], "token"> {
+export function getUserDeviceInfo(): Omit<Payload_Auth["deviceInfo"], "token"> {
   const userAgent = navigator.userAgent;
   const locale = navigator.language;
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;

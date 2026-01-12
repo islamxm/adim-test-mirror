@@ -5,7 +5,7 @@ import { Box, Grid, Stack } from "@mui/material";
 
 import { Container, SectionHead } from "@/shared/ui";
 
-import { CourseCard, CourseCardSkeleton, courseApi } from "@/entities/course";
+import { CourseCard, CourseCardSkeleton, courseApi, courseDtoMap } from "@/entities/course";
 
 import { ResourceList } from "@/widgets/resourceList";
 
@@ -16,7 +16,11 @@ export const CoursesPage = () => {
       categoryId: params?.category,
     });
 
-  const courses = data?.pages.map((d) => d.courses).flat() || [];
+  const courses =
+    data?.pages
+      .map((d) => d.courses)
+      .flat()
+      .map(courseDtoMap) || [];
 
   return (
     <Box sx={(theme) => ({ backgroundColor: theme.palette.background.default })}>

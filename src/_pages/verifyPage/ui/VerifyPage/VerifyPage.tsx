@@ -26,6 +26,7 @@ export const VerifyPage = () => {
               <strong>example@gmail.com</strong>
             </Typography>
           </Stack>
+          {/* @ts-ignore */}
           <Button variant={"contained"} color={"primary"} compoent={Link} href="/auth">
             Back to register
           </Button>
