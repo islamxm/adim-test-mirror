@@ -9,6 +9,8 @@ import {
 import { Nullable } from "@/shared/types";
 
 export type LessonType = z.infer<typeof LessonTypeSchema>;
+export type CommentStatus = "loading" | "success" | "error";
+
 export type LessonDto = z.infer<typeof LessonSchema>;
 export type LessonDetailsDto = z.infer<typeof LessonDetailsSchema>;
 export type Lesson = {
@@ -29,9 +31,7 @@ export type LessonDetails = {
   type: LessonType;
   video: any;
 };
-
 export type CommentDto = z.infer<typeof CommentSchema>;
-export type CommentStatus = "loading" | "success" | "error";
 export type Comment = {
   userName: Nullable<string>;
   id: number;
@@ -42,34 +42,33 @@ export type Comment = {
   userAvatar?: string;
   status?: CommentStatus;
 };
-export type Params_GetLessonComments = {
+
+export type Response_GetLessonComments = {
+  cursor: string;
+  comments: Array<Comment>;
+};
+export type Response_CreateComment = z.infer<
+  typeof Response_CreateCommentSchema
+>;
+
+export type Payload_GetLessonComments = {
   lessonId: number;
   cursor?: string;
   limit?: number;
   direction?: "asc" | "desc";
 };
-export type Params_GetLessonCommentReplies = {
+export type Payload_GetLessonCommentReplies = {
   lessonId: number;
   commentId: number;
   cursor?: string;
   limit?: number;
   direction?: "asc" | "desc";
 };
-export type Response_GetLessonComments = {
-  cursor: string;
-  comments: Array<Comment>;
-};
-
-export type Response_CreateComment = z.infer<
-  typeof Response_CreateCommentSchema
->;
-
-export type CreateCommentDto = {
+export type Payload_CreateComment = {
   lessonId: number;
   text: string;
 };
-
-export type CreateReplyCommentDto = {
+export type Payload_ReplyComment = {
   lessonId: number;
   parentId: number;
   text: string;

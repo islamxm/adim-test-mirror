@@ -1,11 +1,9 @@
 import { z } from "zod";
-import { CategorySchema, GetCategoriesSuccesssResponseSchema } from "./contracts";
-import { DefaultResponseErrorData, Response } from "@/shared/types";
+import { CategorySchema, Response_GetCategoriesSchema } from "./contracts";
 
 export type CategoryDto = z.infer<typeof CategorySchema>;
 export type Category = CategoryDto;
 
-export type GetCategoriesResponse = Response<
-  z.infer<typeof GetCategoriesSuccesssResponseSchema>,
-  DefaultResponseErrorData
->
+export type Response_GetCategories = z.infer<
+  typeof Response_GetCategoriesSchema
+>;

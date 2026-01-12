@@ -1,5 +1,5 @@
 import { Paper, Stack } from "@mui/material";
-import { PointFilledIcon } from "../../icons";
+import { PointFilledIcon } from "@/shared/ui/icons";
 import { FC } from "react";
 import { motion } from "motion/react";
 

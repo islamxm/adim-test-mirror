@@ -1,5 +1,5 @@
 import { api } from "@/shared/api";
-import { UserHomeDataSuccessResponseSchema, UserSchema } from "./contracts";
+import { Response_UserHomeDataSchema, UserSchema } from "./contracts";
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,23 +9,23 @@ export const userApi = api.injectEndpoints({
       }),
       transformResponse: (res) => {
         try {
-          return UserHomeDataSuccessResponseSchema.parse(res)
-        } catch(err) {
-          console.log("VALIDATE ERROR", err)
+          return Response_UserHomeDataSchema.parse(res);
+        } catch (err) {
+          console.log("VALIDATE ERROR", err);
         }
       },
     }),
     getUserProfile: builder.query({
       query: () => ({
-        url: 'users/profile',
+        url: "users/profile",
       }),
       transformResponse: (res) => {
-        try { 
-          return UserSchema.parse(res)
-        } catch(err) {
-          console.error("VALIDATE ERROR", err)
+        try {
+          return UserSchema.parse(res);
+        } catch (err) {
+          console.error("VALIDATE ERROR", err);
         }
-      }
+      },
     }),
   }),
 });

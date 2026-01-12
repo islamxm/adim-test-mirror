@@ -1,1 +1,0 @@
-export { PointFilledIcon } from "./PointFilledIcon";

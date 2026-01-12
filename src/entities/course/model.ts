@@ -6,6 +6,8 @@ import {
 } from "./contract";
 import { DefaultResponseErrorData, Nullable, Response } from "@/shared/types";
 
+export type CourseCardChipInfo = "category" | "language" | "lessons_count";
+
 export type CourseDto = z.infer<typeof CourseSchema>;
 export type Course = {
   id: number;
@@ -29,8 +31,6 @@ export type Response_GetCourseById = Response<
   z.infer<typeof Response_GetCourseByIdSuccessSchema>,
   DefaultResponseErrorData
 >;
-
-export type CourseCardChipInfo = "category" | "language" | "lessons_count";
 
 export const COURSE_TABS = {
   comments: "comments",

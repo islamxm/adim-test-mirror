@@ -1,6 +1,6 @@
 import { api } from "@/shared/api";
 import {
-  API_GetCompetitionCategoriesSchema,
+  Response_GetCompetitionCategoriesSchema,
   UserMatchStatsSchema,
 } from "./contracts";
 
@@ -24,7 +24,7 @@ export const competitionApi = api.injectEndpoints({
       }),
       transformResponse: (res) => {
         try {
-          return API_GetCompetitionCategoriesSchema.parse(res).categories;
+          return Response_GetCompetitionCategoriesSchema.parse(res).categories;
         } catch (err) {
           console.log("INVALID API DATA", err);
         }

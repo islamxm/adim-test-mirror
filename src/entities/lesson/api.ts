@@ -8,11 +8,11 @@ import { commentDtoMap, lessonDetailsDtoMap } from "./lib";
 import {
   Response_GetLessonComments,
   Comment,
-  CreateCommentDto,
-  Params_GetLessonComments,
+  Payload_CreateComment,
+  Payload_GetLessonComments,
   Response_CreateComment,
-  CreateReplyCommentDto,
-  Params_GetLessonCommentReplies,
+  Payload_ReplyComment,
+  Payload_GetLessonCommentReplies,
 } from "./model";
 import { User } from "@/entities/user/@x/lesson";
 
@@ -35,7 +35,7 @@ export const lessonApi = api.injectEndpoints({
 
     getLessonComments: builder.infiniteQuery<
       Response_GetLessonComments,
-      Params_GetLessonComments,
+      Payload_GetLessonComments,
       number
     >({
       infiniteQueryOptions: {
@@ -82,7 +82,7 @@ export const lessonApi = api.injectEndpoints({
 
     getLessonCommentReplies: builder.infiniteQuery<
       Response_GetLessonComments,
-      Params_GetLessonCommentReplies,
+      Payload_GetLessonCommentReplies,
       number
     >({
       infiniteQueryOptions: {
@@ -129,7 +129,7 @@ export const lessonApi = api.injectEndpoints({
 
     createComment: builder.mutation<
       Response_CreateComment,
-      CreateCommentDto & { user: User }
+      Payload_CreateComment & { user: User }
     >({
       query: ({ lessonId, text }) => ({
         // url: "",
@@ -189,7 +189,7 @@ export const lessonApi = api.injectEndpoints({
 
     createReplyComment: builder.mutation<
       Response_CreateComment,
-      CreateReplyCommentDto & { user: User }
+      Payload_ReplyComment & { user: User }
     >({
       query: ({ parentId, lessonId, text }) => ({
         url: "courses/lesson/comment/reply",
@@ -306,7 +306,7 @@ export const lessonApi = api.injectEndpoints({
     //               }
     //             : { lessonId: queryArgument.lessonId, limit: 20 },
     //           (draft) => {
-                
+
     //           }
     //         )
     //       );

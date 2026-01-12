@@ -1,5 +1,5 @@
 import { api } from "@/shared/api";
-import { GetLeaderboardInputType, Response_GetLeaderboard } from "./model";
+import { Payload_GetLeaderboard, Response_GetLeaderboard } from "./model";
 import { objectToSearchParams } from "@/shared/lib";
 import { Response_GetLeaderboardSchema } from "./contracts";
 
@@ -7,7 +7,7 @@ export const leagueApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getLeaderboard: builder.infiniteQuery<
       Response_GetLeaderboard,
-      GetLeaderboardInputType,
+      Payload_GetLeaderboard,
       number
     >({
       infiniteQueryOptions: {
