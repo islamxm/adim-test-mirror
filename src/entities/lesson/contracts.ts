@@ -13,6 +13,18 @@ export const LessonSchema = z.object({
   unit_id: z.number(),
 });
 
+export const CommentSchema = z.object({
+  IsEdited: z.boolean().optional(),
+  createdAt: z.string(),
+  id: z.number(),
+  isOwn: z.boolean(),
+  lessonId: z.number(),
+  parent_id: z.number().optional(),
+  replies: z.array(z.any()).optional(),
+  text: z.string(),
+  user: UserSchema,
+});
+
 export const LessonDetailsSchema = z.object({
   blog: z.string().nullable().optional(),
   commentCount: z.number(),
@@ -30,23 +42,11 @@ export const Response_GetLessonSchema = z.object({
   lesson: LessonDetailsSchema,
 });
 
-export const CommentSchema = z.object({
-  IsEdited: z.boolean().optional(),
-  createdAt: z.string(),
-  id: z.number(),
-  isOwn: z.boolean(),
-  lessonId: z.number(),
-  parent_id: z.number().optional(),
-  replies: z.array(z.any()).optional(),
-  text: z.string(),
-  user: UserSchema,
-})
-
 export const Response_GetLessonCommentsSchema = z.object({
   comments: z.array(CommentSchema).nullable(),
-  cursor: z.string()
-})
+  cursor: z.string(),
+});
 
 export const Response_CreateCommentSchema = z.object({
-  comment: CommentSchema
-})
+  comment: CommentSchema,
+});

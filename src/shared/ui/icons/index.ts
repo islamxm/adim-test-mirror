@@ -29,3 +29,4 @@ export { SettingsIcon } from "./SettingsIcon";
 export { PauseIcon } from "./PauseIcon";
 export { RetryIcon } from "./RetryIcon";
 export { NetworkErrorIcon } from "./NetworkErrorIcon";
+export { PointFilledIcon } from "./PointFilledIcon";

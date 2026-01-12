@@ -3,7 +3,6 @@ import { CompetitionCategorySchema, UserMatchStatsSchema } from "./contracts";
 import { UserSchema } from "@/entities/user/@x/competition";
 
 const EventIdSchema = z.string();
-
 export const QuestionTypeSchema = z.literal(["Single_Choice", "Multiple_Choice"])
 
 export const PlayerSchema = UserSchema.omit({
