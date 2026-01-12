@@ -1,7 +1,9 @@
-import { Paper, Stack } from "@mui/material";
-import { PointFilledIcon } from "@/shared/ui/icons";
 import { FC } from "react";
+
+import { Paper, Stack } from "@mui/material";
 import { motion } from "motion/react";
+
+import { PointFilledIcon } from "@/shared/ui/icons";
 
 type Props = {
   value?: number;

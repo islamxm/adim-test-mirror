@@ -1,13 +1,18 @@
-import { Button } from "@mui/material";
-import googleIcon from "../../../../../../public/google.png";
-import Image from "next/image";
 import { FC, useEffect } from "react";
-import { getUserDeviceInfo } from "@/entities/user";
-import Cookies from "js-cookie";
+
 import { signIn, useSession } from "next-auth/react";
-import { UIStatus } from "@/shared/types";
-import { redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { redirect } from "next/navigation";
+
+import { Button } from "@mui/material";
+import Cookies from "js-cookie";
+
+import { UIStatus } from "@/shared/types";
+
+import { getUserDeviceInfo } from "@/entities/user";
+
+import googleIcon from "../../../../../../public/google.png";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -15,7 +20,7 @@ type Props = {
 
 export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
   const { data, status } = useSession();
-  const t = useTranslations("features.auth.google.AuthWithGoogleBtn")
+  const t = useTranslations("features.auth.google.AuthWithGoogleBtn");
   const onSubmit = async () => {
     setStatus?.("loading");
     Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
@@ -44,9 +49,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
 
   return (
     <Button
-      startIcon={
-        <Image src={googleIcon.src} alt="Google" width={20} height={20} />
-      }
+      startIcon={<Image src={googleIcon.src} alt="Google" width={20} height={20} />}
       variant={"contained"}
       color={"secondary"}
       onClick={onSubmit}

@@ -1,7 +1,10 @@
-import { Paper, Typography } from "@mui/material";
-import { StreakIcon } from "@/shared/ui/icons";
-import { UserStreak } from "../../model";
 import { FC } from "react";
+
+import { Paper, Typography } from "@mui/material";
+
+import { StreakIcon } from "@/shared/ui/icons";
+
+import { UserStreak } from "../../model";
 
 type Props = {
   data?: UserStreak["daysForPoint"];
@@ -26,7 +29,9 @@ export const StreakPanel: FC<Props> = ({ data }) => {
         }}
       />
       {data && (
-        <Typography fontSize={"1.8rem"}>{data} {data > 1 ? "days" : "day"} sequence</Typography>
+        <Typography fontSize={"1.8rem"}>
+          {data} {data > 1 ? "days" : "day"} sequence
+        </Typography>
       )}
     </Paper>
   );

@@ -1,33 +1,33 @@
 "use client";
+import { FC, useState } from "react";
+
+import { useParams } from "next/navigation";
+
+import { Button, Grid, IconButton, Paper, Stack, Typography, alpha } from "@mui/material";
+import dayjs from "dayjs";
+import "dayjs/locale/tk";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { motion } from "motion/react";
+
+import { ArrowSubRightDownIcon, MoreMenuIcon } from "@/shared/ui/icons";
+
 import { Comment as CommentType } from "@/entities/lesson";
 import { Avatar } from "@/entities/user";
-import { alpha, Button, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
-import { motion } from "motion/react";
-import { FC, useState } from "react";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/tk";
-import { ArrowSubRightDownIcon, MoreMenuIcon } from "@/shared/ui/icons";
+
 import { Replies } from "../Replies/Replies";
-import { useParams } from "next/navigation";
 
 dayjs.extend(relativeTime);
 dayjs.locale("tk");
 
 type Props = {
   data: CommentType;
-  onReply?: (parent: {
-    id: number;
-    text: string;
-    userAvatar: string | undefined;
-  }) => void;
+  onReply?: (parent: { id: number; text: string; userAvatar: string | undefined }) => void;
 };
 
 export const Comment: FC<Props> = ({ data, onReply }) => {
   const { lesson } = useParams();
   const lessonId = Number(lesson);
-  const { userAvatar, userName, createdAt, text, status, id, hasReplies, isOwn } =
-    data;
+  const { userAvatar, userName, createdAt, text, status, id, hasReplies, isOwn } = data;
   const [isOpenReplies, setIsOpenReplies] = useState(false);
 
   return (
@@ -52,10 +52,8 @@ export const Comment: FC<Props> = ({ data, onReply }) => {
       >
         <Stack gap={"1.2rem"} alignItems={"flex-start"} direction={"row"}>
           <Avatar isShadow avatarUrl={userAvatar} size="3.8rem" />
-          <Stack gap={".4rem"} sx={{flexGrow: 1}}>
-            <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>
-              {userName}
-            </Typography>
+          <Stack gap={".4rem"} sx={{ flexGrow: 1 }}>
+            <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>{userName}</Typography>
             <Typography
               sx={(theme) => ({
                 fontSize: "1.2rem",

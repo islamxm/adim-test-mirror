@@ -1,36 +1,35 @@
+import { WsState } from "@/shared/model";
+
 import { COMPETITION_WS_URL } from "./api";
 import {
   CnClientEventName,
   CnClientEventsMap,
-  CnServerMessageSchema,
   CnServerEventName,
-  CnServerEventsMap,
   CnServerEventSchema,
+  CnServerEventsMap,
+  CnServerMessageSchema,
   GameResult,
 } from "./model";
-import { WsState } from "@/shared/model";
 
 export class CompetitionWS {
   private ws: WebSocket | null = null;
   private handlers: Map<CnServerEventName, (data: any) => void> = new Map();
   private pendingMessages: Array<string> = [];
 
-  constructor(
-    private url: string,
-  ) {}
+  constructor(private url: string) {}
 
   private onOpenCb?: () => void;
   private onCloseCb?: () => void;
   private onErrorCb?: () => void;
 
   private _wsState(): WsState | undefined {
-    if(!this.ws) return undefined;
+    if (!this.ws) return undefined;
     const readyState = this.ws.readyState;
 
-    if(readyState === WebSocket.CONNECTING) return "CONNECTING";
-    if(readyState === WebSocket.OPEN) return "OPEN";
-    if(readyState === WebSocket.CLOSING) return "CLOSING";
-    if(readyState === WebSocket.CLOSED) return "CLOSED";
+    if (readyState === WebSocket.CONNECTING) return "CONNECTING";
+    if (readyState === WebSocket.OPEN) return "OPEN";
+    if (readyState === WebSocket.CLOSING) return "CLOSING";
+    if (readyState === WebSocket.CLOSED) return "CLOSED";
   }
 
   connect(token: string) {
@@ -39,10 +38,9 @@ export class CompetitionWS {
     }
     this.ws = new WebSocket(this.url + `/?token=${token}`);
     this.ws.onopen = () => {
-      
       while (this.pendingMessages.length > 0) {
         const message = this.pendingMessages.shift();
-        if(message) {
+        if (message) {
           this.ws?.send(message);
         }
       }
@@ -59,9 +57,9 @@ export class CompetitionWS {
       try {
         const { event, data } = CnServerMessageSchema.parse(d);
         if (this.handlers.has(event)) {
-          const EventDataSchema = CnServerEventSchema.shape[event]
+          const EventDataSchema = CnServerEventSchema.shape[event];
           const validatedData = EventDataSchema.parse(data);
-          this.handlers.get(event)?.(validatedData)
+          this.handlers.get(event)?.(validatedData);
         }
       } catch (err) {
         console.error(`WS: [EVENT NAME: ${d.event}]`, err);
@@ -90,24 +88,21 @@ export class CompetitionWS {
 
   on<EventName extends CnServerEventName>(
     event: EventName,
-    cb: (data: CnServerEventsMap[EventName]) => void
+    cb: (data: CnServerEventsMap[EventName]) => void,
   ) {
-    if(this.handlers.has(event)) {
-      this.handlers.delete(event)
+    if (this.handlers.has(event)) {
+      this.handlers.delete(event);
     }
-    this.handlers.set(event, cb)
+    this.handlers.set(event, cb);
   }
 
   off(event: CnServerEventName) {
-    if(this.handlers.has(event)) {
-      this.handlers.delete(event)
+    if (this.handlers.has(event)) {
+      this.handlers.delete(event);
     }
   }
 
-  emit<EventType extends CnClientEventName>(
-    event: EventType,
-    data: CnClientEventsMap[EventType]
-  ) {
+  emit<EventType extends CnClientEventName>(event: EventType, data: CnClientEventsMap[EventType]) {
     const payload = JSON.stringify({
       event,
       data,
@@ -126,15 +121,18 @@ export class CompetitionWS {
 
 export const competitionWs = new CompetitionWS(COMPETITION_WS_URL);
 
-export const getGameResult = (result: CnServerEventsMap['RESULT']['winnerId'] | undefined, selfId?: number): GameResult | undefined => {
-  if(result === null) {
-    return "DRAFT"
+export const getGameResult = (
+  result: CnServerEventsMap["RESULT"]["winnerId"] | undefined,
+  selfId?: number,
+): GameResult | undefined => {
+  if (result === null) {
+    return "DRAFT";
   }
-  if(selfId !== undefined && result === selfId) {
-    return "WIN"
+  if (selfId !== undefined && result === selfId) {
+    return "WIN";
   }
-  if(selfId !== undefined && result !== selfId) {
-    return "LOSE"
+  if (selfId !== undefined && result !== selfId) {
+    return "LOSE";
   }
   return undefined;
-}
+};

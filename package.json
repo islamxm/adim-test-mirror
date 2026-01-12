@@ -6,7 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,md,json}\"",
+    "format:fix": "prettier --write \"src/**/*.{ts,tsx,md,json}\"",
+    "check": "npm run lint && npm run format:check",
+    "fix": "npm run format:fix && npm run lint:fix",
+    "prepare": "husky && husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "src/**/*.{md,json}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@emotion/cache": "11.14.0",
@@ -48,12 +63,16 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/negotiator": "^0.6.4",
     "@types/node": "20",
     "@types/react": "19",
     "@types/react-dom": "19",
     "eslint": "9",
     "eslint-config-next": "16.0.3",
-    "typescript": "5"
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.4",
+    "typescript": "5",
+    "husky": "^8.0.0"
   }
 }

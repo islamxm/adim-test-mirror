@@ -1,23 +1,29 @@
-import { LeaderBoardUser } from "@/entities/league";
-import { Avatar, PointsBadge } from "@/entities/user";
+import { FC } from "react";
+
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
-import { FC } from "react";
+
+import { LeaderBoardUser } from "@/entities/league";
+import { Avatar, PointsBadge } from "@/entities/user";
 
 type Props = {
   data: LeaderBoardUser;
   isActive?: boolean;
-}
+};
 
-export const RatingProfileItem: FC<Props> = ({
-  data,
-  isActive
-}) => {
-  const { user, rank, points } = data
-  
+export const RatingProfileItem: FC<Props> = ({ data, isActive }) => {
+  const { user, rank, points } = data;
+
   return (
     <Paper
-      sx={theme => ({ p: "1.6rem", borderRadius: "2.5rem", width: "100%", height: "9.6rem", overflow: "hidden", border: isActive ? `2px solid ${theme.palette.primary.main}` : "2px solid transparent" })}
+      sx={(theme) => ({
+        p: "1.6rem",
+        borderRadius: "2.5rem",
+        width: "100%",
+        height: "9.6rem",
+        overflow: "hidden",
+        border: isActive ? `2px solid ${theme.palette.primary.main}` : "2px solid transparent",
+      })}
       elevation={1}
       component={motion.div}
       initial={{ opacity: 0 }}
@@ -45,4 +51,3 @@ export const RatingProfileItem: FC<Props> = ({
     </Paper>
   );
 };
-

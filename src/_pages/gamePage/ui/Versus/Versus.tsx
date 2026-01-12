@@ -1,11 +1,13 @@
-import { motion } from "motion/react";
-import v from "../../assets/v.png";
-import s from "../../assets/s.png";
-import flash from "../../assets/flash.png";
-import { Box, Stack } from "@mui/material";
-import { Shine } from "./Shine";
-import { Light } from "./Light";
 import { FC } from "react";
+
+import { Box, Stack } from "@mui/material";
+import { motion } from "motion/react";
+
+import flash from "../../assets/flash.png";
+import s from "../../assets/s.png";
+import v from "../../assets/v.png";
+import { Light } from "./Light";
+import { Shine } from "./Shine";
 
 type Props = {
   disableAnimation?: boolean;
@@ -29,11 +31,7 @@ export const Versus: FC<Props> = ({ disableAnimation }) => {
           <Shine />
         </Box>
       )}
-      <Stack
-        sx={{ position: "relative", zIndex: 2 }}
-        direction={"row"}
-        alignItems={"center"}
-      >
+      <Stack sx={{ position: "relative", zIndex: 2 }} direction={"row"} alignItems={"center"}>
         <motion.img
           initial={{ x: -100, opacity: 0, y: -20 }}
           animate={{ x: 0, opacity: 1, y: -20 }}

@@ -1,8 +1,10 @@
 import { getRequestConfig } from "next-intl/server";
 import { cookies } from "next/headers";
+
+import deepmerge from "deepmerge";
+
 import { LOCALE_COOKIE_NAME } from "./config";
 import { getBrowserLocaleOnServer } from "./lib";
-import deepmerge from "deepmerge";
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
@@ -11,10 +13,8 @@ export default getRequestConfig(async () => {
 
   // импорты переводов
   // widgets
-  const appHeader = (await import(`@/widgets/appHeader/i18n/${locale}.json`))
-    .default;
-  const appFooter = (await import(`@/widgets/appFooter/i18n/${locale}.json`))
-    .default;
+  const appHeader = (await import(`@/widgets/appHeader/i18n/${locale}.json`)).default;
+  const appFooter = (await import(`@/widgets/appFooter/i18n/${locale}.json`)).default;
 
   //pages
   const homePage = await import(`@/_pages/homePage/i18n/${locale}.json`);

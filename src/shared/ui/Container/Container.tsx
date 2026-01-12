@@ -1,11 +1,12 @@
-import { Box, SxProps } from "@mui/material"
-import { FC, PropsWithChildren } from "react"
+import { FC, PropsWithChildren } from "react";
+
+import { Box, SxProps } from "@mui/material";
 
 type Props = PropsWithChildren<{
-  sx?: SxProps
-}>
+  sx?: SxProps;
+}>;
 
-export const Container:FC<Props> = ({children, sx}) => {
+export const Container: FC<Props> = ({ children, sx }) => {
   return (
     <Box
       sx={{
@@ -13,10 +14,10 @@ export const Container:FC<Props> = ({children, sx}) => {
         width: "100%",
         px: "1.5rem",
         m: "0 auto",
-        ...sx
+        ...sx,
       }}
-      >
+    >
       {children}
     </Box>
-  )
-}
+  );
+};

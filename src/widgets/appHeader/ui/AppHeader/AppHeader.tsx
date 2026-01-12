@@ -1,11 +1,14 @@
 "use client";
-import { Box } from "@mui/material";
-import classes from "./classes.module.scss";
-import { cn } from "@/shared/lib";
 import { usePathname } from "next/navigation";
+
+import { Box } from "@mui/material";
 import { motion } from "motion/react";
-import { MainHeader } from "./MainHeader";
+
+import { cn } from "@/shared/lib";
+
 import { CourseHeader } from "./CourseHeader";
+import { MainHeader } from "./MainHeader";
+import classes from "./classes.module.scss";
 
 export const AppHeader = () => {
   const path = usePathname();
@@ -22,14 +25,9 @@ export const AppHeader = () => {
         zIndex: 10,
         height: "9.8rem",
         overflow: "hidden",
-        borderBottom: `1px solid ${
-          isCourseMainPage ? theme.palette.grey[300] : "transparent"
-        }`,
+        borderBottom: `1px solid ${isCourseMainPage ? theme.palette.grey[300] : "transparent"}`,
       })}
-      className={cn([
-        classes.wrapper,
-        isCourseMainPage && classes.courseMainPage_variant,
-      ])}
+      className={cn([classes.wrapper, isCourseMainPage && classes.courseMainPage_variant])}
       component={motion.div}
     >
       {isCourseMainPage ? <CourseHeader /> : <MainHeader />}

@@ -1,7 +1,9 @@
 "use client";
 import { Box, Stack } from "@mui/material";
-import { Copyright } from "../Copyright/Copyright";
+
 import { Container } from "@/shared/ui/Container";
+
+import { Copyright } from "../Copyright/Copyright";
 
 export const AppFooter = () => {
   return (

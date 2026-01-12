@@ -1,8 +1,10 @@
-import { StreakPanel, StreakDetailsPanel, userApi } from "@/entities/user";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import { Box, Popover } from "@mui/material";
+import PopupState, { bindPopover, bindTrigger } from "material-ui-popup-state";
 import { motion } from "motion/react";
+
 import { useSelector } from "@/shared/lib";
+
+import { StreakDetailsPanel, StreakPanel, userApi } from "@/entities/user";
 
 export const StreakInfo = () => {
   const { isAuth } = useSelector((s) => s.user);

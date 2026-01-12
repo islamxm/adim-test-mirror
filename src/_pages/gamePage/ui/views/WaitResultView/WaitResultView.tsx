@@ -1,9 +1,12 @@
+import { FC } from "react";
+
 import { Stack } from "@mui/material";
 import { motion } from "motion/react";
-import { FC } from "react";
+
 import { CnServerEventsMap } from "@/entities/competition";
-import { Player } from "../../Player/Player";
 import { User, userApi } from "@/entities/user";
+
+import { Player } from "../../Player/Player";
 import { SearchDots } from "../../Player/SearchDots";
 
 type Props = {
@@ -13,11 +16,10 @@ type Props = {
     selfResult: CnServerEventsMap["RESULT"]["answers"];
     opponentResult?: CnServerEventsMap["RESULT"]["opponentAnswers"];
   };
-  selfData?: User
+  selfData?: User;
 };
 
 export const WaitResultView: FC<Props> = ({ opponentData, result, selfData }) => {
-
   return (
     <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
       <Stack

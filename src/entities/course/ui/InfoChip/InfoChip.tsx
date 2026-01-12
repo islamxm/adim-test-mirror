@@ -1,7 +1,10 @@
-import { Chip, SvgIconProps } from "@mui/material";
-import { CourseCardChipInfo } from "../../model";
 import { FC } from "react";
+
+import { Chip, SvgIconProps } from "@mui/material";
+
 import { BookIcon, GlobeIcon, MenuIcon } from "@/shared/ui/icons";
+
+import { CourseCardChipInfo } from "../../model";
 
 type Props = {
   type: CourseCardChipInfo;

@@ -1,22 +1,21 @@
-import { CompetitionCategory } from "@/entities/competition/model";
-import { Box, Paper, Typography } from "@mui/material";
 import { FC, useEffect, useRef, useState } from "react";
-import ColorThief from "colorthief";
+
 import Image from "next/image";
-import { getGameCategoryPage, getGameMatchPage } from "@/shared/model";
-import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import classes from './classes.module.scss';
+
+import { Box, Paper, Typography } from "@mui/material";
+import ColorThief from "colorthief";
+import { motion } from "motion/react";
+
+import { getGameCategoryPage, getGameMatchPage } from "@/shared/model";
+
+import { CompetitionCategory } from "@/entities/competition/model";
+
+import classes from "./classes.module.scss";
 
 type Props = CompetitionCategory & { parentId?: string };
 
-export const GameCategory: FC<Props> = ({
-  name,
-  iconPath,
-  subCategories,
-  id,
-  parentId,
-}) => {
+export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, parentId }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const router = useRouter();
   const [bg, setBg] = useState<string>();
@@ -31,7 +30,7 @@ export const GameCategory: FC<Props> = ({
   }, [imgRef, iconPath]);
 
   const onClick = () => {
-    console.log(parentId)
+    console.log(parentId);
     if (subCategories && subCategories.length > 0) {
       router.push(getGameCategoryPage(id));
     } else {
@@ -60,10 +59,7 @@ export const GameCategory: FC<Props> = ({
       onClick={onClick}
       elevation={0}
     >
-      <Typography
-        variant="h3"
-        sx={{ width: "60%", position: "relative", zIndex: 2 }}
-      >
+      <Typography variant="h3" sx={{ width: "60%", position: "relative", zIndex: 2 }}>
         {name}
       </Typography>
       {iconPath && (

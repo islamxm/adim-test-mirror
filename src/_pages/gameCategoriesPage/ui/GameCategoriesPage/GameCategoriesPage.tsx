@@ -1,20 +1,24 @@
 "use client";
-import { competitionApi } from "@/entities/competition";
-import { Container } from "@/shared/ui";
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import { GameCategory } from "../GameCategory/GameCategory";
 import { useParams } from "next/navigation";
 
+import { Box, Grid, Stack, Typography } from "@mui/material";
+
+import { Container } from "@/shared/ui";
+
+import { competitionApi } from "@/entities/competition";
+
+import { GameCategory } from "../GameCategory/GameCategory";
+
 export const GameCategoriesPage = () => {
-  const {category: categoryId} = useParams()
+  const { category: categoryId } = useParams();
   const { data } = competitionApi.useGetCompetitionCategoriesQuery(undefined);
 
   if (!data) {
     return null;
   }
 
-
-  const list = (categoryId ? data.find(c => c.id === Number(categoryId))?.subCategories : data) || []
+  const list =
+    (categoryId ? data.find((c) => c.id === Number(categoryId))?.subCategories : data) || [];
 
   return (
     <Box pt={"14rem"}>
@@ -24,10 +28,7 @@ export const GameCategoriesPage = () => {
           <Grid gap={"1rem"} container>
             {list.map((category) => (
               <Grid size={3} key={category.id}>
-                <GameCategory
-                  {...category}
-                  parentId={categoryId}
-                  />
+                <GameCategory {...category} parentId={categoryId} />
               </Grid>
             ))}
           </Grid>

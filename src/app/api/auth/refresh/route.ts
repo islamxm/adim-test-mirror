@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export async function POST(req: NextRequest) {
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
   ];
 
   const safeHeaders = Object.fromEntries(
-    [...req.headers].filter(([key]) => !forbidden.includes(key.toLowerCase()))
+    [...req.headers].filter(([key]) => !forbidden.includes(key.toLowerCase())),
   );
   const refreshRes = await fetch(`${API_URL}users/generate_token`, {
     method: "POST",
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
   } else {
     const response = NextResponse.json(
       { accessToken: body?.accessToken },
-      { status: refreshRes.status }
+      { status: refreshRes.status },
     );
     response.cookies.set("refresh_token", body?.refreshToken, {
       httpOnly: true,

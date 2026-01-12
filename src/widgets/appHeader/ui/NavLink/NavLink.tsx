@@ -1,8 +1,11 @@
-import Link from "next/link";
-import { Box, Link as MuiLink } from "@mui/material";
-import { Route } from "@/shared/model";
 import { FC } from "react";
+
+import Link from "next/link";
+
+import { Box, Link as MuiLink } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
+
+import { Route } from "@/shared/model";
 
 type Props = Route & { isActive?: boolean };
 
@@ -15,9 +18,7 @@ export const NavLink: FC<Props> = ({ path, label, isActive }) => {
         padding: "0.6rem 2.5rem",
         fontWeight: 600,
         fontSize: "1.8rem",
-        color: isActive
-          ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+        color: isActive ? theme.palette.primary.light : theme.palette.primary.dark,
         alignItems: "center",
         display: "flex",
         gap: ".6rem",
@@ -37,7 +38,7 @@ export const NavLink: FC<Props> = ({ path, label, isActive }) => {
                 borderRadius: "50%",
                 backgroundColor: theme.palette.primary.light,
                 position: "absolute",
-                top: 'calc(50% - (.6rem / 2))',
+                top: "calc(50% - (.6rem / 2))",
                 left: 0,
               })}
               initial={{ x: 1, opacity: 0 }}

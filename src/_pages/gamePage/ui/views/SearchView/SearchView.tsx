@@ -1,16 +1,18 @@
+import { FC } from "react";
+
 import { Box, Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
-import { Player } from "../../Player/Player";
+
 import { User } from "@/entities/user";
-import { FC } from "react";
+
+import { Player } from "../../Player/Player";
 
 type Props = {
   selfStatus: any;
-  selfData?: User
+  selfData?: User;
 };
 
 export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
-
   return (
     <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
       <Stack
@@ -25,7 +27,7 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
             data={{
               profileName: selfData?.profileName,
               avatarUrl: selfData?.avatarUrl,
-              leagueName: selfData?.leagueName
+              leagueName: selfData?.leagueName,
             }}
             status={selfStatus}
             size="22rem"
@@ -44,10 +46,7 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
         </motion.div>
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
-        <Button
-          variant={"contained"}
-          disabled
-        >
+        <Button variant={"contained"} disabled>
           SEARCHING...
         </Button>
       </Stack>

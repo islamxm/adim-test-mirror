@@ -1,6 +1,7 @@
+import { FC } from "react";
+
 import { Typography } from "@mui/material";
 import { motion } from "motion/react";
-import { FC } from "react";
 
 type Props = {
   children?: React.ReactNode;

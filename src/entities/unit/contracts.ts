@@ -1,5 +1,6 @@
-import {z} from 'zod';
-import { LessonSchema } from '@/entities/lesson/@x/unit';
+import { z } from "zod";
+
+import { LessonSchema } from "@/entities/lesson/@x/unit";
 
 export const UnitSchema = z.object({
   description: z.string().nullable(),
@@ -11,5 +12,5 @@ export const UnitSchema = z.object({
   lessons: z.array(LessonSchema),
   name: z.string(),
   parent_id: z.number(),
-  totalLessons: z.number()
-})
+  totalLessons: z.number(),
+});

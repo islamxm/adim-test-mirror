@@ -1,10 +1,12 @@
 import { z } from "zod";
+
+import { DefaultResponseErrorData, Nullable, Response } from "@/shared/types";
+
 import {
   CourseSchema,
   Response_GetCourseByIdSuccessSchema,
   Response_GetCoursesByCategoryIdSuccessSchema,
 } from "./contract";
-import { DefaultResponseErrorData, Nullable, Response } from "@/shared/types";
 
 export type CourseCardChipInfo = "category" | "language" | "lessons_count";
 

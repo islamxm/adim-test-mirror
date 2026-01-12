@@ -1,11 +1,15 @@
 "use client";
+import { FC } from "react";
+
+import { useTranslations } from "next-intl";
+
+import { Box, Button, Stack } from "@mui/material";
+
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
-import { Box, Button, Stack } from "@mui/material";
 import { ArrowRightIcon } from "@/shared/ui/icons";
+
 import { Category, CategoryCard } from "@/entities/category";
-import { FC } from "react";
-import { useTranslations } from "next-intl";
 
 type Props = {
   data: Array<Category>;

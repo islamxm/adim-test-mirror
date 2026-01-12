@@ -1,20 +1,19 @@
 import { api } from "@/shared/api";
-import {
-  Response_GetLessonCommentsSchema,
-  Response_GetLessonSchema,
-} from "./contracts";
 import { objectToSearchParams } from "@/shared/lib";
+
+import { User } from "@/entities/user/@x/lesson";
+
+import { Response_GetLessonCommentsSchema, Response_GetLessonSchema } from "./contracts";
 import { commentDtoMap, lessonDetailsDtoMap } from "./lib";
 import {
-  Response_GetLessonComments,
   Comment,
   Payload_CreateComment,
-  Payload_GetLessonComments,
-  Response_CreateComment,
-  Payload_ReplyComment,
   Payload_GetLessonCommentReplies,
+  Payload_GetLessonComments,
+  Payload_ReplyComment,
+  Response_CreateComment,
+  Response_GetLessonComments,
 } from "./model";
-import { User } from "@/entities/user/@x/lesson";
 
 export const lessonApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,9 +23,7 @@ export const lessonApi = api.injectEndpoints({
       }),
       transformResponse: (res) => {
         try {
-          return lessonDetailsDtoMap(
-            Response_GetLessonSchema.parse(res).lesson
-          );
+          return lessonDetailsDtoMap(Response_GetLessonSchema.parse(res).lesson);
         } catch (err) {
           console.log("INVALID API DATA", err);
         }
@@ -44,16 +41,9 @@ export const lessonApi = api.injectEndpoints({
           return lastPage?.cursor ? Number(lastPage.cursor) : undefined;
         },
       },
-      queryFn: async (
-        { queryArg, pageParam = 0 },
-        _api,
-        _opts,
-        fetchWithBQ
-      ) => {
+      queryFn: async ({ queryArg, pageParam = 0 }, _api, _opts, fetchWithBQ) => {
         const result = await fetchWithBQ({
-          url:
-            "courses/lesson/comments" +
-            objectToSearchParams({ ...queryArg, cursor: pageParam }),
+          url: "courses/lesson/comments" + objectToSearchParams({ ...queryArg, cursor: pageParam }),
         });
         if (result.error) {
           return { error: result.error };
@@ -63,9 +53,7 @@ export const lessonApi = api.injectEndpoints({
           return {
             data: {
               ...validated,
-              comments: validated.comments
-                ? validated.comments.map(commentDtoMap)
-                : [],
+              comments: validated.comments ? validated.comments.map(commentDtoMap) : [],
             },
           };
         } catch (err) {
@@ -91,12 +79,7 @@ export const lessonApi = api.injectEndpoints({
           return lastPage?.cursor ? Number(lastPage.cursor) : undefined;
         },
       },
-      queryFn: async (
-        { queryArg, pageParam = 0 },
-        _api,
-        _opts,
-        fetchWithBQ
-      ) => {
+      queryFn: async ({ queryArg, pageParam = 0 }, _api, _opts, fetchWithBQ) => {
         const result = await fetchWithBQ({
           url:
             "courses/lesson/comment/replies" +
@@ -110,9 +93,7 @@ export const lessonApi = api.injectEndpoints({
           return {
             data: {
               ...validated,
-              comments: validated.comments
-                ? validated.comments.map(commentDtoMap)
-                : [],
+              comments: validated.comments ? validated.comments.map(commentDtoMap) : [],
             },
           };
         } catch (err) {
@@ -127,65 +108,64 @@ export const lessonApi = api.injectEndpoints({
       },
     }),
 
-    createComment: builder.mutation<
-      Response_CreateComment,
-      Payload_CreateComment & { user: User }
-    >({
-      query: ({ lessonId, text }) => ({
-        // url: "",
-        url: "courses/lesson/comment",
-        body: JSON.stringify({ lessonId, text }),
-        method: "POST",
-      }),
-      async onQueryStarted(queryArgument, { dispatch, queryFulfilled }) {
-        const newComment: Comment = {
-          userName: queryArgument.user.profileName,
-          createdAt: new Date().toISOString(),
-          isOwn: true,
-          text: queryArgument.text,
-          userAvatar: queryArgument.user.avatarUrl,
-          status: "loading",
-          id: Date.now(),
-          hasReplies: false,
-        };
+    createComment: builder.mutation<Response_CreateComment, Payload_CreateComment & { user: User }>(
+      {
+        query: ({ lessonId, text }) => ({
+          // url: "",
+          url: "courses/lesson/comment",
+          body: JSON.stringify({ lessonId, text }),
+          method: "POST",
+        }),
+        async onQueryStarted(queryArgument, { dispatch, queryFulfilled }) {
+          const newComment: Comment = {
+            userName: queryArgument.user.profileName,
+            createdAt: new Date().toISOString(),
+            isOwn: true,
+            text: queryArgument.text,
+            userAvatar: queryArgument.user.avatarUrl,
+            status: "loading",
+            id: Date.now(),
+            hasReplies: false,
+          };
 
-        const optimisticCreate = dispatch(
-          lessonApi.util.updateQueryData(
-            "getLessonComments",
-            { lessonId: queryArgument.lessonId, limit: 20 },
-            (draft) => {
-              if (!draft.pages?.[0]) {
-                return;
-              }
-              draft.pages[0].comments?.unshift(newComment);
-            }
-          )
-        );
-
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(
+          const optimisticCreate = dispatch(
             lessonApi.util.updateQueryData(
               "getLessonComments",
               { lessonId: queryArgument.lessonId, limit: 20 },
               (draft) => {
-                const idx = draft.pages[0].comments.findIndex(
-                  (comment) => comment.id === newComment.id
-                );
-                if (idx !== -1) {
-                  draft.pages[0].comments[idx] = {
-                    ...commentDtoMap(data.comment),
-                    status: "success",
-                  };
+                if (!draft.pages?.[0]) {
+                  return;
                 }
-              }
-            )
+                draft.pages[0].comments?.unshift(newComment);
+              },
+            ),
           );
-        } catch {
-          optimisticCreate.undo();
-        }
+
+          try {
+            const { data } = await queryFulfilled;
+            dispatch(
+              lessonApi.util.updateQueryData(
+                "getLessonComments",
+                { lessonId: queryArgument.lessonId, limit: 20 },
+                (draft) => {
+                  const idx = draft.pages[0].comments.findIndex(
+                    (comment) => comment.id === newComment.id,
+                  );
+                  if (idx !== -1) {
+                    draft.pages[0].comments[idx] = {
+                      ...commentDtoMap(data.comment),
+                      status: "success",
+                    };
+                  }
+                },
+              ),
+            );
+          } catch {
+            optimisticCreate.undo();
+          }
+        },
       },
-    }),
+    ),
 
     createReplyComment: builder.mutation<
       Response_CreateComment,
@@ -221,8 +201,8 @@ export const lessonApi = api.injectEndpoints({
                 return;
               }
               draft.pages[0].comments?.unshift(newComment);
-            }
-          )
+            },
+          ),
         );
 
         try {
@@ -237,7 +217,7 @@ export const lessonApi = api.injectEndpoints({
               },
               (draft) => {
                 const idx = draft.pages[0].comments.findIndex(
-                  (comment) => comment.id === newComment.id
+                  (comment) => comment.id === newComment.id,
                 );
                 if (idx !== -1) {
                   draft.pages[0].comments[idx] = {
@@ -245,8 +225,8 @@ export const lessonApi = api.injectEndpoints({
                     status: "success",
                   };
                 }
-              }
-            )
+              },
+            ),
           );
         } catch {
           optimisticCreate.undo();

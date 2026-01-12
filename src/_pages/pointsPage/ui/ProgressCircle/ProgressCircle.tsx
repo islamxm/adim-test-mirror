@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { motion } from "motion/react";
+
 import { Box, Stack } from "@mui/material";
+import { motion } from "motion/react";
 
 type Props = {
   percent: number;
@@ -11,7 +12,7 @@ export const ProgressCircle: FC<Props> = ({ percent }) => {
   const fillPercent = percent / 100;
 
   return (
-    <Box sx={{position: "relative", width: "6.4rem", height: "6.4rem"}}>
+    <Box sx={{ position: "relative", width: "6.4rem", height: "6.4rem" }}>
       <svg width="64" height="64" viewBox="0 0 64 64">
         <circle
           cx="32"
@@ -37,7 +38,11 @@ export const ProgressCircle: FC<Props> = ({ percent }) => {
           transform="rotate(-90 32 32)"
         />
       </svg>
-      <Stack justifyContent={"center"} alignItems={"center"} sx={{position: "absolute", inset: 0, }}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        sx={{ position: "absolute", inset: 0 }}
+      >
         {percent}%
       </Stack>
     </Box>

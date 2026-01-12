@@ -1,23 +1,20 @@
 "use client";
+import { FC } from "react";
+
+import Image from "next/image";
+
+import { Box, BoxProps, Button, IconButton, Stack, Typography } from "@mui/material";
+import "swiper/css";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { cn } from "@/shared/lib/cn";
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
-import {
-  Box,
-  BoxProps,
-  Button,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { SwiperSlide, Swiper } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import Image from "next/image";
+import { ArrowLeftIcon, ArrowRightIcon } from "@/shared/ui/icons";
+
 import img from "./assets/slide-img-1.png";
 import classes from "./classes.module.scss";
-import { ArrowLeftIcon, ArrowRightIcon } from "@/shared/ui/icons";
-import { cn } from "@/shared/lib/cn";
-import { FC } from "react";
 
 type Props = {
   head?: {
@@ -83,8 +80,8 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
                       Start learning AI today and now
                     </Typography>
                     <Typography variant={"body1"}>
-                      Lorem ipsum ipsum nec nisl libero tortor massa risus
-                      tincidunt at scelerisque arcu at purus.
+                      Lorem ipsum ipsum nec nisl libero tortor massa risus tincidunt at scelerisque
+                      arcu at purus.
                     </Typography>
                   </Stack>
                   <Stack gap={"1.6rem"} direction={"row"}>
@@ -139,8 +136,8 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
                       Start learning AI today and now
                     </Typography>
                     <Typography variant={"body1"}>
-                      Lorem ipsum ipsum nec nisl libero tortor massa risus
-                      tincidunt at scelerisque arcu at purus.
+                      Lorem ipsum ipsum nec nisl libero tortor massa risus tincidunt at scelerisque
+                      arcu at purus.
                     </Typography>
                   </Stack>
                   <Stack gap={"1.6rem"} direction={"row"}>

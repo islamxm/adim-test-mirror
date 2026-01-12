@@ -1,17 +1,14 @@
-import { PauseIcon } from "@/shared/ui/icons";
-import { alpha, IconButton } from "@mui/material";
+import { IconButton, alpha } from "@mui/material";
 import { useMediaPlayer } from "@vidstack/react";
 import { motion } from "motion/react";
+
+import { PauseIcon } from "@/shared/ui/icons";
 
 export const PauseBigButton = () => {
   const player = useMediaPlayer();
 
   return (
-    <motion.div
-      initial={{ scale: 0 }}
-      exit={{ scale: 0 }}
-      animate={{ scale: 1 }}
-    >
+    <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
       <IconButton
         sx={{
           width: "7.2rem",

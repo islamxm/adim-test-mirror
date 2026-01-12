@@ -1,21 +1,19 @@
+import { FC } from "react";
+
 import { Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
-import { Player } from "../../Player/Player";
+
 import { User } from "@/entities/user";
-import { FC } from "react";
+
+import { Player } from "../../Player/Player";
 
 type Props = {
   selfStatus: any;
-  onStartSearching?: () => void,
-  selfData?: User
-}
+  onStartSearching?: () => void;
+  selfData?: User;
+};
 
-export const LobbyView:FC<Props> = ({
-  selfStatus,
-  onStartSearching,
-  selfData
-}) => {
-
+export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData }) => {
   return (
     <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
       <Stack
@@ -30,7 +28,7 @@ export const LobbyView:FC<Props> = ({
             data={{
               profileName: selfData?.profileName,
               avatarUrl: selfData?.avatarUrl,
-              leagueName: selfData?.leagueName
+              leagueName: selfData?.leagueName,
             }}
             status={selfStatus}
             size="22rem"

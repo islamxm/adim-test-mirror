@@ -1,9 +1,12 @@
-import { courseApi } from "@/entities/course";
-import { Button, Stack, Typography } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowLeftCircleIcon } from "@/shared/ui/icons";
+
+import { Button, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
+
 import { getAboutCoursePage } from "@/shared/model";
+import { ArrowLeftCircleIcon } from "@/shared/ui/icons";
+
+import { courseApi } from "@/entities/course";
 
 export const CourseHeadGoBack = () => {
   const router = useRouter();

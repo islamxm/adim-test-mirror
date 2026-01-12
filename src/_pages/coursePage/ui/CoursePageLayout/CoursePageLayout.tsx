@@ -1,10 +1,14 @@
 "use client";
-import { Box, Stack } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
+
+import { useParams } from "next/navigation";
+
+import { Box, Stack } from "@mui/material";
+
+import { LessonIsNotSelected } from "@/_pages/lessonPage";
+
 import { CourseSidebar } from "../CourseSidebar/CourseSidebar";
 import { LessonsNavigation } from "../LessonsNavigation/LessonsNavigation";
-import { useParams } from "next/navigation";
-import { LessonIsNotSelected } from "@/_pages/lessonPage";
 
 export const CoursePageLayout: FC<PropsWithChildren> = ({ children }) => {
   const { lesson } = useParams();

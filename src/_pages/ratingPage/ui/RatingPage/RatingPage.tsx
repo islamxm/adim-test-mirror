@@ -1,13 +1,17 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import { RatingTopThree } from "../RatingTopThree/RatingTopThree";
+
 import { Container } from "@/shared/ui/Container";
-import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
+
 import { League, leagueApi } from "@/entities/league";
 import { userApi } from "@/entities/user";
+
+import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 import { ResourceList } from "@/widgets/resourceList";
+
 import { RatingProfileItem } from "../RatingProfileItem/RatingProfileItem";
 import { RatingProfileItemSkeleton } from "../RatingProfileItem/RatingProfileItem.skeleton";
+import { RatingTopThree } from "../RatingTopThree/RatingTopThree";
 import { UserCurrentLeague } from "../UserCurrentLeague/UserCurrentLeague";
 
 export const RatingPage = () => {
@@ -21,18 +25,12 @@ export const RatingPage = () => {
     fetchNextPage,
   } = leagueApi.useGetLeaderboardInfiniteQuery({ cursor: 0 });
 
-  const data = rawData?.pages.length
-    ? rawData.pages.map((f) => f.board).flat()
-    : [];
+  const data = rawData?.pages.length ? rawData.pages.map((f) => f.board).flat() : [];
   const topThree = data.filter((d) => d.rank <= 3) || [];
 
   return (
     <PageEnterAnimationLayout>
-      <Stack
-        sx={{ height: "100%", pt: "13.8rem" }}
-        gap={"9.6rem"}
-        alignItems={"center"}
-      >
+      <Stack sx={{ height: "100%", pt: "13.8rem" }} gap={"9.6rem"} alignItems={"center"}>
         <UserCurrentLeague leagueName={userData?.leagueName as League} />
         <RatingTopThree data={topThree} />
         <Stack

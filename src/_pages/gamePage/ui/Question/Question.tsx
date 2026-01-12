@@ -1,10 +1,13 @@
-import { CnServerEventsMap } from "@/entities/competition";
-import { MultipleChoiceIcon } from "@/shared/ui/icons";
-import { Box, Paper, Stack, Typography } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
 
+import { Box, Paper, Stack, Typography } from "@mui/material";
+
+import { MultipleChoiceIcon } from "@/shared/ui/icons";
+
+import { CnServerEventsMap } from "@/entities/competition";
+
 type Props = PropsWithChildren<{
-  question: CnServerEventsMap['NEXT_QUESTION']
+  question: CnServerEventsMap["NEXT_QUESTION"];
 }>;
 
 export const Question: FC<Props> = ({ children, question }) => {
@@ -13,8 +16,12 @@ export const Question: FC<Props> = ({ children, question }) => {
       <Paper elevation={0} sx={{ minHeight: "14.2rem", p: "2.5rem" }}>
         <Stack gap={"1rem"}>
           <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
-            <Typography variant="h3">Question {question.questionOrder}/{question.totalQuestionCount}</Typography>
-            { !!(question.question.type === "Multiple_Choice") && <MultipleChoiceIcon sx={{fontSize: "2.4rem"}}/>}
+            <Typography variant="h3">
+              Question {question.questionOrder}/{question.totalQuestionCount}
+            </Typography>
+            {!!(question.question.type === "Multiple_Choice") && (
+              <MultipleChoiceIcon sx={{ fontSize: "2.4rem" }} />
+            )}
           </Stack>
           <Typography sx={{ fontSize: "1.8rem", fontWeight: 600 }}>
             {question.question.stem}

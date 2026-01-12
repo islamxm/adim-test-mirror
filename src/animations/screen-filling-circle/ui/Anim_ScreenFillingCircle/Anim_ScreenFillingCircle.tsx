@@ -1,12 +1,16 @@
 "use client";
-import classes from "./classes.module.scss";
-import { useDispatch, useSelector } from "@/shared/lib";
-import { screenFillingCircleActions } from "../../model";
-import { runCallback } from "../../lib";
+import { useEffect } from "react";
+
+import { usePathname } from "next/navigation";
+
 import { CSSProperties } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+
+import { useDispatch, useSelector } from "@/shared/lib";
+
+import { runCallback } from "../../lib";
+import { screenFillingCircleActions } from "../../model";
+import classes from "./classes.module.scss";
 
 export const Anim_ScreenFillingCircle = () => {
   const { isActive, options } = useSelector((s) => s.ANIM_screenFillingCircle);

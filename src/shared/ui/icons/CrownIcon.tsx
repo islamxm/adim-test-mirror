@@ -1,7 +1,8 @@
-import { SvgIcon, SvgIconProps } from "@mui/material";
 import { FC } from "react";
 
-export const CrownIcon:FC<SvgIconProps> = (props) => {
+import { SvgIcon, SvgIconProps } from "@mui/material";
+
+export const CrownIcon: FC<SvgIconProps> = (props) => {
   return (
     <SvgIcon {...props}>
       <svg

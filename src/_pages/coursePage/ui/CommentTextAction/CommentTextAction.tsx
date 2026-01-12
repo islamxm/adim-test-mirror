@@ -1,21 +1,16 @@
+import { FC, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+import { useParams } from "next/navigation";
+
+import { Box, Button, IconButton, Paper, Stack, TextField, Typography, alpha } from "@mui/material";
+import { AnimatePresence, motion } from "motion/react";
+
+import { ArrowUpIcon } from "@/shared/ui/icons";
+import { CloseIcon } from "@/shared/ui/icons";
+
 import { lessonApi } from "@/entities/lesson";
 import { Avatar, userApi } from "@/entities/user";
-import { ArrowUpIcon } from "@/shared/ui/icons";
-import {
-  alpha,
-  Box,
-  Button,
-  IconButton,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { AnimatePresence, motion } from "motion/react";
-import { useParams } from "next/navigation";
-import { FC, useEffect, useState } from "react";
-import { CloseIcon } from "@/shared/ui/icons";
-import { toast } from "react-toastify";
 
 type Props = {
   replyData?: {
@@ -30,10 +25,8 @@ export const CommentTextAction: FC<Props> = ({ replyData, onCancelReply }) => {
   const [value, setValue] = useState("");
   const { lesson } = useParams();
   const lessonId = Number(lesson);
-  const [createComment, createCommentStatus] =
-    lessonApi.useCreateCommentMutation();
-  const [createCommentReply, createCommentReplyStatus] =
-    lessonApi.useCreateReplyCommentMutation();
+  const [createComment, createCommentStatus] = lessonApi.useCreateCommentMutation();
+  const [createCommentReply, createCommentReplyStatus] = lessonApi.useCreateReplyCommentMutation();
 
   const onSubmit = () => {
     if (user && !isNaN(lessonId) && value) {
@@ -44,33 +37,28 @@ export const CommentTextAction: FC<Props> = ({ replyData, onCancelReply }) => {
           parentId: replyData.parent.id,
           user,
         });
-        onCancelReply?.()
+        onCancelReply?.();
       } else {
         createComment({ text: value, lessonId, user });
       }
     }
-    setValue("")
+    setValue("");
   };
 
   useEffect(() => {
-    if(createCommentStatus.isError) {
-      toast.error("Error on comment!")
+    if (createCommentStatus.isError) {
+      toast.error("Error on comment!");
     }
   }, [createCommentStatus.isError]);
 
   useEffect(() => {
-    if(createCommentReplyStatus.isError) {
-      toast.error("Error on comment reply!")
+    if (createCommentReplyStatus.isError) {
+      toast.error("Error on comment reply!");
     }
-  }, [createCommentReplyStatus.isError])
+  }, [createCommentReplyStatus.isError]);
 
   return (
-    <Stack
-      alignItems={"flex-start"}
-      py={"2rem"}
-      direction={"row"}
-      gap={"1.4rem"}
-    >
+    <Stack alignItems={"flex-start"} py={"2rem"} direction={"row"} gap={"1.4rem"}>
       <Box sx={{ position: "relative", width: "100%" }}>
         <AnimatePresence>
           {replyData && (

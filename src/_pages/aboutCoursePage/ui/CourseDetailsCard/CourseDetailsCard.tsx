@@ -1,22 +1,22 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import pl from "../../../../../public/course-img.png";
-import { Course } from "@/entities/course";
 import { FC } from "react";
-import { CourseLanguagesBadge } from "../CourseLanguagesBadge/CourseLanguagesBadge";
-import { getCoursePage, getMainCoursePage, Language } from "@/shared/model";
-import { CourseLessonsCountBadge } from "../CourseLessonsCountBadge/CourseLessonsCountBadge";
+
+import Image from "next/image";
 import Link from "next/link";
+
+import { Button, Paper, Stack, Typography } from "@mui/material";
+
 import { objectToSearchParams } from "@/shared/lib";
+import { Language, getCoursePage, getMainCoursePage } from "@/shared/model";
+
+import { Course } from "@/entities/course";
+
+import pl from "../../../../../public/course-img.png";
+import { CourseLanguagesBadge } from "../CourseLanguagesBadge/CourseLanguagesBadge";
+import { CourseLessonsCountBadge } from "../CourseLessonsCountBadge/CourseLessonsCountBadge";
 
 type Props = Pick<Course, "image" | "id" | "languages" | "totalLessonsCount">;
 
-export const CourseDetailsCard:FC<Props> = ({
-  image,
-  id,
-  languages,
-  totalLessonsCount
-}) => {
+export const CourseDetailsCard: FC<Props> = ({ image, id, languages, totalLessonsCount }) => {
   return (
     <Paper
       elevation={1}
@@ -28,22 +28,20 @@ export const CourseDetailsCard:FC<Props> = ({
       }}
     >
       <Stack gap={"1.6rem"}>
-        <Paper
-          sx={{ height: "28rem", borderRadius: "1.4rem", overflow: "hidden" }}
-        >
-          <Image
-            style={{ objectFit: "cover" }}
-            src={image || pl}
-            width={419}
-            height={280}
-            alt=""
-          />
+        <Paper sx={{ height: "28rem", borderRadius: "1.4rem", overflow: "hidden" }}>
+          <Image style={{ objectFit: "cover" }} src={image || pl} width={419} height={280} alt="" />
         </Paper>
-        <Button variant={"contained"} component={Link} href={getMainCoursePage(id) + objectToSearchParams({tab: "units"})}>Start now</Button>
+        <Button
+          variant={"contained"}
+          component={Link}
+          href={getMainCoursePage(id) + objectToSearchParams({ tab: "units" })}
+        >
+          Start now
+        </Button>
         <Stack gap={"1.6rem"}>
-          <Typography sx={{fontSize: "1.8rem", fontWeight: 600}}>Course includes</Typography>
-          <CourseLanguagesBadge languages={languages as Array<Language>}/>
-          <CourseLessonsCountBadge totalLessonsCount={totalLessonsCount}/>
+          <Typography sx={{ fontSize: "1.8rem", fontWeight: 600 }}>Course includes</Typography>
+          <CourseLanguagesBadge languages={languages as Array<Language>} />
+          <CourseLessonsCountBadge totalLessonsCount={totalLessonsCount} />
         </Stack>
       </Stack>
     </Paper>

@@ -1,8 +1,12 @@
-import { Stack, Box } from "@mui/material";
-import { LeaderBoardUser } from "@/entities/league";
 import { FC } from "react";
-import { RatingTopProfile } from "@/_pages/ratingPage/ui/RatingTopProfile/RatingTopProfile";
+
+import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
+
+import { LeaderBoardUser } from "@/entities/league";
+
+import { RatingTopProfile } from "@/_pages/ratingPage/ui/RatingTopProfile/RatingTopProfile";
+
 import { RatingTopProfileSkeleton } from "../RatingTopProfile/RatingTopProfile.skeleton";
 
 type Props = {
@@ -39,11 +43,7 @@ export const RatingTopThree: FC<Props> = ({ data }) => {
         )}
       </Box>
       <Box sx={{ minWidth: 0, flex: 1 }}>
-        {third ? (
-          <RatingTopProfile place={"THIRD"} data={third} />
-        ) : (
-          <RatingTopProfileSkeleton />
-        )}
+        {third ? <RatingTopProfile place={"THIRD"} data={third} /> : <RatingTopProfileSkeleton />}
       </Box>
     </Stack>
   );

@@ -1,4 +1,5 @@
 import { Paper, Typography } from "@mui/material";
+
 import { BronzeIcon } from "../../icons";
 
 export const LeaguePanel = () => {

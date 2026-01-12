@@ -1,5 +1,7 @@
-import { Paper, PaperProps, Typography } from "@mui/material";
 import { FC } from "react";
+
+import { Paper, PaperProps, Typography } from "@mui/material";
+
 import { League, leagueMap } from "../../model";
 
 type Props = {
@@ -7,10 +9,7 @@ type Props = {
   sx?: PaperProps["sx"];
 };
 
-export const LeagueBadge: FC<Props> = ({
-  leagueName = "BRONZE",
-  sx
-}) => {
+export const LeagueBadge: FC<Props> = ({ leagueName = "BRONZE", sx }) => {
   const leagueData = leagueMap[leagueName];
 
   return (
@@ -22,7 +21,7 @@ export const LeagueBadge: FC<Props> = ({
         gap: "0.4rem",
         alignItems: "center",
         px: "1.4rem",
-        ...sx
+        ...sx,
       }}
     >
       <Typography fontSize={"1.8rem"}>{leagueData.label}</Typography>

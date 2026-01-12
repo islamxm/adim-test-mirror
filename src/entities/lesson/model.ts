@@ -1,4 +1,7 @@
 import { z } from "zod";
+
+import { Nullable } from "@/shared/types";
+
 import {
   CommentSchema,
   LessonDetailsSchema,
@@ -6,7 +9,6 @@ import {
   LessonTypeSchema,
   Response_CreateCommentSchema,
 } from "./contracts";
-import { Nullable } from "@/shared/types";
 
 export type LessonType = z.infer<typeof LessonTypeSchema>;
 export type CommentStatus = "loading" | "success" | "error";
@@ -47,9 +49,7 @@ export type Response_GetLessonComments = {
   cursor: string;
   comments: Array<Comment>;
 };
-export type Response_CreateComment = z.infer<
-  typeof Response_CreateCommentSchema
->;
+export type Response_CreateComment = z.infer<typeof Response_CreateCommentSchema>;
 
 export type Payload_GetLessonComments = {
   lessonId: number;

@@ -1,25 +1,22 @@
-import { Box, Stack } from "@mui/material";
-import { Player } from "../Player/Player";
-import { User } from "@/entities/user";
-import { motion } from "motion/react";
-import { QuestionCountdown } from "../QuestionCountdown/QuestionCountdown";
 import { FC } from "react";
+
+import { Box, Stack } from "@mui/material";
+import { motion } from "motion/react";
+
 import { CnServerEventsMap } from "@/entities/competition";
+import { User } from "@/entities/user";
+
+import { Player } from "../Player/Player";
+import { QuestionCountdown } from "../QuestionCountdown/QuestionCountdown";
 
 type Props = {
   opponentData: any;
   question?: CnServerEventsMap["NEXT_QUESTION"];
   onComplete?: (ms: number) => void;
-  selfData?: User
+  selfData?: User;
 };
 
-export const GameHeader: FC<Props> = ({
-  opponentData,
-  onComplete,
-  question,
-  selfData
-}) => {
-
+export const GameHeader: FC<Props> = ({ opponentData, onComplete, question, selfData }) => {
   return (
     <Stack
       gap={"2rem"}

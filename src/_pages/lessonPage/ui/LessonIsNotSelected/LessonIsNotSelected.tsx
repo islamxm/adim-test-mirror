@@ -1,7 +1,9 @@
-import { Stack, Typography } from "@mui/material";
-import img from "../../../../../public/tl-1.png";
 import Image from "next/image";
+
+import { Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
+
+import img from "../../../../../public/tl-1.png";
 
 export const LessonIsNotSelected = () => {
   return (
@@ -15,13 +17,7 @@ export const LessonIsNotSelected = () => {
       justifyContent={"center"}
       alignItems={"center"}
     >
-      <Image
-        src={img}
-        alt="Error"
-        width={250}
-        height={250}
-        objectFit="contain"
-      />
+      <Image src={img} alt="Error" width={250} height={250} objectFit="contain" />
       <Typography variant="h3">Select a lesson</Typography>
     </Stack>
   );

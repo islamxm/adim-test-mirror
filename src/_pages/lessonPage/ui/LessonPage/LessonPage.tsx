@@ -1,17 +1,19 @@
 "use client";
-import { lessonApi, VideoPlayer } from "@/entities/lesson";
-import { HTMLContent } from "@/shared/ui";
+import { useParams } from "next/navigation";
+
 import { Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useParams } from "next/navigation";
-import { LessonPageSkeleton } from "./LessonPage.skeleton";
+
+import { HTMLContent } from "@/shared/ui";
+
+import { VideoPlayer, lessonApi } from "@/entities/lesson";
+
 import { LessonPageError } from "./LessonPage.error";
+import { LessonPageSkeleton } from "./LessonPage.skeleton";
 
 export const LessonPage = () => {
   const { lesson } = useParams();
-  const { data, isError, isLoading } = lessonApi.useGetLessonQuery(
-    Number(lesson)
-  );
+  const { data, isError, isLoading } = lessonApi.useGetLessonQuery(Number(lesson));
 
   if (isLoading) {
     return <LessonPageSkeleton />;
@@ -30,9 +32,7 @@ export const LessonPage = () => {
       animate={{ opacity: 1 }}
     >
       <Typography variant={"h2"}>{data.name}</Typography>
-      {data.type === "VIDEO" && (
-        <VideoPlayer src={data.video?.filename} title={data.name} />
-      )}
+      {data.type === "VIDEO" && <VideoPlayer src={data.video?.filename} title={data.name} />}
       <HTMLContent value={data.blog} />
     </Stack>
   );

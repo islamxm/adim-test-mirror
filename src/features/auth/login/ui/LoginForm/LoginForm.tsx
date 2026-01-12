@@ -1,11 +1,14 @@
-import { UIStatus } from "@/shared/types";
-import { Button, Stack, TextField } from "@mui/material";
 import { FC, ReactNode, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { InputErrorText } from "@/shared/ui/InputErrorText";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 import { useTranslations } from "next-intl";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Stack, TextField } from "@mui/material";
+import { z } from "zod";
+
+import { UIStatus } from "@/shared/types";
+import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -64,9 +67,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         fullWidth
         type="password"
         error={!!errors.password}
-        helperText={
-          <InputErrorText>{errors?.password?.message}</InputErrorText>
-        }
+        helperText={<InputErrorText>{errors?.password?.message}</InputErrorText>}
       />
       {oauth}
       <Button type={"submit"} variant={"contained"}>

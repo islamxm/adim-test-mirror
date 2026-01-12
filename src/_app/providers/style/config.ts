@@ -1,7 +1,6 @@
 "use client";
-import { createTheme, Shadows } from "@mui/material";
+import { Shadows, createTheme } from "@mui/material";
 import { AppRouterCacheProviderProps } from "@mui/material-nextjs/v13-appRouter";
-
 
 declare module "@mui/material/styles" {
   interface PaletteColor {
@@ -9,12 +8,12 @@ declare module "@mui/material/styles" {
   }
   interface Palette {
     primary: PaletteColor;
-    emerald: Omit<PaletteColor, 100>
+    emerald: Omit<PaletteColor, 100>;
     gold: Pick<PaletteColor, "main" | "light">;
   }
   interface PaletteOptions {
     gold: Pick<PaletteColor, "main" | "light">;
-    emerald: Omit<PaletteColor, 100>
+    emerald: Omit<PaletteColor, 100>;
   }
 }
 
@@ -25,7 +24,7 @@ export const themeConfig = createTheme({
     fontSize: 10,
     fontFamily: "var(--font-geist-sans)",
     allVariants: {
-      transition: "all .2s ease", 
+      transition: "all .2s ease",
     },
     h1: {
       fontWeight: "bold",
@@ -82,18 +81,18 @@ export const themeConfig = createTheme({
     },
     background: {
       default: "#F6F6F6",
-      paper: "#ffffff"
+      paper: "#ffffff",
     },
     gold: {
       main: "#FFD24E",
-      light: "#F9E9DA"
+      light: "#F9E9DA",
     },
     emerald: {
       main: "#BFFFE9",
       light: "#E8FFF7",
       contrastText: "#FFFFFF",
       dark: "#063B29",
-    }
+    },
   },
   shadows: ["none", ...new Array(23).fill(customShadow)] as Shadows,
   components: {
@@ -116,11 +115,11 @@ export const themeConfig = createTheme({
           },
         },
         outlinedPrimary: {
-          borderColor: "#042f21"
+          borderColor: "#042f21",
         },
         outlined: {
           borderWidth: "2px",
-        }
+        },
       },
     },
     MuiTab: {

@@ -1,25 +1,23 @@
+import { FC, useEffect, useRef, useState } from "react";
+
 import { Button, Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
-import { FC, useEffect, useRef, useState } from "react";
-import { GameHeader } from "../../GameHeader/GameHeader";
+
 import { CnServerEventsMap } from "@/entities/competition";
+import { User } from "@/entities/user";
+
+import { GameHeader } from "../../GameHeader/GameHeader";
 import { Question } from "../../Question/Question";
 import { Variant } from "../../Variant/Variant";
-import { User } from "@/entities/user";
 
 type Props = {
   opponentData: any;
   question?: CnServerEventsMap["NEXT_QUESTION"];
   onSubmitAnswer?: (key: string, ms: number) => void;
-  selfData?: User
+  selfData?: User;
 };
 
-export const StartView: FC<Props> = ({
-  opponentData,
-  question,
-  onSubmitAnswer,
-  selfData
-}) => {
+export const StartView: FC<Props> = ({ opponentData, question, onSubmitAnswer, selfData }) => {
   const [answer, setAnswer] = useState<Array<string>>([]);
   const time = useRef<number>(0);
 
@@ -75,7 +73,7 @@ export const StartView: FC<Props> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{duration: .1}}
+              transition={{ duration: 0.1 }}
               key={question.question.id}
             >
               <Question question={question}>

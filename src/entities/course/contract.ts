@@ -1,5 +1,6 @@
-import { UnitSchema } from "@/entities/unit/@x/course";
 import { z } from "zod";
+
+import { UnitSchema } from "@/entities/unit/@x/course";
 
 export const CourseSchema = z.object({
   id: z.number(),
@@ -19,8 +20,8 @@ export const CourseSchema = z.object({
 
 export const Response_GetCoursesByCategoryIdSuccessSchema = z.object({
   courses: z.array(CourseSchema),
-  cursor: z.string().optional()
-})
+  cursor: z.string().optional(),
+});
 export const Response_GetCourseByIdSuccessSchema = z.object({
-  course: CourseSchema
-})
+  course: CourseSchema,
+});

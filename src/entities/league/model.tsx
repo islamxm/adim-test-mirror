@@ -1,18 +1,15 @@
 import { ReactNode } from "react";
-import { BronzeIcon, GoldIcon, SilverIcon } from "./icons";
+
 import { z } from "zod";
-import {
-  LeaderBoardUserSchema,
-  Response_GetLeaderboardSchema,
-} from "./contracts";
+
+import { LeaderBoardUserSchema, Response_GetLeaderboardSchema } from "./contracts";
+import { BronzeIcon, GoldIcon, SilverIcon } from "./icons";
 
 export type League = "BRONZE" | "SILVER" | "GOLD";
 export type LeaderBoardUserDto = z.infer<typeof LeaderBoardUserSchema>;
 export type LeaderBoardUser = LeaderBoardUserDto;
 
-export type Response_GetLeaderboard = z.infer<
-  typeof Response_GetLeaderboardSchema
->;
+export type Response_GetLeaderboard = z.infer<typeof Response_GetLeaderboardSchema>;
 
 export type Payload_GetLeaderboard = {
   cursor?: number;

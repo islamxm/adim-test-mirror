@@ -1,10 +1,7 @@
-import {
-  Avatar as MuiAvatar,
-  Stack,
-  StackProps,
-  Typography,
-} from "@mui/material";
 import { FC, ReactNode } from "react";
+
+import { Avatar as MuiAvatar, Stack, StackProps, Typography } from "@mui/material";
+
 import { type User } from "../../model";
 
 type ShadowType = "light" | "dark" | string;

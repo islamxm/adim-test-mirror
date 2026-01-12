@@ -1,15 +1,18 @@
-import { alpha, Box, Button, ButtonProps } from "@mui/material";
-import { PlayerStatus as PlayerStatusType } from "../../model";
 import { FC } from "react";
+
+import { Box, Button, ButtonProps, alpha } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
+
 import { NetworkErrorIcon } from "@/shared/ui/icons";
+
+import { PlayerStatus as PlayerStatusType } from "../../model";
 
 type Props = {
   status?: PlayerStatusType;
 };
 
 const getButtonProps = (
-  status?: PlayerStatusType
+  status?: PlayerStatusType,
 ): Pick<ButtonProps, "color" | "children" | "sx" | "endIcon"> => {
   switch (status) {
     case "WAIT":
@@ -69,11 +72,7 @@ export const PlayerStatus: FC<Props> = ({ status }) => {
   return (
     <Box height={"3.6rem"}>
       {status && (
-        <Box
-          component={motion.div}
-          initial={{ translateY: "-100%" }}
-          animate={{ translateY: 0 }}
-        >
+        <Box component={motion.div} initial={{ translateY: "-100%" }} animate={{ translateY: 0 }}>
           <Button {...buttonProps} variant={"text"}>
             <AnimatePresence mode="wait">
               <motion.span

@@ -1,6 +1,8 @@
+import { FC } from "react";
+
 import { Stack } from "@mui/material";
 import { motion } from "motion/react";
-import { FC } from "react";
+
 import searchRollImg from "../../../../../public/search-roll.webp";
 
 type Props = {

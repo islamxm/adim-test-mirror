@@ -1,4 +1,4 @@
-import { alpha, Box, Typography } from "@mui/material";
+import { Box, Typography, alpha } from "@mui/material";
 import { motion } from "motion/react";
 
 export const WinText = () => {

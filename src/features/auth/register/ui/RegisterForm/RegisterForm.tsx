@@ -1,11 +1,14 @@
-import { UIStatus } from "@/shared/types";
-import { Button, Stack, TextField } from "@mui/material";
 import { FC, ReactNode, useEffect } from "react";
-import { z } from "zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { InputErrorText } from "@/shared/ui/InputErrorText";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 import { useTranslations } from "next-intl";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Stack, TextField } from "@mui/material";
+import { z } from "zod";
+
+import { UIStatus } from "@/shared/types";
+import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -85,9 +88,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         placeholder={t("repeat_password")}
         {...register("repeatPassword")}
         error={!!errors.repeatPassword}
-        helperText={
-          <InputErrorText>{errors?.repeatPassword?.message}</InputErrorText>
-        }
+        helperText={<InputErrorText>{errors?.repeatPassword?.message}</InputErrorText>}
       />
       {oauth}
       <Button variant={"contained"} color={"primary"} type="submit">

@@ -1,16 +1,11 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
 export type InitStateType = {
-  animate: boolean
-}
+  animate: boolean;
+};
 
 const initState: InitStateType = {
-  animate: true
-}
+  animate: true,
+};
 
-export const AnimationContext = createContext<InitStateType>(initState)
-
-
-
-
-
+export const AnimationContext = createContext<InitStateType>(initState);
