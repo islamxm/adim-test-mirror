@@ -1,0 +1,13 @@
+{
+  "widgets": {
+    "appHeader": {
+      "Navbar": {
+        "routes": {
+          "courses": "Курсы",
+          "points": "Игра",
+          "rating": "Рейтинг"
+        }
+      }
+    }
+  }
+}

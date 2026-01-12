@@ -1,0 +1,16 @@
+{
+  "features": {
+    "auth": {
+      "login": {
+        "LoginButton": {
+          "text": "Вход"
+        },
+        "LoginForm": {
+          "password": "Пароль",
+          "email": "Эл. почта",
+          "submit_button": "Продолжить"
+        }
+      }
+    }
+  }
+}

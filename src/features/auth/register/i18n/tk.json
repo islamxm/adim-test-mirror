@@ -1,0 +1,18 @@
+{
+  "features": {
+    "auth": {
+      "register": {
+        "RegisterButton": {
+          "text": "Hasap döret"
+        },
+        "RegisterForm": {
+          "name": "Adyňyz",
+          "email": "El.poçta",
+          "password": "Parol",
+          "repeatPassword": "Paroly gaýtalaň",
+          "submit_button": "Dowam et"
+        }
+      }
+    }
+  }
+}

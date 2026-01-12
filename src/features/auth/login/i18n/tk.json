@@ -1,0 +1,16 @@
+{
+  "features": {
+    "auth": {
+      "login": {
+        "LoginButton": {
+          "text": "Giriş"
+        },
+        "LoginForm": {
+          "password": "Parol",
+          "email": "El. poçta",
+          "submit_button": "Dowam et"
+        }
+      }
+    }
+  }
+}

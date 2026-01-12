@@ -1,0 +1,13 @@
+{
+  "widgets": {
+    "appHeader": {
+      "Navbar": {
+        "routes": {
+          "courses": "Kurslar",
+          "points": "Bäsleşik",
+          "rating": "Reýting"
+        }
+      }
+    }
+  }
+}

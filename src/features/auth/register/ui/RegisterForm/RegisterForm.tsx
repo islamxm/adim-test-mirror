@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
+import { useTranslations } from "next-intl";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -35,6 +36,7 @@ const RegisterFormSchema = z
 type RegisterFormType = z.infer<typeof RegisterFormSchema>;
 
 export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
+  const t = useTranslations("features.auth.register.RegisterForm");
   const {
     register,
     formState: { errors },
@@ -59,28 +61,28 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>
       <TextField
         fullWidth
-        placeholder="Name"
+        placeholder={t("name")}
         {...register("name")}
         error={!!errors.email}
         helperText={<InputErrorText>{errors.email?.message}</InputErrorText>}
       />
       <TextField
         fullWidth
-        placeholder="E-mail"
+        placeholder={t("email")}
         {...register("email")}
         error={!!errors.name}
         helperText={<InputErrorText>{errors.name?.message}</InputErrorText>}
       />
       <TextField
         fullWidth
-        placeholder="Password"
+        placeholder={t("password")}
         {...register("password")}
         error={!!errors.password}
         helperText={<InputErrorText>{errors.password?.message}</InputErrorText>}
       />
       <TextField
         fullWidth
-        placeholder="Repeat password"
+        placeholder={t("repeat_password")}
         {...register("repeatPassword")}
         error={!!errors.repeatPassword}
         helperText={
@@ -89,7 +91,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       />
       {oauth}
       <Button variant={"contained"} color={"primary"} type="submit">
-        Continue
+        {t("submit_button")}
       </Button>
     </Stack>
   );

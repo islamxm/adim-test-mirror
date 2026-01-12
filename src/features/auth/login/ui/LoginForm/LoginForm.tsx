@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
+import { useTranslations } from "next-intl";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -23,6 +24,8 @@ const LoginFormSchema = z.object({
 type LoginFormType = z.infer<typeof LoginFormSchema>;
 
 export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
+  const t = useTranslations("features.auth.login.LoginForm");
+
   const {
     register,
     handleSubmit,
@@ -47,7 +50,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>
       <Stack>
         <TextField
-          placeholder="E-mail"
+          placeholder={t("email")}
           {...register("email")}
           fullWidth
           error={!!errors.email}
@@ -56,7 +59,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       </Stack>
 
       <TextField
-        placeholder="Password"
+        placeholder={t("password")}
         {...register("password")}
         fullWidth
         type="password"
@@ -67,7 +70,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       />
       {oauth}
       <Button type={"submit"} variant={"contained"}>
-        Continue
+        {t("submit_button")}
       </Button>
     </Stack>
   );

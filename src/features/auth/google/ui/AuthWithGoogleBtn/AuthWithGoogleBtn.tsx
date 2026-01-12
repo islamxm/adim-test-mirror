@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { signIn, useSession } from "next-auth/react";
 import { UIStatus } from "@/shared/types";
 import { redirect } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -14,7 +15,7 @@ type Props = {
 
 export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
   const { data, status } = useSession();
-
+  const t = useTranslations("features.auth.google.AuthWithGoogleBtn")
   const onSubmit = async () => {
     setStatus?.("loading");
     Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
@@ -51,7 +52,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       onClick={onSubmit}
       type="button"
     >
-      Continue with google
+      {t("text")}
     </Button>
   );
 };

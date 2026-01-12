@@ -5,8 +5,11 @@ import classes from "./classes.module.scss";
 import img from "./assets/promo-img.png";
 import Image from "next/image";
 import { ArrowRightIcon } from "@/shared/ui/icons";
+import { useTranslations } from "next-intl";
 
 export const StartSection = () => {
+  const t = useTranslations("pages.homePage.StartSection");
+
   return (
     <Box
       sx={(theme) => ({
@@ -33,14 +36,13 @@ export const StartSection = () => {
                 sx={{ fontSize: "5.4rem", textTransform: "uppercase" }}
                 variant={"h2"}
               >
-                Start <br /> learning now
+                {t("title")}
               </Typography>
               <Typography variant={"subtitle1"}>
-                Lorem ipsum felis pulvinar dignissim faucibus penatibus donec
-                ultrices ligula. penatibus donec ultrices ligula.
+                {t("subtitle")}
               </Typography>
               <Button endIcon={<ArrowRightIcon />} variant={"contained"}>
-                Start now
+                {t("start_button")}
               </Button>
             </Stack>
           </Box>

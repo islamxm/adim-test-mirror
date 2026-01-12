@@ -9,12 +9,14 @@ import { AppHeader } from "@/widgets/appHeader";
 import { AppFooter } from "@/widgets/appFooter";
 import { AnimationProvider } from "./providers/animation";
 import { ToastContainer } from "react-toastify";
+import { LocaleDetector } from "@/shared/i18n/ui";
 
 export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
 
   return (
     <SessionProvider>
+      <LocaleDetector/>
       <StyleProvider>
         <StoreProvider preloadedState={store}>
           <AnimationProvider animate={true}>

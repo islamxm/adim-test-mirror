@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/shared/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "193.47.42.164", port: "8605" },
@@ -13,10 +15,10 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/video-proxy/:path*",
-        destination: "http://89.124.73.183:8605/:path*", // Куда шлем запрос
+        destination: "http://89.124.73.183:8605/:path*",
       },
     ];
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

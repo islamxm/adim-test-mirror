@@ -1,13 +1,13 @@
-import { Paper, PaperOwnProps, Stack, SxProps, Theme } from "@mui/material";
+import { Paper, PaperOwnProps } from "@mui/material";
 import { getHomePage, routesMap } from "@/shared/model";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { NavLink } from "../NavLink/NavLink";
 import { FC, ReactNode } from "react";
 import { Logo } from "@/shared/ui";
+import { useTranslations } from "next-intl";
 
-const routes = Object.entries(routesMap).map((route) => route[1]);
-// .filter((route) => route.path !== getHomePage());
+const routes = Object.entries(routesMap).map(([key, value]) => ({...value, key}));
 
 type Props = {
   endSlot?: ReactNode;
@@ -23,6 +23,7 @@ export const Navbar: FC<Props> = ({
   sx,
 }) => {
   const pathname = usePathname();
+  const t = useTranslations("widgets.appHeader.Navbar.routes")
 
   return (
     <Paper
@@ -51,7 +52,7 @@ export const Navbar: FC<Props> = ({
             {route.path === getHomePage() ? (
               <Logo sx={{ ml: "2.4rem" }} />
             ) : (
-              <NavLink {...route} isActive={pathname?.startsWith(route.path)} />
+              <NavLink {...route} label={t(route.key)} isActive={pathname?.startsWith(route.path)} />
             )}
           </motion.div>
         ))}

@@ -4,8 +4,11 @@ import img from "../../../../../public/tl-2.png";
 import { Container } from "@/shared/ui/Container";
 import classes from "./classes.module.scss";
 import { cn } from "@/shared/lib/cn";
+import { useTranslations } from "next-intl";
 
 export const HeroSection = () => {
+  const t = useTranslations('pages.homePage.HeroSection');
+  
   return (
       <Container>
         <Stack
@@ -90,7 +93,7 @@ export const HeroSection = () => {
             }}
             variant="h1"
           >
-            getway to your knowledge universe
+            {t("title")}
           </Typography>
           <Box sx={{ flexGrow: 0, flexBasis: "41.9rem" }}>
             <Image src={img} alt="test" width={419} height={419} />
@@ -99,8 +102,7 @@ export const HeroSection = () => {
             sx={{ flexGrow: 1, flexShrink: 1, flexBasis: 0, fontWeight: 600 }}
             variant={"subtitle1"}
           >
-            Lorem ipsum dolor sit amet consectetur. Maecenas ac augue felis
-            massa. Cras felis massa. Cras felis massa. Cras Cras felis massa
+            {t("descr")}
           </Typography>
         </Stack>
       </Container>

@@ -2,12 +2,13 @@
 import { Paper, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { PrivacyPolicyLink } from "@/shared/ui/PrivacyPolicyLink";
-import { AuthType } from "../../model";
+import { AuthType } from "@/entities/user";
 import { motion } from "motion/react";
 import { UIStatus } from "@/shared/types";
 import { PanelFormLoading } from "../PanelFormLoading/PanelFormLoading";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getLoginPage } from "@/shared/model";
+import { useTranslations } from "next-intl";
 
 type Props = {
   children?: (body: {
@@ -22,19 +23,20 @@ type Props = {
 };
 
 export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
+  const t = useTranslations("pages.authPage.AuthFormLayout");
   const router = useRouter();
   const params = useSearchParams();
   const type = params.get("type") as AuthType;
   const [status, setStatus] = useState<UIStatus>("idle");
 
   useEffect(() => {
-    if(!type) {
-      router.push(getLoginPage())
+    if (!type) {
+      router.push(getLoginPage());
     }
-  }, [type, router])
+  }, [type, router]);
 
-  if(!type) {
-    return null
+  if (!type) {
+    return null;
   }
   return (
     <>
@@ -58,7 +60,7 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
         <Stack gap={"24px"}>
           <Stack alignItems={"center"} gap={"8px"}>
             <Typography variant="h3" align={"center"}>
-              Welcome to Adim
+              {t("title")}
             </Typography>
             <Tabs
               value={type}
@@ -102,8 +104,8 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
                 },
               })}
             >
-              <Tab label="Login" value={"login"} />
-              <Tab label="Register" value={"register"} />
+              <Tab label={t("loginTabText")} value={"login"} />
+              <Tab label={t("registerTabText")} value={"register"} />
             </Tabs>
           </Stack>
           {children?.({

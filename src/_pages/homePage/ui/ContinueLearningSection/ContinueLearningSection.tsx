@@ -6,10 +6,12 @@ import { SectionHead } from "@/shared/ui/SectionHead";
 import { Box, Button, Stack } from "@mui/material";
 import { userApi } from "@/entities/user";
 import { useSelector } from "@/shared/lib";
+import { useTranslations } from "next-intl";
 
 export const ContinueLearningSection = () => {
   const {isAuth} = useSelector(s => s.user)
   const { data, isError } = userApi.useGetHomeUserDataQuery(undefined, {skip: !isAuth});
+  const t = useTranslations("pages.homePage.ContinueLearningSection");
 
   if (
     !isAuth ||
@@ -29,10 +31,10 @@ export const ContinueLearningSection = () => {
     >
       <Container>
         <SectionHead
-          title="Continue Learning"
+          title={t("title")}
           action={
             <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
-              See all
+              {t("more_button")}
             </Button>
           }
         />

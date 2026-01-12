@@ -1,0 +1,29 @@
+{
+  "pages": {
+    "homePage": {
+      "HeroSection": {
+        "title": "Основной текст",
+        "descr": "Вторичный текст"
+      },
+      "CategoriesSection": {
+        "title": "Категории курсов",
+        "subtitle": "Подзаголовок категории курсов",
+        "more_button": "Посмотреть все"
+      },
+      "ContinueLearningSection": {
+        "title": "Продолжение обучения",
+        "more_button": "Посмотреть все"
+      },
+      "CoursesSection": {
+        "title": "Популярные курсы",
+        "subtitle": "Подзаголовок популярных курсов",
+        "more_button": "Посмотреть все"
+      },
+      "StartSection": {
+        "title": "Начать обучение сейчас",
+        "subtitle": "Текст подзаголовка",
+        "start_button": "Начать сейчас"
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "pages": {
+    "authPage": {
+      "AuthFormLayout": {
+        "title": "Добро пожаловать в Ädim",
+        "loginTabText": "Вход",
+        "registerTabText": "Регистрация"
+      }
+    }
+  }
+}

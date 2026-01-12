@@ -4,6 +4,7 @@ import { Container } from "@/shared/ui/Container";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { Box, Button, Stack } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { FC } from "react";
 
 type Props = {
@@ -11,7 +12,8 @@ type Props = {
 };
 
 export const CoursesSection: FC<Props> = ({ data }) => {
-  console.log(data);
+  const t = useTranslations("pages.homePage.CoursesSection");
+
   return (
     <Box
       sx={(theme) => ({
@@ -21,11 +23,11 @@ export const CoursesSection: FC<Props> = ({ data }) => {
     >
       <Container>
         <SectionHead
-          title="Popular courses"
-          subtitle="Lorem ipsum dolor sit amet consectetur. Facilisi sollicitudin tempus sit ac. Tellus ac cras in metus curabitur aliquet."
+          title={t("title")}
+          subtitle={t("subtitle")}
           action={
             <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
-              See all
+              {t("more_button")}
             </Button>
           }
         />

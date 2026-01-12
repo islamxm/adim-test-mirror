@@ -1,12 +1,3 @@
-import { getRequestConfig } from "next-intl/server";
-
-export const locales = ["tm", "ru"];
-
-export const defaultLocale = "tm";
-
-export const getLocaleConfig = () => {
-  return getRequestConfig(async ({ locale }) => ({
-  messages: null,
-  locale: ''
-}));
-}
+export const locales = ["ru", "tk"] as const;
+export const defaultLocale: (typeof locales)[number] = "tk"
+export const LOCALE_COOKIE_NAME = "app_locale";
