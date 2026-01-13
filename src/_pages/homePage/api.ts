@@ -8,6 +8,11 @@ export const homePageApi = api.injectEndpoints({
     getHomePublicData: build.query({
       query: () => ({
         url: "/home/public?lang=tk",
+        cache: "force-cache",
+        // next: {
+        //   revalidate: 3600, // Кэшировать на 1 час (в секундах)
+        //   tags: ['home-data'] // Тег для принудительной инвалидации
+        // }
       }),
       transformResponse: (res: any) => {
         try {

@@ -40,7 +40,6 @@ export const Comment: FC<Props> = ({ data, onReply }) => {
         p: "1.6rem",
         width: "100%",
         minHeight: "15.6rem",
-        backgroundColor: isOwn ? alpha(theme.palette.primary[100], 0.1) : "none",
       })}
       layout={"preserve-aspect"}
       elevation={0}
