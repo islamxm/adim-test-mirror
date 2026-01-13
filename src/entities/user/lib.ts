@@ -1,6 +1,6 @@
-import { Payload_Auth, StreakStatus, UserStreak } from "./model";
+import { DeviceInfo, StreakStatus, UserStreak } from "./model";
 
-export function getUserDeviceInfo(): Omit<Payload_Auth["deviceInfo"], "token"> {
+export function getUserDeviceInfo(): DeviceInfo {
   const userAgent = navigator.userAgent;
   const locale = navigator.language;
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;

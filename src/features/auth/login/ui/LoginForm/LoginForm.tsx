@@ -1,14 +1,20 @@
 import { FC, ReactNode, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
+import Cookies from "js-cookie";
 import { z } from "zod";
 
+import { getHomePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
+
+import { getUserDeviceInfo } from "@/entities/user";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -27,6 +33,7 @@ const LoginFormSchema = z.object({
 type LoginFormType = z.infer<typeof LoginFormSchema>;
 
 export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
+  const router = useRouter();
   const t = useTranslations("features.auth.login.LoginForm");
 
   const {
@@ -39,8 +46,25 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     mode: "onSubmit",
   });
 
-  const onSubmit: SubmitHandler<LoginFormType> = (body) => {
-    console.log("login", body);
+  const onSubmit: SubmitHandler<LoginFormType> = async (body) => {
+    setStatus?.("loading");
+    Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
+      expires: 1 / 24,
+    });
+    const { email, password } = body;
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    if (res?.status === 200) {
+      setStatus?.("success");
+      router.push(getHomePage());
+    } else {
+      setStatus?.("error");
+      console.log("Login error");
+      reset();
+    }
   };
 
   useEffect(() => {
@@ -60,7 +84,6 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
           helperText={<InputErrorText>{errors?.email?.message}</InputErrorText>}
         />
       </Stack>
-
       <TextField
         placeholder={t("password")}
         {...register("password")}

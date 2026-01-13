@@ -12,7 +12,7 @@ type Props = PropsWithChildren<{
 
 export const MainLayout: FC<Props> = ({ children, header, footer }) => {
   const pathname = usePathname();
-  const isAuthPage = pathname === "/auth";
+  const isAuthPage = pathname.includes("/auth");
 
   return (
     <Stack
