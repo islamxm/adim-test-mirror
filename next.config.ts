@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const withNextIntl = createNextIntlPlugin("./src/shared/i18n/request.ts");
-
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: true
+});
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -21,4 +24,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default bundleAnalyzer(withNextIntl(nextConfig));

@@ -13,7 +13,8 @@
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,md,json}\"",
     "check": "npm run type-check && npm run lint && npm run format:check",
     "fix": "npm run format:fix && npm run lint:fix",
-    "prepare": "husky && husky install"
+    "prepare": "husky && husky install",
+    "analyze": "npx next build --webpack"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -31,6 +32,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@mui/material": "7.3.5",
     "@mui/material-nextjs": "7.3.5",
+    "@next/bundle-analyzer": "^16.1.1",
     "@reduxjs/toolkit": "2.10.1",
     "@types/canvas-confetti": "^1.9.0",
     "@types/colorthief": "^2.6.0",
