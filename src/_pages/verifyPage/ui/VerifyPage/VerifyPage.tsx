@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
+import { getRegisterPage } from "@/shared/model";
+
 import logo from "../../../../../public/tl-1.png";
 
 export const VerifyPage = () => {
@@ -27,7 +29,7 @@ export const VerifyPage = () => {
             </Typography>
           </Stack>
           {/* @ts-ignore */}
-          <Button variant={"contained"} color={"primary"} compoent={Link} href="/auth">
+          <Button variant={"contained"} color={"primary"} compoent={Link} href={getRegisterPage()}>
             Back to register
           </Button>
         </Stack>

@@ -5,6 +5,8 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 
 import { getLoginPage } from "@/shared/model";
 
+import { Payload_LoginSchema } from "./contracts";
+
 export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): AuthOptions => {
   return {
     // debug: true,
@@ -24,6 +26,77 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
           return {
             accessToken: credentials?.accessToken,
           };
+        },
+      }),
+      CredentialsProvider({
+        id: "email-verification",
+        name: "Email Verification",
+        credentials: {
+          token: { label: "token", type: "text" },
+        },
+        // @ts-ignore
+        async authorize(credentials) {
+          if (credentials?.token) {
+            try {
+              const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}verify?token=${credentials?.token}`,
+                {
+                  method: "GET",
+                },
+              );
+              const data = (await res.json()) as any;
+              if (res.ok && data) {
+                (await cookies()).set("refresh_token", data.refreshToken, {
+                  httpOnly: true,
+                });
+              }
+              return {
+                accessToken: data.accessToken,
+                refreshToken: data.refreshToken,
+                error: false,
+              };
+            } catch (err) {
+              console.log("Verify error");
+              throw err;
+            }
+          }
+        },
+      }),
+      CredentialsProvider({
+        id: "credentials",
+        name: "Credentials",
+        credentials: {
+          email: { label: "email", type: "text" },
+          password: { label: "password", type: "password" },
+        },
+        // @ts-ignore
+        async authorize(credentials) {
+          const deviceInfo = JSON.parse((await cookies()).get("deviceInfo")?.value || "");
+          const body = { deviceInfo, ...credentials };
+          try {
+            const validatedBody = Payload_LoginSchema.parse(body);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/login`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(validatedBody),
+            });
+            const data = (await res.json()) as any;
+
+            if (res.ok && data) {
+              (await cookies()).set("refresh_token", data.refreshToken, {
+                httpOnly: true,
+              });
+            }
+            return {
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken,
+              error: false,
+            };
+          } catch (err) {
+            throw err;
+          }
         },
       }),
     ],

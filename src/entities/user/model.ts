@@ -2,7 +2,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 
 import {
+  DeviceInfoSchema,
   Payload_AuthSchema,
+  Payload_LoginSchema,
+  Payload_RegisterSchema,
+  Payload_VerifySchema,
   Response_GoogleAuthSchema,
   Response_UserHomeDataSchema,
   UserSchema,
@@ -10,6 +14,7 @@ import {
 
 export type AuthType = "login" | "register" | "verify";
 export type StreakStatus = "disabled" | "current" | "active" | "final" | "complete";
+export type DeviceInfo = z.infer<typeof DeviceInfoSchema>;
 
 export type UserDto = z.infer<typeof UserSchema>;
 export type User = UserDto;
@@ -19,6 +24,9 @@ export type Response_AuthGoogle = z.infer<typeof Response_GoogleAuthSchema>;
 export type Response_UserHomeData = z.infer<typeof Response_UserHomeDataSchema>;
 
 export type Payload_Auth = z.infer<typeof Payload_AuthSchema>;
+export type Payload_Register = z.infer<typeof Payload_RegisterSchema>;
+export type Payload_Login = z.infer<typeof Payload_LoginSchema>;
+export type Payload_Verify = z.infer<typeof Payload_VerifySchema>;
 
 type UserSliceInitialState = {
   isAuth: boolean | undefined;

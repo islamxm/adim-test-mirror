@@ -1,5 +1,17 @@
 import { z } from "zod";
 
+export const DeviceInfoSchema = z.object({
+  web: z.object({
+    meta: z.object({
+      locale: z.string(),
+      model: z.string(),
+      timezone: z.string(),
+      version: z.string(),
+    }),
+    userAgent: z.string(),
+  }),
+});
+
 export const UserSchema = z.object({
   avatarUrl: z.string(),
   backupEmail: z.email().optional(),
@@ -47,15 +59,21 @@ export const Response_UserHomeDataSchema = z.object({
 
 export const Payload_AuthSchema = z.object({
   token: z.string(),
-  deviceInfo: z.object({
-    web: z.object({
-      meta: z.object({
-        locale: z.string(),
-        model: z.string(),
-        timezone: z.string(),
-        version: z.string(),
-      }),
-      userAgent: z.string(),
-    }),
-  }),
+  deviceInfo: DeviceInfoSchema,
 });
+export const Payload_RegisterSchema = z.object({
+  deviceInfo: DeviceInfoSchema,
+  email: z.string(),
+  profileName: z.string(),
+  password: z.string(),
+});
+export const Payload_LoginSchema = z.object({
+  deviceInfo: DeviceInfoSchema,
+  email: z.string(),
+  password: z.string(),
+});
+export const Payload_VerifySchema = z.object({
+  token: z.string(),
+});
+
+export const Response_RegisterSchema = z.any();

@@ -41,8 +41,8 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
     <>
       <Paper
         component={motion.div}
-        initial={{ scale: 0.7, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        // initial={{ opacity: 0 }}
+        // animate={{ opacity: 1 }}
         sx={{
           maxWidth: "515px",
           width: "100%",
@@ -76,8 +76,7 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
                 p: "5px",
                 "& .MuiTab-root": {
                   minHeight: "auto",
-                  py: "0.6rem",
-                  px: "0.6rem",
+                  p: ".6rem",
                   zIndex: 2,
                   color: theme.palette.text.disabled,
                   borderRadius: "1.8rem",
@@ -95,6 +94,7 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
                   height: "100%",
                   borderRadius: 99,
                   bgcolor: theme.palette.primary.main,
+                  width: "50%",
                   zIndex: 1,
                   transition: theme.transitions.create(["left", "width"], {
                     duration: theme.transitions.duration.standard,
