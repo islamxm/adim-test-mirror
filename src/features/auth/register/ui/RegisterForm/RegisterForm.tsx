@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useTranslations } from "next-intl";
@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { z } from "zod";
 
+import { objectToSearchParams } from "@/shared/lib";
 import { UIStatus } from "@/shared/types";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
 
@@ -56,12 +57,14 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     resolver: zodResolver(RegisterFormSchema),
     mode: "onSubmit",
   });
+  const [email, setEmail] = useState("");
   const [signup, { data, isLoading, isSuccess, isError }] = registerApi.useRegisterMutation();
 
   const onSubmit: SubmitHandler<RegisterFormType> = (body) => {
     setStatus?.("loading");
-    const deviceInfo = getUserDeviceInfo();
     const { email, password, name: profileName } = body;
+    const deviceInfo = getUserDeviceInfo();
+    setEmail(email);
     signup({
       deviceInfo,
       email,
@@ -85,9 +88,9 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     }
     if (isSuccess) {
       setStatus?.("success");
-      router.push("/auth/verify");
+      router.push("/auth/verify" + objectToSearchParams({ email }));
     }
-  }, [isLoading, isSuccess, isError, setStatus, router]);
+  }, [isLoading, isSuccess, isError, setStatus, router, email]);
 
   return (
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>

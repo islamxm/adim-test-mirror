@@ -1,4 +1,6 @@
 "use client";
+import { FC } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +10,11 @@ import { getRegisterPage } from "@/shared/model";
 
 import logo from "../../../../../public/tl-1.png";
 
-export const VerifyPage = () => {
+type Props = {
+  email?: string;
+};
+
+export const VerifyPage: FC<Props> = ({ email }) => {
   return (
     <Stack justifyContent={"center"} alignItems={"center"} height={"100%"}>
       <Paper
@@ -25,7 +31,9 @@ export const VerifyPage = () => {
             <Image src={logo} alt="" />
             <Typography align={"center"} variant={"body1"}>
               You need to verificate yor email address Please check your email{" "}
-              <strong>example@gmail.com</strong>
+              <strong>
+                <a href={`mailto:${email}`}>{email}</a>
+              </strong>
             </Typography>
           </Stack>
           {/* @ts-ignore */}
