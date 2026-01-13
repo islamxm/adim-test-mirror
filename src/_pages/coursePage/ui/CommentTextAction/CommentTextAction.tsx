@@ -129,7 +129,6 @@ export const CommentTextAction: FC<Props> = ({ replyData, onCancelReply }) => {
           height: "4.8rem",
         }}
         onClick={onSubmit}
-        disabled={!value}
       >
         <ArrowUpIcon sx={{ fontSize: "2.8rem" }} />
       </Button>

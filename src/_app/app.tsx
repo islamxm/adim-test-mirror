@@ -6,6 +6,8 @@ import { SessionProvider } from "next-auth/react";
 
 import { LocaleDetector } from "@/shared/i18n/ui";
 
+import { PageLoadingProgressbar } from "@/features/page-loading-progressbar";
+
 import { AppFooter } from "@/widgets/appFooter";
 import { AppHeader } from "@/widgets/appHeader";
 import { MainLayout } from "@/widgets/mainLayout";
@@ -20,6 +22,7 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <SessionProvider>
+      <PageLoadingProgressbar />
       <LocaleDetector />
       <StyleProvider>
         <StoreProvider preloadedState={store}>

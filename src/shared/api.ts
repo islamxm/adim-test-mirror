@@ -11,7 +11,6 @@ const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
   prepareHeaders: async (headers) => {
-    headers.set("Cache-Control", "no-cache");
     const session = await getSession();
     const accessToken = session?.accessToken;
     if (accessToken) {
