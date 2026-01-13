@@ -7,6 +7,7 @@ import { getLoginPage } from "@/shared/model";
 
 export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): AuthOptions => {
   return {
+    // debug: true,
     providers: [
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -50,6 +51,7 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
                   deviceInfo,
                 }),
               });
+
               if (res.status === 200) {
                 const resBody = (await res.json()) as any;
                 token.accessToken = resBody.accessToken;
