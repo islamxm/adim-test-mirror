@@ -1,6 +1,7 @@
 "use client";
 import { FC, PropsWithChildren } from "react";
-import { ToastContainer } from "react-toastify";
+
+// import { ToastContainer } from "react-toastify";
 
 import { SessionProvider } from "next-auth/react";
 
@@ -33,10 +34,10 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
                 footer={<AppFooter />}
               >
                 {children}
-                <ToastContainer
+                {/* <ToastContainer
                   // hideProgressBar
                   position={"bottom-right"}
-                />
+                /> */}
               </MainLayout>
             </AuthProvider>
           </AnimationProvider>

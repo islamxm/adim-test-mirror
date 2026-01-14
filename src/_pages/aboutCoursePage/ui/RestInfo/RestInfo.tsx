@@ -1,7 +1,7 @@
+"use client";
 import { FC } from "react";
 
 import { Box } from "@mui/material";
-import htmlParser from "html-react-parser";
 
 import { HTMLContent } from "@/shared/ui";
 
