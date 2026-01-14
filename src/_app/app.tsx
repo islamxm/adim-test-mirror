@@ -28,7 +28,10 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
         <StoreProvider preloadedState={store}>
           <AnimationProvider animate={true}>
             <AuthProvider>
-              <MainLayout header={<AppHeader />} footer={<AppFooter />}>
+              <MainLayout
+                header={(isShowHeader) => <AppHeader isShowHeader={isShowHeader} />}
+                footer={<AppFooter />}
+              >
                 {children}
                 <ToastContainer
                   // hideProgressBar
