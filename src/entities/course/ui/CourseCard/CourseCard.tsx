@@ -29,9 +29,6 @@ export const CourseCard: FC<
           position: "relative",
           p: "1.6rem",
           justifyContent: "space-between",
-          "&:hover": {
-            boxShadow: theme.shadows[1],
-          },
         })}
         whileHover={{
           scale: 1.05,
@@ -57,7 +54,6 @@ export const CourseCard: FC<
         <Stack flexWrap={"wrap"} gap={".4rem"} direction={"row"}>
           {/* На данный момент информация о категории не приходит с бэка */}
           {/* <InfoChip value={"Programming"} type={"category"} /> */}
-
           {totalLessonsCount > 0 && (
             <InfoChip
               value={`${totalLessonsCount} ${totalLessonsCount > 1 ? "lessons" : "lesson"}`}

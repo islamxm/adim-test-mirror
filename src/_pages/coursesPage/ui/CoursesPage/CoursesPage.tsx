@@ -43,16 +43,16 @@ export const CoursesPage = () => {
             onLoadMore={fetchNextPage}
             canLoadMore={hasNextPage}
             skeleton={{
-              count: 3,
+              count: 4,
               component: (
-                <Grid size={4}>
+                <Grid size={3}>
                   <CourseCardSkeleton />
                 </Grid>
               ),
             }}
           >
             {courses.map((course) => (
-              <Grid key={course.id} size={4}>
+              <Grid key={course.id} size={3}>
                 <CourseCard {...course} />
               </Grid>
             ))}

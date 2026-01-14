@@ -3,7 +3,7 @@ import { FC } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
@@ -35,11 +35,13 @@ export const CoursesSection: FC<Props> = ({ data }) => {
             </Button>
           }
         />
-        <Stack direction={"row"} gap={"20px"}>
+        <Grid container spacing={"2rem"}>
           {data.map((course) => (
-            <CourseCard key={course.id} {...course} />
+            <Grid size={3} key={course.id}>
+              <CourseCard {...course} />
+            </Grid>
           ))}
-        </Stack>
+        </Grid>
       </Container>
     </Box>
   );
