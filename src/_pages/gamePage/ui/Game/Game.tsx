@@ -7,6 +7,8 @@ import { userApi } from "@/entities/user";
 
 import { useGame } from "../../lib/useGame";
 import { GameStatus } from "../../model";
+import { BgBlue } from "../BgBlue/BgBlue";
+import { BgRed } from "../BgRed/BgRed";
 import { LobbyView } from "../views/LobbyView/LobbyView";
 import { ReadyView } from "../views/ReadyView/ReadyView";
 import { ResultView } from "../views/ResultView/ResultView";
@@ -88,59 +90,10 @@ export const Game = () => {
         component={motion.div}
         layout
       >
-        {/* <AnimatePresence>
-          <Box
-            sx={{
-              position: "fixed",
-              height: "100%",
-              width: "100%",
-              top: 0,
-              left: 0,
-              background:
-                "linear-gradient(270deg,rgba(2, 120, 255, 0) 0%, rgba(2, 120, 255, 1) 50%, rgba(2, 120, 255, 0) 100%)",
-            }}
-            component={motion.div}
-            initial={{ x: "0", opacity: 0 }}
-            exit={{ x: "0", opacity: 0 }}
-            // animate={{ x: 0, opacity: 1 }}
-            transition={{
-              ease: "circInOut",
-              duration: 1,
-            }}
-            variants={{
-              double: {
-                x: "-40%",
-                opacity: 1,
-              },
-              single: {
-                x: "0",
-                opacity: 1,
-              },
-            }}
-            animate={isDoubleBg ? "double" : "single"}
-          ></Box>
-          {isDoubleBg && (
-            <Box
-              sx={{
-                position: "fixed",
-                height: "100%",
-                width: "100%",
-                top: 0,
-                right: 0,
-                background:
-                  "linear-gradient(270deg,rgba(223, 2, 2, 0) 0%, rgba(223, 2, 2, 1) 50%, rgba(223, 2, 2, 0) 100%)",
-              }}
-              component={motion.div}
-              initial={{ x: "100%", opacity: 0 }}
-              exit={{ x: "100%", opacity: 0 }}
-              animate={{ x: "40%", opacity: 1 }}
-              transition={{
-                ease: "circInOut",
-                duration: 1,
-              }}
-            ></Box>
-          )}
-        </AnimatePresence> */}
+        <AnimatePresence>
+          <BgBlue isDoubleBg={isDoubleBg} />
+          {isDoubleBg && <BgRed />}
+        </AnimatePresence>
         <Box
           sx={{
             position: "relative",

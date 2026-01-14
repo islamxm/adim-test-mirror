@@ -29,10 +29,6 @@ export default function VerifyPage() {
     }
   }, [token, router]);
 
-  useEffect(() => {
-    console.log("SIMPLE_TOKEN: ", token);
-  }, [token]);
-
   if (!token) {
     return <VerifyPageComponent />;
   }

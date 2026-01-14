@@ -56,7 +56,7 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
                 error: false,
               };
             } catch (err) {
-              console.log("Verify error");
+              console.log("Verify error", err);
               throw err;
             }
           }
