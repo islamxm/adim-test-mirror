@@ -14,7 +14,12 @@
     "check": "npm run type-check && npm run lint && npm run format:check",
     "fix": "npm run format:fix && npm run lint:fix",
     "prepare": "husky && husky install",
-    "analyze": "npx next build --webpack"
+    "analyze": "npx next build --webpack",
+    "docker:up": "docker-compose up --build -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker logs -f client_application",
+    "docker:rebuild": "docker-compose down && docker-compose up --build -d",
+    "docker:clean": "docker system prune -f"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

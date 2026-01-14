@@ -8,6 +8,7 @@ const bundleAnalyzer = withBundleAnalyzer({
   enabled: true,
 });
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "193.47.42.164", port: "8605" },

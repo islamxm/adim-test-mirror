@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  client-app:
+    container_name: client_application
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL}
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=productionа 
+    env_file:
+      - .env
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
+  
