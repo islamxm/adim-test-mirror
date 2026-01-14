@@ -57,20 +57,25 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     resolver: zodResolver(RegisterFormSchema),
     mode: "onSubmit",
   });
-  const [email, setEmail] = useState("");
-  const [signup, { data, isLoading, isSuccess, isError }] = registerApi.useRegisterMutation();
+  const [signup] = registerApi.useRegisterMutation();
 
-  const onSubmit: SubmitHandler<RegisterFormType> = (body) => {
+  const onSubmit: SubmitHandler<RegisterFormType> = async (body) => {
     setStatus?.("loading");
     const { email, password, name: profileName } = body;
     const deviceInfo = getUserDeviceInfo();
-    setEmail(email);
-    signup({
-      deviceInfo,
-      email,
-      password,
-      profileName,
-    });
+    try {
+      await signup({
+        deviceInfo,
+        email,
+        password,
+        profileName,
+      }).unwrap();
+      setStatus?.("success");
+      router.push("/auth/verify" + objectToSearchParams({ email }));
+    } catch (err) {
+      setStatus?.("error");
+      console.log("Signup error:", err);
+    }
   };
 
   useEffect(() => {
@@ -78,19 +83,6 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       reset();
     }
   }, [reset, isActive]);
-
-  useEffect(() => {
-    if (isError) {
-      setStatus?.("error");
-    }
-    if (isLoading) {
-      setStatus?.("loading");
-    }
-    if (isSuccess) {
-      setStatus?.("success");
-      router.push("/auth/verify" + objectToSearchParams({ email }));
-    }
-  }, [isLoading, isSuccess, isError, setStatus, router, email]);
 
   return (
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>

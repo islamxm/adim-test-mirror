@@ -22,9 +22,9 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <SessionProvider>
-      <PageLoadingProgressbar />
       <LocaleDetector />
       <StyleProvider>
+        <PageLoadingProgressbar />
         <StoreProvider preloadedState={store}>
           <AnimationProvider animate={true}>
             <AuthProvider>
