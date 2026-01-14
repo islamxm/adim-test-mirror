@@ -5,7 +5,7 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import { Box } from "@mui/material";
 import parseToHTML, { DOMNode, domToReact } from "html-react-parser";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 
 import classes from "./classes.module.scss";
 
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const HTMLContent: FC<Props> = ({ value }) => {
-  const blogContent = parseToHTML(DOMPurify.sanitize(value || ""), {
+  const blogContent = parseToHTML(sanitizeHtml(value || ""), {
     replace: (node) => {
       if (
         node.type === "tag" &&

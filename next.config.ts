@@ -23,10 +23,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  transpilePackages: ['parse5'], 
-  experimental: {
-    serverComponentsExternalPackages: ['isomorphic-dompurify', 'jsdom'],
-  },
 };
 
 export default bundleAnalyzer(withNextIntl(nextConfig));
