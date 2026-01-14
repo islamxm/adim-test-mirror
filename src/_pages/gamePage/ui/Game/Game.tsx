@@ -88,7 +88,7 @@ export const Game = () => {
         component={motion.div}
         layout
       >
-        <AnimatePresence>
+        {/* <AnimatePresence>
           <Box
             sx={{
               position: "fixed",
@@ -140,7 +140,7 @@ export const Game = () => {
               }}
             ></Box>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
         <Box
           sx={{
             position: "relative",
