@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 
 import Negotiator from "negotiator";
 
-import { defaultLocale } from "./config";
+import { defaultLocale, locales } from "./config";
 
 export const getBrowserLocaleOnServer = async () => {
   const acceptLanguage = (await headers()).get("accept-language");
@@ -14,7 +14,12 @@ export const getBrowserLocaleOnServer = async () => {
   }).language();
 
   if (language) {
-    return language.split("-")[0];
+    const broswerLocale = language.split("-")[0];
+    if (locales.includes(broswerLocale as any)) {
+      return broswerLocale;
+    } else {
+      return defaultLocale;
+    }
   } else {
     return defaultLocale;
   }
