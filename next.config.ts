@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
-import withBundleAnalyzer from '@next/bundle-analyzer';
+
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const withNextIntl = createNextIntlPlugin("./src/shared/i18n/request.ts");
 const bundleAnalyzer = withBundleAnalyzer({
-  enabled: true
+  enabled: true,
 });
 const nextConfig: NextConfig = {
   images: {
@@ -21,6 +22,10 @@ const nextConfig: NextConfig = {
         destination: "http://89.124.73.183:8605/:path*",
       },
     ];
+  },
+  transpilePackages: ["isomorphic-dompurify", "dompurify"],
+  experimental: {
+    serverComponentsExternalPackages: ["isomorphic-dompurify"],
   },
 };
 
