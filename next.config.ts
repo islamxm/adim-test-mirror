@@ -23,9 +23,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  transpilePackages: ["isomorphic-dompurify", "dompurify"],
+  transpilePackages: ['parse5'], 
   experimental: {
-    serverComponentsExternalPackages: ["isomorphic-dompurify"],
+    serverComponentsExternalPackages: ['isomorphic-dompurify', 'jsdom'],
   },
 };
 
