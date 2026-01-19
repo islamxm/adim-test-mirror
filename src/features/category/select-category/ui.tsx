@@ -1,4 +1,6 @@
 "use client";
+import { useEffect } from "react";
+
 import { useParams, useRouter } from "next/navigation";
 
 import { Tab, Tabs } from "@mui/material";
@@ -10,6 +12,12 @@ export const CategoryTabs = () => {
   const router = useRouter();
   const params = useParams<{ category: string }>();
   const { data, isError } = categoryApi.useGetCategoriesQuery(undefined);
+
+  useEffect(() => {
+    if (data?.categories && !params?.category) {
+      router.push(`/courses/${data.categories[0].id}`);
+    }
+  }, [data, params, router]);
 
   if (isError || !data) {
     return null;
