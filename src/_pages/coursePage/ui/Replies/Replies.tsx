@@ -38,7 +38,7 @@ export const Replies: FC<Props> = ({ commentId, lessonId }) => {
         canLoadMore={hasNextPage}
         skeleton={{
           count: 1,
-          component: <CommentSkeleton />,
+          component: CommentSkeleton,
         }}
         disableInfiniteScroll
         loadMoreElement={(onClick) => (

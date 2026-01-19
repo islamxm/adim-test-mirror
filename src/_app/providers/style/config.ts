@@ -103,7 +103,8 @@ export const themeConfig = createTheme({
           fontSize: "1.6rem",
           padding: "1.6rem",
           lineHeight: "100%",
-          borderRadius: "1.6rem",
+          // скорее всего надо будет вынести в отдельный button variant
+          borderRadius: "3rem",
           boxShadow: "none",
           minHeight: "5.2rem",
           transition: "all 0.2s ease",

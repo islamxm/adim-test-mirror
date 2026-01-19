@@ -1,4 +1,4 @@
-import { type FC, type PropsWithChildren, type ReactNode, useEffect } from "react";
+import { ComponentType, type FC, type PropsWithChildren, type ReactNode, useEffect } from "react";
 import { useIntersectionObserver } from "react-intersection-observer-hook";
 
 import { Grid, type StackProps } from "@mui/material";
@@ -8,7 +8,7 @@ import { WithUIStatuses } from "@/shared/types";
 type Props = PropsWithChildren<
   WithUIStatuses<{
     skeleton?: {
-      component: ReactNode;
+      component: ComponentType;
       count: number;
     };
     onLoadMore?: (...args: any[]) => any;
@@ -50,7 +50,10 @@ export const ResourceList: FC<Props> = ({
       <Grid container spacing={"1rem"}>
         {isLoading &&
           (skeleton ? (
-            new Array(skeleton?.count).fill(1).map(() => skeleton.component)
+            new Array(skeleton?.count).fill(1).map((_, index) => {
+              const SkeletonComponent = skeleton.component;
+              return <SkeletonComponent key={`skeleton-item-${index}`} />;
+            })
           ) : (
             <LoadingFallback />
           ))}

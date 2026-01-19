@@ -13,6 +13,7 @@ export type Response_GetLeaderboard = z.infer<typeof Response_GetLeaderboardSche
 
 export type Payload_GetLeaderboard = {
   cursor?: number;
+  leagueName?: League;
 };
 
 export const leagueMap: Record<League, { label: string; icon: ReactNode }> = {

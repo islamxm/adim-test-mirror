@@ -14,30 +14,40 @@ type Props = {
 };
 
 export const HTMLContent: FC<Props> = ({ value }) => {
-  const blogContent = parseToHTML(sanitizeHtml(value || ""), {
-    replace: (node) => {
-      if (
-        node.type === "tag" &&
-        node.name === "pre" &&
-        node.children &&
-        node.children[0].type === "tag" &&
-        node.children[0].name === "code"
-      ) {
-        const codeElement = node.children[0];
+  const blogContent = parseToHTML(
+    sanitizeHtml(value || "", {
+      allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        code: ["class"],
+        pre: ["class"],
+        mark: ["class"],
+      },
+    }),
+    {
+      replace: (node) => {
+        if (
+          node.type === "tag" &&
+          node.name === "pre" &&
+          node.children &&
+          node.children[0].type === "tag" &&
+          node.children[0].name === "code"
+        ) {
+          const codeElement = node.children[0];
+          const className = codeElement.attribs.class || "";
 
-        const className = codeElement.attribs.class || "";
-        const language = className.replace("language-", "") || "text";
+          const language = className.replace("language-", "") || "text";
 
-        const codeContent = domToReact(codeElement.children as DOMNode[]);
+          const codeContent = domToReact(codeElement.children as DOMNode[]);
 
-        return (
-          <SyntaxHighlighter language={language} style={dracula}>
-            {String(codeContent)}
-          </SyntaxHighlighter>
-        );
-      }
+          return (
+            <SyntaxHighlighter language={language} style={dracula}>
+              {String(codeContent)}
+            </SyntaxHighlighter>
+          );
+        }
+      },
     },
-  });
+  );
 
   return (
     <Box sx={(theme) => ({ color: theme.palette.text.primary })} className={classes.wrapper}>

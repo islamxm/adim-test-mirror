@@ -22,7 +22,7 @@ export const RatingTopThree: FC<Props> = ({ data }) => {
     <Stack
       direction={"row"}
       justifyContent={"center"}
-      alignItems={"flex-end"}
+      alignItems={"flex-start"}
       gap={"17rem"}
       component={motion.div}
       initial={{ opacity: 0 }}

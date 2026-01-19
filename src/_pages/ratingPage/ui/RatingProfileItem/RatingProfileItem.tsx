@@ -4,6 +4,7 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
 import { LeaderBoardUser } from "@/entities/league";
+import { NoLeagueIcon } from "@/entities/league/icons";
 import { Avatar, PointsBadge } from "@/entities/user";
 
 type Props = {
@@ -30,12 +31,19 @@ export const RatingProfileItem: FC<Props> = ({ data, isActive }) => {
       animate={{ opacity: 1 }}
     >
       <Stack gap={"1.6rem"} alignItems={"center"} direction={"row"}>
-        <Typography
-          textAlign={"center"}
-          sx={{ width: "4.8rem", fontSize: "2.4rem", fontWeight: 600 }}
-        >
-          {rank}
-        </Typography>
+        {rank > 0 ? (
+          <Typography
+            textAlign={"center"}
+            sx={{ width: "4.8rem", fontSize: "2.4rem", fontWeight: 600 }}
+          >
+            {rank}
+          </Typography>
+        ) : (
+          <Typography textAlign={"center"} sx={{ width: "4.8rem", fontWeight: 600 }}>
+            <NoLeagueIcon style={{ fontSize: "4.8rem" }} />
+          </Typography>
+        )}
+
         <Box sx={{ flexGrow: 1 }}>
           <Avatar
             avatarUrl={user.avatarUrl}
@@ -46,7 +54,7 @@ export const RatingProfileItem: FC<Props> = ({ data, isActive }) => {
             shadowType={"dark"}
           />
         </Box>
-        <PointsBadge value={points} />
+        <PointsBadge sx={{ backgroundColor: "#EEEEEE" }} elevation={0} value={points} />
       </Stack>
     </Paper>
   );

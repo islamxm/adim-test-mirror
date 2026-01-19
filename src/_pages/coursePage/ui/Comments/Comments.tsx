@@ -49,7 +49,7 @@ export const Comments = () => {
           canLoadMore={hasNextPage}
           skeleton={{
             count: 3,
-            component: <CommentSkeleton />,
+            component: CommentSkeleton,
           }}
         >
           {/* <AnimatePresence> */}
