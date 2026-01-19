@@ -19,7 +19,7 @@ type GetCoursesByCategoryIdInputType = {
 export const courseApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCoursesByCategoryId: builder.infiniteQuery<
-      z.infer<typeof Response_GetCoursesByCategoryIdSuccessSchema>,
+      z.infer<any>,
       GetCoursesByCategoryIdInputType,
       number
     >({
