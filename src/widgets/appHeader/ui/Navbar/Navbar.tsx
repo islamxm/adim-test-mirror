@@ -9,7 +9,7 @@ import { motion } from "motion/react";
 import { getHomePage, routesMap } from "@/shared/model";
 import { Logo } from "@/shared/ui";
 
-import { League, Leagues } from "@/entities/league";
+import { League } from "@/entities/league";
 import { userApi } from "@/entities/user";
 
 import { NavLink } from "../NavLink/NavLink";
