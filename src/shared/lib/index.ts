@@ -5,3 +5,4 @@ export { useDispatch } from "./useDispatch";
 export { objectToSearchParams } from "./objectToSearchParams";
 export { getDeviceInfo } from "./getDeviceInfo";
 export { getLanguageName } from "./getLanguageName";
+export { useGetAverageColor } from "./useGetAverageColor";

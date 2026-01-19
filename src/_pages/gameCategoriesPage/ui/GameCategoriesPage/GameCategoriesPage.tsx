@@ -25,7 +25,7 @@ export const GameCategoriesPage = () => {
       <Container>
         <Stack gap={"4rem"}>
           <Typography variant="h2">Select a competition category</Typography>
-          <Grid gap={"1rem"} container>
+          <Grid gap={"2rem"} container>
             {list.map((category) => (
               <Grid size={3} key={category.id}>
                 <GameCategory {...category} parentId={categoryId} />

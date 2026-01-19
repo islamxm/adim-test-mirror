@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { Box, Paper, Stack, Typography } from "@mui/material";
@@ -14,7 +15,7 @@ import { InfoChip } from "../InfoChip/InfoChip";
 export const CourseCard: FC<
   Pick<Course, "name" | "id" | "image" | "totalLessonsCount" | "languages"> &
     Partial<Pick<Course, "description">>
-> = ({ name, description, totalLessonsCount, languages, id }) => {
+> = ({ name, description, totalLessonsCount, languages, id, image }) => {
   return (
     <Box component={Link} href={getAboutCoursePage(id)} sx={{ flex: 1 }}>
       <Paper
@@ -29,6 +30,7 @@ export const CourseCard: FC<
           position: "relative",
           p: "1.6rem",
           justifyContent: "space-between",
+          borderRadius: "2.4rem",
         })}
         whileHover={{
           scale: 1.05,
@@ -36,24 +38,20 @@ export const CourseCard: FC<
         }}
       >
         <Stack gap={"1rem"}>
+          <Box
+            sx={{
+              height: "6.6rem",
+              width: "6.6rem",
+              "& img": { width: "100%", height: "100%", objectFit: "contain" },
+            }}
+          >
+            {image && <Image src={image} width={66} height={66} alt="" />}
+          </Box>
           <Typography variant="h4" sx={{ fontWeight: 600, fontSize: "2.4rem" }}>
             {name}
           </Typography>
-          <Typography
-            sx={{
-              overflow: "hidden",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-            }}
-            variant="body1"
-          >
-            {description}
-          </Typography>
         </Stack>
         <Stack flexWrap={"wrap"} gap={".4rem"} direction={"row"}>
-          {/* На данный момент информация о категории не приходит с бэка */}
-          {/* <InfoChip value={"Programming"} type={"category"} /> */}
           {totalLessonsCount > 0 && (
             <InfoChip
               value={`${totalLessonsCount} ${totalLessonsCount > 1 ? "lessons" : "lesson"}`}
