@@ -35,7 +35,7 @@ export const RatingTopProfile: FC<Props> = ({ data, place }) => {
       <Typography
         textAlign={"center"}
         variant={"body1"}
-        noWrap
+        // noWrap
         sx={{
           fontSize: "2.2rem",
           fontWeight: 600,

@@ -9,9 +9,19 @@ import { motion } from "motion/react";
 import { getHomePage, routesMap } from "@/shared/model";
 import { Logo } from "@/shared/ui";
 
+import { League, Leagues } from "@/entities/league";
+import { userApi } from "@/entities/user";
+
 import { NavLink } from "../NavLink/NavLink";
 
-const routes = Object.entries(routesMap).map(([key, value]) => ({ ...value, key }));
+const routes = (league?: League) =>
+  Object.entries(routesMap).map(([key, value]) => {
+    if (league && key === "rating") {
+      return { ...value, key, path: value.path + `?league=${league}` };
+    } else {
+      return { ...value, key };
+    }
+  });
 
 type Props = {
   endSlot?: ReactNode;
@@ -22,6 +32,7 @@ type Props = {
 
 export const Navbar: FC<Props> = ({ endSlot, disableShadow, disableNavigation, sx }) => {
   const pathname = usePathname();
+  const { data } = userApi.useGetUserProfileQuery({});
   const t = useTranslations("widgets.appHeader.Navbar.routes");
 
   return (
@@ -46,16 +57,12 @@ export const Navbar: FC<Props> = ({ endSlot, disableShadow, disableNavigation, s
       animate={{ opacity: 1, scale: 1 }}
     >
       {!disableNavigation &&
-        routes.map((route) => (
+        routes(data?.leagueName as League).map(({ key, ...route }) => (
           <motion.div style={{ overflow: "hidden" }} key={route.id} layout="position">
             {route.path === getHomePage() ? (
               <Logo sx={{ ml: "2.4rem" }} />
             ) : (
-              <NavLink
-                {...route}
-                label={t(route.key)}
-                isActive={pathname?.startsWith(route.path)}
-              />
+              <NavLink {...route} label={t(key)} isActive={pathname?.startsWith(route.path)} />
             )}
           </motion.div>
         ))}

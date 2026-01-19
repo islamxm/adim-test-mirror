@@ -8,7 +8,7 @@ type Props = {
 export const RatingTopProfileSkeleton: FC<Props> = ({ isFirst }) => {
   return (
     <Stack
-      sx={{ transform: isFirst ? "translateY(-2rem)" : "translateY(0)" }}
+      sx={{ transform: isFirst ? "translateY(-2rem)" : "translateY(0)", width: "24.3rem" }}
       gap={"1.2rem"}
       justifyContent={"center"}
       alignItems={"center"}

@@ -4,3 +4,4 @@ export { GoldIcon } from "./GoldIcon";
 export { SapphireIcon } from "./SapphireIcon";
 export { RubyIcon } from "./RubyIcon";
 export { EmeraldIcon } from "./EmeraldIcon";
+export { NoLeagueIcon } from "./NoLeagueIcon";

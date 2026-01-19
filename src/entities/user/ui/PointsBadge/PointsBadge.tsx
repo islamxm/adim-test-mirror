@@ -1,24 +1,27 @@
 import { FC } from "react";
 
-import { Paper, Stack } from "@mui/material";
+import { Paper, PaperProps, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
 import { PointFilledIcon } from "@/shared/ui/icons";
 
 type Props = {
   value?: number;
+  sx?: PaperProps["sx"];
+  elevation?: PaperProps["elevation"];
 };
 
-export const PointsBadge: FC<Props> = ({ value }) => {
+export const PointsBadge: FC<Props> = ({ value, sx, elevation = 1 }) => {
   return (
     <Paper
-      elevation={1}
+      elevation={elevation}
       sx={{
         borderRadius: "1.2rem",
         p: "0.7rem 1rem",
         fontSize: "1.6rem",
         fontWeight: 600,
         height: "3.8rem",
+        ...sx,
       }}
     >
       <Stack

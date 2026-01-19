@@ -16,7 +16,7 @@ export const UserSchema = z.object({
   avatarUrl: z.string(),
   backupEmail: z.email().optional(),
   birthday: z.string().optional(),
-  email: z.email(),
+  email: z.string().or(z.email()), // нужно оставить только email как только бэкенд исправиться
   phone: z.string().optional(),
   id: z.number(),
   profileName: z.string(),

@@ -9,6 +9,14 @@ import { CourseCard, CourseCardSkeleton, courseApi, courseDtoMap } from "@/entit
 
 import { ResourceList } from "@/widgets/resourceList";
 
+const CourseItemSkeletonComponent = () => {
+  return (
+    <Grid size={3}>
+      <CourseCardSkeleton />
+    </Grid>
+  );
+};
+
 export const CoursesPage = () => {
   const params = useParams<{ category: string }>();
   const { data, isLoading, isSuccess, isError, fetchNextPage, hasNextPage } =
@@ -44,11 +52,7 @@ export const CoursesPage = () => {
             canLoadMore={hasNextPage}
             skeleton={{
               count: 4,
-              component: (
-                <Grid size={3}>
-                  <CourseCardSkeleton />
-                </Grid>
-              ),
+              component: CourseItemSkeletonComponent,
             }}
           >
             {courses.map((course) => (
