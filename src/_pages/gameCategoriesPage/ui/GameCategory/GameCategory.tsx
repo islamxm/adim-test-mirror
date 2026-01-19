@@ -1,36 +1,21 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { Box, Paper, Typography } from "@mui/material";
-import ColorThief from "colorthief";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
 import { getGameCategoryPage, getGameMatchPage } from "@/shared/model";
 
 import { CompetitionCategory } from "@/entities/competition/model";
 
-import classes from "./classes.module.scss";
-
 type Props = CompetitionCategory & { parentId?: string };
 
 export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, parentId }) => {
-  // const imgRef = useRef<HTMLImageElement>(null);
   const router = useRouter();
-  // const [bg, setBg] = useState<string>();
-
-  // useEffect(() => {
-  //   if (imgRef.current && iconPath) {
-  //     imgRef.current.onload = () => {
-  //       const color = new ColorThief().getColor(imgRef.current);
-  //       setBg(`rgba(${color}, .3)`);
-  //     };
-  //   }
-  // }, [imgRef, iconPath]);
 
   const onClick = () => {
-    console.log(parentId);
     if (subCategories && subCategories.length > 0) {
       router.push(getGameCategoryPage(id));
     } else {
@@ -43,30 +28,42 @@ export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, par
   return (
     <Paper
       sx={(theme) => ({
-        position: "relative",
-        borderRadius: "2rem",
+        display: "block",
+        height: "250px",
+        borderRadius: "3.4rem",
+        p: "3.4rem",
+        color: theme.palette.primary.main,
         cursor: "pointer",
-        height: "20rem",
-        p: "2rem",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        flexGrow: 1,
       })}
-      className={classes.wrap}
       component={motion.div}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      onClick={onClick}
       elevation={0}
+      whileHover={{
+        scale: 1.05,
+        zIndex: 2,
+      }}
+      onClick={onClick}
     >
-      <Typography variant="h3" sx={{ width: "60%", position: "relative", zIndex: 2 }}>
-        {name}
-      </Typography>
-      {iconPath && (
-        <Box component={"div"} className={classes.img}>
-          <Image alt="" width={124} height={124} src={iconPath} />
+      <Stack gap={"4rem"}>
+        <Box
+          sx={{
+            width: "8.6rem",
+            height: "8.6rem",
+            overflow: "hidden",
+            borderRadius: "1.4rem",
+            border: "1px solid #C7C2FB",
+          }}
+        >
+          {iconPath && <Image src={iconPath} alt="" width={86} height={86} />}
         </Box>
-      )}
+        <Typography
+          variant={"h2"}
+          sx={{ fontSize: "2.6rem", color: "#3D3D3D" }}
+          textTransform={"uppercase"}
+        >
+          {name}
+        </Typography>
+      </Stack>
     </Paper>
   );
 };
