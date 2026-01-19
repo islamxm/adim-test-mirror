@@ -1,7 +1,10 @@
 import { FC, useEffect, useRef, useState } from "react";
 
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
+
+import { YellowButton } from "@/shared/ui";
+import { ArrowLeftIcon } from "@/shared/ui/icons";
 
 import { CnServerEventsMap } from "@/entities/competition";
 import { User } from "@/entities/user";
@@ -91,14 +94,13 @@ export const StartView: FC<Props> = ({ opponentData, question, onSubmitAnswer, s
           </AnimatePresence>
 
           <Stack direction={"row"} justifyContent={"center"}>
-            <Button
+            <YellowButton
               onClick={() => onSubmit()}
               disabled={answer.length === 0}
-              variant={"contained"}
-              color={"primary"}
+              endIcon={<ArrowLeftIcon />}
             >
-              Submit
-            </Button>
+              Continue
+            </YellowButton>
           </Stack>
         </Stack>
       </Stack>
