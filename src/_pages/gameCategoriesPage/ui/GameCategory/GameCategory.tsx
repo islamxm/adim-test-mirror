@@ -38,6 +38,9 @@ export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, par
       })}
       component={motion.div}
       elevation={0}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       whileHover={{
         scale: 1.05,
         zIndex: 2,
