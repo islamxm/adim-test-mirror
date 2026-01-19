@@ -25,19 +25,17 @@ export const CoursesPage = () => {
       categoryId: params?.category,
     });
 
-  const courses =
-    data?.pages
-      .map((d) => d.courses)
-      .flat()
-      .map(courseDtoMap) || [];
+  console.log(data);
+
+  const courses = data?.pages.map((d) => d.courses).flat() || [];
 
   return (
     <Box sx={(theme) => ({ backgroundColor: theme.palette.background.default })}>
       <Container>
         <Stack
-          sx={(theme) => ({
+          sx={{
             py: "4.4rem",
-          })}
+          }}
           gap={"4.4rem"}
         >
           <SectionHead

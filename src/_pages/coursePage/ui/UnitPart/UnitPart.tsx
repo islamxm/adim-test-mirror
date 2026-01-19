@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useParams } from "next/navigation";
 
@@ -14,9 +14,15 @@ type Props = Unit & {};
 
 export const UnitPart: FC<Props> = ({ name, isFinished, id, lessons }) => {
   const { unit: unitId, lesson: lessonId } = useParams();
-  const [isLessonsOpen, setIsLessonsOpen] = useState(Number(unitId) === id);
+  const [isLessonsOpen, setIsLessonsOpen] = useState(false);
   const isActive =
     Number(unitId) === id && Boolean(lessons.find((lesson) => lesson.id === Number(lessonId)));
+
+  useEffect(() => {
+    if (Number(unitId) === id) {
+      setIsLessonsOpen(true);
+    }
+  }, [unitId, id]);
 
   return (
     <Stack>
