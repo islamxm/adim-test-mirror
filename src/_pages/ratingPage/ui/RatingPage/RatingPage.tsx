@@ -3,7 +3,9 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 import { Stack, Typography } from "@mui/material";
 
+import { YellowButton } from "@/shared/ui";
 import { Container } from "@/shared/ui/Container";
+import { ArrowLeftIcon } from "@/shared/ui/icons";
 
 import { League, leagueApi } from "@/entities/league";
 import { userApi } from "@/entities/user";
@@ -20,6 +22,7 @@ export const RatingPage = () => {
   const { data: userData } = userApi.useGetUserProfileQuery({});
   const pathname = usePathname();
   const activeLeague = (useSearchParams().get("league") as League) || "BRONZE";
+
   const {
     data: rawData,
     isLoading,
