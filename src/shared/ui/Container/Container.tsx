@@ -10,9 +10,9 @@ export const Container: FC<Props> = ({ children, sx }) => {
   return (
     <Box
       sx={{
-        maxWidth: "147rem",
+        maxWidth: "144rem",
         width: "100%",
-        px: "1.5rem",
+        px: "3.6rem",
         m: "0 auto",
         ...sx,
       }}

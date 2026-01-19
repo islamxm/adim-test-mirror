@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 
 import { User } from "@/entities/user";
 
+import { GameHeader } from "../../GameHeader/GameHeader";
 import { Player } from "../../Player/Player";
 
 type Props = {

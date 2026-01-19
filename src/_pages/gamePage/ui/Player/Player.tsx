@@ -30,6 +30,19 @@ export const Player: FC<Props> = ({
 }) => {
   const { avatarUrl, profileName, leagueName } = data;
 
+  const textAlign = () => {
+    switch (extraContentAlignItems) {
+      case "flex-start":
+        return "left";
+      case "flex-end":
+        return "right";
+      case "center":
+        return "center";
+      default:
+        return "center";
+    }
+  };
+
   return (
     <Stack gap={"1rem"} direction={direction} alignItems={"center"}>
       <Box
@@ -81,7 +94,7 @@ export const Player: FC<Props> = ({
         alignItems={extraContentAlignItems || "center"}
         gap={"1.2rem"}
       >
-        <Typography sx={{ height: "2.5rem" }} textAlign={"center"} variant="h3">
+        <Typography sx={{ height: "2.5rem", width: "100%", textAlign: textAlign() }} variant="h3">
           {profileName || <SearchDots />}
         </Typography>
         <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
