@@ -36,7 +36,7 @@ export const Game = () => {
     setGameStatus,
   } = useGame();
 
-  const isDoubleBg = gameStatus !== "LOBBY" && gameStatus !== "RESULT";
+  const isDoubleBg = gameStatus !== "LOBBY";
 
   const views: Partial<Record<GameStatus, ReactNode>> = {
     LOBBY: <LobbyView selfData={selfData} selfStatus={selfStatus} onStartSearching={enterQueue} />,
@@ -68,7 +68,15 @@ export const Game = () => {
       />
     ),
     WAIT_RESULT: <WaitResultView selfData={selfData} result={result} opponentData={opponentData} />,
-    RESULT: <ResultView selfData={selfData} winnerId={result?.winner} />,
+    RESULT: (
+      <ResultView
+        opponentData={opponentData}
+        opponentStatus={opponentStatus}
+        selfStatus={selfStatus}
+        selfData={selfData}
+        resultData={result}
+      />
+    ),
   };
 
   const activeView = views[gameStatus];

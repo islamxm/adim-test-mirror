@@ -5,15 +5,21 @@ import { AnimatePresence, motion } from "motion/react";
 
 import { ChevronRightDuo } from "@/shared/ui/icons";
 
-import { User, userApi } from "@/entities/user";
+import { CnServerEventsMap } from "@/entities/competition";
+import { League, LeagueBadge } from "@/entities/league";
+import { User } from "@/entities/user";
+
+import { PlayerStatus as PlayerStatusType } from "@/_pages/gamePage/model";
 
 import { Player } from "../../Player/Player";
+import { PlayerName } from "../../PlayerName/PlayerName";
+import { PlayerStatus } from "../../PlayerStatus/PlayerStatus";
 import { Versus } from "../../Versus/Versus";
 
 type Props = {
-  selfStatus: any;
-  opponentStatus: any;
-  opponentData: any;
+  selfStatus?: PlayerStatusType;
+  opponentStatus?: PlayerStatusType;
+  opponentData?: CnServerEventsMap["OPPONENT_FOUND"];
   onReady?: () => void;
   onSkipPlayer?: () => void;
   selfData?: User;
@@ -39,12 +45,20 @@ export const WaitView: FC<Props> = ({
         <motion.div layoutId="player" layout="preserve-aspect">
           <Player
             data={{
-              profileName: selfData?.profileName,
               avatarUrl: selfData?.avatarUrl,
-              leagueName: selfData?.leagueName,
             }}
-            status={selfStatus}
             size="22rem"
+            extraContent={
+              <>
+                <PlayerName profileName={selfData?.profileName} />
+                <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
+                  {selfData?.leagueName && (
+                    <LeagueBadge leagueName={selfData.leagueName as League} />
+                  )}
+                </Box>
+                <PlayerStatus status={selfStatus} />
+              </>
+            }
           />
         </motion.div>
         <Box sx={{ height: "20rem", width: "20rem", flex: "0 0 auto" }}>
@@ -63,12 +77,20 @@ export const WaitView: FC<Props> = ({
         <motion.div style={{ position: "relative" }} layoutId="opponent">
           <Player
             data={{
-              profileName: opponentData?.opponentId.profileName,
               avatarUrl: opponentData?.opponentId.avatarUrl,
-              leagueName: opponentData?.opponentId?.leagueName,
             }}
-            status={opponentStatus}
             size="22rem"
+            extraContent={
+              <>
+                <PlayerName profileName={opponentData?.opponentId?.profileName} />
+                <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
+                  {opponentData?.opponentId?.leagueName && (
+                    <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
+                  )}
+                </Box>
+                <PlayerStatus status={opponentStatus} />
+              </>
+            }
           />
           <Button
             sx={{

@@ -214,6 +214,18 @@ export const useGame = () => {
       opponentResult: data.opponentAnswers,
     });
     setGameStatus("RESULT");
+    if (data.winnerId === null) {
+      setSelfStatus("DRAFT");
+      setOpponentStatus("DRAFT");
+    } else {
+      if (data.winnerId === opponentData?.opponentId?.id) {
+        setOpponentStatus("WIN");
+        setSelfStatus("LOSE");
+      } else {
+        setOpponentStatus("LOSE");
+        setSelfStatus("WIN");
+      }
+    }
   };
 
   /** отдельное подтверждение действия, если на других сервер-ивентах нет eventId */

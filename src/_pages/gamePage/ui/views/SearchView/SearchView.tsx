@@ -3,9 +3,12 @@ import { FC } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
+import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
 
 import { Player } from "../../Player/Player";
+import { PlayerName } from "../../PlayerName/PlayerName";
+import { PlayerStatus } from "../../PlayerStatus/PlayerStatus";
 
 type Props = {
   selfStatus: any;
@@ -25,19 +28,26 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
         <motion.div layoutId="player">
           <Player
             data={{
-              profileName: selfData?.profileName,
               avatarUrl: selfData?.avatarUrl,
-              leagueName: selfData?.leagueName,
             }}
-            status={selfStatus}
             size="22rem"
+            extraContent={
+              <>
+                <PlayerName profileName={selfData?.profileName} />
+                <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
+                  {selfData?.leagueName && (
+                    <LeagueBadge leagueName={selfData.leagueName as League} />
+                  )}
+                </Box>
+                <PlayerStatus status={selfStatus} />
+              </>
+            }
           />
         </motion.div>
         <Box sx={{ height: "20rem", width: "20rem", flex: "0 0 auto" }} />
         <motion.div layoutId="opponent">
           <Player
             data={{
-              profileName: "",
               avatarUrl: "",
             }}
             size="22rem"

@@ -1,47 +1,33 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
-import { Box, Stack, StackProps, Typography } from "@mui/material";
+import { Box, Stack, StackProps } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
-import { League, LeagueBadge } from "@/entities/league";
 import { Avatar, User } from "@/entities/user";
 
 import { PlayerStatus as PlayerStatusType } from "../../model";
-import { PlayerStatus } from "../PlayerStatus/PlayerStatus";
 import { SearchPlayer } from "../SearchPlayer/SearchPlayer";
-import { SearchDots } from "./SearchDots";
 
 type Props = {
   status?: PlayerStatusType;
-  data: Partial<Pick<User, "avatarUrl" | "profileName" | "leagueName">>;
+  data: Partial<Pick<User, "avatarUrl">>;
   direction?: StackProps["direction"];
   size?: string;
   extraContentAlignItems?: StackProps["alignItems"];
   isSearching?: boolean;
+  extraContent?: ReactNode;
 };
 
 export const Player: FC<Props> = ({
-  status,
   data,
   direction,
   size,
   extraContentAlignItems,
   isSearching,
+  extraContent,
 }) => {
-  const { avatarUrl, profileName, leagueName } = data;
-
-  const textAlign = () => {
-    switch (extraContentAlignItems) {
-      case "flex-start":
-        return "left";
-      case "flex-end":
-        return "right";
-      case "center":
-        return "center";
-      default:
-        return "center";
-    }
-  };
+  // надо вынести из обьекта data и сделать отдельным пропом
+  const { avatarUrl } = data;
 
   return (
     <Stack gap={"1rem"} direction={direction} alignItems={"center"}>
@@ -49,7 +35,6 @@ export const Player: FC<Props> = ({
         sx={(theme) => ({
           backgroundColor: theme.palette.common.white,
           borderRadius: "50%",
-          // overflow: "hidden",
           position: "relative",
         })}
       >
@@ -67,25 +52,6 @@ export const Player: FC<Props> = ({
             </motion.div>
           )}
         </AnimatePresence>
-        {/* {isSearching && (
-          <Box
-            component={motion.div}
-            sx={{ position: "absolute", inset: 0, scale: 0.5 }}
-            animate={{ offsetDistance: "0%" }}
-            initial={{ offsetDistance: "100%" }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              offsetPath: "circle(30px at center)",
-              offsetRotate: "0deg",
-            }}
-          >
-            <SearchLupa />
-          </Box>
-        )} */}
       </Box>
       <Stack
         component={motion.div}
@@ -94,13 +60,7 @@ export const Player: FC<Props> = ({
         alignItems={extraContentAlignItems || "center"}
         gap={"1.2rem"}
       >
-        <Typography sx={{ height: "2.5rem", width: "100%", textAlign: textAlign() }} variant="h3">
-          {profileName || <SearchDots />}
-        </Typography>
-        <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
-          {!isSearching && leagueName && <LeagueBadge leagueName={leagueName as League} />}
-        </Box>
-        <PlayerStatus status={status} />
+        {extraContent}
       </Stack>
     </Stack>
   );

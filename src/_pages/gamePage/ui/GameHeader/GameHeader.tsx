@@ -4,19 +4,32 @@ import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
 import { CnServerEventsMap } from "@/entities/competition";
+import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
 
+import { PlayerStatus as PlayerStatusType } from "../../model";
 import { Player } from "../Player/Player";
+import { PlayerName } from "../PlayerName/PlayerName";
+import { PlayerStatus } from "../PlayerStatus/PlayerStatus";
 import { QuestionCountdown } from "../QuestionCountdown/QuestionCountdown";
 
 type Props = {
-  opponentData: any;
+  opponentData: CnServerEventsMap["OPPONENT_FOUND"] | undefined;
   question?: CnServerEventsMap["NEXT_QUESTION"];
   onComplete?: (ms: number) => void;
   selfData?: User;
+  opponentStatus?: PlayerStatusType;
+  selfStatus?: PlayerStatusType;
 };
 
-export const GameHeader: FC<Props> = ({ opponentData, onComplete, question, selfData }) => {
+export const GameHeader: FC<Props> = ({
+  opponentData,
+  onComplete,
+  question,
+  selfData,
+  opponentStatus,
+  selfStatus,
+}) => {
   return (
     <Stack
       gap={"2rem"}
@@ -28,13 +41,22 @@ export const GameHeader: FC<Props> = ({ opponentData, onComplete, question, self
       <Box component={motion.div} layoutId="player" sx={{ flex: 1 }}>
         <Player
           data={{
-            profileName: selfData?.profileName,
             avatarUrl: selfData?.avatarUrl,
-            leagueName: selfData?.leagueName,
           }}
           size="12.4rem"
           direction={"row"}
-          extraContentAlignItems={"flex-start"}
+          extraContentAlignItems={"center"}
+          extraContent={
+            <Stack gap={".8rem"} sx={{ p: "1rem 1rem 1rem 0" }}>
+              <PlayerName profileName={selfData?.profileName} />
+              <Stack direction={"row"} gap={"1.2rem"}>
+                {selfData?.leagueName && (
+                  <LeagueBadge leagueName={selfData?.leagueName as League} />
+                )}
+                <PlayerStatus status={selfStatus} />
+              </Stack>
+            </Stack>
+          }
         />
       </Box>
       <Box sx={{ width: "10rem", height: "10rem", flex: "0 0 auto" }}>
@@ -49,13 +71,22 @@ export const GameHeader: FC<Props> = ({ opponentData, onComplete, question, self
       <Box component={motion.div} layoutId="opponent" sx={{ flex: 1 }}>
         <Player
           data={{
-            profileName: opponentData?.opponentId?.profileName,
             avatarUrl: opponentData?.opponentId?.avatarUrl,
-            leagueName: opponentData?.opponentId?.leagueName,
           }}
           size="12.4rem"
           direction={"row-reverse"}
           extraContentAlignItems={"flex-end"}
+          extraContent={
+            <Stack sx={{ p: "1rem 0 1rem 1rem" }} gap={".8rem"} justifyContent={"flex-end"}>
+              <PlayerName profileName={opponentData?.opponentId?.profileName} textAlign={"right"} />
+              <Stack direction={"row"} gap={"1.2rem"} justifyContent={"flex-end"}>
+                <PlayerStatus status={opponentStatus} />
+                {opponentData?.opponentId.leagueName && (
+                  <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
+                )}
+              </Stack>
+            </Stack>
+          }
         />
       </Box>
     </Stack>
