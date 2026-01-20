@@ -4,10 +4,12 @@ import { Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
 import { YellowButton } from "@/shared/ui";
-import { ArrowLeftIcon } from "@/shared/ui/icons";
+import { ArrowRightIcon } from "@/shared/ui/icons";
 
 import { CnServerEventsMap } from "@/entities/competition";
 import { User } from "@/entities/user";
+
+import { PlayerStatus } from "@/_pages/gamePage/model";
 
 import { GameHeader } from "../../GameHeader/GameHeader";
 import { Question } from "../../Question/Question";
@@ -18,9 +20,18 @@ type Props = {
   question?: CnServerEventsMap["NEXT_QUESTION"];
   onSubmitAnswer?: (key: string, ms: number) => void;
   selfData?: User;
+  opponentStatus?: PlayerStatus;
+  selfStatus?: PlayerStatus;
 };
 
-export const StartView: FC<Props> = ({ opponentData, question, onSubmitAnswer, selfData }) => {
+export const StartView: FC<Props> = ({
+  opponentData,
+  question,
+  onSubmitAnswer,
+  selfData,
+  opponentStatus,
+  selfStatus,
+}) => {
   const [answer, setAnswer] = useState<Array<string>>([]);
   const time = useRef<number>(0);
 
@@ -69,6 +80,8 @@ export const StartView: FC<Props> = ({ opponentData, question, onSubmitAnswer, s
           opponentData={opponentData}
           question={question}
           selfData={selfData}
+          opponentStatus={opponentStatus}
+          selfStatus={selfStatus}
         />
         <Stack sx={{ height: "100%", width: "100%" }} gap={"2rem"}>
           <AnimatePresence mode="wait">
@@ -93,11 +106,11 @@ export const StartView: FC<Props> = ({ opponentData, question, onSubmitAnswer, s
             </motion.div>
           </AnimatePresence>
 
-          <Stack direction={"row"} justifyContent={"center"}>
+          <Stack direction={"row"} justifyContent={"flex-end"}>
             <YellowButton
               onClick={() => onSubmit()}
               disabled={answer.length === 0}
-              endIcon={<ArrowLeftIcon />}
+              endIcon={<ArrowRightIcon />}
             >
               Continue
             </YellowButton>

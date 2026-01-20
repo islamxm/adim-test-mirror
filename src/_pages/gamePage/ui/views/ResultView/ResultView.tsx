@@ -1,73 +1,58 @@
 import { FC, useEffect } from "react";
 
 import { winnerConfettiRun } from "@/animations/winner-confetti";
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { motion } from "motion/react";
 
-import { CnServerEventsMap, getGameResult } from "@/entities/competition";
-import { User, userApi } from "@/entities/user";
+import { YellowButton } from "@/shared/ui";
+import { ArrowRightIcon } from "@/shared/ui/icons";
 
-import { DraftText } from "../../DraftText/DraftText";
-import { LoseText } from "../../LoseText/LoseText";
-import { Player } from "../../Player/Player";
-import { WinText } from "../../WinText/WinText";
+import { CnServerEventsMap, getGameResult } from "@/entities/competition";
+import { User } from "@/entities/user";
+
+import { PlayerStatus } from "@/_pages/gamePage/model";
+
+import { GameHeader } from "../../GameHeader/GameHeader";
+import { ResultList } from "../../ResultList/ResultList";
 
 type Props = {
-  winnerId?: CnServerEventsMap["RESULT"]["winnerId"];
+  resultData?: {
+    winner?: number | null;
+    selfResult: CnServerEventsMap["RESULT"]["answers"];
+    opponentResult?: CnServerEventsMap["RESULT"]["opponentAnswers"];
+  };
   onGoBack?: () => void;
   onPlay?: () => void;
   selfData?: User;
+  opponentData?: any;
+  opponentStatus?: PlayerStatus;
+  selfStatus?: PlayerStatus;
 };
 
-export const ResultView: FC<Props> = ({ winnerId, selfData }) => {
-  const result = getGameResult(winnerId, selfData?.id);
-
-  useEffect(() => {
-    if (result === "WIN") {
-      winnerConfettiRun();
-    }
-  }, [result]);
-
-  if (result === undefined) {
-    return null;
-  }
-
+export const ResultView: FC<Props> = ({
+  resultData,
+  selfData,
+  opponentData,
+  opponentStatus,
+  selfStatus,
+}) => {
   return (
-    <Stack
-      component={motion.div}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      gap={"3rem"}
-      justifyContent={"center"}
-      sx={{ height: "100%" }}
-    >
-      <Stack
-        alignItems={"flex-start"}
-        direction={"row"}
-        gap={"2rem"}
-        justifyContent={"center"}
-        component={motion.div}
-      >
-        <Stack alignItems={"center"}>
-          <motion.div layoutId="player" layout="preserve-aspect">
-            <Player
-              data={{
-                profileName: selfData?.profileName,
-                avatarUrl: selfData?.avatarUrl,
-                leagueName: selfData?.leagueName,
-              }}
-              size="30rem"
-            />
-          </motion.div>
-          <Stack gap={"3rem"} alignItems={"center"}>
-            {result === "LOSE" && <LoseText />}
-            {result === "WIN" && <WinText />}
-            {result === "DRAFT" && <DraftText />}
-            <Stack direction={"row"} gap={".5rem"}>
-              <Button variant={"outlined"}>SHOW RESULT</Button>
-              <Button variant={"outlined"}>GO BACK</Button>
-              <Button variant={"contained"}>PLAY</Button>
-            </Stack>
+    <Stack gap={"3rem"} sx={{ height: "100%" }}>
+      <Stack gap={"5rem"} alignItems={"center"} component={motion.div}>
+        <GameHeader
+          opponentData={opponentData}
+          selfData={selfData}
+          opponentStatus={opponentStatus}
+          selfStatus={selfStatus}
+        />
+        <Stack sx={{ height: "100%", width: "100%" }} gap={"2rem"}>
+          <Stack direction={"row"} gap={"10rem"}>
+            <ResultList list={resultData?.selfResult || []} />
+            <ResultList list={resultData?.opponentResult || []} />
+          </Stack>
+
+          <Stack direction={"row"} justifyContent={"flex-end"}>
+            <YellowButton endIcon={<ArrowRightIcon />}>На главную</YellowButton>
           </Stack>
         </Stack>
       </Stack>

@@ -6,7 +6,7 @@
     <title>Lesson Content</title>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-dracula.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-dracula.min.css"
     />
     <style>
       .wrapper {
@@ -128,9 +128,11 @@
   <body>
     <div class="wrapper">
       <!-- content -->
+       "<h1>Heading 1</h1><h2>Heading 2</h2><p>&nbsp;</p><p>lorem ipsum dolor sit amet</p><p><i>lorem ipsum dolor sit amet</i></p><p><strong>lorem ipsum dolor sit amet</strong></p><p><i><strong>lorem ipsum dolor sit amet</strong></i></p><p>&nbsp;</p><p><mark class=\"marker-yellow\">lorem ipsum dolor sit amet</mark></p><p><i><mark class=\"marker-yellow\">lorem ipsum dolor sit amet</mark></i></p><p><mark class=\"marker-yellow\"><strong>lorem ipsum dolor sit amet</strong></mark></p><p><i><mark class=\"marker-yellow\"><strong>lorem ipsum dolor sit amet</strong></mark></i></p><p>&nbsp;</p><ol><li data-list-item-id=\"e58f4d3c803c6703cfc2178641bd485a8\">order 1</li><li data-list-item-id=\"ee6345889f0cc86b4ac4a8adea634c106\">order 2</li><li data-list-item-id=\"ee80936e97dff52ae7d786063a11a8687\">order 3</li></ol><p>&nbsp;</p><ul><li data-list-item-id=\"ea2b136ffd0050530d932ac52f034c19a\">unorder 1</li><li data-list-item-id=\"e5dc2468cec736caadcf140064ccbd19f\">unorder 2</li><li data-list-item-id=\"e9dc83a16f742b15091d7efed31cff142\">unorder 3</li></ul><p>&nbsp;</p><p>&nbsp;</p><blockquote><p>Lorem ipsum leo tristique vulputate id sit diam nunc eget tellus in eleifend urna mauris ornare dignissim at pharetra a</p></blockquote><p>&nbsp;</p><blockquote><p>Lorem ipsum leo tristique vulputate id sit diam nunc eget tellus in eleifend urna mauris ornare dignissim at pharetra a</p><p>Lorem ipsum leo tristique vulputate id sit diam nunc eget tellus in eleifend urna mauris ornare dignissim at pharetra a</p></blockquote><p>&nbsp;</p><figure class=\"table\"><table><tbody><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr></tbody></table></figure><p>&nbsp;</p><pre><code class=\"language-typescript\">const a = 1;\nconst b = 2;\n\nfunction sum(a: number,b: number) {\n\treturn a + b;\n};\n\nconsole.log(sum(a,b));</code></pre>"
     </div>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-    <script defer>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <script>
+
       // html-da codebloklary tapyp dilini kesgitleya we olary kolleksiya yerleshdirya yerleshdirya
       function parseCodeLanguages(htmlString) {
         const parser = new DOMParser();
@@ -155,25 +157,29 @@
 
       // highlight ucin dillerin kolleksiyasy
       const LANGUAGES_MAP = {
-        typescript: "typescript",
-        swift: "swift",
+        typescript: ["clike", "javascript", "typescript"],
+        swift: ["swift"],
       };
 
       // ulanylyan dillerin scriptini dynamic load edya
-      function getHighlightingScripts(htmlString) {
+      async function getHighlightingScripts(htmlString) {
         const languages = parseCodeLanguages(htmlString);
-        if (languages instanceof Set && languages.size > 0) {
-          languages.forEach((language) => {
-            if (language in LANGUAGES_MAP) {
+        const loaded = new Set();
+
+        for(const language of languages) {
+          const deps = LANGUAGES_MAP[language];
+          if(!deps) continue;
+
+          for(const dep of deps) {
+            if(loaded.has(dep)) continue;
+            await new Promise(resolve => {
               const script = document.createElement("script");
-              script.setAttribute("defer");
-              script.setAttribute(
-                "src",
-                `https://cdn.jsdelivr.net/npm/prismjs/components/prism-${LANGUAGES_MAP[language]}.min.js`,
-              );
-              document.body.append(script);
-            }
-          });
+              script.src = `https://cdn.jsdelivr.net/npm/prismjs/components/prism-${dep}.min.js`;
+              script.onload = resolve;
+              document.body.appendChild(script);
+            });
+            loaded.add(dep);
+          }
         }
       }
 
@@ -182,13 +188,13 @@
         if (typeof fontSize !== "number") return;
         const wrapper = document.querySelector(".wrapper");
         if (wrapper instanceof HTMLElement) {
-          wrapper.style = `font-style: ${fontSize}px`;
+          wrapper.style.fontSize = `${fontSize}px`;
         }
       }
 
       function highlight() {
-        if (Prism) {
-          Prims.highlightAll();
+        if (window.Prism) {
+          Prism.highlightAll();
         } else {
           console.error("Prism.js yuklenmedi");
         }
@@ -204,10 +210,19 @@
         });
       }
 
-      window.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener("DOMContentLoaded", async () => {
+        await getHighlightingScripts("<h1>Heading 1</h1><h2>Heading 2</h2><p>&nbsp;</p><p>lorem ipsum dolor sit amet</p><p><i>lorem ipsum dolor sit amet</i></p><p><strong>lorem ipsum dolor sit amet</strong></p><p><i><strong>lorem ipsum dolor sit amet</strong></i></p><p>&nbsp;</p><p><mark class=\"marker-yellow\">lorem ipsum dolor sit amet</mark></p><p><i><mark class=\"marker-yellow\">lorem ipsum dolor sit amet</mark></i></p><p><mark class=\"marker-yellow\"><strong>lorem ipsum dolor sit amet</strong></mark></p><p><i><mark class=\"marker-yellow\"><strong>lorem ipsum dolor sit amet</strong></mark></i></p><p>&nbsp;</p><ol><li data-list-item-id=\"e58f4d3c803c6703cfc2178641bd485a8\">order 1</li><li data-list-item-id=\"ee6345889f0cc86b4ac4a8adea634c106\">order 2</li><li data-list-item-id=\"ee80936e97dff52ae7d786063a11a8687\">order 3</li></ol><p>&nbsp;</p><ul><li data-list-item-id=\"ea2b136ffd0050530d932ac52f034c19a\">unorder 1</li><li data-list-item-id=\"e5dc2468cec736caadcf140064ccbd19f\">unorder 2</li><li data-list-item-id=\"e9dc83a16f742b15091d7efed31cff142\">unorder 3</li></ul><p>&nbsp;</p><p>&nbsp;</p><blockquote><p>Lorem ipsum leo tristique vulputate id sit diam nunc eget tellus in eleifend urna mauris ornare dignissim at pharetra a</p></blockquote><p>&nbsp;</p><blockquote><p>Lorem ipsum leo tristique vulputate id sit diam nunc eget tellus in eleifend urna mauris ornare dignissim at pharetra a</p><p>Lorem ipsum leo tristique vulputate id sit diam nunc eget tellus in eleifend urna mauris ornare dignissim at pharetra a</p></blockquote><p>&nbsp;</p><figure class=\"table\"><table><tbody><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr><tr><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td><td>table</td></tr></tbody></table></figure><p>&nbsp;</p><pre><code class=\"language-typescript\">const a = 1;\nconst b = 2;\n\nfunction sum(a: number,b: number) {\n\treturn a + b;\n};\n\nconsole.log(sum(a,b));</code></pre>");
         highlight();
         tableWrappingForIOS();
       });
+      window.getHighlightingScripts = getHighlightingScripts;
+      window.highlight = highlight;
+      window.tableWrappingForIOS = tableWrappingForIOS
+      window.addEventListener("load" , async () => {
+        await getHighlightingScripts();
+        highlight();
+        tableWrappingForIOS();
+      })  
     </script>
   </body>
 </html>

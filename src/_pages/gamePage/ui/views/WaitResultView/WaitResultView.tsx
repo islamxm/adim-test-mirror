@@ -1,13 +1,16 @@
 import { FC } from "react";
 
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
 import { CnServerEventsMap } from "@/entities/competition";
-import { User, userApi } from "@/entities/user";
+import { League, LeagueBadge } from "@/entities/league";
+import { User } from "@/entities/user";
 
 import { Player } from "../../Player/Player";
 import { SearchDots } from "../../Player/SearchDots";
+import { PlayerName } from "../../PlayerName/PlayerName";
+import { PlayerStatus } from "../../PlayerStatus/PlayerStatus";
 
 type Props = {
   opponentData: any;
@@ -19,7 +22,7 @@ type Props = {
   selfData?: User;
 };
 
-export const WaitResultView: FC<Props> = ({ opponentData, result, selfData }) => {
+export const WaitResultView: FC<Props> = ({ opponentData, selfData }) => {
   return (
     <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
       <Stack
@@ -32,12 +35,20 @@ export const WaitResultView: FC<Props> = ({ opponentData, result, selfData }) =>
         <motion.div layoutId="player" layout="preserve-aspect">
           <Player
             data={{
-              profileName: selfData?.profileName,
               avatarUrl: selfData?.avatarUrl,
-              leagueName: selfData?.leagueName,
             }}
-            status={"READY"}
             size="22rem"
+            extraContent={
+              <>
+                <PlayerName profileName={selfData?.profileName} />
+                <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
+                  {selfData?.leagueName && (
+                    <LeagueBadge leagueName={selfData.leagueName as League} />
+                  )}
+                </Box>
+                <PlayerStatus status={"READY"} />
+              </>
+            }
           />
         </motion.div>
         <Stack
@@ -53,12 +64,20 @@ export const WaitResultView: FC<Props> = ({ opponentData, result, selfData }) =>
         <motion.div layoutId="opponent">
           <Player
             data={{
-              profileName: opponentData?.opponentId.profileName,
               avatarUrl: opponentData?.opponentId.avatarUrl,
-              leagueName: opponentData?.opponentId?.leagueName,
             }}
-            status={"WAIT"}
             size="22rem"
+            extraContent={
+              <>
+                <PlayerName profileName={opponentData?.opponentId?.profileName} />
+                <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
+                  {opponentData?.opponentId?.leagueName && (
+                    <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
+                  )}
+                </Box>
+                <PlayerStatus status={"WAIT"} />
+              </>
+            }
           />
         </motion.div>
       </Stack>
