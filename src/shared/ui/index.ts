@@ -6,3 +6,4 @@ export { InputErrorText } from "./InputErrorText";
 export { HTMLContent } from "./HTMLContent/HTMLContent";
 export { GlowingButton } from "./GlowingButton/GlowingButton";
 export { YellowButton } from "./YellowButton/YellowButton";
+export { YellowSpinner } from "./YellowSpinner/YellowSpinner";

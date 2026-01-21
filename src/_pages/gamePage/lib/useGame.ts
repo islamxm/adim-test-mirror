@@ -215,8 +215,8 @@ export const useGame = () => {
     });
     setGameStatus("RESULT");
     if (data.winnerId === null) {
-      setSelfStatus("DRAFT");
-      setOpponentStatus("DRAFT");
+      setSelfStatus("DRAW");
+      setOpponentStatus("DRAW");
     } else {
       if (data.winnerId === opponentData?.opponentId?.id) {
         setOpponentStatus("WIN");

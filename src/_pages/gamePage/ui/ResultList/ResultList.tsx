@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { Box, Paper, Stack, Typography } from "@mui/material";
+import { motion } from "motion/react";
 
 import { CheckIcon, CloseIcon, CloseThinIcon } from "@/shared/ui/icons";
 
@@ -20,6 +21,10 @@ export const ResultList: FC<Props> = ({ list }) => {
         borderRadius: "3.4rem",
       }}
       elevation={0}
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <Stack gap={"1.6rem"}>
         {list.map((item) => {

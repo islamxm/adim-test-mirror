@@ -14,7 +14,6 @@ import { ReadyView } from "../views/ReadyView/ReadyView";
 import { ResultView } from "../views/ResultView/ResultView";
 import { SearchView } from "../views/SearchView/SearchView";
 import { StartView } from "../views/StartView/StartView";
-import { WaitResultView } from "../views/WaitResultView/WaitResultView";
 import { WaitView } from "../views/WaitView/WaitView";
 
 export const Game = () => {
@@ -67,9 +66,20 @@ export const Game = () => {
         selfData={selfData}
       />
     ),
-    WAIT_RESULT: <WaitResultView selfData={selfData} result={result} opponentData={opponentData} />,
+    // продумать обьединение двух gameState в один под названием RESULT
+    WAIT_RESULT: (
+      <ResultView
+        gameStatus={gameStatus}
+        opponentData={opponentData}
+        opponentStatus={opponentStatus}
+        selfStatus={selfStatus}
+        selfData={selfData}
+        resultData={result}
+      />
+    ),
     RESULT: (
       <ResultView
+        gameStatus={gameStatus}
         opponentData={opponentData}
         opponentStatus={opponentStatus}
         selfStatus={selfStatus}
