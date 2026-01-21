@@ -86,6 +86,18 @@ const getButtonProps = (
         },
         children: "Win",
       };
+    case "DRAW":
+      return {
+        ...defaultButtonProps,
+        sx: {
+          ...defaultButtonProps.sx,
+          backgroundColor: alpha("#85FF8266", 0.4),
+          boxShadow: "0 0 10px 5px #85FF8266",
+          color: "#0F600D",
+          border: "1px solid #0F600D",
+        },
+        children: "Draw",
+      };
     default:
       return {};
   }

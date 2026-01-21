@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 
 import { winnerConfettiRun } from "@/animations/winner-confetti";
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
 import { YellowButton } from "@/shared/ui";
@@ -10,12 +10,14 @@ import { ArrowRightIcon } from "@/shared/ui/icons";
 import { CnServerEventsMap, getGameResult } from "@/entities/competition";
 import { User } from "@/entities/user";
 
-import { PlayerStatus } from "@/_pages/gamePage/model";
+import { GameStatus, PlayerStatus } from "@/_pages/gamePage/model";
 
 import { GameHeader } from "../../GameHeader/GameHeader";
 import { ResultList } from "../../ResultList/ResultList";
+import { ResultListLoading } from "../../ResultList/ResultList.loading";
 
 type Props = {
+  gameStatus: GameStatus;
   resultData?: {
     winner?: number | null;
     selfResult: CnServerEventsMap["RESULT"]["answers"];
@@ -35,6 +37,7 @@ export const ResultView: FC<Props> = ({
   opponentData,
   opponentStatus,
   selfStatus,
+  gameStatus,
 }) => {
   return (
     <Stack gap={"3rem"} sx={{ height: "100%" }}>
@@ -46,10 +49,19 @@ export const ResultView: FC<Props> = ({
           selfStatus={selfStatus}
         />
         <Stack sx={{ height: "100%", width: "100%" }} gap={"2rem"}>
-          <Stack direction={"row"} gap={"10rem"}>
-            <ResultList list={resultData?.selfResult || []} />
-            <ResultList list={resultData?.opponentResult || []} />
-          </Stack>
+          <Grid container direction={"row"} spacing={"10rem"}>
+            <Grid size={6}>
+              <ResultList list={resultData?.selfResult || []} />
+            </Grid>
+
+            <Grid size={6}>
+              {gameStatus === "WAIT_RESULT" ? (
+                <ResultListLoading />
+              ) : (
+                <ResultList list={resultData?.opponentResult || []} />
+              )}
+            </Grid>
+          </Grid>
 
           <Stack direction={"row"} justifyContent={"flex-end"}>
             <YellowButton endIcon={<ArrowRightIcon />}>На главную</YellowButton>
