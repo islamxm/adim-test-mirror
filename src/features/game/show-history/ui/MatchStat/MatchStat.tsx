@@ -46,8 +46,8 @@ export const MatchStat: FC<HistoryMatchData> = ({ id, opponent, winnerId }) => {
               onClick={() => setActivePlayer(selfData?.id)}
               style={{ cursor: "pointer" }}
               variants={{
-                active: { scale: 1.1 },
-                disabled: { scale: 1 },
+                active: { scale: 1 },
+                disabled: { scale: 0.8 },
               }}
               animate={activePlayer === selfData?.id ? "active" : "disabled"}
             >
@@ -71,8 +71,8 @@ export const MatchStat: FC<HistoryMatchData> = ({ id, opponent, winnerId }) => {
               onClick={() => setActivePlayer(opponent?.id)}
               style={{ cursor: "pointer" }}
               variants={{
-                active: { scale: 1.1 },
-                disabled: { scale: 1 },
+                active: { scale: 1 },
+                disabled: { scale: 0.8 },
               }}
               animate={activePlayer === opponent?.id ? "active" : "disabled"}
             >
