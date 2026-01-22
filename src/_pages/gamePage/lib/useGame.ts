@@ -62,8 +62,8 @@ export const useGame = () => {
   };
 
   const onWsOpen = () => {
-    setSelfStatus(selfStatusPrev.current);
     setIsConnected(true);
+    setSelfStatus(selfStatusPrev.current);
     console.log("[ws]: Open");
   };
 
@@ -202,10 +202,14 @@ export const useGame = () => {
     clearTimer();
     setResult({ selfResult: data.answers });
     setGameStatus("WAIT_RESULT");
+    setSelfStatus("READY");
+    setOpponentStatus("WAIT");
   };
 
   /** SERVER: получаем результат матча, RESULT */
   const onResult = (data: CnServerEventsMap["RESULT"]) => {
+    console.log(data);
+    console.log(opponentData);
     userApi.endpoints.getUserProfile.initiate({});
     generateEventId(data.eventId);
     clearTimer();
@@ -215,18 +219,6 @@ export const useGame = () => {
       opponentResult: data.opponentAnswers,
     });
     setGameStatus("RESULT");
-    if (data.winnerId === null) {
-      setSelfStatus("DRAW");
-      setOpponentStatus("DRAW");
-    } else {
-      if (data.winnerId === opponentData?.opponentId?.id) {
-        setOpponentStatus("WIN");
-        setSelfStatus("LOSE");
-      } else {
-        setOpponentStatus("LOSE");
-        setSelfStatus("WIN");
-      }
-    }
   };
 
   /** отдельное подтверждение действия, если на других сервер-ивентах нет eventId */
@@ -252,6 +244,23 @@ export const useGame = () => {
     console.log(`[ws: ERROR]: ${data.code} - ${data.message}`);
     clearTimer();
   };
+
+  useEffect(() => {
+    if (gameStatus === "RESULT" && opponentData && result) {
+      if (result.winner === null) {
+        setSelfStatus("DRAW");
+        setOpponentStatus("DRAW");
+      } else {
+        if (result.winner === opponentData?.opponentId?.id) {
+          setOpponentStatus("WIN");
+          setSelfStatus("LOSE");
+        } else {
+          setOpponentStatus("LOSE");
+          setSelfStatus("WIN");
+        }
+      }
+    }
+  }, [gameStatus, opponentData, result]);
 
   useEffect(() => {
     if (!sessionData?.accessToken) {
