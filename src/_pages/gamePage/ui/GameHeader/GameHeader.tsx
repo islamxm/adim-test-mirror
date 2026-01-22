@@ -37,10 +37,10 @@ export const GameHeader: FC<Props> = ({
     >
       <Box component={motion.div} layoutId="player" sx={{ flex: 1 }}>
         <Player
-          data={{
+          avatarProps={{
+            size: "12.4rem",
             avatarUrl: selfData?.avatarUrl,
           }}
-          size="12.4rem"
           direction={"row"}
           extraContentAlignItems={"center"}
           extraContent={
@@ -67,10 +67,10 @@ export const GameHeader: FC<Props> = ({
       </Box>
       <Box component={motion.div} layoutId="opponent" sx={{ flex: 1 }}>
         <Player
-          data={{
+          avatarProps={{
+            size: "12.4rem",
             avatarUrl: opponentData?.opponentId?.avatarUrl,
           }}
-          size="12.4rem"
           direction={"row-reverse"}
           extraContentAlignItems={"flex-end"}
           extraContent={

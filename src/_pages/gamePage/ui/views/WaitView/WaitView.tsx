@@ -44,10 +44,10 @@ export const WaitView: FC<Props> = ({
       >
         <motion.div layoutId="player" layout="preserve-aspect">
           <Player
-            data={{
+            avatarProps={{
+              size: "22rem",
               avatarUrl: selfData?.avatarUrl,
             }}
-            size="22rem"
             extraContent={
               <>
                 <PlayerName profileName={selfData?.profileName} />
@@ -76,10 +76,10 @@ export const WaitView: FC<Props> = ({
         </Box>
         <motion.div style={{ position: "relative" }} layoutId="opponent">
           <Player
-            data={{
-              avatarUrl: opponentData?.opponentId.avatarUrl,
+            avatarProps={{
+              size: "22rem",
+              avatarUrl: opponentData?.opponentId?.avatarUrl,
             }}
-            size="22rem"
             extraContent={
               <>
                 <PlayerName profileName={opponentData?.opponentId?.profileName} />

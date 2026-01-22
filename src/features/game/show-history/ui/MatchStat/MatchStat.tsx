@@ -50,11 +50,16 @@ export const MatchStat: FC<HistoryMatchData> = ({ id, opponent, winnerId }) => {
                 disabled: { scale: 0.8 },
               }}
               animate={activePlayer === selfData?.id ? "active" : "disabled"}
+              transition={{ ease: "circInOut", duration: 0.2 }}
             >
               <Player
-                size="12.4rem"
-                data={{ avatarUrl: selfData?.avatarUrl }}
-                isDisabled={activePlayer !== selfData?.id}
+                avatarProps={{
+                  size: "12.4rem",
+                  avatarUrl: selfData?.avatarUrl,
+                  isDisabled: activePlayer !== selfData?.id,
+                  shadowType: "dark",
+                  isActive: activePlayer === selfData?.id,
+                }}
                 extraContent={
                   <Stack gap={"1rem"}>
                     <PlayerName profileName={selfData?.profileName} />
@@ -75,11 +80,16 @@ export const MatchStat: FC<HistoryMatchData> = ({ id, opponent, winnerId }) => {
                 disabled: { scale: 0.8 },
               }}
               animate={activePlayer === opponent?.id ? "active" : "disabled"}
+              transition={{ ease: "circInOut", duration: 0.2 }}
             >
               <Player
-                size="12.4rem"
-                data={{ avatarUrl: opponent?.avatarUrl }}
-                isDisabled={activePlayer !== opponent?.id}
+                avatarProps={{
+                  size: "12.4rem",
+                  avatarUrl: opponent?.avatarUrl,
+                  isDisabled: activePlayer !== opponent?.id,
+                  shadowType: "dark",
+                  isActive: activePlayer === opponent?.id,
+                }}
                 extraContent={
                   <Stack gap={"1rem"}>
                     <PlayerName profileName={opponent?.profileName} />

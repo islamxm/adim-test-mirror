@@ -3,35 +3,38 @@ import { FC, ReactNode } from "react";
 import { Box, Stack, StackProps } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
-import { Avatar, User } from "@/entities/user/@x/competition";
+import { AvatarComponentProps } from "@/entities/user";
+import { Avatar } from "@/entities/user/@x/competition";
 
 import { PlayerStatusType } from "../../model";
 import { SearchPlayer } from "../SearchPlayer/SearchPlayer";
 
 type Props = {
   status?: PlayerStatusType;
-  data: Partial<Pick<User, "avatarUrl">>;
+  avatarProps: AvatarComponentProps;
   direction?: StackProps["direction"];
-  size?: string;
+  // cледующие два пропа нужно обьединить
   extraContentAlignItems?: StackProps["alignItems"];
-  isSearching?: boolean;
   extraContent?: ReactNode;
-  isDisabled?: boolean;
-  avatarSlot?: ReactNode;
+  isSearching?: boolean;
+};
+
+const defaultAvatarProps: AvatarComponentProps = {
+  backgroundColor: "transparent",
+  avatarUrl: "",
+  size: "10rem",
+  shadowType: "light",
+  isDisabled: false,
 };
 
 export const Player: FC<Props> = ({
-  data,
+  avatarProps,
   direction,
-  size,
-  extraContentAlignItems,
   isSearching,
+  extraContentAlignItems,
   extraContent,
-  isDisabled,
-  avatarSlot,
 }) => {
-  // надо вынести из обьекта data и сделать отдельным пропом
-  const { avatarUrl } = data;
+  const avatarMergedProps = { ...defaultAvatarProps, ...avatarProps };
 
   return (
     <Stack gap={"1rem"} direction={direction} alignItems={"center"}>
@@ -44,16 +47,10 @@ export const Player: FC<Props> = ({
       >
         <AnimatePresence mode="wait">
           {isSearching ? (
-            <SearchPlayer size={size} />
+            <SearchPlayer size={avatarProps.size} />
           ) : (
             <motion.div>
-              <Avatar
-                backgroundColor="transparent"
-                avatarUrl={avatarUrl}
-                size={size}
-                shadowType={"light"}
-                isDisabled={isDisabled}
-              />
+              <Avatar {...avatarMergedProps} />
             </motion.div>
           )}
         </AnimatePresence>

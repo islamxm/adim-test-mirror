@@ -25,10 +25,10 @@ export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData })
       >
         <motion.div layoutId="player" layout="preserve-aspect">
           <Player
-            data={{
+            avatarProps={{
+              size: "22rem",
               avatarUrl: selfData?.avatarUrl,
             }}
-            size="22rem"
             extraContent={
               <>
                 <PlayerName profileName={selfData?.profileName} />
