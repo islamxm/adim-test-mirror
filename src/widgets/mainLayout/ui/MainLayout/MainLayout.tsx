@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 import { Box, Stack } from "@mui/material";
 
+import { usePageBgColor } from "@/shared/lib";
+
 import { useToggleHeader } from "../../lib/useToggleHeader";
 
 type Props = PropsWithChildren<{
@@ -14,14 +16,16 @@ type Props = PropsWithChildren<{
 
 export const MainLayout: FC<Props> = ({ children, header, footer }) => {
   const pathname = usePathname();
+  const { pageBgColor } = usePageBgColor();
   const isAuthPage = pathname.includes("/auth");
+  const isGamePage = pathname.includes("/game/");
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const { isShowHeader } = useToggleHeader(scrollRef);
 
   return (
     <Stack
       sx={(theme) => ({
-        backgroundColor: theme.palette.gold.light,
+        backgroundColor: pageBgColor,
         height: "100vh",
         overflowY: "scroll",
       })}
@@ -33,7 +37,7 @@ export const MainLayout: FC<Props> = ({ children, header, footer }) => {
           {children}
         </Box>
       )}
-      {footer && !isAuthPage && <Box sx={{ flexShrink: 0 }}>{footer}</Box>}
+      {footer && !isAuthPage && !isGamePage && <Box sx={{ flexShrink: 0 }}>{footer}</Box>}
     </Stack>
   );
 };
