@@ -28,8 +28,7 @@ export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, par
   return (
     <Paper
       sx={(theme) => ({
-        display: "block",
-        height: "250px",
+        height: "25rem",
         borderRadius: "3.4rem",
         p: "3.4rem",
         color: theme.palette.primary.main,
