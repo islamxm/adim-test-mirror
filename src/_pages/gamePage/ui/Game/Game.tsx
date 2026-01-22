@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
+import { useCanvasConfetti } from "@/animations/winner-confetti";
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -34,6 +35,8 @@ export const Game = () => {
     submitAnswer,
     setGameStatus,
   } = useGame();
+
+  const { confettiCanvasRef, confettiRun } = useCanvasConfetti();
 
   const isDoubleBg = gameStatus !== "LOBBY";
 
@@ -91,6 +94,28 @@ export const Game = () => {
 
   const activeView = views[gameStatus];
 
+  // сырая часть - проработать
+  useEffect(() => {
+    if (gameStatus === "RESULT" && selfStatus) {
+      if (selfStatus === "WIN") {
+        new Array(3).fill(1).forEach(() => {
+          confettiRun(0.35, {
+            angle: 315,
+            origin: { y: -0.1, x: -0.1 },
+          });
+        });
+      }
+      if (selfStatus === "LOSE") {
+        new Array(3).fill(1).forEach(() => {
+          confettiRun(0.35, {
+            angle: 225,
+            origin: { y: -0.1, x: 1.1 },
+          });
+        });
+      }
+    }
+  }, [gameStatus, result, selfStatus, confettiRun]);
+
   return (
     <Box
       sx={{
@@ -119,7 +144,16 @@ export const Game = () => {
             zIndex: 2,
           }}
         >
-          {activeView}
+          <canvas
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              zIndex: 1,
+            }}
+            ref={confettiCanvasRef}
+          />
+          <Box sx={{ position: "relative", zIndex: 2, height: "100%" }}>{activeView}</Box>
         </Box>
       </Box>
     </Box>

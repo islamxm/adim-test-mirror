@@ -1,1 +1,1 @@
-export { winnerConfettiRun } from "./lib";
+export { winnerConfettiRun, useCanvasConfetti } from "./lib";
