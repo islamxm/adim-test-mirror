@@ -7,9 +7,8 @@ import { YellowButton } from "@/shared/ui";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 
 import { CnServerEventsMap } from "@/entities/competition";
+import { PlayerStatusType } from "@/entities/competition";
 import { User } from "@/entities/user";
-
-import { PlayerStatus } from "@/_pages/gamePage/model";
 
 import { GameHeader } from "../../GameHeader/GameHeader";
 import { Question } from "../../Question/Question";
@@ -20,8 +19,8 @@ type Props = {
   question?: CnServerEventsMap["NEXT_QUESTION"];
   onSubmitAnswer?: (key: string, ms: number) => void;
   selfData?: User;
-  opponentStatus?: PlayerStatus;
-  selfStatus?: PlayerStatus;
+  opponentStatus?: PlayerStatusType;
+  selfStatus?: PlayerStatusType;
 };
 
 export const StartView: FC<Props> = ({

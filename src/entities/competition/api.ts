@@ -1,6 +1,18 @@
 import { api } from "@/shared/api";
+import { objectToSearchParams } from "@/shared/lib";
 
-import { Response_GetCompetitionCategoriesSchema, UserMatchStatsSchema } from "./contracts";
+import {
+  Response_GetCompetitionCategoriesSchema,
+  Response_GetMatchDetailsSchema,
+  Response_GetMatchesHistorySchema,
+  UserMatchStatsSchema,
+} from "./contracts";
+import {
+  Payload_GetMatchDetails,
+  Payload_GetMatchesHistory,
+  Response_GetMatchDetails,
+  Response_GetMatchesHistory,
+} from "./model";
 
 export const competitionApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,7 +40,55 @@ export const competitionApi = api.injectEndpoints({
         }
       },
     }),
-    // getMatchesHistory: builder
+    getMatchDetails: builder.query({
+      query: ({ id }: Payload_GetMatchDetails) => ({
+        url: `competition/match/${id}`,
+      }),
+      transformResponse: (res) => {
+        try {
+          return Response_GetMatchDetailsSchema.parse(res);
+        } catch (err) {
+          console.log("INVALID API DATA", err);
+        }
+      },
+    }),
+    getMatchsHistory: builder.infiniteQuery<
+      Response_GetMatchesHistory,
+      Payload_GetMatchesHistory,
+      number
+    >({
+      infiniteQueryOptions: {
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => {
+          return lastPage?.cursor ? Number(lastPage.cursor) : undefined;
+        },
+      },
+      queryFn: async ({ queryArg, pageParam = 0 }, _api, _opts, fetchWithBQ) => {
+        const result = await fetchWithBQ({
+          url: `competition/user/history${objectToSearchParams({
+            ...queryArg,
+            cursor: pageParam,
+          })}`,
+        });
+        if (result.error) {
+          return { error: result.error };
+        }
+        try {
+          const validated = Response_GetMatchesHistorySchema.parse(result.data);
+          return {
+            data: validated,
+          };
+        } catch (err) {
+          console.log("VALIDATE ERROR", err);
+          return {
+            error: {
+              status: 500,
+              data: `Invalid response format: ${err}`,
+            },
+          };
+        }
+      },
+    }),
   }),
 });
 

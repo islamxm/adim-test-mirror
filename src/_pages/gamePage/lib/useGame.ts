@@ -4,9 +4,10 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 
 import { CnServerEventsMap, competitionWs } from "@/entities/competition";
+import { PlayerStatusType } from "@/entities/competition";
 import { userApi } from "@/entities/user";
 
-import { GameStatus, PlayerStatus } from "../model";
+import { GameStatus } from "../model";
 
 let eventId = "1";
 
@@ -40,9 +41,9 @@ export const useGame = () => {
 
   const [gameStatus, setGameStatus] = useState<GameStatus>("LOBBY");
 
-  const [opponentStatus, setOpponentStatus] = useState<PlayerStatus>();
-  const [selfStatus, setSelfStatus] = useState<PlayerStatus>();
-  const selfStatusPrev = useRef<PlayerStatus>(undefined);
+  const [opponentStatus, setOpponentStatus] = useState<PlayerStatusType>();
+  const [selfStatus, setSelfStatus] = useState<PlayerStatusType>();
+  const selfStatusPrev = useRef<PlayerStatusType>(undefined);
   const [matchData, setMatchData] =
     useState<Pick<CnServerEventsMap["OPPONENT_FOUND"], "roomCode" | "matchId">>();
   const [opponentData, setOpponentData] = useState<CnServerEventsMap["OPPONENT_FOUND"]>();

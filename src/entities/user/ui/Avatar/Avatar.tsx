@@ -16,6 +16,8 @@ type Props = {
   gap?: StackProps["gap"];
   backgroundColor?: string;
   isRounded?: boolean;
+  isDisabled?: boolean;
+  isActive?: boolean;
 };
 
 export const Avatar: FC<Props> = ({
@@ -28,6 +30,8 @@ export const Avatar: FC<Props> = ({
   backgroundColor,
   isRounded = true,
   shadowType,
+  isDisabled,
+  isActive,
 }) => {
   const boxShadow = () => {
     switch (shadowType) {
@@ -49,6 +53,7 @@ export const Avatar: FC<Props> = ({
           backgroundColor: backgroundColor || theme.palette.common.white,
           boxShadow: boxShadow(),
           alignItems: "flex-start",
+          filter: isDisabled ? "grayscale(1)" : "none",
           "& img": {
             width: "110%",
             height: "110%",
@@ -62,6 +67,7 @@ export const Avatar: FC<Props> = ({
             transform: "translateY(10px)",
           },
           borderRadius: isRounded ? "50%" : "0",
+          border: `2px solid ${isActive ? theme.palette.primary.main : "transparent"}`,
         })}
         src={avatarUrl}
       />

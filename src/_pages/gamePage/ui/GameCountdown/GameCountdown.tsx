@@ -3,7 +3,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
-import { Shine } from "../Versus/Shine";
+import { Shine } from "../../../../entities/competition/ui/Versus/Shine";
 
 type Props = {
   duration?: number;

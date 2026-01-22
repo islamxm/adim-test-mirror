@@ -1,4 +1,3 @@
-export type PlayerStatus = "WAIT" | "READY" | "NETWORK_ERROR" | "WIN" | "LOSE" | "DRAW";
 export type GameStatus =
   | "LOBBY"
   | "SEARCH"

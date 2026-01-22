@@ -1,16 +1,16 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
-import { winnerConfettiRun } from "@/animations/winner-confetti";
 import { Grid, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
 import { YellowButton } from "@/shared/ui";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 
-import { CnServerEventsMap, getGameResult } from "@/entities/competition";
+import { CnServerEventsMap } from "@/entities/competition";
+import { PlayerStatusType } from "@/entities/competition";
 import { User } from "@/entities/user";
 
-import { GameStatus, PlayerStatus } from "@/_pages/gamePage/model";
+import { GameStatus } from "@/_pages/gamePage/model";
 
 import { GameHeader } from "../../GameHeader/GameHeader";
 import { ResultList } from "../../ResultList/ResultList";
@@ -27,8 +27,8 @@ type Props = {
   onPlay?: () => void;
   selfData?: User;
   opponentData?: any;
-  opponentStatus?: PlayerStatus;
-  selfStatus?: PlayerStatus;
+  opponentStatus?: PlayerStatusType;
+  selfStatus?: PlayerStatusType;
 };
 
 export const ResultView: FC<Props> = ({

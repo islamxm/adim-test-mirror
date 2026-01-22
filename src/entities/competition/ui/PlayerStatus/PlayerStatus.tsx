@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 
 import { NetworkErrorIcon } from "@/shared/ui/icons";
 
-import { PlayerStatus as PlayerStatusType } from "../../model";
+import { PlayerStatusType } from "../../model";
 
 type Props = {
   status?: PlayerStatusType;
