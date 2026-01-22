@@ -24,10 +24,10 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
       >
         <motion.div layoutId="player">
           <Player
-            data={{
+            avatarProps={{
+              size: "22rem",
               avatarUrl: selfData?.avatarUrl,
             }}
-            size="22rem"
             extraContent={
               <>
                 <PlayerName profileName={selfData?.profileName} />
@@ -44,10 +44,9 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
         <Box sx={{ height: "20rem", width: "20rem", flex: "0 0 auto" }} />
         <motion.div layoutId="opponent">
           <Player
-            data={{
-              avatarUrl: "",
+            avatarProps={{
+              size: "22rem",
             }}
-            size="22rem"
             isSearching
           />
         </motion.div>

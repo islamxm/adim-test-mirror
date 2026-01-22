@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { motion } from "motion/react";
 
 import { GameResult, MatchData, Player, PlayerName, Versus } from "@/entities/competition";
-import { User, userApi } from "@/entities/user";
+import { userApi } from "@/entities/user";
 
 import { MatchResultTitle } from "../MatchResultTitle/MatchResultTitle";
 
@@ -16,11 +16,11 @@ type Props = {
 
 export const HistoryItem: FC<Props> = ({ data, onClick }) => {
   const theme = useTheme();
-  const { data: self } = userApi.useGetUserProfileQuery({});
+  const { data: selfData } = userApi.useGetUserProfileQuery({});
   const { opponent, winnerId, startedAt } = data;
 
   const selfGameResult: GameResult =
-    winnerId === null ? "DRAW" : winnerId === self?.id ? "WIN" : "LOSE";
+    winnerId === null ? "DRAW" : winnerId === selfData?.id ? "WIN" : "LOSE";
   const opponentGameResult: GameResult =
     winnerId === null ? "DRAW" : winnerId === opponent.id ? "WIN" : "LOSE";
 
@@ -44,11 +44,14 @@ export const HistoryItem: FC<Props> = ({ data, onClick }) => {
       <Stack direction={"row"} gap={"1rem"} alignItems={"center"}>
         <Box sx={{ flex: 1 }}>
           <Player
-            data={{ avatarUrl: self?.avatarUrl }}
-            size="12.4rem"
+            avatarProps={{
+              avatarUrl: selfData?.avatarUrl,
+              size: "12.4rem",
+              shadowType: "dark",
+            }}
             extraContent={
               <Stack gap={".4rem"}>
-                <PlayerName profileName={self?.profileName} />
+                <PlayerName profileName={selfData?.profileName} />
                 <MatchResultTitle status={selfGameResult} />
               </Stack>
             }
@@ -67,8 +70,11 @@ export const HistoryItem: FC<Props> = ({ data, onClick }) => {
         </Box>
         <Box sx={{ flex: 1 }}>
           <Player
-            data={{ avatarUrl: opponent.avatarUrl }}
-            size="12.4rem"
+            avatarProps={{
+              avatarUrl: opponent.avatarUrl,
+              size: "12.4rem",
+              shadowType: "dark",
+            }}
             extraContent={
               <Stack gap={".4rem"}>
                 <PlayerName profileName={opponent?.profileName} />

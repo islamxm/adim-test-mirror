@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+
+import { StackProps } from "@mui/material";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 
@@ -43,3 +46,19 @@ export const userSlice = createSlice({
     },
   },
 });
+
+type ShadowType = "light" | "dark" | string;
+
+export type AvatarComponentProps = {
+  avatarUrl?: User["avatarUrl"];
+  size?: string;
+  label?: ReactNode;
+  extra?: ReactNode;
+  shadowType?: ShadowType;
+  direction?: StackProps["direction"];
+  gap?: StackProps["gap"];
+  backgroundColor?: string;
+  isRounded?: boolean;
+  isDisabled?: boolean;
+  isActive?: boolean;
+};

@@ -1,26 +1,10 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
-import { Avatar as MuiAvatar, Stack, StackProps, Typography } from "@mui/material";
+import { Avatar as MuiAvatar, Stack, Typography } from "@mui/material";
 
-import { type User } from "../../model";
+import { AvatarComponentProps } from "../../model";
 
-type ShadowType = "light" | "dark" | string;
-
-type Props = {
-  avatarUrl?: User["avatarUrl"];
-  size?: string;
-  label?: ReactNode;
-  extra?: ReactNode;
-  shadowType?: ShadowType;
-  direction?: StackProps["direction"];
-  gap?: StackProps["gap"];
-  backgroundColor?: string;
-  isRounded?: boolean;
-  isDisabled?: boolean;
-  isActive?: boolean;
-};
-
-export const Avatar: FC<Props> = ({
+export const Avatar: FC<AvatarComponentProps> = ({
   size,
   avatarUrl,
   label,
@@ -54,6 +38,7 @@ export const Avatar: FC<Props> = ({
           boxShadow: boxShadow(),
           alignItems: "flex-start",
           filter: isDisabled ? "grayscale(1)" : "none",
+          transition: "all .2s ease",
           "& img": {
             width: "110%",
             height: "110%",
