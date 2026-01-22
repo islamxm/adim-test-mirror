@@ -4,6 +4,9 @@ import { useIntersectionObserver } from "react-intersection-observer-hook";
 import { Grid, type StackProps } from "@mui/material";
 
 import { WithUIStatuses } from "@/shared/types";
+import { YellowSpinner } from "@/shared/ui";
+
+import { ResourceListLoading } from "./ResourceList.loading";
 
 type Props = PropsWithChildren<
   WithUIStatuses<{
@@ -59,7 +62,7 @@ export const ResourceList: FC<Props> = ({
           ))}
         {isSuccess && children}
       </Grid>
-      {isShowInfiniteTrigger && <div ref={ref} style={{ height: 1, width: "100%" }}></div>}
+      {isShowInfiniteTrigger && <ResourceListLoading ref={ref} />}
       {isShowClickTrigger && loadMoreElement?.(onLoadMore)}
     </>
   );

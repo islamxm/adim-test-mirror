@@ -16,6 +16,8 @@ import { ArrowRightIcon, InfoCircleIcon } from "@/shared/ui/icons";
 
 import { competitionApi } from "@/entities/competition";
 
+import { ShowHistoryButton } from "@/features/game/show-history";
+
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 
 import leftImg from "../../assets/points-start-left.png";
@@ -93,7 +95,7 @@ export const PointsPage = () => {
                 >
                   {"Let's play"}
                 </GlowingButton>
-                <Button variant={"outlined"}>Show history</Button>
+                <ShowHistoryButton />
                 <Button variant={"outlined"}>
                   <InfoCircleIcon sx={{ fontSize: "2.4rem" }} />
                 </Button>

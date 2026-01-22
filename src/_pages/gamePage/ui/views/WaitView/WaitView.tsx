@@ -5,16 +5,16 @@ import { AnimatePresence, motion } from "motion/react";
 
 import { ChevronRightDuo } from "@/shared/ui/icons";
 
-import { CnServerEventsMap } from "@/entities/competition";
+import {
+  CnServerEventsMap,
+  Player,
+  PlayerName,
+  PlayerStatus,
+  PlayerStatusType,
+  Versus,
+} from "@/entities/competition";
 import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
-
-import { PlayerStatus as PlayerStatusType } from "@/_pages/gamePage/model";
-
-import { Player } from "../../Player/Player";
-import { PlayerName } from "../../PlayerName/PlayerName";
-import { PlayerStatus } from "../../PlayerStatus/PlayerStatus";
-import { Versus } from "../../Versus/Versus";
 
 type Props = {
   selfStatus?: PlayerStatusType;

@@ -1,4 +1,5 @@
 import { WsState } from "@/shared/model";
+import { Nullable } from "@/shared/types";
 
 import { COMPETITION_WS_URL } from "./api";
 import {
@@ -121,18 +122,9 @@ export class CompetitionWS {
 
 export const competitionWs = new CompetitionWS(COMPETITION_WS_URL);
 
-export const getGameResult = (
-  result: CnServerEventsMap["RESULT"]["winnerId"] | undefined,
-  selfId?: number,
-): GameResult | undefined => {
-  if (result === null) {
-    return "DRAFT";
-  }
-  if (selfId !== undefined && result === selfId) {
-    return "WIN";
-  }
-  if (selfId !== undefined && result !== selfId) {
-    return "LOSE";
-  }
-  return undefined;
+export const getMatchResultStatusFromWinnerId = (
+  winnerId: Nullable<number>,
+  targetPlayerId?: number,
+): GameResult => {
+  return winnerId === null ? "DRAW" : winnerId === targetPlayerId ? "WIN" : "LOSE";
 };

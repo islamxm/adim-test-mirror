@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 
 import { Question } from "@/entities/competition";
 

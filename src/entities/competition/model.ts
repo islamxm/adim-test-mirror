@@ -2,10 +2,17 @@ import { z } from "zod";
 
 import { UserSchema } from "@/entities/user/@x/competition";
 
-import { CompetitionCategorySchema, UserMatchStatsSchema } from "./contracts";
+import {
+  CompetitionCategorySchema,
+  Payload_GetMatchDetailsSchema,
+  Payload_GetMatchesHistorySchema,
+  QuestionSchema,
+  Response_GetMatchDetailsSchema,
+  Response_GetMatchesHistorySchema,
+  UserMatchStatsSchema,
+} from "./contracts";
 
 const EventIdSchema = z.string();
-export const QuestionTypeSchema = z.literal(["Single_Choice", "Multiple_Choice"]);
 
 export const PlayerSchema = UserSchema.omit({
   backupEmail: true,
@@ -13,24 +20,16 @@ export const PlayerSchema = UserSchema.omit({
   phone: true,
 });
 
-export const QuestionSchema = z.object({
-  choices: z.array(z.object({ key: z.string(), value: z.string() })),
-  deadlineSec: z.number(),
-  id: z.number(),
-  stem: z.string(),
-  subCategoryId: z.number().optional(),
-  type: QuestionTypeSchema,
-  unitUd: z.number().optional(),
-});
-
 export const AnswerSchema = z.object({
-  answer: z.string(),
+  answer: z.string().optional(),
   elapsedMs: z.number(),
   isCorrect: z.boolean(),
   matchId: z.number(),
-  question: QuestionSchema,
+  /**@deprecated */
+  question: QuestionSchema.optional(),
   questionOrder: z.number(),
   userId: z.number(),
+  stem: z.string().optional(),
 });
 
 export const CnServerEventSchema = z.object({
@@ -136,4 +135,12 @@ export type Question = QuestionDto;
 export type AnswerDto = z.infer<typeof AnswerSchema>;
 export type Answer = AnswerDto;
 
-export type GameResult = "WIN" | "LOSE" | "DRAFT";
+export type PlayerStatusType = "WAIT" | "READY" | "NETWORK_ERROR" | GameResult;
+export type GameResult = "WIN" | "LOSE" | "DRAW";
+
+export type Payload_GetMatchesHistory = z.infer<typeof Payload_GetMatchesHistorySchema>;
+export type Response_GetMatchesHistory = z.infer<typeof Response_GetMatchesHistorySchema>;
+export type MatchData = Response_GetMatchesHistory["history"][0];
+
+export type Response_GetMatchDetails = z.infer<typeof Response_GetMatchDetailsSchema>;
+export type Payload_GetMatchDetails = z.infer<typeof Payload_GetMatchDetailsSchema>;

@@ -3,9 +3,9 @@ import { FC, ReactNode } from "react";
 import { Box, Stack, StackProps } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
-import { Avatar, User } from "@/entities/user";
+import { Avatar, User } from "@/entities/user/@x/competition";
 
-import { PlayerStatus as PlayerStatusType } from "../../model";
+import { PlayerStatusType } from "../../model";
 import { SearchPlayer } from "../SearchPlayer/SearchPlayer";
 
 type Props = {
@@ -16,6 +16,8 @@ type Props = {
   extraContentAlignItems?: StackProps["alignItems"];
   isSearching?: boolean;
   extraContent?: ReactNode;
+  isDisabled?: boolean;
+  avatarSlot?: ReactNode;
 };
 
 export const Player: FC<Props> = ({
@@ -25,6 +27,8 @@ export const Player: FC<Props> = ({
   extraContentAlignItems,
   isSearching,
   extraContent,
+  isDisabled,
+  avatarSlot,
 }) => {
   // надо вынести из обьекта data и сделать отдельным пропом
   const { avatarUrl } = data;
@@ -48,6 +52,7 @@ export const Player: FC<Props> = ({
                 avatarUrl={avatarUrl}
                 size={size}
                 shadowType={"light"}
+                isDisabled={isDisabled}
               />
             </motion.div>
           )}

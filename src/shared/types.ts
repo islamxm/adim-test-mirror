@@ -1,3 +1,7 @@
+import { PropsWithChildren, ReactNode } from "react";
+
+import { BoxProps } from "@mui/material";
+
 export type WithUIStatuses<OtherProps extends object = object> = OtherProps & {
   isLoading?: boolean;
   isSuccess?: boolean;
@@ -19,3 +23,13 @@ export type DefaultResponseErrorData = {
   message: string;
 };
 export type Nullable<T> = T | null;
+
+export type ModalProps = PropsWithChildren<{
+  open: boolean;
+  onClose?: (...args: any[]) => any;
+  title?: ReactNode;
+  wrapperStyle?: BoxProps["sx"];
+  contentStyle?: BoxProps["sx"];
+  hideCloseButton?: boolean;
+  beforeTitleSlot?: ReactNode;
+}>;

@@ -3,12 +3,9 @@ import { FC } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
+import { Player, PlayerName, PlayerStatus } from "@/entities/competition";
 import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
-
-import { Player } from "../../Player/Player";
-import { PlayerName } from "../../PlayerName/PlayerName";
-import { PlayerStatus } from "../../PlayerStatus/PlayerStatus";
 
 type Props = {
   selfStatus: any;

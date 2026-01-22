@@ -3,14 +3,11 @@ import { FC } from "react";
 import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
-import { CnServerEventsMap } from "@/entities/competition";
+import { CnServerEventsMap, PlayerStatusType } from "@/entities/competition";
+import { Player, PlayerName, PlayerStatus } from "@/entities/competition";
 import { League, LeagueBadge } from "@/entities/league";
-import { User } from "@/entities/user";
+import { Avatar, User } from "@/entities/user";
 
-import { PlayerStatus as PlayerStatusType } from "../../model";
-import { Player } from "../Player/Player";
-import { PlayerName } from "../PlayerName/PlayerName";
-import { PlayerStatus } from "../PlayerStatus/PlayerStatus";
 import { QuestionCountdown } from "../QuestionCountdown/QuestionCountdown";
 
 type Props = {
