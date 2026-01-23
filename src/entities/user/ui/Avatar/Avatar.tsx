@@ -1,6 +1,9 @@
 import { FC } from "react";
 
-import { Avatar as MuiAvatar, Stack, Typography } from "@mui/material";
+import Image from "next/image";
+
+import { Box, Avatar as MuiAvatar, Stack, Typography } from "@mui/material";
+import { motion } from "motion/react";
 
 import { AvatarComponentProps } from "../../model";
 
@@ -30,7 +33,30 @@ export const Avatar: FC<AvatarComponentProps> = ({
 
   return (
     <Stack direction={direction} gap={gap} alignItems={"center"}>
-      <MuiAvatar
+      <Box
+        component={motion.div}
+        sx={(theme) => ({
+          width: size,
+          height: size,
+          borderRadius: "50%",
+          boxShadow: boxShadow(),
+          filter: isDisabled ? "grayscale(1)" : "none",
+          transition: "all .2s ease",
+          overflow: "hidden",
+          flex: "0 0 auto",
+          backgroundColor: backgroundColor || theme.palette.common.white,
+          border: `2px solid ${isActive ? theme.palette.primary.main : "transparent"}`,
+          "& img": {
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          },
+        })}
+      >
+        <img src={avatarUrl || ""} alt="" width={50} height={50} />
+      </Box>
+      {/* <MuiAvatar
         sx={(theme) => ({
           width: size,
           height: size,
@@ -39,6 +65,7 @@ export const Avatar: FC<AvatarComponentProps> = ({
           alignItems: "flex-start",
           filter: isDisabled ? "grayscale(1)" : "none",
           transition: "all .2s ease",
+          overflow: "hidden",
           "& img": {
             width: "110%",
             height: "110%",
@@ -52,9 +79,11 @@ export const Avatar: FC<AvatarComponentProps> = ({
             transform: "translateY(10px)",
           },
           borderRadius: isRounded ? "50%" : "0",
-          border: `2px solid ${isActive ? theme.palette.primary.main : "transparent"}`,
+          // border: `2px solid /${isActive ? theme.palette.primary.main : "transparent"}`,
         })}
         src={avatarUrl}
+        component={motion.div}
+        layout
       />
       {label && (
         <Typography
@@ -65,7 +94,7 @@ export const Avatar: FC<AvatarComponentProps> = ({
           {label}
         </Typography>
       )}
-      {extra}
+      {extra} */}
     </Stack>
   );
 };

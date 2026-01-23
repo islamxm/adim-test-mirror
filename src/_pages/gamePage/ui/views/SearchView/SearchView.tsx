@@ -7,6 +7,9 @@ import { Player, PlayerName, PlayerStatus } from "@/entities/competition";
 import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
 
+import { PlayerAnimatedWrapper } from "../../PlayerAnimatedWrapper/PlayerAnimatedWrapper";
+import { PlayerBadge } from "../../PlayerBadge/PlayerBadge";
+
 type Props = {
   selfStatus: any;
   selfData?: User;
@@ -14,7 +17,7 @@ type Props = {
 
 export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
   return (
-    <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%" }}>
+    <Stack gap={"20rem"} justifyContent={"center"} sx={{ height: "100%" }}>
       <Stack
         alignItems={"flex-start"}
         direction={"row"}
@@ -22,14 +25,14 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
         justifyContent={"center"}
         component={motion.div}
       >
-        <motion.div layoutId="player">
+        <PlayerAnimatedWrapper layoutId="self">
           <Player
             avatarProps={{
               size: "22rem",
               avatarUrl: selfData?.avatarUrl,
             }}
             extraContent={
-              <>
+              <PlayerBadge side="left">
                 <PlayerName profileName={selfData?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
                   {selfData?.leagueName && (
@@ -37,23 +40,23 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
                   )}
                 </Box>
                 <PlayerStatus status={selfStatus} />
-              </>
+              </PlayerBadge>
             }
           />
-        </motion.div>
-        <Box sx={{ height: "20rem", width: "20rem", flex: "0 0 auto" }} />
-        <motion.div layoutId="opponent">
+        </PlayerAnimatedWrapper>
+        <Box component={motion.div} sx={{ height: "20rem", width: "20rem", flex: "0 0 auto" }} />
+        <PlayerAnimatedWrapper layoutId="opponent">
           <Player
             avatarProps={{
               size: "22rem",
             }}
             isSearching
           />
-        </motion.div>
+        </PlayerAnimatedWrapper>
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
         <Button variant={"contained"} disabled>
-          SEARCHING...
+          Searching...
         </Button>
       </Stack>
     </Stack>

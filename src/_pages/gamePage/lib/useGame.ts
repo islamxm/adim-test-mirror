@@ -29,6 +29,24 @@ const removeTimer = (timeoutId?: NodeJS.Timeout) => {
 
 let wsReconnectDelay = 1000;
 
+const mockOpponent: CnServerEventsMap["OPPONENT_FOUND"] = {
+  opponentId: {
+    id: 1,
+    avatarUrl: "",
+    profileName: "Test Profilename Looooooooooooooooooooooooooong",
+    username: "test",
+    email: "test",
+    leagueName: "BRONZE",
+    totalPoints: 100,
+  },
+  roomCode: "1",
+  matchId: 1,
+  sessionTimeoutSec: 0,
+  winPoints: 10,
+  lossPoints: 10,
+  eventId: "",
+};
+
 /** для того чтобы инкапсулировать логику игры от UI-компонента */
 export const useGame = () => {
   const { subcategory } = useParams();

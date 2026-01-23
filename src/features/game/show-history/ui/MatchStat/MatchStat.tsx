@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import { Box, Grid, Stack } from "@mui/material";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 import {
   Player,
@@ -20,6 +20,8 @@ export const MatchStat: FC<HistoryMatchData> = ({ id, opponent, winnerId }) => {
   const { data, isLoading, isError } = competitionApi.useGetMatchDetailsQuery({ id });
   const { data: selfData } = userApi.useGetUserProfileQuery({});
   const [activePlayer, setActivePlayer] = useState<number | undefined>(selfData?.id);
+
+  const { answers, opponentAnswers } = data || {};
 
   return (
     <Box
@@ -102,26 +104,65 @@ export const MatchStat: FC<HistoryMatchData> = ({ id, opponent, winnerId }) => {
             </motion.div>
           </Grid>
         </Grid>
-        {isLoading && (
-          <Stack gap={"1.2rem"}>
-            <QuestionResultSkeleton />
-            <QuestionResultSkeleton />
-            <QuestionResultSkeleton />
-          </Stack>
-        )}
-        {data && !isLoading && (
-          <Stack gap={"1.2rem"}>
-            {data[activePlayer === selfData?.id ? "answers" : "opponentAnswers"].map((item) => (
-              <QuestionResult
-                key={item.questionId}
-                elapsedMs={item.elapsedMs}
-                isCorrect={item.isCorrect}
-                stem={item.stem}
-                answer={item.answer}
-              />
-            ))}
-          </Stack>
-        )}
+        <AnimatePresence mode={"wait"}>
+          {isLoading && (
+            <Stack
+              component={motion.div}
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              gap={"1.2rem"}
+            >
+              <QuestionResultSkeleton />
+              <QuestionResultSkeleton />
+              <QuestionResultSkeleton />
+            </Stack>
+          )}
+          {data && !isLoading && (
+            <>
+              {activePlayer === selfData?.id && (
+                <Stack
+                  component={motion.div}
+                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  gap={"1.2rem"}
+                  key={"self-answers"}
+                >
+                  {answers?.map((item) => (
+                    <QuestionResult
+                      key={item.questionId}
+                      elapsedMs={item.elapsedMs}
+                      isCorrect={item.isCorrect}
+                      stem={item.stem}
+                      answer={item.answer}
+                    />
+                  ))}
+                </Stack>
+              )}
+              {activePlayer !== selfData?.id && (
+                <Stack
+                  component={motion.div}
+                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  gap={"1.2rem"}
+                  key={"opponent-answers"}
+                >
+                  {opponentAnswers?.map((item) => (
+                    <QuestionResult
+                      key={item.questionId}
+                      elapsedMs={item.elapsedMs}
+                      isCorrect={item.isCorrect}
+                      stem={item.stem}
+                      answer={item.answer}
+                    />
+                  ))}
+                </Stack>
+              )}
+            </>
+          )}
+        </AnimatePresence>
       </Stack>
     </Box>
   );

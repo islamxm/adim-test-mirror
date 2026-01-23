@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useRef } from "react";
 
 import { useCanvasConfetti } from "@/animations/winner-confetti";
 import { Box } from "@mui/material";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 
 import { userApi } from "@/entities/user";
 
@@ -130,8 +130,6 @@ export const Game = () => {
           width: "100%",
           m: "0 auto",
         }}
-        component={motion.div}
-        layout
       >
         <AnimatePresence>
           <BgBlue isDoubleBg={isDoubleBg} />
@@ -153,7 +151,9 @@ export const Game = () => {
             }}
             ref={confettiCanvasRef}
           />
-          <Box sx={{ position: "relative", zIndex: 2, height: "100%" }}>{activeView}</Box>
+          <Box sx={{ position: "relative", zIndex: 2, height: "100%", width: "100%" }}>
+            {activeView}
+          </Box>
         </Box>
       </Box>
     </Box>

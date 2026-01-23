@@ -93,7 +93,7 @@ export const CommentTextAction: FC<Props> = ({ replyData, onCancelReply }) => {
                 {/* <Typography>
                 Reply:
               </Typography> */}
-                <Avatar avatarUrl={replyData.parent.userAvatar} />
+                <Avatar size="3.4rem" isActive avatarUrl={replyData.parent.userAvatar} />
                 <Typography noWrap sx={{ width: "100%" }}>
                   {replyData.parent.text}
                 </Typography>

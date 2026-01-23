@@ -1,3 +1,7 @@
+.wrapper {
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
 .controls,
 .prev_timeline {
   width: 100%;
@@ -17,7 +21,7 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      
+
       .timeline_track_fill {
         background-color: #ffd24e;
         position: absolute;
