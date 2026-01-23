@@ -28,7 +28,7 @@ export const RatingTopProfile: FC<Props> = ({ data, place }) => {
       alignItems={"center"}
     >
       <Avatar
-        size={place === "FIRST" ? "16.4rem" : "14.4rem"}
+        size={place === "FIRST" ? "18.4rem" : "14.4rem"}
         avatarUrl={data?.user.avatarUrl}
         shadowType={"0 0 10px #00FFA826"}
       />
