@@ -1,5 +1,4 @@
 import { Skeleton, Stack } from "@mui/material";
-import { motion } from "motion/react";
 
 export const QuestionResultSkeleton = () => {
   return (
@@ -11,10 +10,6 @@ export const QuestionResultSkeleton = () => {
         p: "1.2rem 2rem",
       }}
       gap={"1.6rem"}
-      component={motion.div}
-      initial={{ opacity: 0 }}
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
     >
       <Skeleton variant={"rounded"} height={"2.1rem"} />
       <Stack gap={"1rem"}>

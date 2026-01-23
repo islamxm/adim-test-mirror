@@ -17,7 +17,7 @@ import classes from "./classes.module.scss";
 export const VideoControls = () => {
   const player = useMediaPlayer();
   const playbackRate = useMediaState("playbackRate");
-  const [isShowControls, setIsShowControls] = useState(false);
+  const [isShowControls, setIsShowControls] = useState(true);
   const isPaused = useMediaState("paused");
   // const isPlaying = useMediaState("playing");
 
@@ -59,8 +59,8 @@ export const VideoControls = () => {
   return (
     <Box
       component={"div"}
-      onMouseEnter={() => setIsShowControls(true)}
-      onMouseLeave={() => setIsShowControls(false)}
+      // onMouseEnter={() => setIsShowControls(true)}
+      // onMouseLeave={() => setIsShowControls(false)}
     >
       {isShowControls ? (
         <Stack

@@ -83,7 +83,7 @@ export const StartView: FC<Props> = ({
           selfStatus={selfStatus}
         />
         <Stack sx={{ height: "100%", width: "100%" }} gap={"2rem"}>
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

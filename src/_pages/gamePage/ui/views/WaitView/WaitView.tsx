@@ -16,6 +16,9 @@ import {
 import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
 
+import { PlayerAnimatedWrapper } from "../../PlayerAnimatedWrapper/PlayerAnimatedWrapper";
+import { PlayerBadge } from "../../PlayerBadge/PlayerBadge";
+
 type Props = {
   selfStatus?: PlayerStatusType;
   opponentStatus?: PlayerStatusType;
@@ -34,22 +37,20 @@ export const WaitView: FC<Props> = ({
   selfData,
 }) => {
   return (
-    <Stack gap={"3rem"} justifyContent={"center"} sx={{ height: "100%", position: "relative" }}>
-      <Stack
-        alignItems={"flex-start"}
-        direction={"row"}
-        gap={"11rem"}
-        justifyContent={"center"}
-        component={motion.div}
-      >
-        <motion.div layoutId="player" layout="preserve-aspect">
+    <Stack
+      gap={"20rem"}
+      justifyContent={"center"}
+      sx={{ height: "100%", width: "100%", position: "relative" }}
+    >
+      <Stack alignItems={"flex-start"} justifyContent={"center"} direction={"row"} gap={"11rem"}>
+        <PlayerAnimatedWrapper layoutId="self">
           <Player
             avatarProps={{
               size: "22rem",
               avatarUrl: selfData?.avatarUrl,
             }}
             extraContent={
-              <>
+              <PlayerBadge side="left">
                 <PlayerName profileName={selfData?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
                   {selfData?.leagueName && (
@@ -57,10 +58,10 @@ export const WaitView: FC<Props> = ({
                   )}
                 </Box>
                 <PlayerStatus status={selfStatus} />
-              </>
+              </PlayerBadge>
             }
           />
-        </motion.div>
+        </PlayerAnimatedWrapper>
         <Box sx={{ height: "20rem", width: "20rem", flex: "0 0 auto" }}>
           <AnimatePresence>
             <Box
@@ -74,14 +75,14 @@ export const WaitView: FC<Props> = ({
             </Box>
           </AnimatePresence>
         </Box>
-        <motion.div style={{ position: "relative" }} layoutId="opponent">
+        <PlayerAnimatedWrapper layoutId="opponent">
           <Player
             avatarProps={{
               size: "22rem",
               avatarUrl: opponentData?.opponentId?.avatarUrl,
             }}
             extraContent={
-              <>
+              <PlayerBadge side="right">
                 <PlayerName profileName={opponentData?.opponentId?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
                   {opponentData?.opponentId?.leagueName && (
@@ -89,27 +90,27 @@ export const WaitView: FC<Props> = ({
                   )}
                 </Box>
                 <PlayerStatus status={opponentStatus} />
-              </>
+              </PlayerBadge>
             }
           />
-          <Button
-            sx={{
-              position: "absolute",
-              top: "8rem",
-              right: 0,
-              transform: "translateX(calc(100% + 10px))",
-              height: "6rem",
-            }}
-            endIcon={<ChevronRightDuo />}
-            onClick={onSkipPlayer}
-          >
-            Skip player
-          </Button>
-        </motion.div>
+        </PlayerAnimatedWrapper>
+        {/* <Button
+          sx={{
+            position: "absolute",
+            top: "8rem",
+            right: 0,
+            transform: "translateX(calc(100% + 10px))",
+            height: "6rem",
+          }}
+          endIcon={<ChevronRightDuo />}
+          onClick={onSkipPlayer}
+        >
+          Skip player
+        </Button> */}
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
         <Button variant={"contained"} onClick={onReady} color={"primary"}>
-          READY
+          Ready
         </Button>
       </Stack>
     </Stack>

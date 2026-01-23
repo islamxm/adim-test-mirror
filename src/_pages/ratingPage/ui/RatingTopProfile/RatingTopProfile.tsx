@@ -30,7 +30,7 @@ export const RatingTopProfile: FC<Props> = ({ data, place }) => {
       <Avatar
         size={place === "FIRST" ? "16.4rem" : "14.4rem"}
         avatarUrl={data?.user.avatarUrl}
-        shadowType={"dark"}
+        shadowType={"0 0 10px #00FFA826"}
       />
       <Typography
         textAlign={"center"}

@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { Stack } from "@mui/material";
-import { motion } from "motion/react";
 
 import { User } from "@/entities/user";
 
@@ -22,8 +21,8 @@ export const ReadyView: FC<Props> = ({
   selfData,
 }) => {
   return (
-    <Stack gap={"3rem"} sx={{ height: "100%" }}>
-      <Stack gap={"10rem"} alignItems={"center"} component={motion.div}>
+    <Stack gap={"3rem"} sx={{ height: "100%", width: "100%" }}>
+      <Stack gap={"10rem"} alignItems={"center"}>
         <GameHeader selfData={selfData} opponentData={opponentData} />
         <Stack sx={{ height: "100%" }}>
           <GameCountdown duration={startCountdownSecs} onComplete={onComplete} />
