@@ -28,23 +28,29 @@ export const RatingTopThree: FC<Props> = ({ data }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <Box sx={{ minWidth: 0, flex: 1 }}>
-        {second ? (
-          <RatingTopProfile place={"SECOND"} data={second} />
-        ) : (
-          <RatingTopProfileSkeleton />
-        )}
-      </Box>
-      <Box sx={{ minWidth: 0, flex: 1 }}>
-        {first ? (
-          <RatingTopProfile place={"FIRST"} data={first} />
-        ) : (
-          <RatingTopProfileSkeleton isFirst />
-        )}
-      </Box>
-      <Box sx={{ minWidth: 0, flex: 1 }}>
-        {third ? <RatingTopProfile place={"THIRD"} data={third} /> : <RatingTopProfileSkeleton />}
-      </Box>
+      {data.length >= 1 && (
+        <Box sx={{ minWidth: 0, flex: 1 }}>
+          {second ? (
+            <RatingTopProfile place={"SECOND"} data={second} />
+          ) : (
+            <RatingTopProfileSkeleton />
+          )}
+        </Box>
+      )}
+      {data.length >= 2 && (
+        <Box sx={{ minWidth: 0, flex: 1 }}>
+          {first ? (
+            <RatingTopProfile place={"FIRST"} data={first} />
+          ) : (
+            <RatingTopProfileSkeleton isFirst />
+          )}
+        </Box>
+      )}
+      {data.length === 3 && (
+        <Box sx={{ minWidth: 0, flex: 1 }}>
+          {third ? <RatingTopProfile place={"THIRD"} data={third} /> : <RatingTopProfileSkeleton />}
+        </Box>
+      )}
     </Stack>
   );
 };

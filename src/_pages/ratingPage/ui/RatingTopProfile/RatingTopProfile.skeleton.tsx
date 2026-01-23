@@ -15,8 +15,8 @@ export const RatingTopProfileSkeleton: FC<Props> = ({ isFirst }) => {
     >
       <Skeleton
         variant={"circular"}
-        width={isFirst ? "16.4rem" : "14.4rem"}
-        height={isFirst ? "16.4rem" : "14.4rem"}
+        width={isFirst ? "18.4rem" : "14.4rem"}
+        height={isFirst ? "18.4rem" : "14.4rem"}
       />
       <Skeleton height={"3.3rem"} variant={"text"} width={"100%"} />
       <Skeleton height={"3.3rem"} width={"7rem"} />

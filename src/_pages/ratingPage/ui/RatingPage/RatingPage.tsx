@@ -1,11 +1,11 @@
 "use client";
+import { useEffect } from "react";
+
 import { usePathname, useSearchParams } from "next/navigation";
 
 import { Stack, Typography } from "@mui/material";
 
-import { YellowButton } from "@/shared/ui";
 import { Container } from "@/shared/ui/Container";
-import { ArrowLeftIcon } from "@/shared/ui/icons";
 
 import { League, leagueApi } from "@/entities/league";
 import { userApi } from "@/entities/user";
@@ -16,18 +16,21 @@ import { ResourceList } from "@/widgets/resourceList";
 import { RatingProfileItem } from "../RatingProfileItem/RatingProfileItem";
 import { RatingProfileItemSkeleton } from "../RatingProfileItem/RatingProfileItem.skeleton";
 import { RatingTopThree } from "../RatingTopThree/RatingTopThree";
+import { RatingTopThreeEmpty } from "../RatingTopThree/RatingTopThree.empty";
+import { RatingTopThreeSkeleton } from "../RatingTopThree/RatingTopThree.skeleton";
 import { SelectLeague } from "../SelectLeague/SelectLeague";
 
 export const RatingPage = () => {
   const { data: userData } = userApi.useGetUserProfileQuery({});
   const pathname = usePathname();
-  const activeLeague = (useSearchParams().get("league") as League) || "BRONZE";
+  const activeLeague = useSearchParams().get("league") as League;
 
   const {
     data: rawData,
     isLoading,
     isError,
     isSuccess,
+    isFetching,
     hasNextPage,
     fetchNextPage,
   } = leagueApi.useGetLeaderboardInfiniteQuery(
@@ -43,11 +46,19 @@ export const RatingPage = () => {
     window.history.replaceState(null, "", url);
   };
 
+  useEffect(() => {
+    if (userData && !activeLeague) {
+      onLeagueChange(userData.leagueName);
+    }
+  }, [userData, activeLeague]);
+
   return (
     <PageEnterAnimationLayout>
       <Stack sx={{ height: "100%", pt: "13.8rem" }} gap={"9.6rem"} alignItems={"center"}>
         <SelectLeague activeLeague={activeLeague} onChange={onLeagueChange} />
-        <RatingTopThree data={topThree} />
+        {isFetching && <RatingTopThreeSkeleton />}
+        {!isFetching && topThree.length > 0 && <RatingTopThree data={topThree} />}
+        {!isFetching && topThree.length === 0 && <RatingTopThreeEmpty />}
         <Stack
           gap={"2.4rem"}
           sx={(theme) => ({
@@ -80,16 +91,18 @@ export const RatingPage = () => {
                       isActive={userData?.id === profile.user.id}
                     />
                   ))}
-                {!data.find((d) => d.user.id === userData?.id) && userData && (
-                  <RatingProfileItem
-                    isActive
-                    data={{
-                      points: userData.totalPoints,
-                      rank: userData.rank || 0,
-                      user: userData,
-                    }}
-                  />
-                )}
+                {!data.find((d) => d.user.id === userData?.id) &&
+                  userData &&
+                  userData?.leagueName === activeLeague && (
+                    <RatingProfileItem
+                      isActive
+                      data={{
+                        points: userData.totalPoints,
+                        rank: userData.rank || 0,
+                        user: userData,
+                      }}
+                    />
+                  )}
               </ResourceList>
             </Stack>
           </Container>
