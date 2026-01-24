@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import { MultipleChoiceIcon } from "@/shared/ui/icons";
 
@@ -28,7 +28,7 @@ export const Question: FC<Props> = ({ children, question }) => {
           </Typography>
         </Stack>
       </Paper>
-      <Box
+      {/* <Box
         sx={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -37,7 +37,10 @@ export const Question: FC<Props> = ({ children, question }) => {
         }}
       >
         {children}
-      </Box>
+      </Box> */}
+      <Grid spacing={"2rem"} container>
+        {children}
+      </Grid>
     </Stack>
   );
 };

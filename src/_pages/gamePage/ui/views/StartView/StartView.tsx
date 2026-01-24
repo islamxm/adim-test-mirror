@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
 
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
 import { YellowButton } from "@/shared/ui";
@@ -9,6 +9,8 @@ import { ArrowRightIcon } from "@/shared/ui/icons";
 import { CnServerEventsMap } from "@/entities/competition";
 import { PlayerStatusType } from "@/entities/competition";
 import { User } from "@/entities/user";
+
+import { useAnswer } from "@/_pages/gamePage/lib/useAnswer";
 
 import { GameHeader } from "../../GameHeader/GameHeader";
 import { Question } from "../../Question/Question";
@@ -31,45 +33,11 @@ export const StartView: FC<Props> = ({
   opponentStatus,
   selfStatus,
 }) => {
-  const [answer, setAnswer] = useState<Array<string>>([]);
-  const time = useRef<number>(0);
-
-  useEffect(() => {
-    if (!question) {
-      return;
-    }
-    time.current = Date.now();
-    setAnswer([]);
-  }, [question]);
+  const { answer, onChangeAnswer, onSubmit } = useAnswer(question, onSubmitAnswer);
 
   if (!question) {
     return null;
   }
-
-  const onChangeAnswer = (key: string) => {
-    if (question.question.type === "Multiple_Choice") {
-      setAnswer((s) => {
-        if (s.find((k) => k === key)) {
-          return s.filter((k) => k !== key);
-        }
-        return [...s, key];
-      });
-    }
-    if (question.question.type === "Single_Choice") {
-      setAnswer((s) => {
-        if (s.find((k) => k === key)) {
-          return s.filter((k) => k !== key);
-        }
-        return [key];
-      });
-    }
-  };
-
-  const onSubmit = (ms?: number) => {
-    const delta = ms || Date.now() - time.current;
-    const keys = answer.join(",");
-    onSubmitAnswer?.(keys, delta);
-  };
 
   return (
     <Stack gap={"3rem"} sx={{ height: "100%" }}>
@@ -93,13 +61,14 @@ export const StartView: FC<Props> = ({
             >
               <Question question={question}>
                 {question.question.choices.map((choice) => (
-                  <Variant
-                    key={choice.key}
-                    variant={choice.key}
-                    value={choice.value}
-                    isActive={!!answer.find((k) => k === choice.key)}
-                    onChange={() => onChangeAnswer(choice.key)}
-                  />
+                  <Grid key={choice.key} size={6}>
+                    <Variant
+                      variant={choice.key}
+                      value={choice.value}
+                      isActive={!!answer.find((k) => k === choice.key)}
+                      onChange={() => onChangeAnswer(choice.key)}
+                    />
+                  </Grid>
                 ))}
               </Question>
             </motion.div>
