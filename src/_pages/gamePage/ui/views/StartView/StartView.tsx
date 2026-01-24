@@ -23,6 +23,7 @@ type Props = {
   selfData?: User;
   opponentStatus?: PlayerStatusType;
   selfStatus?: PlayerStatusType;
+  isSubmittingAnswer?: boolean;
 };
 
 export const StartView: FC<Props> = ({

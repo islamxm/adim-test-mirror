@@ -25,8 +25,6 @@ export const CoursesPage = () => {
       categoryId: params?.category,
     });
 
-  console.log(data);
-
   const courses = data?.pages.map((d) => d.courses).flat() || [];
 
   return (

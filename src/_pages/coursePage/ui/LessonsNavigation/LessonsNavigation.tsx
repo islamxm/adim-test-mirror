@@ -1,16 +1,16 @@
 import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 
 import { IconButton, Stack, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
+import { useRouterProgress } from "@/shared/lib";
 import { getLessonPage } from "@/shared/model";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@/shared/ui/icons";
 
 import { courseApi } from "@/entities/course";
 
 export const LessonsNavigation = () => {
-  const router = useRouter();
+  const router = useRouterProgress();
   const { course: courseId, unit: unitId, lesson: lessonId } = useParams();
   const { data } = courseApi.useGetCourseByIdQuery(Number(courseId));
   // const lessonsCount = data?.totalLessonsCount;

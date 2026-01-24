@@ -1,10 +1,9 @@
 import { FC } from "react";
 
-import { useRouter } from "next/navigation";
-
 import { Grid, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
+import { useRouterProgress } from "@/shared/lib";
 import { getGamePage } from "@/shared/model";
 import { YellowButton } from "@/shared/ui";
 import { ArrowRightIcon } from "@/shared/ui/icons";
@@ -42,7 +41,7 @@ export const ResultView: FC<Props> = ({
   selfStatus,
   gameStatus,
 }) => {
-  const router = useRouter();
+  const router = useRouterProgress();
 
   return (
     <Stack gap={"3rem"} sx={{ height: "100%" }}>

@@ -7,3 +7,4 @@ export { getDeviceInfo } from "./getDeviceInfo";
 export { getLanguageName } from "./getLanguageName";
 export { useGetAverageColor } from "./useGetAverageColor";
 export { usePageBgColor } from "./usePageBgColor";
+export { useRouterProgress } from "./useRouterProgress";

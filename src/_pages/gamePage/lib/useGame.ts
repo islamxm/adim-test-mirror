@@ -73,6 +73,7 @@ export const useGame = () => {
   }>();
   const [startCountdownSecs, setStartCountdownSecs] = useState(0);
   const [isConnected, setIsConnected] = useState(true);
+  const [isSubmittingAnswer, setIsSubmittingAnswer] = useState(false);
 
   const clearTimer = () => {
     removeTimer(retryTimer.current);
@@ -152,6 +153,7 @@ export const useGame = () => {
   /** CLIENT: отправить ответ на вопрос, SUBMIT_ANSWER */
   const submitAnswer = (answer: string, elapsedMs: number) => {
     if (matchData && question) {
+      setIsSubmittingAnswer(true);
       competitionWs.emit("SUBMIT_ANSWER", {
         roomCode: matchData.roomCode,
         matchId: matchData.matchId,
@@ -208,6 +210,7 @@ export const useGame = () => {
 
   /** SERVER: получаем следующий вопрос, NEXT_QUESTION */
   const onNextQuestion = (data: CnServerEventsMap["NEXT_QUESTION"]) => {
+    setIsSubmittingAnswer(false);
     setQuestion(data);
     generateEventId(data.eventId);
     clearTimer();
@@ -333,5 +336,6 @@ export const useGame = () => {
     startCountdownSecs,
     gameStatus,
     isConnected,
+    isSubmittingAnswer,
   };
 };

@@ -1,15 +1,17 @@
 "use client";
 import { useEffect } from "react";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import { Tab, Tabs } from "@mui/material";
 import { motion } from "motion/react";
 
+import { useRouterProgress } from "@/shared/lib";
+
 import { categoryApi } from "@/entities/category";
 
 export const CategoryTabs = () => {
-  const router = useRouter();
+  const router = useRouterProgress();
   const params = useParams<{ category: string }>();
   const { data, isError } = categoryApi.useGetCategoriesQuery(undefined);
 
@@ -36,13 +38,9 @@ export const CategoryTabs = () => {
         onChange={handleChange}
         sx={(theme) => ({
           "& .MuiTabs-indicator": {
-            // height: ".3rem",
             height: "100%",
             backgroundColor: theme.palette.background.default,
             borderRadius: "1.5rem 1.5rem 0 0",
-          },
-          "& .MuiTabs-list": {
-            // gap: "2.4rem",
           },
           "& .MuiTab-root": {
             zIndex: 2,
