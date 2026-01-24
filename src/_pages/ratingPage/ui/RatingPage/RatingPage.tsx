@@ -41,7 +41,7 @@ export const RatingPage = () => {
   const data = rawData?.pages.length ? rawData.pages.map((f) => f.board).flat() : [];
   const topThree = data.filter((d) => d.rank <= 3) || [];
 
-  const onLeagueChange = (e: League) => {
+  const onLeagueChange = (e: League | null) => {
     const url = `${pathname}?league=${e}`;
     window.history.replaceState(null, "", url);
   };

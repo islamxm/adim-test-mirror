@@ -12,7 +12,7 @@ const leagues = Object.entries(leagueMap)
 
 type Props = {
   activeLeague: string | null;
-  onChange?: (league: League) => void;
+  onChange?: (league: League | null) => void;
 };
 
 export const SelectLeague: FC<Props> = ({ onChange, activeLeague }) => {
