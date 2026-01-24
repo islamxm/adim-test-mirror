@@ -1,9 +1,9 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { Container } from "@/shared/ui/Container";
 
@@ -37,11 +37,19 @@ export const RatingPage = () => {
     { cursor: 0, leagueName: activeLeague },
     { skip: !activeLeague },
   );
+  const [data, setData] = useState<Array<any>>([]);
+  const [isActiveLeagueChanging, setIsActiveLeagueChanging] = useState(true);
 
-  const data = rawData?.pages.length ? rawData.pages.map((f) => f.board).flat() : [];
+  useEffect(() => {
+    if (isSuccess && rawData) {
+      setData(rawData?.pages.length ? rawData.pages.map((f) => f.board).flat() : []);
+    }
+  }, [isSuccess, rawData]);
+
   const topThree = data.filter((d) => d.rank <= 3) || [];
 
   const onLeagueChange = (e: League | null) => {
+    setIsActiveLeagueChanging(true);
     const url = `${pathname}?league=${e}`;
     window.history.replaceState(null, "", url);
   };
@@ -56,13 +64,19 @@ export const RatingPage = () => {
     }
   }, [userData, activeLeague]);
 
+  useEffect(() => {
+    if (isActiveLeagueChanging && !isFetching && data) {
+      setIsActiveLeagueChanging(false);
+    }
+  }, [isFetching, isSuccess, data]);
+
   return (
     <PageEnterAnimationLayout>
       <Stack sx={{ height: "100%", pt: "13.8rem" }} gap={"9.6rem"} alignItems={"center"}>
         <SelectLeague activeLeague={activeLeague} onChange={onLeagueChange} />
-        {isFetching && <RatingTopThreeSkeleton />}
-        {!isFetching && topThree.length > 0 && <RatingTopThree data={topThree} />}
-        {!isFetching && topThree.length === 0 && <RatingTopThreeEmpty />}
+        {isActiveLeagueChanging && <RatingTopThreeSkeleton />}
+        {!isActiveLeagueChanging && topThree.length > 0 && <RatingTopThree data={topThree} />}
+        {!isActiveLeagueChanging && topThree.length === 0 && <RatingTopThreeEmpty />}
         <Stack
           gap={"2.4rem"}
           sx={(theme) => ({
@@ -75,39 +89,49 @@ export const RatingPage = () => {
           <Container>
             <Stack gap={"2.4rem"}>
               <Typography variant="h2">Leaderboard</Typography>
-              <ResourceList
-                isError={isError}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-                canLoadMore={hasNextPage}
-                onLoadMore={fetchNextPage}
-                skeleton={{
-                  count: 5,
-                  component: RatingProfileItemSkeleton,
-                }}
-              >
-                {data
-                  .filter((d) => d.rank > 3)
-                  .map((profile) => (
-                    <RatingProfileItem
-                      key={profile.rank}
-                      data={profile}
-                      isActive={userData?.id === profile.user.id}
-                    />
-                  ))}
-                {!data.find((d) => d.user.id === userData?.id) &&
-                  userData &&
-                  userData?.leagueName === activeLeague && (
-                    <RatingProfileItem
-                      isActive
-                      data={{
-                        points: userData.totalPoints,
-                        rank: userData.rank || 0,
-                        user: userData,
-                      }}
-                    />
-                  )}
-              </ResourceList>
+              {isActiveLeagueChanging ? (
+                <Stack gap={"1rem"}>
+                  <RatingProfileItemSkeleton />
+                  <RatingProfileItemSkeleton />
+                  <RatingProfileItemSkeleton />
+                  <RatingProfileItemSkeleton />
+                  <RatingProfileItemSkeleton />
+                </Stack>
+              ) : (
+                <ResourceList
+                  isError={isError}
+                  isLoading={isLoading}
+                  isSuccess={isSuccess}
+                  canLoadMore={hasNextPage}
+                  onLoadMore={fetchNextPage}
+                  skeleton={{
+                    count: 5,
+                    component: RatingProfileItemSkeleton,
+                  }}
+                >
+                  {data
+                    .filter((d) => d.rank > 3)
+                    .map((profile) => (
+                      <RatingProfileItem
+                        key={profile.rank}
+                        data={profile}
+                        isActive={userData?.id === profile.user.id}
+                      />
+                    ))}
+                  {!data.find((d) => d.user.id === userData?.id) &&
+                    userData &&
+                    userData?.leagueName === activeLeague && (
+                      <RatingProfileItem
+                        isActive
+                        data={{
+                          points: userData.totalPoints,
+                          rank: userData.rank || 0,
+                          user: userData,
+                        }}
+                      />
+                    )}
+                </ResourceList>
+              )}
             </Stack>
           </Container>
         </Stack>
