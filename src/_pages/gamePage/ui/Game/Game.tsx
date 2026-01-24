@@ -1,8 +1,8 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect } from "react";
 
 import { useCanvasConfetti } from "@/animations/winner-confetti";
 import { Box } from "@mui/material";
-import { AnimatePresence, LayoutGroup, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 
 import { userApi } from "@/entities/user";
 
@@ -34,6 +34,7 @@ export const Game = () => {
     nextOpponent,
     submitAnswer,
     setGameStatus,
+    isSubmittingAnswer,
   } = useGame();
 
   const { confettiCanvasRef, confettiRun } = useCanvasConfetti();
@@ -67,6 +68,7 @@ export const Game = () => {
         question={question}
         opponentData={opponentData}
         selfData={selfData}
+        isSubmittingAnswer={isSubmittingAnswer}
       />
     ),
     // продумать обьединение двух gameState в один под названием RESULT

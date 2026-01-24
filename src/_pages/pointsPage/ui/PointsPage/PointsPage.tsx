@@ -1,15 +1,14 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import {
   screenFillingCircleActions,
   setCallback_screenFillingCircle,
 } from "@/animations/screen-filling-circle";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
-import { useDispatch } from "@/shared/lib";
+import { useDispatch, useRouterProgress } from "@/shared/lib";
 import { getGamePage } from "@/shared/model";
 import { GlowingButton } from "@/shared/ui";
 import { ArrowRightIcon, InfoCircleIcon } from "@/shared/ui/icons";
@@ -35,7 +34,7 @@ const getPercent = (total: number, part: number) => {
 export const PointsPage = () => {
   const { data } = competitionApi.useGetUserStatsQuery({});
   const dispatch = useDispatch();
-  const router = useRouter();
+  const router = useRouterProgress();
 
   if (!data) {
     return null;
@@ -96,9 +95,9 @@ export const PointsPage = () => {
                   {"Let's play"}
                 </GlowingButton>
                 <ShowHistoryButton />
-                <Button variant={"outlined"}>
+                {/* <Button variant={"outlined"}>
                   <InfoCircleIcon sx={{ fontSize: "2.4rem" }} />
-                </Button>
+                </Button> */}
               </Stack>
               <Stack
                 component={motion.div}
