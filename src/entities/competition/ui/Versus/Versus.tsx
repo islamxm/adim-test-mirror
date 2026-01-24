@@ -3,9 +3,9 @@ import { FC } from "react";
 import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
-import flash from "../../../../../public/flash.png";
-import s from "../../../../../public/s.png";
-import v from "../../../../../public/v.png";
+import flash from "../../../../../public/flash.svg";
+import s from "../../../../../public/s.svg";
+import v from "../../../../../public/v.svg";
 import { Light } from "./Light";
 import { Shine } from "./Shine";
 
