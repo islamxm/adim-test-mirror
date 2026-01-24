@@ -147,13 +147,14 @@ export const Game = () => {
               position: "absolute",
               width: "100%",
               height: "100%",
-              zIndex: 1,
+              // top: 0,
+              // left: 0,
+              pointerEvents: "none",
+              zIndex: 2,
             }}
             ref={confettiCanvasRef}
           />
-          <Box sx={{ position: "relative", zIndex: 2, height: "100%", width: "100%" }}>
-            {activeView}
-          </Box>
+          <Box sx={{ height: "100%", width: "100%" }}>{activeView}</Box>
         </Box>
       </Box>
     </Box>

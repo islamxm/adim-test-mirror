@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Typography, TypographyProps } from "@mui/material";
+import { Box, Typography, TypographyProps } from "@mui/material";
 import { motion } from "motion/react";
 
 import { User } from "@/entities/user/@x/competition";
@@ -14,16 +14,20 @@ type Props = Partial<Pick<User, "profileName">> & {
 
 export const PlayerName: FC<Props> = ({ profileName, textAlign, sx }) => {
   return (
-    <Typography
+    <Box
       component={motion.p}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      sx={{ height: "2.5rem", textAlign, maxWidth: "23rem", ...sx }}
-      noWrap
-      variant="h3"
+      sx={{ height: "2.5rem", maxWidth: "23rem", ...sx }}
     >
-      {profileName || <SearchDots />}
-    </Typography>
+      {profileName ? (
+        <Typography textAlign={textAlign} variant="h3" noWrap>
+          {profileName}
+        </Typography>
+      ) : (
+        <SearchDots />
+      )}
+    </Box>
   );
 };

@@ -16,7 +16,7 @@ export const SearchDots = () => {
       animate={{ opacity: 1 }}
     >
       {dots.map((_, index) => (
-        <motion.div
+        <motion.span
           key={index}
           style={{
             width: "1rem",
@@ -24,6 +24,7 @@ export const SearchDots = () => {
             borderRadius: "50%",
             flex: "0 0 auto",
             backgroundColor: "#000",
+            display: "block",
           }}
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: [-10, -5, 0, 0], opacity: [0, 1, 1, 0] }}

@@ -35,7 +35,7 @@ export const GameHeader: FC<Props> = ({
       direction={"row"}
       justifyContent={"space-between"}
       alignItems={"center"}
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", position: "relative" }}
     >
       <PlayerAnimatedWrapper layoutId="self">
         <Player
@@ -48,9 +48,7 @@ export const GameHeader: FC<Props> = ({
               <Stack gap={".8rem"} sx={{ p: "1rem 1rem 1rem 0" }}>
                 <PlayerName profileName={selfData?.profileName} />
                 <Stack direction={"row"} gap={"1.2rem"}>
-                  {selfData?.leagueName && (
-                    <LeagueBadge leagueName={selfData?.leagueName as League} />
-                  )}
+                  <LeagueBadge leagueName={selfData?.leagueName as League} />
                   <PlayerStatus status={selfStatus} />
                 </Stack>
               </Stack>
@@ -91,9 +89,7 @@ export const GameHeader: FC<Props> = ({
                 />
                 <Stack direction={"row"} gap={"1.2rem"} justifyContent={"flex-end"}>
                   <PlayerStatus status={opponentStatus} />
-                  {opponentData?.opponentId.leagueName && (
-                    <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
-                  )}
+                  <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
                 </Stack>
               </Stack>
             </PlayerBadge>

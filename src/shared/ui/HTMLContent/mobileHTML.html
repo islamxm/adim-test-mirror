@@ -123,6 +123,10 @@
       .wrapper table tr:last-child td {
         border-bottom: none;
       }
+      .wrapper figure {
+        margin-left: 0;
+        margin-right: 0;
+      }
     </style>
   </head>
   <body>
@@ -208,13 +212,17 @@
         });
       }
 
-      window.addEventListener("DOMContentLoaded", async () => {
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("[js]: Dom loaded");
         const wrapper = document.querySelector(".wrapper");
+        console.log("[js]: Wrapper element", wrapper);
+        console.log("[js]: Wrapper element inner content", wrapper?.innerHTML);
         if (wrapper?.innerHTML) {
           const content = wrapper.innerHTML;
-          await getHighlightingScripts(content);
-          highlight();
-          tableWrappingForIOS();
+          getHighlightingScripts(content).then(() => {
+            highlight();
+            tableWrappingForIOS();
+          });
         }
       });
     </script>

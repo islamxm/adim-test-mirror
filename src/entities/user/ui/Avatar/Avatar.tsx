@@ -54,37 +54,8 @@ export const Avatar: FC<AvatarComponentProps> = ({
           },
         })}
       >
-        <img src={avatarUrl || ""} alt="" width={50} height={50} />
+        {avatarUrl && <img src={avatarUrl} alt="" width={50} height={50} />}
       </Box>
-      {/* <MuiAvatar
-        sx={(theme) => ({
-          width: size,
-          height: size,
-          backgroundColor: backgroundColor || theme.palette.common.white,
-          boxShadow: boxShadow(),
-          alignItems: "flex-start",
-          filter: isDisabled ? "grayscale(1)" : "none",
-          transition: "all .2s ease",
-          overflow: "hidden",
-          "& img": {
-            width: "110%",
-            height: "110%",
-            scale: 0.8,
-            transform: "translateY(10px)",
-          },
-          "& svg": {
-            width: "110%",
-            height: "110%",
-            scale: 0.8,
-            transform: "translateY(10px)",
-          },
-          borderRadius: isRounded ? "50%" : "0",
-          // border: `2px solid /${isActive ? theme.palette.primary.main : "transparent"}`,
-        })}
-        src={avatarUrl}
-        component={motion.div}
-        layout
-      />
       {label && (
         <Typography
           textAlign={"center"}
@@ -94,7 +65,7 @@ export const Avatar: FC<AvatarComponentProps> = ({
           {label}
         </Typography>
       )}
-      {extra} */}
+      {extra}
     </Stack>
   );
 };

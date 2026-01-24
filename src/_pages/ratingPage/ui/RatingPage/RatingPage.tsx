@@ -41,14 +41,18 @@ export const RatingPage = () => {
   const data = rawData?.pages.length ? rawData.pages.map((f) => f.board).flat() : [];
   const topThree = data.filter((d) => d.rank <= 3) || [];
 
-  const onLeagueChange = (e: any) => {
+  const onLeagueChange = (e: League) => {
     const url = `${pathname}?league=${e}`;
     window.history.replaceState(null, "", url);
   };
 
   useEffect(() => {
     if (userData && !activeLeague) {
-      onLeagueChange(userData.leagueName);
+      if (userData?.leagueName) {
+        onLeagueChange(userData.leagueName as League);
+      } else {
+        onLeagueChange("BRONZE");
+      }
     }
   }, [userData, activeLeague]);
 

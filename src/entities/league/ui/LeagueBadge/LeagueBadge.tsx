@@ -5,14 +5,14 @@ import { Paper, PaperProps, Typography, useTheme } from "@mui/material";
 import { League, leagueMap } from "../../model";
 
 type Props = {
-  leagueName: League;
+  leagueName: League | null;
   sx?: PaperProps["sx"];
-  onClick?: (league: League) => void;
+  onClick?: (league: League | null) => void;
   isActive?: boolean;
 };
 
-export const LeagueBadge: FC<Props> = ({ leagueName = "BRONZE", sx, onClick, isActive }) => {
-  const leagueData = leagueMap[leagueName];
+export const LeagueBadge: FC<Props> = ({ leagueName, sx, onClick, isActive }) => {
+  const leagueData = leagueMap[leagueName ? leagueName : "NO_LEAGUE"];
   const { palette } = useTheme();
 
   const activeProps: PaperProps["sx"] = isActive
@@ -45,7 +45,9 @@ export const LeagueBadge: FC<Props> = ({ leagueName = "BRONZE", sx, onClick, isA
       component={"div"}
       onClick={() => onClick?.(leagueName)}
     >
-      <Typography fontSize={"1.8rem"}>{leagueData.label}</Typography>
+      <Typography noWrap fontSize={"1.8rem"}>
+        {leagueData.label}
+      </Typography>
       {leagueData.icon}
     </Paper>
   );

@@ -25,7 +25,7 @@ export const UserMatchStatsSchema = z.object({
   draws: z.number(),
   lastMatchAt: z.string(),
   leagueId: z.number(),
-  leagueName: z.string(),
+  leagueName: z.string().nullable(),
   leagueRank: z.number(),
   losses: z.number(),
   totalMatches: z.number(),

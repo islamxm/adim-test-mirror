@@ -22,7 +22,7 @@ export const UserSchema = z.object({
   profileName: z.string(),
   username: z.string(),
   totalPoints: z.number(),
-  leagueName: z.string(),
+  leagueName: z.string().nullable(),
   rank: z.number().optional(),
 });
 

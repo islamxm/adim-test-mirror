@@ -1,8 +1,11 @@
 import { FC } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { Grid, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
+import { getGamePage } from "@/shared/model";
 import { YellowButton } from "@/shared/ui";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 
@@ -39,6 +42,8 @@ export const ResultView: FC<Props> = ({
   selfStatus,
   gameStatus,
 }) => {
+  const router = useRouter();
+
   return (
     <Stack gap={"3rem"} sx={{ height: "100%" }}>
       <Stack gap={"5rem"} alignItems={"center"} component={motion.div}>
@@ -53,7 +58,6 @@ export const ResultView: FC<Props> = ({
             <Grid size={6}>
               <ResultList list={resultData?.selfResult || []} />
             </Grid>
-
             <Grid size={6}>
               {gameStatus === "WAIT_RESULT" ? (
                 <ResultListLoading />
@@ -62,9 +66,10 @@ export const ResultView: FC<Props> = ({
               )}
             </Grid>
           </Grid>
-
           <Stack direction={"row"} justifyContent={"flex-end"}>
-            <YellowButton endIcon={<ArrowRightIcon />}>На главную</YellowButton>
+            <YellowButton onClick={() => router.push(getGamePage())} endIcon={<ArrowRightIcon />}>
+              На главную
+            </YellowButton>
           </Stack>
         </Stack>
       </Stack>

@@ -6,7 +6,9 @@ import { motion } from "motion/react";
 import { League, LeagueBadge } from "@/entities/league";
 import { leagueMap } from "@/entities/league/model";
 
-const leagues = Object.entries(leagueMap).map(([_, value]) => ({ ...value, id: _ }));
+const leagues = Object.entries(leagueMap)
+  .map(([_, value]) => ({ ...value, id: _ }))
+  .filter((i) => i.id !== "NO_LEAGUE");
 
 type Props = {
   activeLeague: string | null;

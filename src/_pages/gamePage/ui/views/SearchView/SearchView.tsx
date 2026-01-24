@@ -3,6 +3,8 @@ import { FC } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
+import { YellowButton } from "@/shared/ui";
+
 import { Player, PlayerName, PlayerStatus } from "@/entities/competition";
 import { League, LeagueBadge } from "@/entities/league";
 import { User } from "@/entities/user";
@@ -35,9 +37,7 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
               <PlayerBadge side="left">
                 <PlayerName profileName={selfData?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
-                  {selfData?.leagueName && (
-                    <LeagueBadge leagueName={selfData.leagueName as League} />
-                  )}
+                  <LeagueBadge leagueName={selfData?.leagueName as League} />
                 </Box>
                 <PlayerStatus status={selfStatus} />
               </PlayerBadge>
@@ -55,9 +55,10 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
         </PlayerAnimatedWrapper>
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
-        <Button variant={"contained"} disabled>
+        <YellowButton disabled>Searching...</YellowButton>
+        {/* <Button variant={"contained"} disabled>
           Searching...
-        </Button>
+        </Button> */}
       </Stack>
     </Stack>
   );

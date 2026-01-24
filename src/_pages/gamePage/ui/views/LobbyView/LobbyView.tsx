@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { motion } from "motion/react";
 
 import { YellowButton } from "@/shared/ui";
@@ -38,9 +38,7 @@ export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData })
               <PlayerBadge>
                 <PlayerName profileName={selfData?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
-                  {selfData?.leagueName && (
-                    <LeagueBadge leagueName={selfData.leagueName as League} />
-                  )}
+                  <LeagueBadge leagueName={selfData?.leagueName as League} />
                 </Box>
                 <PlayerStatus status={selfStatus} />
               </PlayerBadge>
@@ -49,9 +47,10 @@ export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData })
         </PlayerAnimatedWrapper>
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
-        <Button variant={"contained"} onClick={onStartSearching} color={"primary"}>
+        <YellowButton onClick={onStartSearching}>Search opponent</YellowButton>
+        {/* <Button variant={"contained"} onClick={onStartSearching} color={"primary"}>
           Search opponent
-        </Button>
+        </Button> */}
       </Stack>
     </Stack>
   );

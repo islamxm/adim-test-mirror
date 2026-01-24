@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
+import { YellowButton } from "@/shared/ui";
 import { ChevronRightDuo } from "@/shared/ui/icons";
 
 import {
@@ -53,9 +54,7 @@ export const WaitView: FC<Props> = ({
               <PlayerBadge side="left">
                 <PlayerName profileName={selfData?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
-                  {selfData?.leagueName && (
-                    <LeagueBadge leagueName={selfData.leagueName as League} />
-                  )}
+                  <LeagueBadge leagueName={selfData?.leagueName as League} />
                 </Box>
                 <PlayerStatus status={selfStatus} />
               </PlayerBadge>
@@ -85,33 +84,32 @@ export const WaitView: FC<Props> = ({
               <PlayerBadge side="right">
                 <PlayerName profileName={opponentData?.opponentId?.profileName} />
                 <Box sx={{ position: "relative", zIndex: 1, height: "4.2rem" }}>
-                  {opponentData?.opponentId?.leagueName && (
-                    <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
-                  )}
+                  <LeagueBadge leagueName={opponentData?.opponentId.leagueName as League} />
                 </Box>
                 <PlayerStatus status={opponentStatus} />
               </PlayerBadge>
             }
           />
+          <Button
+            sx={{
+              position: "absolute",
+              top: "8rem",
+              right: 0,
+              transform: "translateX(calc(100% + 10px))",
+              height: "6rem",
+            }}
+            endIcon={<ChevronRightDuo />}
+            onClick={onSkipPlayer}
+          >
+            Skip player
+          </Button>
         </PlayerAnimatedWrapper>
-        {/* <Button
-          sx={{
-            position: "absolute",
-            top: "8rem",
-            right: 0,
-            transform: "translateX(calc(100% + 10px))",
-            height: "6rem",
-          }}
-          endIcon={<ChevronRightDuo />}
-          onClick={onSkipPlayer}
-        >
-          Skip player
-        </Button> */}
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
-        <Button variant={"contained"} onClick={onReady} color={"primary"}>
+        <YellowButton onClick={onReady}>Ready</YellowButton>
+        {/* <Button variant={"contained"} onClick={onReady} color={"primary"}>
           Ready
-        </Button>
+        </Button> */}
       </Stack>
     </Stack>
   );
