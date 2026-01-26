@@ -51,6 +51,9 @@ const mockOpponent: CnServerEventsMap["OPPONENT_FOUND"] = {
 export const useGame = () => {
   const { subcategory } = useParams();
   const { data } = userApi.useGetUserProfileQuery(undefined);
+  const [getUserdata] = userApi.useLazyGetHomeUserDataQuery();
+  const [getProfiledata] = userApi.useLazyGetUserProfileQuery();
+
   const { data: sessionData } = useSession();
   const subCategoryId = Number(subcategory);
 
@@ -229,9 +232,8 @@ export const useGame = () => {
 
   /** SERVER: получаем результат матча, RESULT */
   const onResult = (data: CnServerEventsMap["RESULT"]) => {
-    console.log(data);
-    console.log(opponentData);
-    userApi.endpoints.getUserProfile.initiate({});
+    getUserdata({}, true);
+    getProfiledata({}, true);
     generateEventId(data.eventId);
     clearTimer();
     setResult({

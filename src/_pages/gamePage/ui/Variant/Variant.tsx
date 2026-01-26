@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 
 import { Question } from "@/entities/competition";
 
@@ -12,7 +12,7 @@ type Props = Omit<Question["choices"][0], "key"> & {
 
 export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
   return (
-    <Paper
+    <Box
       sx={(theme) => ({
         p: 0,
         backgroundColor: theme.palette.primary.main,
@@ -22,7 +22,6 @@ export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
           transform: "translate(0)",
         },
       })}
-      elevation={0}
       onClick={onChange}
     >
       <Stack
@@ -53,6 +52,6 @@ export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
           {value}
         </Typography>
       </Stack>
-    </Paper>
+    </Box>
   );
 };
