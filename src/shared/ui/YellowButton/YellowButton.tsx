@@ -34,9 +34,11 @@ export const YellowButton: FC<Props> = ({
       )}
     >
       <div className={classes.main}>
-        <div className={classes.loader}>
-          <CircularProgress sx={{ color: "#fff" }} size={"3rem"} />
-        </div>
+        {loading && (
+          <div className={classes.loader}>
+            <CircularProgress sx={{ color: "#fff" }} size={"3rem"} />
+          </div>
+        )}
         {startIcon && <span className={clsx(classes.icon, classes.start)}>{startIcon}</span>}
         {children && <span className={classes.content}>{children}</span>}
         {endIcon && <span className={clsx(classes.icon, classes.end)}>{endIcon}</span>}

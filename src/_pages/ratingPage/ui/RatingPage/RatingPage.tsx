@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 import { Container } from "@/shared/ui/Container";
 

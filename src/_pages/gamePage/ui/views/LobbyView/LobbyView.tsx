@@ -48,9 +48,6 @@ export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData })
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
         <YellowButton onClick={onStartSearching}>Search opponent</YellowButton>
-        {/* <Button variant={"contained"} onClick={onStartSearching} color={"primary"}>
-          Search opponent
-        </Button> */}
       </Stack>
     </Stack>
   );
