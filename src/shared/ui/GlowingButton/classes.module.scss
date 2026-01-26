@@ -1,87 +1,87 @@
-.button {
-  overflow: visible;
-  // border: 1px solid black;
+.wrapper {
+  position: relative;
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 5px;
-    border-radius: 1.6rem;
-    
-    background: linear-gradient(
-      45deg,
-      #ff0000,
-      #ff9900,
-      #00ffcc,
-      #0066ff,
-      #ff00ff,
-      #ff0000
-    );
-    background-size: 400% 400%;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6),
-    0 0 30px rgba(255, 153, 0, 0.6),
-    0 0 45px rgba(0, 255, 204, 0.6),
-    0 0 60px rgba(0, 102, 255, 0.6),
-    0 0 75px rgba(255, 0, 255, 0.6);
-
-    // background: linear-gradient(
-    //   45deg,
-    //   #158A13,
-    //   #89c788ff,
-    //   #FFD24E,
-    //   #063B29,
-    // );
-    // background-size: 400% 400%;
-
-    // box-shadow:
-    //   0 0 50px #158A13,
-    //   0 0 40px #89c788ff,
-    //   0 0 60px #FFD24E,
-    //   0 0 100px #063B29,
-    //   ;
-
-    filter: blur(20px);
-    animation: 
-    gradientShift 2s linear infinite,
-      pulseGlow 2s ease-in-out infinite
-      ;
-    z-index: 0;
-    transition: all 0.3s ease;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 3px;
-    border-radius: 1.3rem;
-    opacity: 1;
-    z-index: 1;
-    transition: all 0.3s ease;
-  }
-
-
-  & > 
-  span,
-  .content,
-  .MuiButton-startIcon,
-  .MuiButton-endIcon {
+  .button {
     position: relative;
+    z-index: 3;
+  }
+
+  .button:hover ~ .shadow {
+    filter: blur(10px);
+  }
+
+  .mask {
+    position: absolute;
+    inset: -2px;
+    border-radius: 3rem;
+    overflow: hidden;
     z-index: 2;
-    // color: transparent;
-    // -webkit-background-clip: text;
-    // background-clip: text;
+    // box-shadow: 0 0 10px 10px rgba(#063B29, .5);
+
+    &:after {
+      background: conic-gradient(#06876d, #4200c7, #00b31b, #b700c8, #06876d);
+      // background: conic-gradient(#000, #fff, #000);
+      position: absolute;
+      top: -65%;
+      left: 0;
+      content: "";
+      aspect-ratio: 1/1;
+      border-radius: 100%;
+      width: 100%;
+      animation: rotate-mask 3s linear infinite;
+      // animation-play-state: paused;
+    }
+  }
+
+  .shadow {
+    // display: none;
+    position: absolute;
+    z-index: 1;
+    inset: -5px;
+    border-radius: 4rem;
+    background: linear-gradient(45deg, #ff0000, #ff9900, #00ffcc, #0066ff, #ff00ff);
+    background-size: 200% 200%;
+    transition: filter 0.2s ease;
+    // box-shadow:
+    //   0 0 15px rgba(255, 0, 0, 0.6),
+    //   0 0 30px rgba(255, 153, 0, 0.6),
+    //   0 0 45px rgba(0, 255, 204, 0.6),
+    //   0 0 60px rgba(0, 102, 255, 0.6),
+    //   0 0 75px rgba(255, 0, 255, 0.6);
+
+    filter: blur(5px);
+    animation: gradientShift 3s linear infinite;
+
+    // &:after {
+    //   position: absolute;
+    //   content: "";
+    //   aspect-ratio: 1/1;
+    //   border-radius: 50%;
+    //   top: -52%;
+    //   left: 0;
+    //   width: 100%;
+    //   opacity: 1;
+    //   background: conic-gradient(#06876d, #4200c7, #00b31b, #b700c8, #06876d);
+    //   animation: rotate-mask 1s linear infinite;
+    // }
+  }
+}
+
+@keyframes rotate-mask {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }
 
 @keyframes gradientShift {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 50% 50%;
+    background-position: 0% 0%;
   }
   100% {
-    background-position: 150% 50%;
+    background-position: 200% 0%;
   }
 }
 
@@ -95,9 +95,4 @@
   100% {
     filter: blur(6px) brightness(1);
   }
-}
-
-.button:hover::before {
-  transform: scale(1.1);
-  inset: 0;
 }
