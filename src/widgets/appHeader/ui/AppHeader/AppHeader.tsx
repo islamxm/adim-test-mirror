@@ -32,6 +32,7 @@ export const AppHeader: FC<Props> = ({ isShowHeader }) => {
             height: "9.8rem",
             overflow: "hidden",
             borderBottom: `1px solid ${isCourseMainPage ? theme.palette.grey[300] : "transparent"}`,
+            backgroundColor: isCourseMainPage ? theme.palette.gold.light : "transparent",
           })}
           className={cn([classes.wrapper, isCourseMainPage && classes.courseMainPage_variant])}
           component={motion.div}

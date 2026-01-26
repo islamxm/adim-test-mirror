@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
 import { CourseHeadGoBack } from "@/features/course/course-head-go-back";
@@ -17,10 +18,12 @@ export const CourseHeader = () => {
           exit={{ clipPath: "circle(0% at 50% 50%)", opacity: 1 }}
           animate={{ clipPath: "circle(100% at 50% 50%)", opacity: 1 }}
           style={{ backgroundColor: "#fff", position: "absolute", inset: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 1 }}
         />
       </AnimatePresence>
-      <UserAvatar />
+      <Box sx={{ zIndex: 3 }}>
+        <UserAvatar />
+      </Box>
     </>
   );
 };
