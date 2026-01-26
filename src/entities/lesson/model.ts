@@ -73,3 +73,7 @@ export type Payload_ReplyComment = {
   parentId: number;
   text: string;
 };
+export type Payload_FinishLesson = {
+  courseId: number;
+  lessonId: number;
+};

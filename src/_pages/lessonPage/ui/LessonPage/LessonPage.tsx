@@ -1,4 +1,6 @@
 "use client";
+import { useEffect } from "react";
+
 import { useParams } from "next/navigation";
 
 import { Stack, Typography } from "@mui/material";
@@ -11,9 +13,25 @@ import { VideoPlayer, lessonApi } from "@/entities/lesson";
 import { LessonPageError } from "./LessonPage.error";
 import { LessonPageSkeleton } from "./LessonPage.skeleton";
 
+/** время по истечению которого урок пометиться как пройденный на 100% (в миллисекундах) */
+const FINISH_TIME = 5000;
+
 export const LessonPage = () => {
-  const { lesson } = useParams();
-  const { data, isError, isLoading } = lessonApi.useGetLessonQuery(Number(lesson));
+  const { lesson, course } = useParams();
+  const { data, isError, isLoading, isSuccess } = lessonApi.useGetLessonQuery(Number(lesson));
+  const [finishLesson] = lessonApi.useFinishLessonMutation();
+
+  useEffect(() => {
+    if (data && !data.isFinished && isSuccess && course) {
+      const finishTimer = setTimeout(() => {
+        finishLesson({ lessonId: data.id, courseId: Number(course) });
+      }, FINISH_TIME);
+
+      return () => {
+        clearTimeout(finishTimer);
+      };
+    }
+  }, [data, isSuccess, course, finishLesson]);
 
   if (isLoading) {
     return <LessonPageSkeleton />;

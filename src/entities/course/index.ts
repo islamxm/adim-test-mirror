@@ -6,3 +6,4 @@ export { COURSE_TABS } from "./model";
 export { courseApi } from "./api";
 export { InfoChip } from "./ui/InfoChip/InfoChip";
 export { courseDtoMap } from "./lib";
+export { ProgressBadge } from "./ui/ProgressBadge/ProgressBadge";

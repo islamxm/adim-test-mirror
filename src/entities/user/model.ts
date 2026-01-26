@@ -31,8 +31,12 @@ export type Payload_Register = z.infer<typeof Payload_RegisterSchema>;
 export type Payload_Login = z.infer<typeof Payload_LoginSchema>;
 export type Payload_Verify = z.infer<typeof Payload_VerifySchema>;
 
+export type AuthStatus = "pending" | "success" | "error";
+
 type UserSliceInitialState = {
+  /** @deprecated */
   isAuth: boolean | undefined;
+  authStatus?: AuthStatus;
 };
 const userSliceInitialState: UserSliceInitialState = {
   isAuth: undefined,

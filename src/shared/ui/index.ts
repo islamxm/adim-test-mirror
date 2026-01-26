@@ -9,3 +9,4 @@ export { YellowButton } from "./YellowButton/YellowButton";
 export { YellowSpinner } from "./YellowSpinner/YellowSpinner";
 export { Modal } from "./Modal/Modal";
 export { PasswordField } from "./PasswordField/PasswordField";
+export { ProgressCircle } from "./ProgressCircle/ProgressCircle";

@@ -1,14 +1,14 @@
 "use client";
 import { useTranslations } from "next-intl";
 
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 import { useSelector } from "@/shared/lib";
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 
-import { CourseCard } from "@/entities/course";
+import { CourseCard, ProgressBadge } from "@/entities/course";
 import { userApi } from "@/entities/user";
 
 export const ContinueLearningSection = () => {
@@ -28,24 +28,21 @@ export const ContinueLearningSection = () => {
       })}
     >
       <Container>
-        <SectionHead
-          title={t("title")}
-          action={
-            <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
-              {t("more_button")}
-            </Button>
-          }
-        />
-        {/* <Stack direction={"row"} gap={"20px"}>
+        <SectionHead title={t("title")} />
+        <Grid container spacing={"2rem"}>
           {data.continueLearning.map((course) => (
-            <CourseCard
-              key={course.courseId}
-              id={course.courseId}
-              name={course.courseName}
-              icon={course.courseIcon}
-            />
+            <Grid size={3} key={course.courseId}>
+              <CourseCard
+                id={course.courseId}
+                image={course.courseIcon}
+                totalLessonsCount={0}
+                name={course.courseName}
+                languages={[]}
+                topFixedSlot={<ProgressBadge value={course.percent} />}
+              />
+            </Grid>
           ))}
-        </Stack> */}
+        </Grid>
       </Container>
     </Box>
   );

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -12,10 +12,20 @@ import { Language, getAboutCoursePage } from "@/shared/model";
 import { Course } from "../../model";
 import { InfoChip } from "../InfoChip/InfoChip";
 
-export const CourseCard: FC<
-  Pick<Course, "name" | "id" | "image" | "totalLessonsCount" | "languages"> &
-    Partial<Pick<Course, "description">>
-> = ({ name, description, totalLessonsCount, languages, id, image }) => {
+type Props = Pick<Course, "name" | "id" | "image" | "totalLessonsCount" | "languages"> &
+  Partial<Pick<Course, "description">> & {
+    topFixedSlot?: ReactNode;
+  };
+
+export const CourseCard: FC<Props> = ({
+  name,
+  description,
+  totalLessonsCount,
+  languages,
+  id,
+  image,
+  topFixedSlot,
+}) => {
   return (
     <Box component={Link} href={getAboutCoursePage(id)} sx={{ flex: 1 }}>
       <Paper
@@ -37,6 +47,9 @@ export const CourseCard: FC<
           zIndex: 2,
         }}
       >
+        {topFixedSlot && (
+          <Box sx={{ position: "absolute", top: 0, right: 0, p: "1rem" }}>{topFixedSlot}</Box>
+        )}
         <Stack gap={"1rem"}>
           <Box
             sx={{

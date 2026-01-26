@@ -8,6 +8,7 @@ import { commentDtoMap, lessonDetailsDtoMap } from "./lib";
 import {
   Comment,
   Payload_CreateComment,
+  Payload_FinishLesson,
   Payload_GetLessonCommentReplies,
   Payload_GetLessonComments,
   Payload_ReplyComment,
@@ -295,5 +296,14 @@ export const lessonApi = api.injectEndpoints({
     //     }
     //   },
     // }),
+
+    finishLesson: builder.mutation<any, Payload_FinishLesson, any>({
+      query: (body) => ({
+        url: "courses/report_lesson_finished",
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+      // нужно сюда добавить логику для изменения статуса урока в кэше зависимости от ответа
+    }),
   }),
 });

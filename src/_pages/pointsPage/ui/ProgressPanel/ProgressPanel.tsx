@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { Paper, Stack, Typography } from "@mui/material";
 
-import { ProgressCircle } from "../ProgressCircle/ProgressCircle";
+import { ProgressCircle } from "@/shared/ui/ProgressCircle/ProgressCircle";
 
 type Props = {
   title: string;

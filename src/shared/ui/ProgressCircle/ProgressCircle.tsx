@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 
 import { Box, Stack } from "@mui/material";
