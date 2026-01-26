@@ -20,9 +20,9 @@ export const StreakDetailsPanel: FC<Props> = ({ data }) => {
           <Typography sx={{ fontSize: "1.8rem", fontWeight: 600 }}>
             {data.currentStreak} {data.currentStreak > 1 ? "days" : "day"} sequence
           </Typography>
-          <Typography color={"textDisabled"}>
+          {/* <Typography color={"textDisabled"}>
             Lorem ipsum quisque mollis vel ultricies faucibus.
-          </Typography>
+          </Typography> */}
         </Stack>
       </Stack>
       <StreakDays streak={data} />
