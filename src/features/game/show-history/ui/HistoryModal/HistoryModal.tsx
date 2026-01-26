@@ -15,6 +15,7 @@ import { HistoryMatchData } from "../../model";
 import { HistoryItem } from "../HistoryItem/HistoryItem";
 import { HistoryItemSkeleton } from "../HistoryItem/HistoryItem.skeleton";
 import { MatchStat } from "../MatchStat/MatchStat";
+import { HistoryModalEmpty } from "./HistoryModal.empty";
 
 export const HistoryModal: FC<ModalProps> = (props) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isSuccess, isError } =
@@ -76,6 +77,9 @@ export const HistoryModal: FC<ModalProps> = (props) => {
           pb: "4rem",
         }}
       >
+        <AnimatePresence>
+          {!isLoading && history.length === 0 && <HistoryModalEmpty />}
+        </AnimatePresence>
         <ResourceList
           isLoading={isLoading}
           isError={isError}
