@@ -17,20 +17,24 @@ import { AuthFormLayout } from "../AuthFormLayout/AuthFormLayout";
 const renderAuthForm = (type: AuthType, setStatus?: (status: UIStatus) => void) => {
   return (
     <>
-      <Box hidden={type !== "login"}>
-        <LoginForm
-          isActive={type === "login"}
-          setStatus={setStatus}
-          oauth={<AuthWithGoogleBtn setStatus={setStatus} />}
-        />
-      </Box>
-      <Box hidden={type !== "register"}>
-        <RegisterForm
-          isActive={type === "register"}
-          setStatus={setStatus}
-          oauth={<AuthWithGoogleBtn setStatus={setStatus} />}
-        />
-      </Box>
+      {type === "login" && (
+        <Box>
+          <LoginForm
+            isActive={type === "login"}
+            setStatus={setStatus}
+            oauth={<AuthWithGoogleBtn setStatus={setStatus} />}
+          />
+        </Box>
+      )}
+      {type === "register" && (
+        <Box>
+          <RegisterForm
+            isActive={type === "register"}
+            setStatus={setStatus}
+            oauth={<AuthWithGoogleBtn setStatus={setStatus} />}
+          />
+        </Box>
+      )}
     </>
   );
 };

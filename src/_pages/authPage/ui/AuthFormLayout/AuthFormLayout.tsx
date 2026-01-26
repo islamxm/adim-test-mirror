@@ -2,14 +2,14 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import { Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
+import { useRouterProgress } from "@/shared/lib";
 import { getLoginPage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
-import { PrivacyPolicyLink } from "@/shared/ui/PrivacyPolicyLink";
 
 import { AuthType } from "@/entities/user";
 
@@ -23,7 +23,8 @@ type Props = {
 
 export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
   const t = useTranslations("pages.authPage.AuthFormLayout");
-  const router = useRouter();
+  const router = useRouterProgress();
+  const pathname = usePathname();
   const params = useSearchParams();
   const type = params.get("type") as AuthType;
   const [status, setStatus] = useState<UIStatus>("idle");
@@ -41,8 +42,6 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
     <>
       <Paper
         component={motion.div}
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
         sx={{
           maxWidth: "515px",
           width: "100%",
@@ -52,7 +51,7 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
           overflow: "hidden",
           zIndex: 2,
         }}
-        variant={"outlined"}
+        elevation={0}
         layout
       >
         {status === "loading" && <PanelFormLoading />}
@@ -64,7 +63,8 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
             <Tabs
               value={type}
               onChange={(_, type) => {
-                router.push("/auth?type=" + type);
+                const url = `${pathname}?type=${type}`;
+                window.history.replaceState(null, "", url);
               }}
               aria-label="product category tabs"
               sx={(theme) => ({
@@ -112,7 +112,6 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
             type,
           })}
           {extra}
-          <PrivacyPolicyLink />
         </Stack>
       </Paper>
       {bg?.({ setStatus, type })}

@@ -12,6 +12,7 @@ import { z } from "zod";
 
 import { getHomePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
+import { PasswordField, PrivacyPolicyLink } from "@/shared/ui";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 import { getUserDeviceInfo } from "@/entities/user";
@@ -84,14 +85,14 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
           helperText={<InputErrorText>{errors?.email?.message}</InputErrorText>}
         />
       </Stack>
-      <TextField
+      <PasswordField
         placeholder={t("password")}
         {...register("password")}
         fullWidth
-        type="password"
         error={!!errors.password}
         helperText={<InputErrorText>{errors?.password?.message}</InputErrorText>}
       />
+      <PrivacyPolicyLink />
       {oauth}
       <Button type={"submit"} variant={"contained"}>
         {t("submit_button")}

@@ -16,8 +16,6 @@ export const StreakInfo = () => {
     return null;
   }
 
-  console.log(data);
-
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}

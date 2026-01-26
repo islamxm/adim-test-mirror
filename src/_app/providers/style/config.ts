@@ -157,6 +157,16 @@ export const themeConfig = createTheme({
         },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: "1.2rem",
+          borderRadius: "1rem",
+          paddingTop: "1rem",
+          paddingBottom: "1rem",
+        },
+      },
+    },
   },
 });
 

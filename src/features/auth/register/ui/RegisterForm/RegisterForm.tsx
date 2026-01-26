@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import { objectToSearchParams } from "@/shared/lib";
 import { UIStatus } from "@/shared/types";
+import { PasswordField, PrivacyPolicyLink } from "@/shared/ui";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 import { getUserDeviceInfo } from "@/entities/user";
@@ -100,7 +101,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         error={!!errors.email}
         helperText={<InputErrorText>{errors.email?.message}</InputErrorText>}
       />
-      <TextField
+      <PasswordField
         fullWidth
         placeholder={t("password")}
         {...register("password")}
@@ -108,7 +109,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         type={"password"}
         helperText={<InputErrorText>{errors.password?.message}</InputErrorText>}
       />
-      <TextField
+      <PasswordField
         fullWidth
         placeholder={t("repeat_password")}
         {...register("repeatPassword")}
@@ -117,6 +118,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         helperText={<InputErrorText>{errors?.repeatPassword?.message}</InputErrorText>}
       />
       {errors.root?.message}
+      <PrivacyPolicyLink />
       {oauth}
       <Button variant={"contained"} color={"primary"} type="submit">
         {t("submit_button")}
