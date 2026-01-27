@@ -10,7 +10,12 @@ import {
   Typography,
   alpha,
 } from "@mui/material";
-import { VideoQualityOptions, useMediaPlayer, useVideoQualityOptions } from "@vidstack/react";
+import {
+  VideoQualityOptions,
+  useMediaPlayer,
+  useMediaState,
+  useVideoQualityOptions,
+} from "@vidstack/react";
 import { AnimatePresence, motion } from "motion/react";
 
 import {
@@ -98,7 +103,7 @@ const QualitiesContent: FC<{
   );
 };
 
-const SpeedContent: FC<{ onChange: (value: number) => void; value: number }> = ({
+const SpeedContent: FC<{ onChange: (value: number) => void; value?: number }> = ({
   onChange,
   value,
 }) => {
@@ -152,6 +157,7 @@ const SpeedContent: FC<{ onChange: (value: number) => void; value: number }> = (
 
 export const SettingsControl = () => {
   const player = useMediaPlayer();
+  const playbackRate = useMediaState("playbackRate");
   const [isOpen, setIsOpen] = useState(false);
   const [activeView, setActiveView] = useState<Content>("main");
   const options = useVideoQualityOptions();
@@ -186,14 +192,14 @@ export const SettingsControl = () => {
     main: (
       <MainContent
         quality={options.find((f) => f.value === options.selectedValue)?.label}
-        speed={player?.playbackRate}
+        speed={playbackRate}
         onSelect={setActiveView}
       />
     ),
     quality: <QualitiesContent isAuto={isAutoQuality} avilableQualities={options} />,
     speed: (
       <SpeedContent
-        value={player?.playbackRate || 1}
+        value={playbackRate}
         onChange={(value) => player?.remoteControl.changePlaybackRate(value)}
       />
     ),
