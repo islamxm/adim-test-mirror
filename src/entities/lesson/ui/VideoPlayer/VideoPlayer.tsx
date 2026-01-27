@@ -20,11 +20,15 @@ type Props = {
 export const VideoPlayer: FC<Props> = ({ src, title }) => {
   const ref = useRef<MediaPlayerInstance>(null);
 
+  /** функция для того чтобы ограничить размер предзагрузки видео */
   const onProviderChange = (provider: MediaProviderAdapter | null) => {
     if (isHLSProvider(provider)) {
       provider.config = {
-        maxBufferLength: 0.1,
-        maxMaxBufferLength: 1,
+        // запас загрузки в секундах, то есть сколько видео будет загружено вперед
+        maxBufferLength: 30,
+        // максимальный запас загрузки в секундах
+        maxMaxBufferLength: 45,
+        // начать загрузку сразу после инициализации провайдера
         autoStartLoad: true,
       };
     }

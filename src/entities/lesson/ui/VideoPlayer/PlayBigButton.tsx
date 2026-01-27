@@ -1,4 +1,4 @@
-import { IconButton, alpha } from "@mui/material";
+import { Box, IconButton, alpha } from "@mui/material";
 import { useMediaPlayer } from "@vidstack/react";
 import { motion } from "motion/react";
 
@@ -8,7 +8,17 @@ export const PlayBigButton = () => {
   const player = useMediaPlayer();
 
   return (
-    <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
+    <Box
+      sx={{
+        position: "absolute",
+        left: "calc(50% - (7.2rem / 2))",
+        top: "calc(50% - (7.2rem / 2))",
+      }}
+      component={motion.div}
+      initial={{ scale: 0 }}
+      exit={{ scale: 0 }}
+      animate={{ scale: 1 }}
+    >
       <IconButton
         sx={{
           width: "7.2rem",
@@ -24,6 +34,6 @@ export const PlayBigButton = () => {
       >
         <PlayIconFilled sx={{ fontSize: "3.8rem", pl: ".5rem", color: "#fff" }} />
       </IconButton>
-    </motion.div>
+    </Box>
   );
 };

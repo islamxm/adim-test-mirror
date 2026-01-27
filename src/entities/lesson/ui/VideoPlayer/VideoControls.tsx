@@ -4,22 +4,17 @@ import { Box, IconButton, Stack } from "@mui/material";
 import { Time, TimeSlider, useMediaPlayer, useMediaState } from "@vidstack/react";
 import { motion } from "motion/react";
 
-import {
-  FullScreenIcon,
-  PauseIcon,
-  PlayIconFilled,
-  SettingsIcon,
-  VolumeIcon,
-} from "@/shared/ui/icons";
+import { PauseIcon, PlayIconFilled } from "@/shared/ui/icons";
 
+import { ScreenControl } from "./ScreenControl";
+import { SettingsControl } from "./SettingsControl";
+import { VolumeControl } from "./VolumeControl";
 import classes from "./classes.module.scss";
 
 export const VideoControls = () => {
   const player = useMediaPlayer();
-  const playbackRate = useMediaState("playbackRate");
   const [isShowControls, setIsShowControls] = useState(true);
   const isPaused = useMediaState("paused");
-  // const isPlaying = useMediaState("playing");
 
   const togglePlay = () => {
     if (player) {
@@ -28,26 +23,6 @@ export const VideoControls = () => {
       }
       if (player.state.paused) {
         player.play();
-      }
-    }
-  };
-
-  const toggleSound = () => {
-    if (player) {
-      if (player.state.muted) {
-        player.remoteControl.unmute();
-      } else {
-        player.remoteControl.mute();
-      }
-    }
-  };
-
-  const toggleFullscreen = () => {
-    if (player) {
-      if (player.state.fullscreen) {
-        player.remoteControl.exitFullscreen();
-      } else {
-        player.remoteControl.enterFullscreen();
       }
     }
   };
@@ -115,17 +90,10 @@ export const VideoControls = () => {
             <Time type="duration" />
           </Stack>
 
-          {/* Ex action */}
           <Stack alignItems={"center"} direction={"row"} gap={"1rem"}>
-            <IconButton onClick={toggleSound} sx={{ color: "#fff" }}>
-              <VolumeIcon sx={{ fontSize: "2.4rem" }} />
-            </IconButton>
-            <IconButton onClick={toggleFullscreen} sx={{ color: "#fff" }}>
-              <FullScreenIcon sx={{ fontSize: "2.4rem" }} />
-            </IconButton>
-            <IconButton sx={{ color: "#fff" }}>
-              <SettingsIcon sx={{ fontSize: "2.4rem" }} />
-            </IconButton>
+            <VolumeControl />
+            <ScreenControl />
+            <SettingsControl />
           </Stack>
         </Stack>
       ) : (

@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { PauseBigButton } from "./PauseBigButton";
 import { PlayBigButton } from "./PlayBigButton";
 import { ReplayBigButton } from "./ReplayBigButton";
+import { SeekBackwardControl } from "./SeekBackwardControl";
+import { SeekForwardControl } from "./SeekForwardControl";
 import { VideoControls } from "./VideoControls";
 import { WaitingBigButton } from "./WaitingBigButton";
 
@@ -47,7 +49,6 @@ export const VideoMask = () => {
     }
   }, [isEnded]);
 
-  // clean effect
   useEffect(() => {
     return () => {
       deleteMaskTimer();
@@ -63,6 +64,8 @@ export const VideoMask = () => {
       component={"div"}
       onMouseMove={onMouseMove}
     >
+      <AnimatePresence>{!isEnded && !isFetching && isPaused && <PlayBigButton />}</AnimatePresence>
+
       <AnimatePresence mode="wait">
         {isShowMask && (
           <Stack
@@ -78,10 +81,20 @@ export const VideoMask = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {!isEnded && (isFetching || isWaiting) && <WaitingBigButton />}
-            {!isEnded && !isFetching && isPaused && <PlayBigButton />}
-            {!isEnded && !isFetching && isPlaying && <PauseBigButton />}
-            {isEnded && <ReplayBigButton />}
+            <Stack sx={{ width: "100%" }} direction={"row"} gap={"2rem"}>
+              <Stack alignItems={"center"} justifyContent={"center"} sx={{ flex: 1 }}>
+                <SeekBackwardControl />
+              </Stack>
+              <Box sx={{ width: "7.2rem", height: "7.2rem" }}>
+                {!isEnded && (isFetching || isWaiting) && <WaitingBigButton />}
+                {!isEnded && !isFetching && isPlaying && <PauseBigButton />}
+                {isEnded && <ReplayBigButton />}
+              </Box>
+              <Stack alignItems={"center"} justifyContent={"center"} sx={{ flex: 1 }}>
+                <SeekForwardControl />
+              </Stack>
+            </Stack>
+
             <VideoControls />
           </Stack>
         )}

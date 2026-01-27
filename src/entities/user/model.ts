@@ -36,6 +36,7 @@ export type AuthStatus = "pending" | "success" | "error";
 type UserSliceInitialState = {
   /** @deprecated */
   isAuth: boolean | undefined;
+  /** более точное состояние для обработки */
   authStatus?: AuthStatus;
 };
 const userSliceInitialState: UserSliceInitialState = {
