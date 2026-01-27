@@ -55,8 +55,8 @@ export const LessonsNavigation = () => {
         width: "100%",
         borderRadius: "2rem",
         backgroundColor: theme.palette.common.white,
-        background:
-          "linear-gradient(180deg,rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.67) 87%, rgba(255, 255, 255, 0) 100%)",
+        // background:
+        //   "linear-gradient(180deg,rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.67) 87%, rgba(255, 255, 255, 0) 100%)",
       })}
       gap={"2rem"}
       justifyContent={"space-between"}

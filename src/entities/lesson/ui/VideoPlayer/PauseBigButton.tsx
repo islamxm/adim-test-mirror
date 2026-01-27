@@ -1,4 +1,4 @@
-import { IconButton, alpha } from "@mui/material";
+import { Box, IconButton, alpha } from "@mui/material";
 import { useMediaPlayer } from "@vidstack/react";
 import { motion } from "motion/react";
 
@@ -8,7 +8,7 @@ export const PauseBigButton = () => {
   const player = useMediaPlayer();
 
   return (
-    <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
+    <Box component={motion.div} initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
       <IconButton
         sx={{
           width: "7.2rem",
@@ -24,6 +24,6 @@ export const PauseBigButton = () => {
       >
         <PauseIcon sx={{ fontSize: "2.8rem", color: "#fff" }} />
       </IconButton>
-    </motion.div>
+    </Box>
   );
 };
