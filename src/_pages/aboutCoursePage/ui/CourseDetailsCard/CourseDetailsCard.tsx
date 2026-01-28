@@ -19,7 +19,6 @@ type Props = Pick<Course, "image" | "id" | "languages" | "totalLessonsCount">;
 export const CourseDetailsCard: FC<Props> = ({ image, id, languages, totalLessonsCount }) => {
   return (
     <Paper
-      elevation={1}
       sx={{
         width: "46.7rem",
         p: "2.4rem",
