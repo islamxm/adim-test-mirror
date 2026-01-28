@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 import { Box, Stack, alpha } from "@mui/material";
-import { useMediaState } from "@vidstack/react";
+import { useMediaPlayer, useMediaState } from "@vidstack/react";
 import { AnimatePresence, motion } from "motion/react";
+import useDoubleClick from "use-double-click";
 
 import { PauseBigButton } from "./PauseBigButton";
 import { PlayBigButton } from "./PlayBigButton";
@@ -13,6 +14,7 @@ import { VideoControls } from "./VideoControls";
 import { WaitingBigButton } from "./WaitingBigButton";
 
 export const VideoMask = () => {
+  const maskRef = useRef<HTMLDivElement>(null);
   const [isShowMask, setIsShowMask] = useState(true);
   const isPaused = useMediaState("paused");
   const isPlaying = useMediaState("playing");
@@ -20,6 +22,8 @@ export const VideoMask = () => {
   const isStarted = useMediaState("started");
   const isEnded = useMediaState("ended");
   const isFetching = !useMediaState("canPlay");
+  const isFullscreen = useMediaState("fullscreen");
+  const player = useMediaPlayer();
 
   const maskShowTimer = useRef<NodeJS.Timeout>(null);
 
@@ -55,6 +59,18 @@ export const VideoMask = () => {
     };
   }, []);
 
+  useDoubleClick({
+    onDoubleClick: (e) => {
+      if (isFullscreen) {
+        player?.remoteControl.exitFullscreen();
+      } else {
+        player?.remoteControl.enterFullscreen();
+      }
+    },
+    ref: maskRef,
+    latency: 250,
+  });
+
   return (
     <Box
       sx={{
@@ -69,6 +85,7 @@ export const VideoMask = () => {
       <AnimatePresence mode="wait">
         {isShowMask && (
           <Stack
+            ref={maskRef}
             sx={{
               backgroundColor: alpha("#000", 0.4),
               width: "100%",
