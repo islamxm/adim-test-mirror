@@ -16,9 +16,17 @@ type Props = {
   selfStatus: any;
   onStartSearching?: () => void;
   selfData?: User;
+  isPending?: boolean;
+  isConnected?: boolean;
 };
 
-export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData }) => {
+export const LobbyView: FC<Props> = ({
+  selfStatus,
+  onStartSearching,
+  selfData,
+  isPending,
+  isConnected,
+}) => {
   return (
     <Stack gap={"20rem"} justifyContent={"center"} sx={{ height: "100%" }}>
       <Stack
@@ -47,7 +55,9 @@ export const LobbyView: FC<Props> = ({ selfStatus, onStartSearching, selfData })
         </PlayerAnimatedWrapper>
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
-        <YellowButton onClick={onStartSearching}>Search opponent</YellowButton>
+        <YellowButton disabled={!isConnected} loading={isPending} onClick={onStartSearching}>
+          Search opponent
+        </YellowButton>
       </Stack>
     </Stack>
   );

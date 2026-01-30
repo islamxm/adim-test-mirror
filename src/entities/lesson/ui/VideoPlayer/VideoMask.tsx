@@ -21,11 +21,14 @@ export const VideoMask = () => {
   const isWaiting = useMediaState("waiting");
   const isStarted = useMediaState("started");
   const isEnded = useMediaState("ended");
-  const isFetching = !useMediaState("canPlay");
+  const isSeeking = useMediaState("seeking");
+  const canPlay = useMediaState("canPlay");
   const isFullscreen = useMediaState("fullscreen");
   const player = useMediaPlayer();
 
   const maskShowTimer = useRef<NodeJS.Timeout>(null);
+
+  const isLoading = (!canPlay || isWaiting || isSeeking) && !isEnded;
 
   const deleteMaskTimer = () => {
     if (maskShowTimer.current) {
@@ -61,6 +64,8 @@ export const VideoMask = () => {
 
   useDoubleClick({
     onDoubleClick: (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".disable-db-click")) return;
       if (isFullscreen) {
         player?.remoteControl.exitFullscreen();
       } else {
@@ -71,21 +76,24 @@ export const VideoMask = () => {
     latency: 250,
   });
 
+  console.log("waiting: ", isWaiting);
+
   return (
     <Box
       sx={{
         position: "absolute",
         inset: 0,
       }}
+      ref={maskRef}
       component={"div"}
       onMouseMove={onMouseMove}
+      onClick={onMouseMove}
     >
-      <AnimatePresence>{!isEnded && !isFetching && isPaused && <PlayBigButton />}</AnimatePresence>
+      <AnimatePresence>{!isLoading && isPaused && <PlayBigButton />}</AnimatePresence>
 
       <AnimatePresence mode="wait">
         {isShowMask && (
           <Stack
-            ref={maskRef}
             sx={{
               backgroundColor: alpha("#000", 0.4),
               width: "100%",
@@ -98,13 +106,18 @@ export const VideoMask = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Stack sx={{ width: "100%" }} direction={"row"} gap={"2rem"}>
+            <Stack
+              className={"disable-db-click"}
+              sx={{ width: "100%" }}
+              direction={"row"}
+              gap={"2rem"}
+            >
               <Stack alignItems={"center"} justifyContent={"center"} sx={{ flex: 1 }}>
                 <SeekBackwardControl />
               </Stack>
               <Box sx={{ width: "7.2rem", height: "7.2rem" }}>
-                {!isEnded && (isFetching || isWaiting) && <WaitingBigButton />}
-                {!isEnded && !isFetching && isPlaying && <PauseBigButton />}
+                {isLoading && <WaitingBigButton />}
+                {!isLoading && isPlaying && <PauseBigButton />}
                 {isEnded && <ReplayBigButton />}
               </Box>
               <Stack alignItems={"center"} justifyContent={"center"} sx={{ flex: 1 }}>

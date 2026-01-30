@@ -28,13 +28,14 @@ export const Game = () => {
     result,
     startCountdownSecs,
     gameStatus,
-    // isConnected,
+    isSubmittingAnswer,
+    isPending,
+    isConnected,
     enterQueue,
     compete,
     nextOpponent,
     submitAnswer,
     setGameStatus,
-    isSubmittingAnswer,
   } = useGame();
 
   const { confettiCanvasRef, confettiRun } = useCanvasConfetti();
@@ -42,7 +43,15 @@ export const Game = () => {
   const isDoubleBg = gameStatus !== "LOBBY";
 
   const views: Partial<Record<GameStatus, ReactNode>> = {
-    LOBBY: <LobbyView selfData={selfData} selfStatus={selfStatus} onStartSearching={enterQueue} />,
+    LOBBY: (
+      <LobbyView
+        isConnected={isConnected}
+        isPending={isPending}
+        selfData={selfData}
+        selfStatus={selfStatus}
+        onStartSearching={enterQueue}
+      />
+    ),
     SEARCH: <SearchView selfData={selfData} selfStatus={selfStatus} />,
     WAIT: (
       <WaitView
@@ -52,6 +61,7 @@ export const Game = () => {
         onReady={compete}
         onSkipPlayer={nextOpponent}
         selfData={selfData}
+        isConnected={isConnected}
       />
     ),
     READY: (
@@ -64,6 +74,7 @@ export const Game = () => {
     ),
     START: (
       <StartView
+        isConnected={isConnected}
         onSubmitAnswer={submitAnswer}
         question={question}
         opponentData={opponentData}
@@ -149,8 +160,6 @@ export const Game = () => {
               position: "absolute",
               width: "100%",
               height: "100%",
-              // top: 0,
-              // left: 0,
               pointerEvents: "none",
               zIndex: 2,
             }}

@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useMediaPlayer } from "@vidstack/react";
+import { motion } from "motion/react";
 
 import { NextIcon } from "@/shared/ui/icons";
 
@@ -11,6 +12,10 @@ export const SeekForwardControl = () => {
       onClick={() => player?.remoteControl.seek(player.currentTime + 10)}
       sx={{ fontSize: "2.2rem", gap: "1rem" }}
       color={"secondary"}
+      // component={motion.button}
+      // initial={{ opacity: 0 }}
+      // exit={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
     >
       10s <NextIcon sx={{ fontSize: "3.8rem" }} />
     </Button>

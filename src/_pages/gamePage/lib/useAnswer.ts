@@ -33,6 +33,7 @@ export const useAnswer = (
   const onSubmit = (ms?: number) => {
     const delta = ms || Date.now() - time.current;
     const keys = answer.join(",");
+    console.log(keys);
     onSubmitAnswer?.(keys, delta);
   };
 

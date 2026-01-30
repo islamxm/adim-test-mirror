@@ -27,6 +27,7 @@ type Props = {
   onReady?: () => void;
   onSkipPlayer?: () => void;
   selfData?: User;
+  isConnected?: boolean;
 };
 
 export const WaitView: FC<Props> = ({
@@ -36,6 +37,7 @@ export const WaitView: FC<Props> = ({
   onReady,
   onSkipPlayer,
   selfData,
+  isConnected,
 }) => {
   return (
     <Stack
@@ -100,6 +102,7 @@ export const WaitView: FC<Props> = ({
             }}
             endIcon={<ChevronRightDuo />}
             onClick={onSkipPlayer}
+            disabled={!isConnected}
           >
             Skip player
           </Button>

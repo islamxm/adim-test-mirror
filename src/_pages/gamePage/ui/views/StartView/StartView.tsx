@@ -24,6 +24,7 @@ type Props = {
   opponentStatus?: PlayerStatusType;
   selfStatus?: PlayerStatusType;
   isSubmittingAnswer?: boolean;
+  isConnected?: boolean;
 };
 
 export const StartView: FC<Props> = ({
@@ -33,6 +34,7 @@ export const StartView: FC<Props> = ({
   selfData,
   opponentStatus,
   selfStatus,
+  isConnected,
 }) => {
   const { answer, onChangeAnswer, onSubmit } = useAnswer(question, onSubmitAnswer);
 
@@ -74,11 +76,10 @@ export const StartView: FC<Props> = ({
               </Question>
             </motion.div>
           </AnimatePresence>
-
           <Stack direction={"row"} justifyContent={"flex-end"}>
             <YellowButton
               onClick={() => onSubmit()}
-              disabled={answer.length === 0}
+              disabled={answer.length === 0 || !isConnected}
               endIcon={<ArrowRightIcon />}
             >
               Continue

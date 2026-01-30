@@ -50,7 +50,13 @@ export const LessonPage = () => {
       animate={{ opacity: 1 }}
     >
       <Typography variant={"h2"}>{data.name}</Typography>
-      {data.type === "VIDEO" && <VideoPlayer src={data.video?.filename} title={data.name} />}
+      {data.type === "VIDEO" && (
+        <VideoPlayer
+          videoSrc={data.video?.filename}
+          posterSrc={data.video?.preloadFilename}
+          title={data.name}
+        />
+      )}
       <HTMLContent value={data.blog} />
     </Stack>
   );

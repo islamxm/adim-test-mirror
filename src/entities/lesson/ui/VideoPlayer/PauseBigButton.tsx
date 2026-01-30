@@ -8,7 +8,9 @@ export const PauseBigButton = () => {
   const player = useMediaPlayer();
 
   return (
-    <Box component={motion.div} initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
+    <Box
+    // component={motion.div} initial={{ opacity: 0 }} exit={{ opacity: 0 }} animate={{ opacity: 1 }}
+    >
       <IconButton
         sx={{
           width: "7.2rem",

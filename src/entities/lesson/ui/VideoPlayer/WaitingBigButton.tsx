@@ -7,7 +7,9 @@ export const WaitingBigButton = () => {
   const player = useMediaPlayer();
 
   return (
-    <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }}>
+    <motion.div
+    // initial={{ opacity: 0 }} exit={{ opacity: 0 }} animate={{ opacity: 1 }}
+    >
       <IconButton
         sx={{
           width: "7.2rem",

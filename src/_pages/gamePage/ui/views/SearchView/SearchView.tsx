@@ -56,9 +56,6 @@ export const SearchView: FC<Props> = ({ selfStatus, selfData }) => {
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
         <YellowButton disabled>Searching...</YellowButton>
-        {/* <Button variant={"contained"} disabled>
-          Searching...
-        </Button> */}
       </Stack>
     </Stack>
   );
