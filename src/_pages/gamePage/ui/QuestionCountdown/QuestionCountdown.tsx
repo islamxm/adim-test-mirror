@@ -24,6 +24,11 @@ export const QuestionCountdown: FC<Props> = ({ duration, onComplete, id }) => {
   const [finished, setFinished] = useState(false);
   const time = useRef<number>(0);
   const timer = useRef<any>(null);
+  const onCompleteRef = useRef<typeof onComplete>(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const progress = useMotionValue(0);
 
@@ -47,18 +52,17 @@ export const QuestionCountdown: FC<Props> = ({ duration, onComplete, id }) => {
     if (timer.current) {
       clearInterval(timer.current);
     }
-    console.log(progress);
     const controls = animate(progress, 1, {
       duration,
       ease: "linear",
       onComplete: () => {
-        onComplete?.(Date.now() - time.current);
+        onCompleteRef.current?.(Date.now() - time.current);
       },
     });
 
     timer.current = setInterval(() => {
       setValue((v) => {
-        if (v <= 0) {
+        if (v === 0) {
           return 0;
         }
         return v - 1;
@@ -69,7 +73,6 @@ export const QuestionCountdown: FC<Props> = ({ duration, onComplete, id }) => {
       controls.stop();
       clearInterval(timer.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration, id, progress]);
 
   return (

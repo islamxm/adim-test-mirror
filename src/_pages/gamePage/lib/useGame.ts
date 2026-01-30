@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
@@ -24,14 +25,13 @@ const setTimer = (cb: () => void, delay: number = 3000) => {
 };
 
 /** @param timeoutId - всегда должен быть React.RefObject */
-const removeTimer = (timeoutId?: NodeJS.Timeout) => {
+const removeTimer = (timeoutId?: NodeJS.Timeout, cb?: () => void) => {
   if (!timeoutId) return;
   clearTimeout(timeoutId);
-  timeoutId = undefined;
+  cb?.();
 };
 
 let wsReconnectDelay = 1000;
-
 // const mockOpponent: CnServerEventsMap["OPPONENT_FOUND"] = {
 //   opponentId: {
 //     id: 1,
@@ -64,7 +64,8 @@ export const useGame = () => {
   const reconnectTimer = useRef<NodeJS.Timeout>(undefined);
   const sessionTimer = useRef<NodeJS.Timeout>(undefined);
   const sessionActiveRef = useRef<boolean>(false);
-
+  /** оборвана ли связь специально, поможет при запуске реконнекта, если true то reconnect не запускается */
+  const isManualDisconnect = useRef<boolean | null>(null);
   const [gameStatus, setGameStatus] = useState<GameStatus>("LOBBY");
 
   const [opponentStatus, setOpponentStatus] = useState<PlayerStatusType>();
@@ -89,6 +90,7 @@ export const useGame = () => {
   const [isPending, setIsPending] = useState(false);
 
   const resetGame = () => {
+    console.log("reset");
     setGameStatus("LOBBY");
     setOpponentStatus(undefined);
     setSelfStatus(undefined);
@@ -98,9 +100,9 @@ export const useGame = () => {
     setResult(undefined);
     setStartCountdownSecs(0);
     setIsSubmittingAnswer(false);
-    removeTimer(retryTimer.current);
-    removeTimer(reconnectTimer.current);
-    removeTimer(sessionTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
+    removeTimer(reconnectTimer.current, () => (reconnectTimer.current = undefined));
+    removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
     sessionActiveRef.current = false;
     competitionWs.disconnect();
     if (sessionData?.accessToken) {
@@ -121,17 +123,24 @@ export const useGame = () => {
       return "NETWORK_ERROR";
     });
     console.log("[ws]: Closed");
-    if (reconnectTimer.current) {
-      return;
-    }
-    reconnectTimer.current = setTimeout(() => {
-      if (sessionData?.accessToken) {
-        competitionWs.connect(sessionData.accessToken);
-        wsReconnectDelay = Math.min(wsReconnectDelay * 2, 30000);
-        clearTimeout(reconnectTimer.current);
-        reconnectTimer.current = undefined;
+
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
+    removeTimer(reconnectTimer.current, () => (reconnectTimer.current = undefined));
+    removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
+
+    if (isManualDisconnect.current === false) {
+      if (reconnectTimer.current) {
+        return;
       }
-    }, wsReconnectDelay);
+      reconnectTimer.current = setTimeout(() => {
+        if (sessionData?.accessToken) {
+          competitionWs.connect(sessionData.accessToken);
+          wsReconnectDelay = Math.min(wsReconnectDelay * 2, 30000);
+          clearTimeout(reconnectTimer.current);
+          reconnectTimer.current = undefined;
+        }
+      }, wsReconnectDelay);
+    }
   };
 
   const onWsError = () => {
@@ -152,7 +161,7 @@ export const useGame = () => {
   /** CLIENT: я готов, соперник получает ивент - OPPONENT_READY, COMPETE */
   const compete = () => {
     setIsPending(true);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     if (matchData) {
       sessionActiveRef.current = true;
       competitionWs.emit("COMPETE", {
@@ -167,7 +176,7 @@ export const useGame = () => {
   /** CLIENT: изменить противника, NEXT_OPPONENT */
   const nextOpponent = () => {
     if (matchData) {
-      removeTimer(sessionTimer.current);
+      removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
       competitionWs.emit("NEXT_OPPONENT", {
         roomCode: matchData.roomCode,
         subCategoryId,
@@ -200,7 +209,7 @@ export const useGame = () => {
   const onInQueue = (data: CnServerEventsMap["IN_QUEUE"]) => {
     setIsPending(false);
     setSelfStatus("WAIT");
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setGameStatus("SEARCH");
   };
 
@@ -216,7 +225,7 @@ export const useGame = () => {
       matchId: data.matchId,
       sessionTimeoutSec: data.sessionTimeoutSec,
     });
-    removeTimer(sessionTimer.current);
+    removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
     sessionTimer.current = setTimer(() => {
       if (sessionActiveRef.current === true) {
         enterQueue();
@@ -224,7 +233,7 @@ export const useGame = () => {
       }
       resetGame();
     }, data.sessionTimeoutSec * 1000);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setGameStatus("WAIT");
   };
 
@@ -232,7 +241,7 @@ export const useGame = () => {
   const onCompeteAwait = () => {
     setIsPending(false);
     setOpponentStatus("WAIT");
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setGameStatus("WAIT");
   };
 
@@ -241,7 +250,7 @@ export const useGame = () => {
     setIsPending(false);
     setOpponentStatus("READY");
     setGameStatus("WAIT");
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
   };
 
   /** SERVER: матч начался, получаем первый вопрос и отведенное на него время, COMPETE_START */
@@ -252,9 +261,9 @@ export const useGame = () => {
     setStartCountdownSecs(countdownSec);
     setQuestion(other);
     generateEventId(other.eventId);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setGameStatus("READY");
-    removeTimer(sessionTimer.current);
+    removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
   };
 
   /** SERVER: получаем следующий вопрос, NEXT_QUESTION */
@@ -263,7 +272,7 @@ export const useGame = () => {
     setIsSubmittingAnswer(false);
     setQuestion(data);
     generateEventId(data.eventId);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setGameStatus("START");
   };
 
@@ -271,7 +280,7 @@ export const useGame = () => {
   const onWaitResult = (data: CnServerEventsMap["WAIT_RESULT"]) => {
     setIsPending(false);
     generateEventId(data.eventId);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setResult({ selfResult: data.answers });
     setGameStatus("WAIT_RESULT");
     setSelfStatus("READY");
@@ -284,7 +293,7 @@ export const useGame = () => {
     getUserdata({}, true);
     getProfiledata({}, true);
     generateEventId(data.eventId);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setResult({
       winner: data.winnerId,
       selfResult: data.answers,
@@ -297,31 +306,54 @@ export const useGame = () => {
   const onAcknowledge = (data: CnServerEventsMap["ACKNOWLEDGE"]) => {
     setIsPending(false);
     generateEventId(data.eventId);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
   };
 
   const onOpponentRejected = (data: CnServerEventsMap["OPPONENT_REJECTED"]) => {
     // generateEventId(data.eventId);
     setIsPending(false);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setGameStatus("SEARCH");
     setOpponentData(undefined);
     setSelfStatus("WAIT");
     setOpponentStatus(undefined);
     setMatchData(undefined);
+    removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
+    sessionActiveRef.current = false;
   };
+
   const onCancelled = (data: CnServerEventsMap["CANCELLED"]) => {
     console.log(`[ws: CANCELLED]: ${data.code} - ${data.message}`);
+    if (data.code === 410) {
+      toast.error("Соперник покинул игру!");
+    }
+    if (data.code === 409) {
+      toast.error("Вы уже в игре!");
+    }
+    setGameStatus((s) => {
+      if (s === "WAIT") {
+        resetGame();
+      }
+      return "LOBBY";
+    });
     setIsPending(false);
-    removeTimer(retryTimer.current);
+    removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     // if(data.code === 410) {
     //   // opponent disconnected
     //   removeTimer(sessionTimer.current);
     //   enterQueue();
     // }
   };
+
+  useEffect(() => console.log("Status: ", gameStatus), [gameStatus]);
   const onError = (data: CnServerEventsMap["ERROR"]) => {
     console.log(`[ws: ERROR]: ${data.code} - ${data.message}`);
+    if (data.code === 410) {
+      toast.error("Соперник покинул игру!");
+    }
+    if (data.code === 409) {
+      toast.error("Вы уже в игре!");
+    }
     setIsPending(false);
     resetGame();
   };
@@ -368,6 +400,7 @@ export const useGame = () => {
     competitionWs.on("ERROR", onError);
 
     return () => {
+      isManualDisconnect.current = true;
       competitionWs.disconnect();
       if (retryTimer.current) {
         clearTimeout(retryTimer.current);

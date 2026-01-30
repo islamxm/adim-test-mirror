@@ -34,6 +34,7 @@ export const StartView: FC<Props> = ({
   selfData,
   opponentStatus,
   selfStatus,
+  isSubmittingAnswer,
   isConnected,
 }) => {
   const { answer, onChangeAnswer, onSubmit } = useAnswer(question, onSubmitAnswer);
@@ -81,6 +82,7 @@ export const StartView: FC<Props> = ({
               onClick={() => onSubmit()}
               disabled={answer.length === 0 || !isConnected}
               endIcon={<ArrowRightIcon />}
+              loading={isSubmittingAnswer}
             >
               Continue
             </YellowButton>

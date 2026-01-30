@@ -55,7 +55,7 @@ export const LobbyView: FC<Props> = ({
         </PlayerAnimatedWrapper>
       </Stack>
       <Stack gap={"1rem"} direction={"row"} justifyContent={"center"}>
-        <YellowButton disabled={!isConnected} loading={isPending} onClick={onStartSearching}>
+        <YellowButton loading={isPending || !isConnected} onClick={onStartSearching}>
           Search opponent
         </YellowButton>
       </Stack>

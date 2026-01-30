@@ -50,7 +50,6 @@ export const useCanvasConfetti = () => {
 
   useEffect(() => {
     if (confettiCanvasRef.current) {
-      console.log(confettiCanvasRef.current);
       const ins = confetti.create(confettiCanvasRef.current, {
         resize: true,
         useWorker: true,

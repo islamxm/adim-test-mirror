@@ -47,7 +47,7 @@ export class CompetitionWS {
       }
       this.onOpenCb?.();
     };
-    this.ws.onclose = () => {
+    this.ws.onclose = (e) => {
       this.onCloseCb?.();
     };
     this.ws.onerror = () => {

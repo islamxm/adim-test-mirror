@@ -1,11 +1,10 @@
 "use client";
 import { FC, PropsWithChildren } from "react";
 
-// import { ToastContainer } from "react-toastify";
-
 import { SessionProvider } from "next-auth/react";
 
 import { LocaleDetector } from "@/shared/i18n/ui";
+import { Toaster } from "@/shared/ui";
 
 import { PageLoadingProgressbar } from "@/features/page-loading-progressbar";
 
@@ -34,10 +33,7 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
                 footer={<AppFooter />}
               >
                 {children}
-                {/* <ToastContainer
-                  // hideProgressBar
-                  position={"bottom-right"}
-                /> */}
+                <Toaster />
               </MainLayout>
             </AuthProvider>
           </AnimationProvider>

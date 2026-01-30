@@ -1,0 +1,13 @@
+.Toastify__toast-container {
+  .Toastify__toast {
+    padding: 2rem;
+    border-radius: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 50rem;
+
+    .Toastify__close-button {
+      padding: .5rem;
+    }
+  }
+}
