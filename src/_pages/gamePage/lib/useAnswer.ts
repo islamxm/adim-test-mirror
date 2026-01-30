@@ -12,8 +12,6 @@ export const useAnswer = (
   const time = useRef<number>(0);
 
   const onChangeAnswer = (key: string) => {
-    console.log(key);
-    console.log(question?.question.type);
     if (question?.question.type === "Multiple_Choice") {
       setAnswer((s) => {
         if (s.find((k) => k === key)) {
@@ -34,9 +32,7 @@ export const useAnswer = (
 
   const onSubmit = (ms?: number) => {
     const delta = ms || Date.now() - time.current;
-    console.log(answer);
     const keys = answer.join(",");
-    console.log(keys);
     onSubmitAnswer?.(keys, delta);
   };
 
@@ -46,12 +42,9 @@ export const useAnswer = (
     }
     const variantNumber = Number(e.key);
     if (isNaN(variantNumber)) {
-      // submit answer
       onSubmit();
     } else {
-      // select answer
       const answeredQuestion = question.question.choices[variantNumber - 1];
-
       if (answeredQuestion) {
         onChangeAnswer(answeredQuestion.key);
       }
