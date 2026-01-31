@@ -1,8 +1,6 @@
 import { FC } from "react";
 
-import Image from "next/image";
-
-import { Box, Avatar as MuiAvatar, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
 import { AvatarComponentProps } from "../../model";
