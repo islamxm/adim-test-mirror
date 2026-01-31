@@ -21,6 +21,7 @@ export const getGameCategoryPage = (categoryId: number) => `${getGamePage()}/${c
 export const getGameMatchPage = (categoryId: number, subcategoryId: number) =>
   `${getGameCategoryPage(categoryId)}/${subcategoryId}`;
 export const getProfilePage = () => "/profile";
+export const getPricingPage = () => "/pricing";
 
 export const routesMap = {
   home: { id: 1, path: getHomePage(), label: "Home" },

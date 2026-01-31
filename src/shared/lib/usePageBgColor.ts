@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { useTheme } from "@mui/material";
 
-import { getPointsPage } from "../model";
+import { getPointsPage, getPricingPage } from "../model";
 
 // наверное лучше вынести в глобальный стор и диспатчить туда
 export const usePageBgColor = () => {
@@ -15,7 +15,7 @@ export const usePageBgColor = () => {
   const [pageBgColor, setPageBgColor] = useState<string>();
 
   useEffect(() => {
-    if (!pathname.startsWith(getPointsPage())) {
+    if (!pathname.startsWith(getPointsPage()) && !pathname.startsWith(getPricingPage())) {
       setPageBgColor(palette.gold.light);
     } else {
       setPageBgColor(palette.background.default);
