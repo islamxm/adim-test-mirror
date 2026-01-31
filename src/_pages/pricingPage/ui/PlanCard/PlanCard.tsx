@@ -14,7 +14,13 @@ export const PlanCard: FC<PropsWithChildren> = ({ children }) => {
         overflow: "hidden",
         display: "flex",
       }}
-      whileHover={{ y: "-1rem" }}
+      // whileHover={{ y: "-1rem" }}
+      variants={{
+        rest: { y: 0 },
+        hovered: { y: "-1rem" },
+      }}
+      initial="rest"
+      whileHover="hovered"
     >
       <Stack
         gap={"2.4rem"}

@@ -1,4 +1,5 @@
 import { Box, Button, Stack } from "@mui/material";
+import { motion } from "motion/react";
 
 import { Description } from "../../Description/Description";
 import { Icon } from "../../Icon/Icon";
@@ -19,6 +20,20 @@ export const Plan2 = () => {
           height: "1.8rem",
           background: "linear-gradient(92deg, #52C727 -0.78%, #7FE327 61.95%, #CCD221 107.06%)",
         }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "10px",
+          height: "10px",
+          borderRadius: "50%",
+          opacity: ".3",
+          background: "linear-gradient(92deg, #52C727 -0.78%, #7FE327 61.95%, #CCD221 107.06%)",
+        }}
+        component={motion.div}
+        variants={{ rest: { opacity: 0, scale: 1 }, hovered: { opacity: 0.3, scale: 50 } }}
       />
       <Icon>
         <Plan2Icon />
