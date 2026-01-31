@@ -40,3 +40,5 @@ export { SliderIcon } from "./SliderIcon";
 export { ChevronRightIcon } from "./ChevronRightIcon";
 export { PrevIcon } from "./PrevIcon";
 export { NextIcon } from "./NextIcon";
+export { EditIcon } from "./EditIcon";
+export { CalendarIcon } from "./CalendarIcon";

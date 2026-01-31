@@ -1,4 +1,4 @@
-import { Course, CourseDto } from "./model";
+import { ContinueCourse, ContinueCourseDto, Course, CourseDto } from "./model";
 
 export const courseDtoMap = (courseDto: CourseDto): Course => {
   return {
@@ -12,4 +12,8 @@ export const courseDtoMap = (courseDto: CourseDto): Course => {
     units: courseDto.units || [],
     totalLessonsCount: courseDto.totalLessons,
   };
+};
+
+export const continueCourseDtoMap = (courseDto: ContinueCourseDto): ContinueCourse => {
+  return courseDto;
 };

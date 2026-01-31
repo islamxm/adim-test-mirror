@@ -1,1 +1,1 @@
-export { baseMuiModalContentStyle, baseMuiModalStyle } from "./ui";
+export { baseMuiModalContentStyle, baseMuiModalStyle, defaultComponentAnimation } from "./ui";

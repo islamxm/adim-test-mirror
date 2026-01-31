@@ -6,7 +6,7 @@ import { Box, Grid, Stack } from "@mui/material";
 
 import { Container, SectionHead } from "@/shared/ui";
 
-import { CourseCard, CourseCardSkeleton, courseApi, courseDtoMap } from "@/entities/course";
+import { CourseCard, CourseCardSkeleton, courseApi } from "@/entities/course";
 
 import { ResourceList } from "@/widgets/resourceList";
 

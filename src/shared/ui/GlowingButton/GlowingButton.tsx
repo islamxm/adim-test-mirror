@@ -1,17 +1,31 @@
 import { FC } from "react";
 
-import { Button, ButtonProps } from "@mui/material";
+import { Box, Button, ButtonProps } from "@mui/material";
 import clsx from "clsx";
 
 import classes from "./classes.module.scss";
 
+const defaultSx: ButtonProps["sx"] = {
+  borderRadius: "3rem",
+};
+
 export const GlowingButton: FC<ButtonProps> = ({ children, ...props }) => {
+  const sx: ButtonProps["sx"] = {
+    ...defaultSx,
+    ...props.sx,
+  };
+
   return (
-    <div className={classes.wrapper}>
-      <Button {...props} className={clsx(props.className, classes.button)}>
+    <div className={clsx(classes.wrapper, props.fullWidth && classes.full_width)}>
+      <Button
+        {...props}
+        variant={"contained"}
+        className={clsx(props.className, classes.button)}
+        sx={sx}
+      >
         <div className={classes.content}>{children}</div>
       </Button>
-      <div className={classes.mask}></div>
+      <Box sx={sx} className={classes.mask}></Box>
       <div className={classes.shadow}></div>
     </div>
   );

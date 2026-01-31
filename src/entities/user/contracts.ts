@@ -15,8 +15,7 @@ export const DeviceInfoSchema = z.object({
 export const UserSchema = z.object({
   avatarUrl: z.string(),
   backupEmail: z.email().optional(),
-  birthday: z.string().optional(),
-  email: z.string().or(z.email()), // нужно оставить только email как только бэкенд исправиться
+  email: z.string().or(z.email()),
   phone: z.string().optional(),
   id: z.number(),
   profileName: z.string(),
@@ -24,6 +23,10 @@ export const UserSchema = z.object({
   totalPoints: z.number(),
   leagueName: z.string().nullable(),
   rank: z.number().optional(),
+  subscriptionExpiresAt: z.string().optional(),
+  month: z.string().optional(),
+  firstCalendarDay: z.number().optional(),
+  birthday: z.string().optional(),
 });
 
 export const Response_AuthSchema = z.object({
@@ -55,6 +58,12 @@ export const Response_UserHomeDataSchema = z.object({
     pointsFromStreak: z.number(),
     todayActive: z.boolean(),
   }),
+});
+
+export const Response_MonthlyStreakSchema = z.object({
+  firstCalendarDay: z.number(),
+  mask: z.number(),
+  month: z.string(),
 });
 
 export const Payload_AuthSchema = z.object({

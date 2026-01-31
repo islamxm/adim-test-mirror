@@ -79,7 +79,6 @@ export const PointsPage = () => {
               <Stack gap={"2rem"} direction={"row"}>
                 <GlowingButton
                   endIcon={<ArrowRightIcon />}
-                  variant={"contained"}
                   onClick={(e) => {
                     setCallback_screenFillingCircle("1", () => router.push(getGamePage()));
                     dispatch(
@@ -95,9 +94,6 @@ export const PointsPage = () => {
                   {"Let's play"}
                 </GlowingButton>
                 <ShowHistoryButton />
-                {/* <Button variant={"outlined"}>
-                  <InfoCircleIcon sx={{ fontSize: "2.4rem" }} />
-                </Button> */}
               </Stack>
               <Stack
                 component={motion.div}

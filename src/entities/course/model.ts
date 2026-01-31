@@ -3,6 +3,7 @@ import { z } from "zod";
 import { DefaultResponseErrorData, Nullable, Response } from "@/shared/types";
 
 import {
+  ContinueCourseSchema,
   CourseSchema,
   Response_GetCourseByIdSuccessSchema,
   Response_GetCoursesByCategoryIdSuccessSchema,
@@ -25,6 +26,9 @@ export type Course = {
   // parentId: number;
 };
 
+export type ContinueCourseDto = z.infer<typeof ContinueCourseSchema>;
+export type ContinueCourse = ContinueCourseDto;
+
 export type Response_GetCoursesByCategoryId = Response<
   z.infer<typeof Response_GetCoursesByCategoryIdSuccessSchema>,
   DefaultResponseErrorData
@@ -33,6 +37,11 @@ export type Response_GetCourseById = Response<
   z.infer<typeof Response_GetCourseByIdSuccessSchema>,
   DefaultResponseErrorData
 >;
+
+export type Payload_GetContinueLearningCourses = {
+  limit?: number;
+  cursor?: number;
+};
 
 export const COURSE_TABS = {
   comments: "comments",

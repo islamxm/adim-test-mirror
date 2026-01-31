@@ -6,10 +6,12 @@ import { objectToSearchParams } from "@/shared/lib";
 import { unitDtoMap } from "@/entities/unit/@x/course";
 
 import {
+  Response_GetContinueLearningCoursesSchema,
   Response_GetCourseByIdSuccessSchema,
   Response_GetCoursesByCategoryIdSuccessSchema,
 } from "./contract";
-import { courseDtoMap } from "./lib";
+import { continueCourseDtoMap, courseDtoMap } from "./lib";
+import { Payload_GetContinueLearningCourses } from "./model";
 
 type GetCoursesByCategoryIdInputType = {
   categoryId?: string;
@@ -72,6 +74,47 @@ export const courseApi = api.injectEndpoints({
           };
         } catch (err) {
           console.log("VALIDATE ERROR", err);
+        }
+      },
+    }),
+    getContinueLearningCourses: builder.infiniteQuery<
+      z.infer<any>,
+      Payload_GetContinueLearningCourses,
+      number
+    >({
+      infiniteQueryOptions: {
+        initialPageParam: 0,
+        getNextPageParam(lastPage) {
+          return lastPage?.cursor ? Number(lastPage.cursor) : undefined;
+        },
+      },
+      // @ts-ignore
+      queryFn: async ({ queryArg, pageParam = 0 }, _api, _opts, fetchWithBQ) => {
+        const result = await fetchWithBQ({
+          url: `home/continue${objectToSearchParams({
+            ...queryArg,
+            cursor: pageParam,
+          })}`,
+        });
+        if (result.error) {
+          return { error: result.error };
+        }
+        try {
+          const validated = Response_GetContinueLearningCoursesSchema.parse(result.data);
+          return {
+            data: {
+              ...validated,
+              courses: validated.continueLearning.map(continueCourseDtoMap),
+            },
+          };
+        } catch (err) {
+          console.log("VALIDATE ERROR", err);
+          return {
+            error: {
+              status: 500,
+              data: `Invalid response format: ${err}`,
+            },
+          };
         }
       },
     }),

@@ -1,6 +1,6 @@
 import { api } from "@/shared/api";
 
-import { Response_UserHomeDataSchema, UserSchema } from "./contracts";
+import { Response_MonthlyStreakSchema, Response_UserHomeDataSchema, UserSchema } from "./contracts";
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,6 +23,18 @@ export const userApi = api.injectEndpoints({
       transformResponse: (res) => {
         try {
           return UserSchema.parse(res);
+        } catch (err) {
+          console.error("VALIDATE ERROR", err);
+        }
+      },
+    }),
+    getMonthlyStreak: builder.query({
+      query: () => ({
+        url: "users/streak_monthly",
+      }),
+      transformResponse: (res) => {
+        try {
+          return Response_MonthlyStreakSchema.parse(res);
         } catch (err) {
           console.error("VALIDATE ERROR", err);
         }
