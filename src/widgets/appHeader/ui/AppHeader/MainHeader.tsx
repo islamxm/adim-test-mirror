@@ -23,9 +23,9 @@ export const MainHeader = () => {
         }}
       />
       <AnimatePresence>
-        <div key={"header-left-side"} className={classes.left}>
+        {/* <div key={"header-left-side"} className={classes.left}>
           <StreakInfo />
-        </div>
+        </div> */}
         <div key={"header-right-side"} className={classes.right}>
           <RightSide />
         </div>
