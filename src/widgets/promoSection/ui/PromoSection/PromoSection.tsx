@@ -88,13 +88,13 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
                     <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
                       Start now
                     </Button>
-                    <Button variant={"outlined"}>Start now</Button>
+                    {/* <Button variant={"outlined"}>Start now</Button> */}
                   </Stack>
                 </Stack>
               </Box>
             </Box>
           </SwiperSlide>
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <Box
               className={classes.slide}
               sx={{
@@ -149,9 +149,9 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
                 </Stack>
               </Box>
             </Box>
-          </SwiperSlide>
+          </SwiperSlide> */}
 
-          <IconButton
+          {/* <IconButton
             className={cn([classes.slider_prev_btn, classes.slider_btn])}
             sx={(theme) => ({
               backgroundColor: theme.palette.common.white,
@@ -168,8 +168,7 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
             })}
           >
             <ArrowRightIcon sx={{ width: "3.2rem", height: "3.2rem" }} />
-          </IconButton>
-          <div className={classes.slider_next_btn}></div>
+          </IconButton> */}
         </Swiper>
       </Container>
     </Box>
