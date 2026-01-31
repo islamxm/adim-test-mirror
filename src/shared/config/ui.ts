@@ -1,5 +1,6 @@
 import type { SxProps } from "@mui/material";
 import type { Theme } from "@mui/material/styles";
+import { MotionProps } from "motion/react";
 
 export const baseMuiModalContentStyle = (theme: Theme): SxProps => ({
   p: "2.4rem 4.4rem",
@@ -17,4 +18,10 @@ export const baseMuiModalStyle: SxProps = {
   alignItems: "center",
   overflowY: "auto",
   minHeight: "100vh",
+};
+
+export const defaultComponentAnimation: Omit<MotionProps, "style"> = {
+  initial: { opacity: 0 },
+  exit: { opacity: 0 },
+  animate: { opacity: 1 },
 };

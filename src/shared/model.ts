@@ -20,6 +20,7 @@ export const getGamePage = () => `${getPointsPage()}/game`;
 export const getGameCategoryPage = (categoryId: number) => `${getGamePage()}/${categoryId}`;
 export const getGameMatchPage = (categoryId: number, subcategoryId: number) =>
   `${getGameCategoryPage(categoryId)}/${subcategoryId}`;
+export const getProfilePage = () => "/profile";
 
 export const routesMap = {
   home: { id: 1, path: getHomePage(), label: "Home" },

@@ -17,6 +17,12 @@ export const CourseSchema = z.object({
   totalUnits: z.number().optional(),
   units: z.array(UnitSchema).optional(),
 });
+export const ContinueCourseSchema = z.object({
+  courseIcon: z.string().nullable(),
+  courseId: z.number(),
+  courseName: z.string(),
+  percent: z.number(),
+});
 
 export const Response_GetCoursesByCategoryIdSuccessSchema = z.object({
   courses: z.array(CourseSchema),
@@ -24,4 +30,8 @@ export const Response_GetCoursesByCategoryIdSuccessSchema = z.object({
 });
 export const Response_GetCourseByIdSuccessSchema = z.object({
   course: CourseSchema,
+});
+export const Response_GetContinueLearningCoursesSchema = z.object({
+  continueLearning: z.array(ContinueCourseSchema),
+  cursor: z.string().optional(),
 });
