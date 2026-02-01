@@ -1,5 +1,6 @@
 import { FC, ReactNode, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -23,31 +24,31 @@ type Props = {
   oauth?: ReactNode;
 };
 
-const LoginFormSchema = z.object({
-  email: z.email("Ýalňyş e-mail salgysy"),
-  password: z
-    .string()
-    .min(5, "Parol azyndan 8 simwoldan ybarat bolmaly")
-    .max(16, "Parol 16 simwoldan köp bolmaly däl"),
-});
-
-type LoginFormType = z.infer<typeof LoginFormSchema>;
-
 export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
   const router = useRouter();
   const t = useTranslations("features.auth.login.LoginForm");
+
+  const LoginFormSchema = z.object({
+    email: z.email(t("email.validation.wrong")).nonempty(t("email.validation.required")),
+    password: z
+      .string()
+      .trim()
+      .min(8, t("password.validation.minChar"))
+      .max(16, t("password.validation.maxChar"))
+      .nonempty(t("password.required")),
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<LoginFormType>({
+  } = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
     mode: "onSubmit",
   });
 
-  const onSubmit: SubmitHandler<LoginFormType> = async (body) => {
+  const onSubmit: SubmitHandler<z.infer<typeof LoginFormSchema>> = async (body) => {
     setStatus?.("loading");
     Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
       expires: 1 / 24,
@@ -64,6 +65,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     } else {
       setStatus?.("error");
       console.log("Login error");
+      toast.error("Login error!");
       reset();
     }
   };
@@ -78,7 +80,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>
       <Stack>
         <TextField
-          placeholder={t("email")}
+          placeholder={t("email.label")}
           {...register("email")}
           fullWidth
           error={!!errors.email}
@@ -86,7 +88,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         />
       </Stack>
       <PasswordField
-        placeholder={t("password")}
+        placeholder={t("password.label")}
         {...register("password")}
         fullWidth
         error={!!errors.password}

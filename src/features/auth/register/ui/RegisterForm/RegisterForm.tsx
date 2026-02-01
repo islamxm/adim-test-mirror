@@ -1,5 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -23,44 +24,47 @@ type Props = {
   oauth?: ReactNode;
 };
 
-const RegisterFormSchema = z
-  .object({
-    name: z
-      .string()
-      .min(2, "Name must be at least 2 characters long")
-      .max(30, "Name must be at most 30 characters long"),
-    password: z
-      .string()
-      .min(5, "Password must be at least 5 characters long")
-      .max(16, "Password must be at most 16 characters long"),
-    repeatPassword: z
-      .string()
-      .min(5, "Password must be at least 5 characters long")
-      .max(16, "Password must be at most 16 characters long"),
-    email: z.email("Uncorrect email"),
-  })
-  .refine((data) => data.password === data.repeatPassword, {
-    message: "Пароли должны совпадать",
-    path: ["repeatPassword"],
-  });
-
-type RegisterFormType = z.infer<typeof RegisterFormSchema>;
-
 export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
   const t = useTranslations("features.auth.register.RegisterForm");
   const router = useRouter();
+  const RegisterFormSchema = z
+    .object({
+      name: z
+        .string()
+        .trim()
+        .min(2, t("name.validation.minChar"))
+        .nonempty(t("name.validation.required"))
+        .max(30, t("name.validation.maxChar")),
+      password: z
+        .string()
+        .trim()
+        .min(8, t("password.validation.minChar"))
+        .nonempty(t("password.validation.required"))
+        .max(16, t("password.validation.maxChar")),
+      repeatPassword: z
+        .string()
+        .trim()
+        .min(8, t("repeat_name.validation.minChar"))
+        .max(16, t("repeat_name.validation.maxChar"))
+        .nonempty(t("repeat_name.validation.required")),
+      email: z.email(t("email.validation.wrong")).nonempty(t("email.validation.required")),
+    })
+    .refine((data) => data.password === data.repeatPassword, {
+      message: t("repeat_name.validation.compare"),
+      path: ["repeatPassword"],
+    });
   const {
     register,
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<RegisterFormType>({
+  } = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
     mode: "onSubmit",
   });
   const [signup] = registerApi.useRegisterMutation();
 
-  const onSubmit: SubmitHandler<RegisterFormType> = async (body) => {
+  const onSubmit: SubmitHandler<z.infer<typeof RegisterFormSchema>> = async (body) => {
     setStatus?.("loading");
     const { email, password, name: profileName } = body;
     const deviceInfo = getUserDeviceInfo();
@@ -76,6 +80,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     } catch (err) {
       setStatus?.("error");
       console.log("Signup error:", err);
+      toast.error("Signup error!");
     }
   };
 
@@ -89,21 +94,21 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
     <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} gap={"1.2rem"}>
       <TextField
         fullWidth
-        placeholder={t("name")}
+        placeholder={t("name.label")}
         {...register("name")}
         error={!!errors.name}
         helperText={<InputErrorText>{errors.name?.message}</InputErrorText>}
       />
       <TextField
         fullWidth
-        placeholder={t("email")}
+        placeholder={t("email.label")}
         {...register("email")}
         error={!!errors.email}
         helperText={<InputErrorText>{errors.email?.message}</InputErrorText>}
       />
       <PasswordField
         fullWidth
-        placeholder={t("password")}
+        placeholder={t("password.label")}
         {...register("password")}
         error={!!errors.password}
         type={"password"}
@@ -111,7 +116,7 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       />
       <PasswordField
         fullWidth
-        placeholder={t("repeat_password")}
+        placeholder={t("repeat_password.label")}
         {...register("repeatPassword")}
         error={!!errors.repeatPassword}
         type={"password"}

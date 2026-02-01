@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import { signIn, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -39,6 +40,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       if (data) {
         if ((data as any)?.error) {
           console.error("Backend Error");
+          toast.error("Authentification error!");
         } else {
           redirect("/home");
         }

@@ -6,8 +6,21 @@
           "text": "Giriş"
         },
         "LoginForm": {
-          "password": "Parol",
-          "email": "El. poçta",
+          "password": {
+            "label": "Parol",
+            "validation": {
+              "minChar": "Parol 8 simwoldan az bolmaly däl",
+              "maxChar": "Parol 16 simwoldan köp bolmaly däl",
+              "required": "Meýdany dolduryň"
+            }
+          },
+          "email": {
+            "label": "El. poçta",
+            "validation": {
+              "wrong": "Ýalňyş el. poçta",
+              "required": "Meýdany dolduryň"
+            }
+          },
           "submit_button": "Dowam et"
         }
       }
