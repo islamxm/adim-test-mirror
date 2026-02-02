@@ -2,7 +2,9 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.adim.app", 
-    "sha256_cert_fingerprints":["5D:E5:CA:08:CC:F7:3B:4F:39:7F:A4:F3:79:37:81:36:9D:AE:AD:13:73:FF:27:1A:24:BD:81:DD:B1:F8:DD:2D","04:B0:02:C7:37:F9:4A:07:EB:7E:53:F8:79:F4:EC:3B:DA:E9:D9:D4:11:03:83:CE:76:6B:E9:45:E0:42:DF:2F"]
+    "package_name": "com.adim.app",
+    "sha256_cert_fingerprints": [
+"5D:E5:CA:08:CC:F7:3B:4F:39:7F:A4:F3:79:37:81:36:9D:AE:AD:13:73:FF:27:1A:24:BD:81:DD:B1:F8:DD:2D",     "04:B0:02:C7:37:F9:4A:07:EB:7E:53:F8:79:F4:EC:3B:DA:E9:D9:D4:11:03:83:CE:76:6B:E9:45:E0:42:DF:2F",    "F5:1B:29:06:28:5A:AC:09:FE:B1:8F:7F:2C:4A:C2:7E:AB:54:15:BC:64:C4:F5:E5:53:35:1F:20:49:F1:13:1C"
+]
   }
 }]
