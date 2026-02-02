@@ -45,16 +45,21 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
                 },
               );
               const data = (await res.json()) as any;
+              console.log("TOKEN: ", credentials.token);
+              console.log(res);
               if (res.ok && data) {
                 (await cookies()).set("refresh_token", data.refreshToken, {
                   httpOnly: true,
                 });
+                return {
+                  accessToken: data.accessToken,
+                  refreshToken: data.refreshToken,
+                  error: false,
+                };
+              } else {
+                console.log("BACKEND ERROR");
               }
-              return {
-                accessToken: data.accessToken,
-                refreshToken: data.refreshToken,
-                error: false,
-              };
+              return null;
             } catch (err) {
               console.log("Verify error", err);
               throw err;

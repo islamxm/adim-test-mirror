@@ -11,7 +11,7 @@ import { getRegisterPage } from "@/shared/model";
 import logo from "../../../../../public/tl-1.png";
 
 type Props = {
-  email?: string;
+  email: string | null;
 };
 
 export const VerifyPage: FC<Props> = ({ email }) => {

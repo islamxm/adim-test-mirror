@@ -13,6 +13,7 @@ export default function VerifyPage() {
   const router = useRouter();
   const params = useSearchParams();
   const token = params.get("token");
+  const email = params.get("email");
 
   useEffect(() => {
     if (token) {
@@ -30,6 +31,6 @@ export default function VerifyPage() {
   }, [token, router]);
 
   if (!token) {
-    return <VerifyPageComponent />;
+    return <VerifyPageComponent email={email} />;
   }
 }

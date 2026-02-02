@@ -44,13 +44,13 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       repeatPassword: z
         .string()
         .trim()
-        .min(8, t("repeat_name.validation.minChar"))
-        .max(16, t("repeat_name.validation.maxChar"))
-        .nonempty(t("repeat_name.validation.required")),
+        .min(8, t("repeat_password.validation.minChar"))
+        .max(16, t("repeat_password.validation.maxChar"))
+        .nonempty(t("repeat_password.validation.required")),
       email: z.email(t("email.validation.wrong")).nonempty(t("email.validation.required")),
     })
     .refine((data) => data.password === data.repeatPassword, {
-      message: t("repeat_name.validation.compare"),
+      message: t("repeat_password.validation.compare"),
       path: ["repeatPassword"],
     });
   const {
