@@ -6,11 +6,13 @@ import Link from "next/link";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
+import { getCoursesPage } from "@/shared/model";
+
 import { Category } from "../../model";
 
-export const CategoryCard: FC<Category> = ({ name, iconPath }) => {
+export const CategoryCard: FC<Category> = ({ name, iconPath, id }) => {
   return (
-    <Link href={"#"}>
+    <Link href={getCoursesPage() + "/" + id}>
       <Paper
         sx={(theme) => ({
           display: "block",

@@ -2,10 +2,10 @@
 import { FC } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Paper, Stack, Typography, useTheme } from "@mui/material";
 
+import { useRouterProgress } from "@/shared/lib";
 import { getRegisterPage } from "@/shared/model";
 
 import logo from "../../../../../public/tl-1.png";
@@ -15,6 +15,8 @@ type Props = {
 };
 
 export const VerifyPage: FC<Props> = ({ email }) => {
+  const { palette } = useTheme();
+  const router = useRouterProgress();
   return (
     <Stack justifyContent={"center"} alignItems={"center"} height={"100%"}>
       <Paper
@@ -32,12 +34,22 @@ export const VerifyPage: FC<Props> = ({ email }) => {
             <Typography align={"center"} variant={"body1"}>
               You need to verificate yor email address Please check your email{" "}
               <strong>
-                <a href={`mailto:${email}`}>{email}</a>
+                <a
+                  target={"_blank"}
+                  style={{ color: palette.primary.light }}
+                  href={`mailto:${email}`}
+                >
+                  {email}
+                </a>
               </strong>
             </Typography>
           </Stack>
           {/* @ts-ignore */}
-          <Button variant={"contained"} color={"primary"} compoent={Link} href={getRegisterPage()}>
+          <Button
+            variant={"contained"}
+            color={"primary"}
+            onClick={() => router.push(getRegisterPage())}
+          >
             Back to register
           </Button>
         </Stack>

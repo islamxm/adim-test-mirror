@@ -1,4 +1,4 @@
-import { getSession, signIn, signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";

@@ -16,21 +16,27 @@
           },
           "email": {
             "label": "El. poçta",
-            "required": "Meýdany dolduryň",
-            "wrong": "Ýalňyş el. poçta"
+            "validation": {
+              "required": "Meýdany dolduryň",
+              "wrong": "Ýalňyş el. poçta"
+            }
           },
           "password": {
             "label": "Parol",
-            "minChar": "Parol 8 simwoldan az bolmaly däl",
-            "maxChar": "Parol 16 simwoldan köp bolmaly däl",
-            "required": "Meýdany dolduryň"
+            "validation": {
+              "minChar": "Parol 8 simwoldan az bolmaly däl",
+              "maxChar": "Parol 16 simwoldan köp bolmaly däl",
+              "required": "Meýdany dolduryň"
+            }
           },
           "repeat_password": {
             "label": "Paroly gaýtalaň",
-            "minChar": "Parol 8 simwoldan az bolmaly däl",
-            "maxChar": "Parol 16 simwoldan köp bolmaly däl",
-            "required": "Meýdany dolduryň",
-            "compare": "Parollar gabat gelmeli"
+            "validation": {
+              "minChar": "Parol 8 simwoldan az bolmaly däl",
+              "maxChar": "Parol 16 simwoldan köp bolmaly däl",
+              "required": "Meýdany dolduryň",
+              "compare": "Parollar gabat gelmeli"
+            }
           },
           "submit_button": "Dowam et"
         }

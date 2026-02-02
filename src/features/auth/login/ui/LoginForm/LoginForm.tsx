@@ -59,6 +59,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       password,
       redirect: false,
     });
+    console.log(res);
     if (res?.status === 200) {
       setStatus?.("success");
       router.push(getHomePage());

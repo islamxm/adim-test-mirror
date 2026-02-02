@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { AnimatePresence } from "motion/react";
 
 import { useSelector } from "@/shared/lib";

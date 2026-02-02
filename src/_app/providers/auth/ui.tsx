@@ -31,6 +31,7 @@ export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(userSlice.actions.updateAuthStatus(status));
     if (status !== "loading") {
       dispatch(userSlice.actions.updateAccessToken(data?.accessToken ?? undefined));
     }

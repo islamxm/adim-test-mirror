@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 
 import { Box, Button, Grid } from "@mui/material";
 
+import { useRouterProgress } from "@/shared/lib";
+import { getCoursesPage } from "@/shared/model";
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { ArrowRightIcon } from "@/shared/ui/icons";
@@ -16,6 +18,7 @@ type Props = {
 };
 
 export const CategoriesSection: FC<Props> = ({ data }) => {
+  const router = useRouterProgress();
   const t = useTranslations("pages.homePage.CategoriesSection");
 
   return (
@@ -30,7 +33,11 @@ export const CategoriesSection: FC<Props> = ({ data }) => {
           title={t("title")}
           subtitle={t("subtitle")}
           action={
-            <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
+            <Button
+              onClick={() => router.push(getCoursesPage())}
+              variant={"contained"}
+              endIcon={<ArrowRightIcon />}
+            >
               {t("more_button")}
             </Button>
           }

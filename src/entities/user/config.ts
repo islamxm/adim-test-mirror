@@ -88,7 +88,6 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
               body: JSON.stringify(validatedBody),
             });
             const data = (await res.json()) as any;
-
             if (res.ok && data) {
               (await cookies()).set("refresh_token", data.refreshToken, {
                 httpOnly: true,
