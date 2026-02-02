@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "http", hostname: "193.47.42.164", port: "8605" },
       { protocol: "http", hostname: "**" },
+      { protocol: "https", hostname: "cdn-dn1.adim.com.tm" },
+      { protocol: "https", hostname: "s3.adim.com.tm" },
     ],
   },
   reactStrictMode: false,
