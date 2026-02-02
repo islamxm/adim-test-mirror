@@ -1,22 +1,28 @@
 "use client";
 import { useTranslations } from "next-intl";
 
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import { useSelector } from "@/shared/lib";
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
-import { ArrowRightIcon } from "@/shared/ui/icons";
 
 import { CourseCard, ProgressBadge } from "@/entities/course";
 import { userApi } from "@/entities/user";
 
 export const ContinueLearningSection = () => {
-  const { isAuth } = useSelector((s) => s.user);
-  const { data, isError } = userApi.useGetHomeUserDataQuery(undefined, { skip: !isAuth });
+  const { authStatus } = useSelector((s) => s.user);
+  const { data, isError } = userApi.useGetHomeUserDataQuery(undefined, {
+    skip: authStatus !== "authenticated",
+  });
   const t = useTranslations("pages.homePage.ContinueLearningSection");
 
-  if (!isAuth || isError || !data?.continueLearning || data.continueLearning.length === 0) {
+  if (
+    authStatus !== "authenticated" ||
+    isError ||
+    !data?.continueLearning ||
+    data.continueLearning.length === 0
+  ) {
     return null;
   }
 

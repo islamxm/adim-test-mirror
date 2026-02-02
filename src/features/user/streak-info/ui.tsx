@@ -7,9 +7,9 @@ import { useSelector } from "@/shared/lib";
 import { StreakDetailsPanel, StreakPanel, userApi } from "@/entities/user";
 
 export const StreakInfo = () => {
-  const { isAuth } = useSelector((s) => s.user);
+  const { authStatus } = useSelector((s) => s.user);
   const { data, isError } = userApi.useGetHomeUserDataQuery(undefined, {
-    skip: !isAuth,
+    skip: authStatus !== "authenticated",
   });
 
   if (isError || !data) {

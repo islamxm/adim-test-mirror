@@ -1,5 +1,3 @@
-import { useSession } from "next-auth/react";
-
 import { AnimatePresence } from "motion/react";
 
 import { useSelector } from "@/shared/lib";
@@ -12,13 +10,14 @@ import { RightSide } from "../RightSide/RightSide";
 import classes from "./classes.module.scss";
 
 export const MainHeader = () => {
-  // const { isAuth } = useSelector((s) => s.user);
-  const { status } = useSession();
+  const { authStatus } = useSelector((s) => s.user);
 
   return (
     <>
       <Navbar
-        endSlot={<AnimatePresence>{status === "authenticated" && <UserAvatar />}</AnimatePresence>}
+        endSlot={
+          <AnimatePresence>{authStatus === "authenticated" && <UserAvatar />}</AnimatePresence>
+        }
         sx={{
           gridArea: "main",
           position: "relative",
