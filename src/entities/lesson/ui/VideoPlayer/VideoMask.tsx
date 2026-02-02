@@ -54,6 +54,10 @@ export const VideoMask = () => {
       deleteMaskTimer();
       setIsShowMask(true);
     }
+
+    return () => {
+      deleteMaskTimer();
+    };
   }, [isEnded]);
 
   useEffect(() => {
@@ -75,8 +79,6 @@ export const VideoMask = () => {
     ref: maskRef,
     latency: 250,
   });
-
-  console.log("waiting: ", isWaiting);
 
   return (
     <Box

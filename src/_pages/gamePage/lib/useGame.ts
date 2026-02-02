@@ -408,6 +408,9 @@ export const useGame = () => {
       if (reconnectTimer.current) {
         clearTimeout(reconnectTimer.current);
       }
+      if (sessionTimer.current) {
+        clearTimeout(sessionTimer.current);
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionData]);
