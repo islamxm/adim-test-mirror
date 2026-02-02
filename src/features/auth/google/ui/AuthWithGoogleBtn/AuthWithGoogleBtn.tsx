@@ -28,7 +28,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       expires: 1 / 24,
     });
     await signIn("google", {
-      callbackUrl: "/auth?type=login",
+      // callbackUrl: "?type=login",
     });
     setStatus?.("success");
   };
