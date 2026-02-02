@@ -1,14 +1,15 @@
 import { FC, useEffect } from "react";
 import { toast } from "react-toastify";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 import { Button } from "@mui/material";
 import Cookies from "js-cookie";
 
+import { useRouterProgress } from "@/shared/lib";
+import { getHomePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
 
 import { getUserDeviceInfo } from "@/entities/user";
@@ -20,6 +21,7 @@ type Props = {
 };
 
 export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
+  const router = useRouterProgress();
   const { data, status } = useSession();
   const t = useTranslations("features.auth.google.AuthWithGoogleBtn");
   const onSubmit = async () => {
@@ -27,9 +29,11 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
     Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
       expires: 1 / 24,
     });
-    await signIn("google", {
-      // callbackUrl: "?type=login",
-    });
+    try {
+      await signIn("google");
+    } catch (e) {
+      toast.error("Google sign in error!");
+    }
     setStatus?.("success");
   };
 
@@ -40,9 +44,10 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       if (data) {
         if ((data as any)?.error) {
           console.error("Backend Error");
-          toast.error("Authentification error!");
+          toast.error("Google sign in error!", { autoClose: 3000 });
+          signOut({ redirect: false });
         } else {
-          redirect("/home");
+          router.replace(getHomePage());
         }
       }
       setStatus?.("success");

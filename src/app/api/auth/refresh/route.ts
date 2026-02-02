@@ -27,8 +27,10 @@ export async function POST(req: NextRequest) {
       deviceInfo,
     }),
   });
+  console.log(refreshRes);
+  console.log(refreshToken);
   const body = await refreshRes.json();
-
+  console.log(body);
   if (!refreshRes.ok) {
     return NextResponse.json(body, { status: refreshRes.status });
   } else {

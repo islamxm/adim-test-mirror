@@ -108,7 +108,7 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
       strategy: "jwt",
     },
     pages: {
-      signIn: getLoginPage(),
+      signIn: "/auth?type=login",
       error: "/auth?type=login",
     },
     callbacks: {
@@ -143,7 +143,10 @@ export const getAuthOptions = (cookies: () => Promise<ReadonlyRequestCookies>): 
                 token.error = true;
               }
             } catch (err) {
-              throw err;
+              token.accessToken = undefined;
+              token.refreshToken = undefined;
+              token.error = true;
+              // throw err;
             }
           }
         }

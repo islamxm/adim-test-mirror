@@ -40,8 +40,6 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
           result = await baseQuery(args, api, extraOptions);
         } else {
           await signOut({ redirect: false });
-          // тут происходит жесткий редирект вне зависимости от того где находится страница
-          // window.location.href = "/auth?type=login";
         }
       } catch (err) {
         console.log("REFRESH ERROR", err);
