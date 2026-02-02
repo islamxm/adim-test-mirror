@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      // надо проверить наличие
       token: refreshToken,
       deviceInfo,
     }),

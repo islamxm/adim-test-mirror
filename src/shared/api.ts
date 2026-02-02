@@ -1,4 +1,4 @@
-import { signIn, signOut } from "next-auth/react";
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
 
 import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";
@@ -11,9 +11,11 @@ const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
   prepareHeaders: async (headers, { getState }) => {
-    const accessToken = (getState() as StoreType).user.accessToken;
-    if (accessToken) {
-      headers.set("Authorization", `Bearer ${accessToken}`);
+    // const accessToken = (getState() as StoreType).user.accessToken;
+    const s = await getSession();
+
+    if (s?.accessToken) {
+      headers.set("Authorization", `Bearer ${s?.accessToken}`);
     }
     return headers;
   },
