@@ -3,6 +3,8 @@ import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";
 
+import { userSlice } from "@/entities/user";
+
 import { getDeviceInfo } from "./lib";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -11,11 +13,11 @@ const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
   prepareHeaders: async (headers, { getState }) => {
-    // const accessToken = (getState() as StoreType).user.accessToken;
-    const s = await getSession();
+    const accessToken = (getState() as StoreType).user.accessToken;
+    // const s = await getSession();
 
-    if (s?.accessToken) {
-      headers.set("Authorization", `Bearer ${s?.accessToken}`);
+    if (accessToken) {
+      headers.set("Authorization", `Bearer ${accessToken}`);
     }
     return headers;
   },
@@ -39,6 +41,7 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
             accessToken,
             redirect: false,
           });
+          api.dispatch(userSlice.actions.updateAccessToken(accessToken));
           result = await baseQuery(args, api, extraOptions);
         } else {
           await signOut({ redirect: false });
