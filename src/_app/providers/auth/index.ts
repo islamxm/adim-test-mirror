@@ -1,1 +1,1 @@
-export { AuthProvider } from "./ui";
+export { AuthProvider, AuthInitializer } from "./ui";

@@ -8,7 +8,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const session = await getServerSession(getAuthOptions(cookies));
 
   if (session?.accessToken) {
-    redirect("/home");
+    redirect("/profile");
   }
   return <>{children}</>;
 }

@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+
 import { Stack } from "@mui/material";
 import { motion } from "motion/react";
 
@@ -7,11 +9,10 @@ import { LoginButton } from "@/features/auth/login";
 import { RegisterButton } from "@/features/auth/register";
 
 export const RightSide = () => {
-  const { isAuth } = useSelector((s) => s.user);
+  const { status } = useSession();
 
   return (
-    typeof isAuth === "boolean" &&
-    isAuth === false && (
+    status === "unauthenticated" && (
       <Stack
         initial={{ opacity: 0, scale: 0 }}
         exit={{ opacity: 0, scale: 0 }}

@@ -31,23 +31,25 @@ export type Payload_Register = z.infer<typeof Payload_RegisterSchema>;
 export type Payload_Login = z.infer<typeof Payload_LoginSchema>;
 export type Payload_Verify = z.infer<typeof Payload_VerifySchema>;
 
-export type AuthStatus = "pending" | "success" | "error";
+export type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
 type UserSliceInitialState = {
-  /** @deprecated */
-  isAuth: boolean | undefined;
-  /** более точное состояние для обработки */
-  authStatus?: AuthStatus;
+  authStatus: AuthStatus;
+  accessToken?: string;
 };
 const userSliceInitialState: UserSliceInitialState = {
-  isAuth: undefined,
+  authStatus: "loading",
+  accessToken: undefined,
 };
 export const userSlice = createSlice({
   initialState: userSliceInitialState,
   name: "user",
   reducers: {
-    updateAuthStatus: (state, { payload }: PayloadAction<boolean>) => {
-      state.isAuth = payload;
+    updateAuthStatus: (state, { payload }: PayloadAction<AuthStatus>) => {
+      state.authStatus = payload;
+    },
+    updateAccessToken: (state, { payload }: PayloadAction<string | undefined>) => {
+      state.accessToken = payload;
     },
   },
 });

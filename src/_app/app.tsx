@@ -13,7 +13,7 @@ import { AppHeader } from "@/widgets/appHeader";
 import { MainLayout } from "@/widgets/mainLayout";
 
 import { AnimationProvider } from "./providers/animation";
-import { AuthProvider } from "./providers/auth";
+import { AuthInitializer } from "./providers/auth";
 import { StoreProvider, createStore } from "./providers/store";
 import { StyleProvider } from "./providers/style";
 
@@ -22,12 +22,12 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <SessionProvider>
-      <LocaleDetector />
-      <StyleProvider>
-        <PageLoadingProgressbar />
-        <StoreProvider preloadedState={store}>
-          <AnimationProvider animate={true}>
-            <AuthProvider>
+      <StoreProvider preloadedState={store}>
+        <AuthInitializer>
+          <LocaleDetector />
+          <StyleProvider>
+            <PageLoadingProgressbar />
+            <AnimationProvider animate={true}>
               <MainLayout
                 header={(isShowHeader) => <AppHeader isShowHeader={isShowHeader} />}
                 footer={<AppFooter />}
@@ -35,10 +35,10 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
                 {children}
                 <Toaster />
               </MainLayout>
-            </AuthProvider>
-          </AnimationProvider>
-        </StoreProvider>
-      </StyleProvider>
+            </AnimationProvider>
+          </StyleProvider>
+        </AuthInitializer>
+      </StoreProvider>
     </SessionProvider>
   );
 };

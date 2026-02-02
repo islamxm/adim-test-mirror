@@ -10,9 +10,8 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
-  prepareHeaders: async (headers) => {
-    const session = await getSession();
-    const accessToken = session?.accessToken;
+  prepareHeaders: async (headers, { getState }) => {
+    const accessToken = (getState() as StoreType).user.accessToken;
     if (accessToken) {
       headers.set("Authorization", `Bearer ${accessToken}`);
     }
@@ -41,7 +40,8 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
           result = await baseQuery(args, api, extraOptions);
         } else {
           await signOut({ redirect: false });
-          window.location.href = "/auth?type=login";
+          // тут происходит жесткий редирект вне зависимости от того где находится страница
+          // window.location.href = "/auth?type=login";
         }
       } catch (err) {
         console.log("REFRESH ERROR", err);

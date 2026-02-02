@@ -35,7 +35,7 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       .trim()
       .min(8, t("password.validation.minChar"))
       .max(16, t("password.validation.maxChar"))
-      .nonempty(t("password.required")),
+      .nonempty(t("password.validation.required")),
   });
 
   const {
