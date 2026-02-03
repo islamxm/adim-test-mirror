@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
+import { jwtDecode } from "jwt-decode";
+
 import { Payload_LoginSchema, Response_LoginSchema } from "./contracts";
 import {
   AuthErrorDeviceLimit,
@@ -9,6 +11,7 @@ import {
   AuthErrorFetchResponse,
   AuthErrorInvalidInputData,
   AuthErrorInvalidOutputData,
+  VerificationError,
 } from "./model";
 
 export const authConfig = NextAuth({
@@ -70,6 +73,8 @@ export const authConfig = NextAuth({
             id: "session",
             accessToken: validatedData.accessToken,
             refreshToken: validatedData.refreshToken,
+            expire_date: (jwtDecode(validatedData.accessToken).exp as number) * 1000,
+            deviceInfo: payload.deviceInfo,
           };
         } catch (err) {
           console.error(`[${new AuthErrorInvalidOutputData().code}]: `, err);
@@ -80,34 +85,30 @@ export const authConfig = NextAuth({
     CredentialsProvider({
       id: "email-verification",
       name: "Email Verification",
-      credentials: {
-        token: { label: "token", type: "text" },
-      },
       // @ts-ignore
       async authorize(credentials) {
-        if (credentials?.token) {
-          try {
-            const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}verify?token=${credentials?.token}`,
-              {
-                method: "GET",
-              },
-            );
-            const data = (await res.json()) as any;
-            if (res.ok && data) {
-              return {
-                accessToken: data.accessToken,
-                refreshToken: data.refreshToken,
-                error: false,
-              };
-            } else {
-              console.log("BACKEND ERROR");
-            }
-            return null;
-          } catch (err) {
-            console.log("Verify error", err);
-            throw err;
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}verify?token=${credentials?.token}`,
+            {
+              method: "GET",
+            },
+          );
+          const data = (await res.json()) as any;
+          if (!res.ok) {
+            throw new VerificationError();
           }
+          return {
+            id: "session",
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
+            expire_date: (jwtDecode(data.accessToken).exp as number) * 1000,
+            deviceInfo: JSON.parse(credentials.deviceInfo as string),
+            error: false,
+          };
+        } catch (err) {
+          throw new VerificationError();
+          // return null;
         }
       },
     }),
@@ -131,27 +132,87 @@ export const authConfig = NextAuth({
         if (account?.provider === "google") {
           const id_token = account?.id_token;
           if (id_token) {
-            token.id_token = id_token;
+            try {
+              const { cookies } = await import("next/headers");
+              const cookieStore = await cookies();
+              const rawDeviceInfo = cookieStore.get("deviceInfo")?.value;
+              const deviceInfo = rawDeviceInfo ? JSON.parse(rawDeviceInfo) : {};
+              const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/google_sign_in`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  token: id_token,
+                  deviceInfo: deviceInfo,
+                }),
+              });
+              const data = await res.json();
+              if (!res.ok) {
+                throw data;
+              }
+              token.accessToken = data.accessToken;
+              token.refreshToken = data.refreshToken;
+              token.expire_date = (jwtDecode(data.accessToken).exp as number) * 1000;
+              token.deviceInfo = deviceInfo;
+              token.error = false;
+              return token;
+            } catch (err) {
+              console.log("Google sign in error: ", err);
+              return {
+                ...token,
+                error: "GoogleSignInError",
+              };
+            }
           }
         }
         if (account?.type === "credentials") {
           token.accessToken = (user as any)?.accessToken;
           token.refreshToken = (user as any)?.refreshToken;
+          token.expire_date = (user as any)?.expire_date;
+          token.deviceInfo = (user as any)?.deviceInfo;
+          token.error = false;
+        }
+        return token;
+      }
+      if (Date.now() < (token as any).expire_date) {
+        return token;
+      } else {
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/generate_token`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              deviceInfo: token?.deviceInfo,
+              token: token?.refreshToken,
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            throw data;
+          }
+          return {
+            ...token,
+            accessToken: data?.accessToken,
+            refreshToken: data?.refreshToken,
+            expire_date: (jwtDecode(data?.accessToken).exp as number) * 1000,
+            error: false,
+          };
+        } catch (err) {
+          console.log("Refresh Error: ", err);
+          return {
+            ...token,
+            error: "RefreshAccessTokenError",
+          };
         }
       }
-      // значит пытаемся обновить данные (refresh token)
-      if (trigger === "update" && session) {
-        token.accessToken = (session as any)?.accessToken;
-        token.refreshToken = (session as any)?.refreshToken;
-      }
-
-      return token;
     },
     async session({ session, token }) {
       if (token) {
         session.accessToken = token.accessToken as string;
         session.refreshToken = token.refreshToken as string;
         session.id_token = token.id_token as any;
+        session.error = token.error as any;
       }
       return session;
     },

@@ -7,6 +7,8 @@ declare module "next-auth" {
     refreshToken?: string;
     accessToken?: string;
     id_token?: string | null;
+    expire_date?: string;
+    error?: any;
   }
 }
 export {};

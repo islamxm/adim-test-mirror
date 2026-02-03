@@ -26,12 +26,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
 /** получение токена в начале и сохранение в сторе чтобы не делать лишние запросы перед каждым фетчем */
 export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
-  const { data, status, update } = useSession();
+  const { data, status } = useSession();
   const dispatch = useDispatch();
-  const { accessToken, refreshToken } = useSelector((s) => s.user);
-  const isJWTUpdating = useRef<boolean>(false);
-  const lastSentToken = useRef<string | null>(null);
-  const timer = useRef<any>(null);
 
   // это при авторизации
   useEffect(() => {
@@ -45,36 +41,6 @@ export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
       );
     }
   }, [data?.accessToken, data?.refreshToken, status, dispatch, data?.id_token]);
-
-  // при ручном изменении токена в api (refresh) обновляем jwt
-  useEffect(() => {
-    if (status !== "authenticated" || !accessToken || !refreshToken) return;
-    const isDifferent = accessToken !== data?.accessToken;
-    if (isDifferent && !isJWTUpdating.current && accessToken !== lastSentToken.current) {
-      isJWTUpdating.current = true;
-      lastSentToken.current = accessToken;
-      update({ accessToken, refreshToken })
-        .then(() => console.log("Success session sync"))
-        .catch(() => {
-          console.error("Error session sync");
-          lastSentToken.current = null;
-        })
-        .finally(() => {
-          if (timer.current) {
-            clearTimeout(timer.current);
-            timer.current = null;
-          }
-          timer.current = setTimeout(() => {
-            isJWTUpdating.current = false;
-          }, 500);
-        });
-    }
-
-    return () => {
-      clearTimeout(timer.current);
-      timer.current = null;
-    };
-  }, [accessToken, refreshToken, update, data, status]);
 
   return <>{children}</>;
 };

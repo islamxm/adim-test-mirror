@@ -1,11 +1,15 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-import { getHomePage } from "@/shared/model";
+import { getDeviceInfo } from "@/shared/lib";
+import { getProfilePage } from "@/shared/model";
+
+import { VerificationError } from "@/entities/user/model";
 
 import { VerifyPage as VerifyPageComponent } from "@/_pages/verifyPage";
 
@@ -14,23 +18,28 @@ export default function VerifyPage() {
   const params = useSearchParams();
   const token = params.get("token");
   const email = params.get("email");
+  const [isVerifying, setIsVerifying] = useState(false);
 
   useEffect(() => {
     if (token) {
-      signIn("email-verification", {
-        token,
-        redirect: false,
-      }).then((res) => {
-        if (res?.ok) {
-          router.push(getHomePage());
+      setIsVerifying(true);
+      const verify = async () => {
+        const deviceInfo = JSON.stringify(getDeviceInfo());
+        const res = await signIn("email-verification", {
+          token,
+          deviceInfo,
+          redirect: false,
+        });
+        if (!res.ok || res.code === new VerificationError().code) {
+          toast.error("Verification error!");
         } else {
-          console.log("Verify error");
+          router.push(getProfilePage());
         }
-      });
+        setIsVerifying(false);
+      };
+      verify();
     }
   }, [token, router]);
 
-  if (!token) {
-    return <VerifyPageComponent email={email} />;
-  }
+  return <VerifyPageComponent isVeryfiyng={isVerifying} email={email} />;
 }

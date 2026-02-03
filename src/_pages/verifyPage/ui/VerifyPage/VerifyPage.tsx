@@ -14,9 +14,10 @@ import logo from "../../../../../public/tl-1.png";
 
 type Props = {
   email: string | null;
+  isVeryfiyng?: boolean;
 };
 
-export const VerifyPage: FC<Props> = ({ email }) => {
+export const VerifyPage: FC<Props> = ({ email, isVeryfiyng }) => {
   const { palette } = useTheme();
   const router = useRouterProgress();
   return (
@@ -51,9 +52,10 @@ export const VerifyPage: FC<Props> = ({ email }) => {
             <Button
               variant={"contained"}
               color={"primary"}
+              loading={isVeryfiyng}
               onClick={() => router.push(getRegisterPage())}
             >
-              Back to register
+              {isVeryfiyng ? "Verifying..." : "Back to register"}
             </Button>
           </Stack>
         </Paper>

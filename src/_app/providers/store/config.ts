@@ -19,6 +19,5 @@ export const createStore = (preloadedState?: unknown) => {
       }).concat(api.middleware),
   });
 };
-export const store = createStore();
 export type RootState = ReturnType<ReturnType<typeof createStore>["getState"]>;
 export type AppDispatch = ReturnType<typeof createStore>["dispatch"];

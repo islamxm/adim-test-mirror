@@ -79,7 +79,6 @@ export const RegisterForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       router.push("/auth/verify" + objectToSearchParams({ email }));
     } catch (err) {
       setStatus?.("error");
-      console.log("Signup error:", err);
       toast.error("Signup error!");
     }
   };
