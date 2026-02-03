@@ -25,13 +25,13 @@ export const ProfilePage = () => {
             leftTop={<Streak />}
             leftBottom={<Points />}
             right={<Month />}
-            bottom={
-              <>
-                <Grid size={12}>
-                  <LogoutPanel />
-                </Grid>
-              </>
-            }
+            // bottom={
+            //   <>
+            //     <Grid size={12}>
+            //       <LogoutPanel />
+            //     </Grid>
+            //   </>
+            // }
           />
           {/* <FinishedCourses /> */}
         </ProfileBody>

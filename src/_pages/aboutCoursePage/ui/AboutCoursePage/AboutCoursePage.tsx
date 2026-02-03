@@ -34,11 +34,13 @@ export const AboutCoursePage: FC<Props> = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           pt={"20rem"}
+          sx={{ height: "100%" }}
         >
           <CourseMainInfo name={data.name} description={data.description} />
           <Box
             sx={(theme) => ({
               backgroundColor: theme.palette.background.default,
+              flexGrow: 1,
             })}
           >
             <Container>

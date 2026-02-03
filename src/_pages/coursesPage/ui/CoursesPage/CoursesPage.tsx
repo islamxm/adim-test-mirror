@@ -28,7 +28,7 @@ export const CoursesPage = () => {
   const courses = data?.pages.map((d) => d.courses).flat() || [];
 
   return (
-    <Box sx={(theme) => ({ backgroundColor: theme.palette.background.default })}>
+    <Box sx={(theme) => ({ backgroundColor: theme.palette.background.default, height: "100%" })}>
       <Container>
         <Stack
           sx={{

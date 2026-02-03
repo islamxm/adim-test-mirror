@@ -14,15 +14,20 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <PageEnterAnimationLayout>
       <Stack
-        gap={"4.4rem"}
-        sx={(theme) => ({ pt: "13.8rem", backgroundColor: theme.palette.gold.light })}
+        sx={(theme) => ({
+          pt: "13.8rem",
+          backgroundColor: theme.palette.gold.light,
+          height: "100%",
+        })}
       >
-        <PromoSection bgcolor={"unset"} />
-        <Container>
-          <CategoryTabs />
-        </Container>
+        <Stack gap={"4.4rem"}>
+          <PromoSection bgcolor={"unset"} />
+          <Container>
+            <CategoryTabs />
+          </Container>
+        </Stack>
+        {children}
       </Stack>
-      {children}
     </PageEnterAnimationLayout>
   );
 }

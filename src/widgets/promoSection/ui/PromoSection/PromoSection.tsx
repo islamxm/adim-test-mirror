@@ -9,7 +9,9 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useRouterProgress } from "@/shared/lib";
 import { cn } from "@/shared/lib/cn";
+import { getAboutCoursePage, getCoursePage } from "@/shared/model";
 import { Container } from "@/shared/ui/Container";
 import { SectionHead } from "@/shared/ui/SectionHead";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/shared/ui/icons";
@@ -27,6 +29,7 @@ type Props = {
 
 export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
   const t = useTranslations("widgets.promoSection.PromoSection");
+  const router = useRouterProgress();
   return (
     <Box className={classes.wrapper} bgcolor={bgcolor}>
       <Container>
@@ -84,7 +87,11 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
                     <Typography variant={"body1"}>{t("subtitle")}</Typography>
                   </Stack>
                   <Stack gap={"1.6rem"} direction={"row"}>
-                    <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
+                    <Button
+                      onClick={() => router.push(getAboutCoursePage(12))}
+                      variant={"contained"}
+                      endIcon={<ArrowRightIcon />}
+                    >
                       {t("start_button")}
                     </Button>
                   </Stack>

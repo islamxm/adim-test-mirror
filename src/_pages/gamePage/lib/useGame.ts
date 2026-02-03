@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 
+import { useSelector } from "@/shared/lib";
+
 import { CnServerEventsMap, competitionWs } from "@/entities/competition";
 import { PlayerStatusType } from "@/entities/competition";
 import { userApi } from "@/entities/user";
@@ -52,12 +54,13 @@ let wsReconnectDelay = 1000;
 
 /** для того чтобы инкапсулировать логику игры от UI-компонента */
 export const useGame = () => {
+  const { accessToken } = useSelector((s) => s.user);
   const { subcategory } = useParams();
   const { data } = userApi.useGetUserProfileQuery(undefined);
   const [getUserdata] = userApi.useLazyGetHomeUserDataQuery();
   const [getProfiledata] = userApi.useLazyGetUserProfileQuery();
 
-  const { data: sessionData } = useSession();
+  // const { data: sessionData } = useSession();
   const subCategoryId = Number(subcategory);
 
   const retryTimer = useRef<NodeJS.Timeout>(undefined);
@@ -105,8 +108,8 @@ export const useGame = () => {
     removeTimer(sessionTimer.current, () => (sessionTimer.current = undefined));
     sessionActiveRef.current = false;
     competitionWs.disconnect();
-    if (sessionData?.accessToken) {
-      competitionWs.connect(sessionData?.accessToken);
+    if (accessToken) {
+      competitionWs.connect(accessToken);
     }
   };
 
@@ -133,8 +136,8 @@ export const useGame = () => {
         return;
       }
       reconnectTimer.current = setTimeout(() => {
-        if (sessionData?.accessToken) {
-          competitionWs.connect(sessionData.accessToken);
+        if (accessToken) {
+          competitionWs.connect(accessToken);
           wsReconnectDelay = Math.min(wsReconnectDelay * 2, 30000);
           clearTimeout(reconnectTimer.current);
           reconnectTimer.current = undefined;
@@ -376,11 +379,11 @@ export const useGame = () => {
   }, [gameStatus, opponentData, result]);
 
   useEffect(() => {
-    if (!sessionData?.accessToken) {
+    if (!accessToken) {
       return;
     }
 
-    competitionWs.connect(sessionData.accessToken);
+    competitionWs.connect(accessToken);
 
     competitionWs.onOpen(onWsOpen);
     competitionWs.onClose(onWsClose);
@@ -413,7 +416,7 @@ export const useGame = () => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionData]);
+  }, [accessToken]);
 
   return {
     enterQueue,

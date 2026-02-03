@@ -1,9 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
-import { Avatar } from "@/entities/user";
+import { Avatar, userApi } from "@/entities/user";
 
 export const RatingTopThreeEmpty = () => {
+  const { data } = userApi.useGetUserProfileQuery({});
   return (
     <Stack
       direction={"row"}
@@ -27,7 +28,7 @@ export const RatingTopThreeEmpty = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Avatar size={"18.4rem"} avatarUrl={""} shadowType={"0 0 10px #00FFA826"} />
+          <Avatar size={"18.4rem"} avatarUrl={data?.avatarUrl} shadowType={"0 0 10px #00FFA826"} />
           <Typography
             textAlign={"center"}
             variant={"body1"}

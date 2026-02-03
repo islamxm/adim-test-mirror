@@ -8,7 +8,7 @@ export const PageEnterAnimationLayout: FC<PropsWithChildren> = ({ children }) =>
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      style={{ height: "100%" }}
+      style={{ height: "100%", overflowY: "auto" }}
     >
       {children}
     </motion.div>
