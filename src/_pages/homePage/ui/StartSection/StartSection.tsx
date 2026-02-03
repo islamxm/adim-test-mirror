@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import { Box, Button, Stack, Typography } from "@mui/material";
 
+import { useRouterProgress } from "@/shared/lib";
+import { getCoursesPage } from "@/shared/model";
 import { Container } from "@/shared/ui/Container";
 import { ArrowRightIcon } from "@/shared/ui/icons";
 
@@ -11,6 +13,7 @@ import img from "./assets/promo-img.png";
 import classes from "./classes.module.scss";
 
 export const StartSection = () => {
+  const router = useRouterProgress();
   const t = useTranslations("pages.homePage.StartSection");
 
   return (
@@ -39,7 +42,11 @@ export const StartSection = () => {
                 {t("title")}
               </Typography>
               <Typography variant={"subtitle1"}>{t("subtitle")}</Typography>
-              <Button endIcon={<ArrowRightIcon />} variant={"contained"}>
+              <Button
+                onClick={() => router.push(getCoursesPage())}
+                endIcon={<ArrowRightIcon />}
+                variant={"contained"}
+              >
                 {t("start_button")}
               </Button>
             </Stack>

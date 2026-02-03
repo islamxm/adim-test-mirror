@@ -40,5 +40,10 @@ export const userApi = api.injectEndpoints({
         }
       },
     }),
+    logout: builder.query({
+      query: () => ({
+        url: "users/logout",
+      }),
+    }),
   }),
 });

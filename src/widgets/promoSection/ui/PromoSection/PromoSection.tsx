@@ -1,6 +1,7 @@
 "use client";
 import { FC } from "react";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { Box, BoxProps, Button, IconButton, Stack, Typography } from "@mui/material";
@@ -25,6 +26,7 @@ type Props = {
 };
 
 export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
+  const t = useTranslations("widgets.promoSection.PromoSection");
   return (
     <Box className={classes.wrapper} bgcolor={bgcolor}>
       <Container>
@@ -77,18 +79,14 @@ export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
                         fontSize: "3.4rem",
                       }}
                     >
-                      Start learning AI today and now
+                      {t("title")}
                     </Typography>
-                    <Typography variant={"body1"}>
-                      Lorem ipsum ipsum nec nisl libero tortor massa risus tincidunt at scelerisque
-                      arcu at purus.
-                    </Typography>
+                    <Typography variant={"body1"}>{t("subtitle")}</Typography>
                   </Stack>
                   <Stack gap={"1.6rem"} direction={"row"}>
                     <Button variant={"contained"} endIcon={<ArrowRightIcon />}>
-                      Start now
+                      {t("start_button")}
                     </Button>
-                    {/* <Button variant={"outlined"}>Start now</Button> */}
                   </Stack>
                 </Stack>
               </Box>

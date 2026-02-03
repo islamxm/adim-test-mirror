@@ -1,5 +1,7 @@
 "use client";
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
+
+import { LogoutPanel } from "@/features/auth/logout";
 
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 
@@ -19,7 +21,18 @@ export const ProfilePage = () => {
         <ProfileHeader />
         <ProfileBody>
           <BuySubscriptionButton />
-          <ProfileDetailsLayout leftTop={<Streak />} leftBottom={<Points />} right={<Month />} />
+          <ProfileDetailsLayout
+            leftTop={<Streak />}
+            leftBottom={<Points />}
+            right={<Month />}
+            bottom={
+              <>
+                <Grid size={12}>
+                  <LogoutPanel />
+                </Grid>
+              </>
+            }
+          />
           {/* <FinishedCourses /> */}
         </ProfileBody>
       </Stack>

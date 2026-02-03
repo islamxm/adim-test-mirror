@@ -1,0 +1,11 @@
+{
+  "widgets": {
+    "promoSection": {
+      "PromoSection": {
+        "title": "Начни изучать ИИ прямо сейчас!",
+        "subtitle": "",
+        "start_button": "Начать"
+      }
+    }
+  }
+}

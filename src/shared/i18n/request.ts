@@ -15,6 +15,7 @@ export default getRequestConfig(async () => {
   // widgets
   const appHeader = (await import(`@/widgets/appHeader/i18n/${locale}.json`)).default;
   const appFooter = (await import(`@/widgets/appFooter/i18n/${locale}.json`)).default;
+  const promoSection = (await import(`@/widgets/promoSection/i18n/${locale}.json`)).default;
 
   //pages
   const homePage = await import(`@/_pages/homePage/i18n/${locale}.json`);
@@ -34,6 +35,7 @@ export default getRequestConfig(async () => {
     //widgets
     appHeader,
     appFooter,
+    promoSection,
 
     //features
     register,

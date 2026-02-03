@@ -2,27 +2,27 @@
   "pages": {
     "homePage": {
       "HeroSection": {
-        "title": "Основной текст",
-        "descr": "Вторичный текст"
+        "title": "Çalt öwren. Has akylly bäsleş. Ýokary derejede bol.",
+        "descr": "Bäsleşikler we kurslar bir ýerde — iň ýokary derejelere barýan ýoluň."
       },
       "CategoriesSection": {
-        "title": "Категории курсов",
-        "subtitle": "Подзаголовок категории курсов",
-        "more_button": "Посмотреть все"
+        "title": "Kurslaryň bölümleri",
+        "subtitle": "",
+        "more_button": "Hemmesi"
       },
       "ContinueLearningSection": {
-        "title": "Продолжение обучения",
-        "more_button": "Посмотреть все"
+        "title": "Okuwy dowam et",
+        "more_button": "Hemmesi"
       },
       "CoursesSection": {
-        "title": "Популярные курсы",
-        "subtitle": "Подзаголовок популярных курсов",
-        "more_button": "Посмотреть все"
+        "title": "Öňe çykan kurslar",
+        "subtitle": "",
+        "more_button": "Hemmesi"
       },
       "StartSection": {
-        "title": "Начать обучение сейчас",
-        "subtitle": "Текст подзаголовка",
-        "start_button": "Посмотреть все"
+        "title": "Häzir başla",
+        "subtitle": "",
+        "start_button": "Başla"
       }
     }
   }

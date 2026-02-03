@@ -2,12 +2,12 @@
   "pages": {
     "homePage": {
       "HeroSection": {
-        "title": "Основной текст",
-        "descr": "Вторичный текст"
+        "title": "Учись быстрее. Соревнуйся умнее. Будь в топе.",
+        "descr": "Соревнования и курсы в одном месте — твой путь к топ-позициям."
       },
       "CategoriesSection": {
         "title": "Категории курсов",
-        "subtitle": "Подзаголовок категории курсов",
+        "subtitle": "",
         "more_button": "Посмотреть все"
       },
       "ContinueLearningSection": {
@@ -16,13 +16,13 @@
       },
       "CoursesSection": {
         "title": "Популярные курсы",
-        "subtitle": "Подзаголовок популярных курсов",
+        "subtitle": "",
         "more_button": "Посмотреть все"
       },
       "StartSection": {
-        "title": "Начать обучение сейчас",
-        "subtitle": "Текст подзаголовка",
-        "start_button": "Начать сейчас"
+        "title": "Начать сейчас",
+        "subtitle": "",
+        "start_button": "Начать"
       }
     }
   }

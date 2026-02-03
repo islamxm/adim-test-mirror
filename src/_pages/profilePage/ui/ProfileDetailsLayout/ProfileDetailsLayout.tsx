@@ -1,19 +1,20 @@
 import { FC, ReactNode } from "react";
 
-import { Box, Paper } from "@mui/material";
+import { Box, Grid, Paper, Stack } from "@mui/material";
 
 type Props = {
   leftTop?: ReactNode;
   leftBottom?: ReactNode;
   right?: ReactNode;
+  bottom?: ReactNode;
 };
 
-export const ProfileDetailsLayout: FC<Props> = ({ leftTop, leftBottom, right }) => {
+export const ProfileDetailsLayout: FC<Props> = ({ leftTop, leftBottom, right, bottom }) => {
   return (
     <Box
       sx={{
         display: "grid",
-        gridTemplateAreas: '"left-top right" "left-bottom right"',
+        gridTemplateAreas: '"left-top right" "left-bottom right" "bottom bottom"',
         gap: "1.8rem",
         gridTemplateColumns: "1fr 41.6rem",
       }}
@@ -38,6 +39,9 @@ export const ProfileDetailsLayout: FC<Props> = ({ leftTop, leftBottom, right }) 
       >
         {right}
       </Paper>
+      <Grid sx={{ gridArea: "bottom" }} container spacing={"2rem"}>
+        {bottom}
+      </Grid>
     </Box>
   );
 };

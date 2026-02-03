@@ -26,11 +26,11 @@ export const HomePage: FC<Props> = ({ data }) => {
         <CategoriesSection data={data.categories} />
         <PromoSection
           bgcolor={(theme) => theme.palette.background.default}
-          head={{
-            title: "platform News",
-            subtitle:
-              "Lorem ipsum dolor sit amet consectetur. Facilisi sollicitudin tempus sit ac. Tellus ac cras in metus curabitur aliquet. ",
-          }}
+          // head={{
+          //   title: "platform News",
+          //   subtitle:
+          //     "Lorem ipsum dolor sit amet consectetur. Facilisi sollicitudin tempus sit ac. Tellus ac cras in metus curabitur aliquet. ",
+          // }}
         />
         <CoursesSection data={data.popularCourses} />
         <StartSection />

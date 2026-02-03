@@ -10,6 +10,15 @@ export const useAnswer = (
 ) => {
   const [answer, setAnswer] = useState<Array<string>>([]);
   const time = useRef<number>(0);
+  const questionRef = useRef<any>(question);
+  const answerRef = useRef<any>(answer);
+
+  useEffect(() => {
+    answerRef.current = answer;
+  }, [answer]);
+  useEffect(() => {
+    questionRef.current = question;
+  }, [question]);
 
   const onChangeAnswer = (key: string) => {
     if (question?.question.type === "Multiple_Choice") {
@@ -32,20 +41,21 @@ export const useAnswer = (
 
   const onSubmit = (ms?: number) => {
     const delta = ms || Date.now() - time.current;
-    const keys = answer.join(",");
+    const keys = answerRef.current.join(",");
     onSubmitAnswer?.(keys, delta);
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (!question || !avilableKeys.has(e.key)) {
+    const currentQuestion = questionRef.current;
+    if (!currentQuestion || !avilableKeys.has(e.key)) {
       return;
     }
     const variantNumber = Number(e.key);
     if (isNaN(variantNumber)) {
       onSubmit();
     } else {
-      const answeredQuestion = question.question.choices[variantNumber - 1];
-      console.log(question.question.choices);
+      const answeredQuestion = currentQuestion.question.choices[variantNumber - 1];
+      console.log(currentQuestion.question.choices);
       console.log(answeredQuestion);
       if (answeredQuestion) {
         onChangeAnswer(answeredQuestion.key);
@@ -62,13 +72,13 @@ export const useAnswer = (
   }, [question]);
 
   useEffect(() => {
-    window.removeEventListener("keydown", onKeyDown);
+    // window.removeEventListener("keydown", onKeyDown);
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [question]);
+  }, []);
 
   return {
     answer,

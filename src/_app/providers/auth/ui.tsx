@@ -1,5 +1,5 @@
 "use client";
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, PropsWithChildren, useEffect, useRef } from "react";
 
 import { useSession } from "next-auth/react";
 
@@ -17,7 +17,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     dispatch(userSlice.actions.updateAuthStatus(status));
     if (status === "unauthenticated") {
       router.push("/auth?type=login");
-      router.refresh();
     }
   }, [status, dispatch, router]);
 
@@ -30,6 +29,9 @@ export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
   const { data, status, update } = useSession();
   const dispatch = useDispatch();
   const { accessToken, refreshToken } = useSelector((s) => s.user);
+  const isJWTUpdating = useRef<boolean>(false);
+  const lastSentToken = useRef<string | null>(null);
+  const timer = useRef<any>(null);
 
   // это при авторизации
   useEffect(() => {
@@ -46,14 +48,33 @@ export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
 
   // при ручном изменении токена в api (refresh) обновляем jwt
   useEffect(() => {
-    if (
-      accessToken &&
-      refreshToken &&
-      (data?.accessToken !== accessToken || data?.refreshToken !== refreshToken)
-    ) {
-      update({ accessToken, refreshToken });
+    if (status !== "authenticated" || !accessToken || !refreshToken) return;
+    const isDifferent = accessToken !== data?.accessToken;
+    if (isDifferent && !isJWTUpdating.current && accessToken !== lastSentToken.current) {
+      isJWTUpdating.current = true;
+      lastSentToken.current = accessToken;
+      update({ accessToken, refreshToken })
+        .then(() => console.log("Success session sync"))
+        .catch(() => {
+          console.error("Error session sync");
+          lastSentToken.current = null;
+        })
+        .finally(() => {
+          if (timer.current) {
+            clearTimeout(timer.current);
+            timer.current = null;
+          }
+          timer.current = setTimeout(() => {
+            isJWTUpdating.current = false;
+          }, 500);
+        });
     }
-  }, [accessToken, refreshToken, update, data]);
+
+    return () => {
+      clearTimeout(timer.current);
+      timer.current = null;
+    };
+  }, [accessToken, refreshToken, update, data, status]);
 
   return <>{children}</>;
 };

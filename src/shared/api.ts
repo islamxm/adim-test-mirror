@@ -25,9 +25,11 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
-    if (!mutex.isLocked()) {
+    const localRefreshToken = (api.getState() as StoreType).user.refreshToken;
+    if (!mutex.isLocked() && localRefreshToken) {
       const release = await mutex.acquire();
       const deviceInfo = getDeviceInfo();
+
       try {
         const refreshRes = await fetch(`${API_BASE_URL}users/generate_token`, {
           method: "POST",
@@ -36,7 +38,7 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
           },
           body: JSON.stringify({
             deviceInfo,
-            token: (api.getState() as StoreType).user.refreshToken,
+            token: localRefreshToken,
           }),
         });
         const { accessToken, refreshToken } = await refreshRes.json();
