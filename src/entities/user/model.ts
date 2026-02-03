@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { CredentialsSignin } from "next-auth";
+
 import { StackProps } from "@mui/material";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
@@ -36,10 +38,12 @@ export type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 type UserSliceInitialState = {
   authStatus: AuthStatus;
   accessToken?: string;
+  refreshToken?: string;
 };
 const userSliceInitialState: UserSliceInitialState = {
   authStatus: "loading",
   accessToken: undefined,
+  refreshToken: undefined,
 };
 export const userSlice = createSlice({
   initialState: userSliceInitialState,
@@ -48,8 +52,12 @@ export const userSlice = createSlice({
     updateAuthStatus: (state, { payload }: PayloadAction<AuthStatus>) => {
       state.authStatus = payload;
     },
-    updateAccessToken: (state, { payload }: PayloadAction<string | undefined>) => {
-      state.accessToken = payload;
+    updateTokens: (
+      state,
+      { payload }: PayloadAction<{ accessToken?: string; refreshToken?: string }>,
+    ) => {
+      state.accessToken = payload.accessToken;
+      state.refreshToken = payload.refreshToken;
     },
   },
 });
@@ -69,3 +77,25 @@ export type AvatarComponentProps = {
   isDisabled?: boolean;
   isActive?: boolean;
 };
+
+export type AuthUserJWTData = {
+  id: string | number;
+  accessToken: string | null | undefined;
+  refreshToken: string | null | undefined;
+};
+
+export class AuthErrorInvalidInputData extends CredentialsSignin {
+  code = "invalid_input_data";
+}
+export class AuthErrorFetchRequest extends CredentialsSignin {
+  code = "fetch_error";
+}
+export class AuthErrorFetchResponse extends CredentialsSignin {
+  code = "fetch_response_error";
+}
+export class AuthErrorInvalidOutputData extends CredentialsSignin {
+  code = "invalid_output_data";
+}
+export class AuthErrorDeviceLimit extends CredentialsSignin {
+  code = "device_limit";
+}

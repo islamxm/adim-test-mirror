@@ -1,14 +1,14 @@
-import { getServerSession } from "next-auth";
-import { cookies } from "next/headers";
+import "next-auth";
 import { redirect } from "next/navigation";
 
-import { getAuthOptions } from "@/entities/user";
+import { authConfig } from "@/entities/user";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession(getAuthOptions(cookies));
+  const session = await authConfig.auth();
 
   if (session?.accessToken) {
     redirect("/profile");
   }
+
   return <>{children}</>;
 }

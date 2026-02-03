@@ -1,9 +1,7 @@
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";
-
-import { userSlice } from "@/entities/user";
 
 import { getDeviceInfo } from "./lib";
 
@@ -31,20 +29,34 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
       const release = await mutex.acquire();
       const deviceInfo = getDeviceInfo();
       try {
-        const refreshRes = await fetch("/api/auth/refresh", {
+        const refreshRes = await fetch(`${API_BASE_URL}users/generate_token`, {
           method: "POST",
-          body: JSON.stringify(deviceInfo),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            deviceInfo,
+            token: (api.getState() as StoreType).user.refreshToken,
+          }),
         });
-        const { accessToken } = await refreshRes.json();
+        const { accessToken, refreshToken } = await refreshRes.json();
         if (refreshRes.ok) {
-          await signIn("refresh-token-provider", {
-            accessToken,
-            redirect: false,
+          // await signIn("refresh-token-provider", {
+          //   accessToken,
+          //   redirect: false,
+          // });
+          api.dispatch({
+            type: "user/updateTokens",
+            payload: { accessToken, refreshToken },
           });
-          api.dispatch(userSlice.actions.updateAccessToken(accessToken));
+
           result = await baseQuery(args, api, extraOptions);
         } else {
           await signOut({ redirect: false });
+          // await signIn("refresh-token-provider", {
+          //   accessToken: undefined,
+          //   redirect: false,
+          // });
         }
       } catch (err) {
         console.log("REFRESH ERROR", err);
@@ -62,11 +74,5 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  endpoints: (builder) => ({
-    testUnauth: builder.query({
-      query: () => ({
-        url: "http://localhost:3000/api/unauth/",
-      }),
-    }),
-  }),
+  endpoints: () => ({}),
 });

@@ -7,7 +7,7 @@ export type {
   Payload_Verify,
   AvatarComponentProps,
 } from "./model";
-export { getAuthOptions } from "./config";
+export { authConfig } from "./config";
 export { getUserDeviceInfo } from "./lib";
 
 export { Avatar } from "./ui/Avatar/Avatar";
