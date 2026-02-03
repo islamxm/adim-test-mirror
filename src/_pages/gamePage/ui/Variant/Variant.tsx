@@ -2,15 +2,18 @@ import { FC } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 
+import { Key1Icon, Key2Icon, Key3Icon, Key4Icon } from "@/shared/ui/icons";
+
 import { Question } from "@/entities/competition";
 
 type Props = Omit<Question["choices"][0], "key"> & {
   variant: string;
   isActive?: boolean;
   onChange?: () => void;
+  index: number;
 };
 
-export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
+export const Variant: FC<Props> = ({ index, variant, value, isActive, onChange }) => {
   return (
     <Box
       sx={{
@@ -24,6 +27,7 @@ export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
         gap={"1rem"}
         alignItems={"center"}
         sx={(theme) => ({
+          position: "relative",
           width: "100%",
           height: "100%",
           minHeight: "14.2rem",
@@ -46,6 +50,12 @@ export const Variant: FC<Props> = ({ variant, value, isActive, onChange }) => {
         >
           {value}
         </Typography>
+        <Box sx={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
+          {index === 0 && <Key1Icon sx={{ fontSize: "4rem" }} />}
+          {index === 1 && <Key2Icon sx={{ fontSize: "4rem" }} />}
+          {index === 2 && <Key3Icon sx={{ fontSize: "4rem" }} />}
+          {index === 3 && <Key4Icon sx={{ fontSize: "4rem" }} />}
+        </Box>
       </Stack>
     </Box>
   );

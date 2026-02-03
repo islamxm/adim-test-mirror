@@ -42,3 +42,8 @@ export { PrevIcon } from "./PrevIcon";
 export { NextIcon } from "./NextIcon";
 export { EditIcon } from "./EditIcon";
 export { CalendarIcon } from "./CalendarIcon";
+export { Key1Icon } from "./Key1Icon";
+export { Key2Icon } from "./Key2Icon";
+export { Key3Icon } from "./Key3Icon";
+export { Key4Icon } from "./Key4Icon";
+export { KeyEnterIcon } from "./KeyEnterIcon";

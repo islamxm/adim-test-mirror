@@ -4,7 +4,7 @@ import { Grid, Stack } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
 import { YellowButton } from "@/shared/ui";
-import { ArrowRightIcon } from "@/shared/ui/icons";
+import { ArrowRightIcon, KeyEnterIcon } from "@/shared/ui/icons";
 
 import { CnServerEventsMap } from "@/entities/competition";
 import { PlayerStatusType } from "@/entities/competition";
@@ -64,9 +64,10 @@ export const StartView: FC<Props> = ({
               key={question.question.id}
             >
               <Question question={question}>
-                {question.question.choices.map((choice) => (
+                {question.question.choices.map((choice, index) => (
                   <Grid key={choice.value} size={6}>
                     <Variant
+                      index={index}
                       variant={choice.key}
                       value={choice.value}
                       isActive={!!answer.find((k) => k === choice.key)}
@@ -81,10 +82,12 @@ export const StartView: FC<Props> = ({
             <YellowButton
               onClick={() => onSubmit()}
               disabled={answer.length === 0 || !isConnected}
-              endIcon={<ArrowRightIcon />}
               loading={isSubmittingAnswer}
             >
-              Continue
+              <Stack direction={"row"} alignItems={"center"} gap={"1rem"}>
+                Continue
+                <KeyEnterIcon sx={{ fontSize: "4rem" }} />
+              </Stack>
             </YellowButton>
           </Stack>
         </Stack>
