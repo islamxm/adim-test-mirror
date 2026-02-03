@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 
-import { useSelector } from "@/shared/lib";
+import { useDispatch, useSelector } from "@/shared/lib";
 
-import { CnServerEventsMap, competitionWs } from "@/entities/competition";
+import { CnServerEventsMap, competitionApi, competitionWs } from "@/entities/competition";
 import { PlayerStatusType } from "@/entities/competition";
 import { userApi } from "@/entities/user";
 
@@ -54,11 +54,14 @@ let wsReconnectDelay = 1000;
 
 /** для того чтобы инкапсулировать логику игры от UI-компонента */
 export const useGame = () => {
+  const dispatch = useDispatch();
   const { accessToken } = useSelector((s) => s.user);
   const { subcategory } = useParams();
   const { data } = userApi.useGetUserProfileQuery(undefined);
   const [getUserdata] = userApi.useLazyGetHomeUserDataQuery();
   const [getProfiledata] = userApi.useLazyGetUserProfileQuery();
+  const [getStats] = competitionApi.useLazyGetUserStatsQuery();
+  const [getStreak] = userApi.useLazyGetMonthlyStreakQuery();
 
   // const { data: sessionData } = useSession();
   const subCategoryId = Number(subcategory);
@@ -294,6 +297,8 @@ export const useGame = () => {
     setIsPending(false);
     getUserdata({}, true);
     getProfiledata({}, true);
+    getStreak({}, true);
+    getStats({}, true);
     generateEventId(data.eventId);
     removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
     setResult({

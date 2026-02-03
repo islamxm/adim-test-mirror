@@ -17,6 +17,7 @@ import {
 export const competitionApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getUserStats: builder.query({
+      keepUnusedDataFor: 5,
       query: () => ({
         url: "competition/user/match_stats",
       }),
@@ -57,6 +58,7 @@ export const competitionApi = api.injectEndpoints({
       Payload_GetMatchesHistory,
       number
     >({
+      keepUnusedDataFor: 10,
       infiniteQueryOptions: {
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {

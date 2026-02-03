@@ -14,6 +14,40 @@ import {
   VerificationError,
 } from "./model";
 
+let globalRefreshPromise: Promise<any> | null = null;
+
+const refreshAccessToken = async (token: any) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/generate_token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        deviceInfo: token?.deviceInfo,
+        token: token?.refreshToken,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw data;
+    }
+    return {
+      ...token,
+      accessToken: data?.accessToken,
+      refreshToken: data?.refreshToken,
+      expire_date: (jwtDecode(data?.accessToken).exp as number) * 1000,
+      error: false,
+    };
+  } catch (err) {
+    console.log("Refresh Error: ", err);
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
+};
+
 export const authConfig = NextAuth({
   providers: [
     GoogleProvider({
@@ -173,38 +207,18 @@ export const authConfig = NextAuth({
         }
         return token;
       }
-      if (Date.now() < (token as any).expire_date) {
+      if (Date.now() < (token as any).expire_date - 60000) {
         return token;
       } else {
-        try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/generate_token`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              deviceInfo: token?.deviceInfo,
-              token: token?.refreshToken,
-            }),
+        if (!globalRefreshPromise) {
+          globalRefreshPromise = refreshAccessToken(token).then((newToken) => {
+            setTimeout(() => {
+              globalRefreshPromise = null;
+            }, 10000);
+            return newToken;
           });
-          const data = await res.json();
-          if (!res.ok) {
-            throw data;
-          }
-          return {
-            ...token,
-            accessToken: data?.accessToken,
-            refreshToken: data?.refreshToken,
-            expire_date: (jwtDecode(data?.accessToken).exp as number) * 1000,
-            error: false,
-          };
-        } catch (err) {
-          console.log("Refresh Error: ", err);
-          return {
-            ...token,
-            error: "RefreshAccessTokenError",
-          };
         }
+        return globalRefreshPromise;
       }
     },
     async session({ session, token }) {

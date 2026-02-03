@@ -11,8 +11,10 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: async (headers, { getState }) => {
     let accessToken = (getState() as StoreType).user.accessToken;
     if (!accessToken) {
-      const session = await getSession();
-      accessToken = session?.accessToken || "";
+      if (typeof window !== "undefined") {
+        const session = await getSession();
+        accessToken = session?.accessToken || "";
+      }
     }
     headers.set("Authorization", `Bearer ${accessToken}`);
     return headers;

@@ -17,6 +17,7 @@ export const userApi = api.injectEndpoints({
       },
     }),
     getUserProfile: builder.query({
+      keepUnusedDataFor: 5,
       query: () => ({
         url: "users/profile",
       }),
@@ -29,6 +30,7 @@ export const userApi = api.injectEndpoints({
       },
     }),
     getMonthlyStreak: builder.query({
+      keepUnusedDataFor: 5,
       query: () => ({
         url: "users/streak_monthly",
       }),

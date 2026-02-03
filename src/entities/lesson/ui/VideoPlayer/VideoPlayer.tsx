@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 
 import {
   MediaPlayer,
@@ -8,7 +8,6 @@ import {
   isHLSProvider,
 } from "@vidstack/react";
 import "@vidstack/react/player/styles/base.css";
-import clsx from "clsx";
 
 import { VideoMask } from "./VideoMask";
 import classes from "./classes.module.scss";
@@ -40,7 +39,7 @@ export const VideoPlayer: FC<Props> = ({ videoSrc, posterSrc, title }) => {
     <MediaPlayer
       ref={ref}
       aspectRatio="16/9"
-      load="idle"
+      load="visible"
       title={title}
       src={videoSrc}
       preload="metadata"

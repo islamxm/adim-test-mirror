@@ -118,7 +118,7 @@ const SpeedContent: FC<{ onChange: (value: number) => void; value?: number }> = 
         min={0.5}
         max={1.5}
         value={value}
-        step={0.5}
+        step={0.25}
         onChange={(_, value) => onChange(value)}
         orientation={"horizontal"}
         sx={{
