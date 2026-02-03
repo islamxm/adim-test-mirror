@@ -93,7 +93,6 @@ export const useGame = () => {
   const [isPending, setIsPending] = useState(false);
 
   const resetGame = () => {
-    console.log("reset");
     setGameStatus("LOBBY");
     setOpponentStatus(undefined);
     setSelfStatus(undefined);
@@ -327,25 +326,21 @@ export const useGame = () => {
 
   const onCancelled = (data: CnServerEventsMap["CANCELLED"]) => {
     console.log(`[ws: CANCELLED]: ${data.code} - ${data.message}`);
-    if (data.code === 410) {
-      toast.error("Соперник покинул игру!");
-    }
     if (data.code === 409) {
       toast.error("Вы уже в игре!");
+    }
+    if (data.code === 410) {
+      toast.error("Соперник покинул игру!");
     }
     setGameStatus((s) => {
       if (s === "WAIT") {
         resetGame();
+        return "LOBBY";
       }
-      return "LOBBY";
+      return s;
     });
     setIsPending(false);
     removeTimer(retryTimer.current, () => (retryTimer.current = undefined));
-    // if(data.code === 410) {
-    //   // opponent disconnected
-    //   removeTimer(sessionTimer.current);
-    //   enterQueue();
-    // }
   };
 
   useEffect(() => console.log("Status: ", gameStatus), [gameStatus]);

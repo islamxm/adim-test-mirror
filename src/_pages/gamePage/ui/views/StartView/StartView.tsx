@@ -65,7 +65,7 @@ export const StartView: FC<Props> = ({
             >
               <Question question={question}>
                 {question.question.choices.map((choice) => (
-                  <Grid key={choice.key} size={6}>
+                  <Grid key={choice.value} size={6}>
                     <Variant
                       variant={choice.key}
                       value={choice.value}

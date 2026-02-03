@@ -9,19 +9,34 @@ export const useAnswer = (
   onSubmitAnswer?: (key: string, ms: number) => void,
 ) => {
   const [answer, setAnswer] = useState<Array<string>>([]);
+  const [prevQuestionId, setPrevQuestionId] = useState<number | undefined>(question?.question.id);
+
+  if (question?.question.id !== prevQuestionId) {
+    setPrevQuestionId(question?.question.id);
+    setAnswer([]);
+  }
   const time = useRef<number>(0);
-  const questionRef = useRef<any>(question);
-  const answerRef = useRef<any>(answer);
+
+  const questionRef = useRef(question);
+  const answerRef = useRef(answer);
+  const onSubmitAnswerRef = useRef(onSubmitAnswer);
 
   useEffect(() => {
     answerRef.current = answer;
   }, [answer]);
+
   useEffect(() => {
     questionRef.current = question;
   }, [question]);
 
+  useEffect(() => {
+    onSubmitAnswerRef.current = onSubmitAnswer;
+  }, [onSubmitAnswer]);
+
   const onChangeAnswer = (key: string) => {
-    if (question?.question.type === "Multiple_Choice") {
+    const currentQuestion = questionRef.current;
+
+    if (currentQuestion?.question.type === "Multiple_Choice") {
       setAnswer((s) => {
         if (s.find((k) => k === key)) {
           return s.filter((k) => k !== key);
@@ -29,7 +44,7 @@ export const useAnswer = (
         return [...s, key];
       });
     }
-    if (question?.question.type === "Single_Choice") {
+    if (currentQuestion?.question.type === "Single_Choice") {
       setAnswer((s) => {
         if (s.find((k) => k === key)) {
           return s.filter((k) => k !== key);
@@ -42,8 +57,18 @@ export const useAnswer = (
   const onSubmit = (ms?: number) => {
     const delta = ms || Date.now() - time.current;
     const keys = answerRef.current.join(",");
-    onSubmitAnswer?.(keys, delta);
+    onSubmitAnswerRef.current?.(keys, delta);
   };
+
+  const onChangeAnswerRef = useRef(onChangeAnswer);
+  useEffect(() => {
+    onChangeAnswerRef.current = onChangeAnswer;
+  });
+
+  const onSubmitRef = useRef(onSubmit);
+  useEffect(() => {
+    onSubmitRef.current = onSubmit;
+  });
 
   const onKeyDown = (e: KeyboardEvent) => {
     const currentQuestion = questionRef.current;
@@ -52,13 +77,13 @@ export const useAnswer = (
     }
     const variantNumber = Number(e.key);
     if (isNaN(variantNumber)) {
-      onSubmit();
+      if (e.key === "Enter") {
+        onSubmitRef.current();
+      }
     } else {
       const answeredQuestion = currentQuestion.question.choices[variantNumber - 1];
-      console.log(currentQuestion.question.choices);
-      console.log(answeredQuestion);
       if (answeredQuestion) {
-        onChangeAnswer(answeredQuestion.key);
+        onChangeAnswerRef.current(answeredQuestion.key);
       }
     }
   };
@@ -68,13 +93,10 @@ export const useAnswer = (
       return;
     }
     time.current = Date.now();
-    setAnswer([]);
   }, [question]);
 
   useEffect(() => {
-    // window.removeEventListener("keydown", onKeyDown);
     window.addEventListener("keydown", onKeyDown);
-
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
