@@ -31,9 +31,10 @@ export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch();
   const { accessToken, refreshToken } = useSelector((s) => s.user);
 
+  // это при авторизации
   useEffect(() => {
     dispatch(userSlice.actions.updateAuthStatus(status));
-    if (status !== "loading") {
+    if (status === "authenticated" && data?.accessToken && data?.refreshToken) {
       dispatch(
         userSlice.actions.updateTokens({
           accessToken: data?.accessToken ?? undefined,
@@ -41,17 +42,18 @@ export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
         }),
       );
     }
-  }, [data?.accessToken, data?.refreshToken, status, dispatch]);
+  }, [data?.accessToken, data?.refreshToken, status, dispatch, data?.id_token]);
 
-  // useEffect(() => {
-  //   if (
-  //     accessToken &&
-  //     refreshToken &&
-  //     (data?.accessToken !== accessToken || data?.refreshToken !== refreshToken)
-  //   ) {
-  //     update({ accessToken, refreshToken });
-  //   }
-  // }, [accessToken, refreshToken, update, data]);
+  // при ручном изменении токена в api (refresh) обновляем jwt
+  useEffect(() => {
+    if (
+      accessToken &&
+      refreshToken &&
+      (data?.accessToken !== accessToken || data?.refreshToken !== refreshToken)
+    ) {
+      update({ accessToken, refreshToken });
+    }
+  }, [accessToken, refreshToken, update, data]);
 
   return <>{children}</>;
 };

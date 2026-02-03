@@ -41,10 +41,6 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
         });
         const { accessToken, refreshToken } = await refreshRes.json();
         if (refreshRes.ok) {
-          // await signIn("refresh-token-provider", {
-          //   accessToken,
-          //   redirect: false,
-          // });
           api.dispatch({
             type: "user/updateTokens",
             payload: { accessToken, refreshToken },
@@ -53,10 +49,6 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
           result = await baseQuery(args, api, extraOptions);
         } else {
           await signOut({ redirect: false });
-          // await signIn("refresh-token-provider", {
-          //   accessToken: undefined,
-          //   redirect: false,
-          // });
         }
       } catch (err) {
         console.log("REFRESH ERROR", err);

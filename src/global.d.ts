@@ -6,6 +6,7 @@ declare module "next-auth" {
   interface Session {
     refreshToken?: string;
     accessToken?: string;
+    id_token?: string | null;
   }
 }
 export {};

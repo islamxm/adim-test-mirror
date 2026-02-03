@@ -8,11 +8,11 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import Cookies from "js-cookie";
 
-import { useRouterProgress } from "@/shared/lib";
-import { getHomePage } from "@/shared/model";
+import { useDispatch, useRouterProgress, useSelector } from "@/shared/lib";
+import { getProfilePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
 
-import { getUserDeviceInfo } from "@/entities/user";
+import { getUserDeviceInfo, userSlice } from "@/entities/user";
 
 import googleIcon from "../../../../../../public/google.png";
 
@@ -21,6 +21,8 @@ type Props = {
 };
 
 export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
+  const dispatch = useDispatch();
+  const { accessToken } = useSelector((s) => s.user);
   const router = useRouterProgress();
   const { data, status } = useSession();
   const t = useTranslations("features.auth.google.AuthWithGoogleBtn");
@@ -34,25 +36,36 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
     } catch (e) {
       toast.error("Google sign in error!");
     }
-    setStatus?.("success");
   };
 
   useEffect(() => {
-    if (status === "loading") {
-      setStatus?.("loading");
-    } else {
-      if (data) {
-        if ((data as any)?.error) {
-          console.error("Backend Error");
-          toast.error("Google sign in error!", { autoClose: 3000 });
-          signOut({ redirect: false });
-        } else {
-          router.replace(getHomePage());
-        }
+    if (status === "authenticated") {
+      const googleAuth = data?.id_token && !data?.accessToken && !accessToken;
+      if (googleAuth) {
+        setStatus?.("loading");
+        fetch("/api/auth/google-sync", { method: "POST" }).then((res) => {
+          if (res.ok) {
+            res.json().then(({ accessToken, refreshToken }) => {
+              dispatch(
+                userSlice.actions.updateTokens({
+                  accessToken,
+                  refreshToken,
+                }),
+              );
+              setStatus?.("success");
+              router.push(getProfilePage());
+            });
+          } else {
+            setStatus?.("error");
+            console.error("Backend google error");
+            signOut({ redirect: false });
+          }
+        });
+      } else {
+        setStatus?.("error");
       }
-      setStatus?.("success");
     }
-  }, [status, data, setStatus]);
+  }, [status, dispatch, data, setStatus, accessToken, router]);
 
   return (
     <Button
