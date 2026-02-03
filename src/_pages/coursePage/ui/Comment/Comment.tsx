@@ -120,7 +120,11 @@ export const Comment: FC<Props> = ({ data, onReply }) => {
             )}
           </Grid>
         </Grid>
-        {isOpenReplies && <Replies lessonId={lessonId} commentId={id} />}
+        {isOpenReplies && (
+          <Replies lessonId={lessonId} commentId={id}>
+            {(comments) => comments.map((comment) => <Comment key={comment.id} data={comment} />)}
+          </Replies>
+        )}
       </Stack>
     </Paper>
   );

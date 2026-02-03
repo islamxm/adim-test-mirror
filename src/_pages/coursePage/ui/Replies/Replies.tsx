@@ -1,20 +1,20 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 import { Box, Typography } from "@mui/material";
 
-import { lessonApi } from "@/entities/lesson";
+import { Comment, lessonApi } from "@/entities/lesson";
 
 import { ResourceList } from "@/widgets/resourceList";
 
-import { Comment } from "../Comment/Comment";
 import { CommentSkeleton } from "../Comment/Comment.skeleton";
 
 type Props = {
   commentId: number;
   lessonId: number;
+  children?: (comments: Array<Comment>) => ReactNode;
 };
 
-export const Replies: FC<Props> = ({ commentId, lessonId }) => {
+export const Replies: FC<Props> = ({ commentId, lessonId, children }) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isSuccess, isError, error } =
     lessonApi.useGetLessonCommentRepliesInfiniteQuery(
       { commentId, limit: 20, lessonId },
@@ -56,11 +56,7 @@ export const Replies: FC<Props> = ({ commentId, lessonId }) => {
           </Typography>
         )}
       >
-        {/* <AnimatePresence> */}
-        {comments.map((comment) => (
-          <Comment data={comment} key={comment.id} />
-        ))}
-        {/* </AnimatePresence> */}
+        {children?.(comments)}
       </ResourceList>
     </Box>
   );
