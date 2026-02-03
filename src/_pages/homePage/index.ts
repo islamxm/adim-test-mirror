@@ -1,3 +1,3 @@
 export { HomePage } from "./ui/HomePage/HomePage";
 export { homePageApi } from "./api";
-export { type PublicHomePageData } from "./model";
+export type { PublicHomePageData } from "./model";

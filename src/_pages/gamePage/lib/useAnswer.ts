@@ -45,6 +45,8 @@ export const useAnswer = (
       onSubmit();
     } else {
       const answeredQuestion = question.question.choices[variantNumber - 1];
+      console.log(question.question.choices);
+      console.log(answeredQuestion);
       if (answeredQuestion) {
         onChangeAnswer(answeredQuestion.key);
       }

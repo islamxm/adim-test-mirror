@@ -11,7 +11,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import { z } from "zod";
 
-import { getHomePage } from "@/shared/model";
+import { getHomePage, getProfilePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
 import { PasswordField, PrivacyPolicyLink } from "@/shared/ui";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
@@ -50,24 +50,36 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
 
   const onSubmit: SubmitHandler<z.infer<typeof LoginFormSchema>> = async (body) => {
     setStatus?.("loading");
-    Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
-      expires: 1 / 24,
-    });
+    // пока убираем прослойку куки
+    // Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
+    //   expires: 1 / 24,
+    // });
+    const deviceInfo = JSON.stringify(getUserDeviceInfo());
     const { email, password } = body;
     const res = await signIn("credentials", {
       email,
       password,
+      deviceInfo,
       redirect: false,
     });
-    console.log(res);
-    if (res?.status === 200) {
+
+    if (res.url) {
+      // баг в next-auth, он просто приклеивает сверху свой ?error не учитывая то что там может быть наше поле
+      const url = new URL(res.url.replace(/\?([^?]*)\?/, "?$1&"));
+      const error = url.searchParams.get("error");
+      const errorCode = url.searchParams.get("code");
+
+      if (error) {
+        console.error(errorCode);
+        setStatus?.("error");
+        toast.error("Log in error!");
+        reset();
+        return;
+      }
+    }
+    if (res.ok) {
       setStatus?.("success");
       router.push(getHomePage());
-    } else {
-      setStatus?.("error");
-      console.log("Login error");
-      toast.error("Login error!");
-      reset();
     }
   };
 

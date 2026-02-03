@@ -9,10 +9,10 @@ export const homePageApi = api.injectEndpoints({
       query: () => ({
         url: "/home/public?lang=tk",
         cache: "force-cache",
-        // next: {
-        //   revalidate: 3600, // Кэшировать на 1 час (в секундах)
-        //   tags: ['home-data'] // Тег для принудительной инвалидации
-        // }
+        next: {
+          revalidate: 60, // Кэшировать на 1 минут (в секундах)
+          tags: ["home-data"], // Тег для принудительной инвалидации
+        },
       }),
       transformResponse: (res: any) => {
         try {

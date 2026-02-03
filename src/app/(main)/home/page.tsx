@@ -1,10 +1,8 @@
 import { createStore } from "@/_app/providers/store";
 
-import { HomePage as HomePageComponent } from "@/_pages/homePage";
-import { homePageApi } from "@/_pages/homePage";
-import { PublicHomePageData } from "@/_pages/homePage/model";
+import { HomePage, PublicHomePageData, homePageApi } from "@/_pages/homePage";
 
-export default async function HomePage() {
+export default async function Page() {
   const store = createStore();
   await store.dispatch(homePageApi.endpoints.getHomePublicData.initiate(undefined));
 
@@ -17,5 +15,5 @@ export default async function HomePage() {
       promotion: undefined,
     } as PublicHomePageData);
 
-  return <HomePageComponent data={data} />;
+  return <HomePage data={data} />;
 }

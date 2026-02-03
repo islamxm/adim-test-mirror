@@ -77,12 +77,19 @@ export const Payload_RegisterSchema = z.object({
   password: z.string(),
 });
 export const Payload_LoginSchema = z.object({
-  deviceInfo: DeviceInfoSchema,
   email: z.string(),
   password: z.string(),
+  deviceInfo: z.string().optional(),
 });
 export const Payload_VerifySchema = z.object({
   token: z.string(),
 });
 
 export const Response_RegisterSchema = z.any();
+export const Response_LoginSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+  limit: z.number().optional(),
+  devices: z.any(),
+  deviceId: z.any(),
+});

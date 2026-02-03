@@ -3,7 +3,7 @@ import { FC, PropsWithChildren, useEffect } from "react";
 
 import { useSession } from "next-auth/react";
 
-import { useDispatch, useRouterProgress } from "@/shared/lib";
+import { useDispatch, useRouterProgress, useSelector } from "@/shared/lib";
 
 import { userSlice } from "@/entities/user";
 
@@ -27,15 +27,31 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
 /** получение токена в начале и сохранение в сторе чтобы не делать лишние запросы перед каждым фетчем */
 export const AuthInitializer: FC<PropsWithChildren> = ({ children }) => {
-  const { data, status } = useSession();
+  const { data, status, update } = useSession();
   const dispatch = useDispatch();
+  const { accessToken, refreshToken } = useSelector((s) => s.user);
 
   useEffect(() => {
     dispatch(userSlice.actions.updateAuthStatus(status));
     if (status !== "loading") {
-      dispatch(userSlice.actions.updateAccessToken(data?.accessToken ?? undefined));
+      dispatch(
+        userSlice.actions.updateTokens({
+          accessToken: data?.accessToken ?? undefined,
+          refreshToken: data?.refreshToken ?? undefined,
+        }),
+      );
     }
-  }, [data, status, dispatch]);
+  }, [data?.accessToken, data?.refreshToken, status, dispatch]);
+
+  // useEffect(() => {
+  //   if (
+  //     accessToken &&
+  //     refreshToken &&
+  //     (data?.accessToken !== accessToken || data?.refreshToken !== refreshToken)
+  //   ) {
+  //     update({ accessToken, refreshToken });
+  //   }
+  // }, [accessToken, refreshToken, update, data]);
 
   return <>{children}</>;
 };
