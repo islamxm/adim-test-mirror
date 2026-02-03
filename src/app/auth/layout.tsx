@@ -6,7 +6,7 @@ import { authConfig } from "@/entities/user";
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const session = await authConfig.auth();
 
-  if (session?.accessToken) {
+  if (session?.accessToken && !session.error) {
     redirect("/profile");
   }
 

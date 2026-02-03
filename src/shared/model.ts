@@ -5,8 +5,8 @@ export type Route = {
 };
 export type WsState = "CONNECTING" | "OPEN" | "CLOSING" | "CLOSED";
 
-export const getLoginPage = () => "auth?type=login";
-export const getRegisterPage = () => "auth?type=register";
+export const getLoginPage = () => "/auth?type=login";
+export const getRegisterPage = () => "/auth?type=register";
 export const getHomePage = () => "/home";
 export const getCoursesPage = () => "/courses";
 export const getPointsPage = () => "/points";

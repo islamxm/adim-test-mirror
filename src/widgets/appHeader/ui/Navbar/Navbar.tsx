@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Paper, PaperOwnProps } from "@mui/material";
 import { motion } from "motion/react";
 
+import { useSelector } from "@/shared/lib";
 import { getHomePage, routesMap } from "@/shared/model";
 import { Logo } from "@/shared/ui";
 
@@ -32,7 +33,8 @@ type Props = {
 
 export const Navbar: FC<Props> = ({ endSlot, disableShadow, disableNavigation, sx }) => {
   const pathname = usePathname();
-  const { data } = userApi.useGetUserProfileQuery({});
+  const { authStatus } = useSelector((s) => s.user);
+  const { data } = userApi.useGetUserProfileQuery({}, { skip: authStatus !== "authenticated" });
   const t = useTranslations("widgets.appHeader.Navbar.routes");
 
   return (

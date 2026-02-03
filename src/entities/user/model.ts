@@ -99,3 +99,6 @@ export class AuthErrorInvalidOutputData extends CredentialsSignin {
 export class AuthErrorDeviceLimit extends CredentialsSignin {
   code = "device_limit";
 }
+export class VerificationError extends CredentialsSignin {
+  code = "verification_error";
+}

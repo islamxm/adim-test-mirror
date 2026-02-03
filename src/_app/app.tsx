@@ -15,11 +15,10 @@ import { MainLayout } from "@/widgets/mainLayout";
 import { AnimationProvider } from "./providers/animation";
 import { AuthInitializer } from "./providers/auth";
 import { StoreProvider, createStore } from "./providers/store";
-import { store } from "./providers/store/config";
 import { StyleProvider } from "./providers/style";
 
 export const App: FC<PropsWithChildren> = ({ children }) => {
-  // const store = createStore();
+  const store = createStore();
 
   return (
     <SessionProvider>

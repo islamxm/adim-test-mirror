@@ -8,15 +8,15 @@ import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
-import Cookies from "js-cookie";
 import { z } from "zod";
 
-import { getHomePage, getProfilePage } from "@/shared/model";
+import { getHomePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
 import { PasswordField, PrivacyPolicyLink } from "@/shared/ui";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 import { getUserDeviceInfo } from "@/entities/user";
+import { AuthErrorDeviceLimit } from "@/entities/user/model";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
@@ -50,10 +50,6 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
 
   const onSubmit: SubmitHandler<z.infer<typeof LoginFormSchema>> = async (body) => {
     setStatus?.("loading");
-    // пока убираем прослойку куки
-    // Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
-    //   expires: 1 / 24,
-    // });
     const deviceInfo = JSON.stringify(getUserDeviceInfo());
     const { email, password } = body;
     const res = await signIn("credentials", {
@@ -62,7 +58,6 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       deviceInfo,
       redirect: false,
     });
-
     if (res.url) {
       // баг в next-auth, он просто приклеивает сверху свой ?error не учитывая то что там может быть наше поле
       const url = new URL(res.url.replace(/\?([^?]*)\?/, "?$1&"));
@@ -70,9 +65,12 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
       const errorCode = url.searchParams.get("code");
 
       if (error) {
-        console.error(errorCode);
         setStatus?.("error");
-        toast.error("Log in error!");
+        if (errorCode === new AuthErrorDeviceLimit().code) {
+          toast.error("You have reached the maximum number of devices!");
+        } else {
+          toast.error("Log in error!");
+        }
         reset();
         return;
       }

@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -30,6 +30,7 @@ type Props = {
 export const PromoSection: FC<Props> = ({ bgcolor, head }) => {
   const t = useTranslations("widgets.promoSection.PromoSection");
   const router = useRouterProgress();
+
   return (
     <Box className={classes.wrapper} bgcolor={bgcolor}>
       <Container>
