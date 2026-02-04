@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import { useTranslations } from "next-intl";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import { Stack, Typography } from "@mui/material";
@@ -23,6 +24,7 @@ import { SelectLeague } from "../SelectLeague/SelectLeague";
 export const RatingPage = () => {
   const { data: userData } = userApi.useGetUserProfileQuery({});
   const pathname = usePathname();
+  const t = useTranslations();
   const activeLeague = useSearchParams().get("league") as League;
 
   const {
@@ -88,7 +90,7 @@ export const RatingPage = () => {
         >
           <Container>
             <Stack gap={"2.4rem"}>
-              <Typography variant="h2">Leaderboard</Typography>
+              <Typography variant="h2">{t("title")}</Typography>
               {isActiveLeagueChanging ? (
                 <Stack gap={"1rem"}>
                   <RatingProfileItemSkeleton />

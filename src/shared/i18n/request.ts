@@ -23,6 +23,7 @@ export default getRequestConfig(async () => {
   const authPage = await import(`@/_pages/authPage/i18n/${locale}.json`);
   const gameCategoriesPage = await import(`@/_pages/gameCategoriesPage/i18n/${locale}.json`);
   const coursesPage = await import(`@/_pages/coursesPage/i18n/${locale}.json`);
+  const ratingPage = await import(`@/_pages/ratingPage/i18n/${locale}.json`);
 
   //features
   const register = await import(`@/features/auth/register/i18n/${locale}.json`);
@@ -37,6 +38,7 @@ export default getRequestConfig(async () => {
     authPage,
     gameCategoriesPage,
     coursesPage,
+    ratingPage,
 
     //widgets
     appHeader,

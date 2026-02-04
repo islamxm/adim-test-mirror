@@ -1,7 +1,7 @@
 import { ComponentType, type FC, type PropsWithChildren, type ReactNode, useEffect } from "react";
 import { useIntersectionObserver } from "react-intersection-observer-hook";
 
-import { Grid, type StackProps } from "@mui/material";
+import { Grid, Stack, type StackProps } from "@mui/material";
 
 import { WithUIStatuses } from "@/shared/types";
 import { YellowSpinner } from "@/shared/ui";
@@ -62,7 +62,9 @@ export const ResourceList: FC<Props> = ({
           ))}
         {isSuccess && children}
       </Grid>
-      {isShowInfiniteTrigger && <ResourceListLoading ref={ref} />}
+      <Stack sx={{ height: "7rem" }} justifyContent={"center"} alignItems={"center"}>
+        {isShowInfiniteTrigger && <ResourceListLoading ref={ref} />}
+      </Stack>
       {isShowClickTrigger && loadMoreElement?.(onLoadMore)}
     </>
   );
