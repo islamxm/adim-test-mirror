@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { Box, Stack, Typography } from "@mui/material";
+import { motion } from "motion/react";
 
 import { cn } from "@/shared/lib/cn";
 import { Container } from "@/shared/ui/Container";
@@ -30,9 +31,31 @@ export const HeroSection = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <ellipse cx="263" cy="-123.5" rx="263" ry="312.5" fill="#063B29" fillOpacity="0.65" />
-            <ellipse cx="263" cy="-87" rx="263" ry="349" fill="#063B29" fillOpacity="0.35" />
-            <circle cx="263" cy="-186" r="250" fill="#063B29" />
+            <motion.ellipse
+              cx="263"
+              rx="263"
+              fill="#063B29"
+              fillOpacity="0.65"
+              initial={{ cy: 0, ry: 0 }}
+              animate={{ cy: -123.5, ry: 312.5 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            />
+            <motion.ellipse
+              cx="263"
+              rx="263"
+              fill="#063B29"
+              fillOpacity="0.35"
+              initial={{ cy: 0, ry: 0 }}
+              animate={{ cy: -87, ry: 349 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            />
+            <motion.circle
+              cx="263"
+              fill="#063B29"
+              initial={{ cy: 0, r: 0 }}
+              animate={{ cy: -186, r: 250 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            />
           </svg>
         </div>
         <div className={cn([classes.bg, classes.bg_bottom])}>
@@ -43,25 +66,34 @@ export const HeroSection = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <ellipse
+            <motion.ellipse
               cx="263"
-              cy="385.5"
               rx="263"
-              ry="312.5"
-              transform="rotate(180 263 385.5)"
               fill="#063B29"
               fillOpacity="0.65"
+              transform="rotate(180 263 385.5)"
+              initial={{ cy: 261, ry: 0 }}
+              animate={{ cy: 385.5, ry: 312.5 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             />
-            <ellipse
+            <motion.ellipse
               cx="263"
-              cy="349"
               rx="263"
-              ry="349"
-              transform="rotate(180 263 349)"
               fill="#063B29"
               fillOpacity="0.35"
+              transform="rotate(180 263 349)"
+              initial={{ cy: 261, ry: 0 }}
+              animate={{ cy: 349, ry: 349 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             />
-            <circle cx="263" cy="448" r="250" transform="rotate(180 263 448)" fill="#063B29" />
+            <motion.circle
+              cx="263"
+              fill="#063B29"
+              transform="rotate(180 263 448)"
+              initial={{ cy: 261, r: 0 }}
+              animate={{ cy: 448, r: 250 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            />
           </svg>
         </div>
         {/* bg */}
@@ -76,12 +108,45 @@ export const HeroSection = () => {
           }}
           variant="h1"
         >
-          {t("title")}
+          <motion.span
+            style={{ display: "block" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            {t("title1")}
+          </motion.span>
+          <motion.span
+            style={{ display: "block" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {t("title2")}
+          </motion.span>
+          <motion.span
+            style={{ display: "block" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {t("title3")}
+          </motion.span>
         </Typography>
-        <Box sx={{ flexGrow: 0, flexBasis: "41.9rem" }}>
+        <Box
+          component={motion.div}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          sx={{ flexGrow: 0, flexBasis: "41.9rem" }}
+        >
           <Image src={img} alt="test" width={419} height={419} />
         </Box>
         <Typography
+          component={motion.span}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           sx={{ flexGrow: 1, flexShrink: 1, flexBasis: 0, fontWeight: 600 }}
           variant={"subtitle1"}
         >

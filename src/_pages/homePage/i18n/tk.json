@@ -2,8 +2,10 @@
   "pages": {
     "homePage": {
       "HeroSection": {
-        "title": "Çalt öwren. Has akylly bäsleş. Ýokary derejede bol.",
-        "descr": "Bäsleşikler we kurslar bir ýerde — iň ýokary derejelere barýan ýoluň."
+        "title1": "Öwren.",
+        "title2": "Ýaryş.",
+        "title3": "Ýeň.",
+        "descr": "Ýaryş we kurslar bir ýerde - seniñ ugruñ yokary derejä tarap"
       },
       "CategoriesSection": {
         "title": "Kurslaryň bölümleri",
