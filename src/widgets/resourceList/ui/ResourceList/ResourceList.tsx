@@ -4,7 +4,6 @@ import { useIntersectionObserver } from "react-intersection-observer-hook";
 import { Grid, Stack, type StackProps } from "@mui/material";
 
 import { WithUIStatuses } from "@/shared/types";
-import { YellowSpinner } from "@/shared/ui";
 
 import { ResourceListLoading } from "./ResourceList.loading";
 

@@ -26,6 +26,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
     setStatus?.("loading");
     Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
       expires: 1 / 24,
+      path: "/",
     });
     try {
       await signIn("google");

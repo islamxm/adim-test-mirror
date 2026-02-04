@@ -47,3 +47,7 @@ export { Key2Icon } from "./Key2Icon";
 export { Key3Icon } from "./Key3Icon";
 export { Key4Icon } from "./Key4Icon";
 export { KeyEnterIcon } from "./KeyEnterIcon";
+export { TagIcon } from "./TagIcon";
+export { HeadphonesIcon } from "./HeadphonesIcon";
+export { ExternalLinkIcon } from "./ExternalLinkIcon";
+export { DevicesIcon } from "./DevicesIcon";

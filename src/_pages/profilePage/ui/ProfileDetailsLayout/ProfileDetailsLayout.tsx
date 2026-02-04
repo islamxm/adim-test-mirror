@@ -14,7 +14,7 @@ export const ProfileDetailsLayout: FC<Props> = ({ leftTop, leftBottom, right, bo
     <Box
       sx={{
         display: "grid",
-        gridTemplateAreas: '"left-top right" "left-bottom right" "bottom bottom"',
+        gridTemplateAreas: '"left-top right" "left-bottom right"',
         gap: "1.8rem",
         gridTemplateColumns: "1fr 41.6rem",
       }}
@@ -39,9 +39,7 @@ export const ProfileDetailsLayout: FC<Props> = ({ leftTop, leftBottom, right, bo
       >
         {right}
       </Paper>
-      <Grid sx={{ gridArea: "bottom" }} container spacing={"2rem"}>
-        {bottom}
-      </Grid>
+      {bottom}
     </Box>
   );
 };

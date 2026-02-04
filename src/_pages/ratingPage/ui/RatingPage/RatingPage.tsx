@@ -93,11 +93,9 @@ export const RatingPage = () => {
               <Typography variant="h2">{t("title")}</Typography>
               {isActiveLeagueChanging ? (
                 <Stack gap={"1rem"}>
-                  <RatingProfileItemSkeleton />
-                  <RatingProfileItemSkeleton />
-                  <RatingProfileItemSkeleton />
-                  <RatingProfileItemSkeleton />
-                  <RatingProfileItemSkeleton />
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <RatingProfileItemSkeleton key={index} />
+                  ))}
                 </Stack>
               ) : (
                 <ResourceList

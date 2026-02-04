@@ -1,7 +1,9 @@
 "use client";
-import { Grid, Stack } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 
 import { LogoutPanel } from "@/features/auth/logout";
+import { FeedbackPanel } from "@/features/feedback";
+import { DevicesPanel } from "@/features/manage-devices";
 
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 
@@ -9,6 +11,7 @@ import { BuySubscriptionButton } from "../BuySubscriptionButton/BuySubscriptionB
 import { FinishedCourses } from "../FinishedCourses/FinishedCourses";
 import { Month } from "../Month/Month";
 import { Points } from "../Points/Points";
+import { PricesPanel } from "../PricesPanel/PricesPanel";
 import { ProfileBody } from "../ProfileBody/ProfileBody";
 import { ProfileDetailsLayout } from "../ProfileDetailsLayout/ProfileDetailsLayout";
 import { ProfileHeader } from "../ProfileHeader/ProfileHeader";
@@ -25,13 +28,22 @@ export const ProfilePage = () => {
             leftTop={<Streak />}
             leftBottom={<Points />}
             right={<Month />}
-            // bottom={
-            //   <>
-            //     <Grid size={12}>
-            //       <LogoutPanel />
-            //     </Grid>
-            //   </>
-            // }
+            bottom={
+              <>
+                <Box sx={{ gridColumn: 1, width: "100%" }}>
+                  <DevicesPanel />
+                </Box>
+                <Box sx={{ gridColumn: 2, width: "100%" }}>
+                  <PricesPanel />
+                </Box>
+                <Box sx={{ gridColumn: 1, width: "100%" }}>
+                  <FeedbackPanel />
+                </Box>
+                <Box sx={{ gridColumn: 2, width: "100%" }}>
+                  <LogoutPanel />
+                </Box>
+              </>
+            }
           />
           {/* <FinishedCourses /> */}
         </ProfileBody>
