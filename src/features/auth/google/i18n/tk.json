@@ -3,7 +3,7 @@
     "auth": {
       "google": {
         "AuthWithGoogleBtn": {
-          "text": "Продолжить через Google"
+          "text": "Google bilen dowam et"
         }
       }
     }

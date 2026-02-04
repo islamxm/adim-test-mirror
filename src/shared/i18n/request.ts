@@ -30,6 +30,9 @@ export default getRequestConfig(async () => {
   const login = await import(`@/features/auth/login/i18n/${locale}.json`);
   const google = await import(`@/features/auth/google/i18n/${locale}.json`);
 
+  //entities
+  const user = await import(`@/entities/user/i18n/${locale}.json`);
+
   // общий файл перевода
   const messages = deepmerge.all([
     //pages
@@ -49,6 +52,9 @@ export default getRequestConfig(async () => {
     register,
     login,
     google,
+
+    //entities
+    user,
   ]);
 
   return {

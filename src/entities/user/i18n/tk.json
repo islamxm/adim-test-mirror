@@ -1,0 +1,13 @@
+{
+  "entities": {
+    "user": {
+      "PrivacyPolicyLink": {
+        "first": "Ulgama girmek bilen siz",
+        "second": "Ulanmagyň düzgünlerini",
+        "third": "we",
+        "fourth": "Gizlinlik syýasatyny",
+        "fifth": "kabul edýärsiňiz"
+      }
+    }
+  }
+}

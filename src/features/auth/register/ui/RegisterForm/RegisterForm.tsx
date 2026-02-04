@@ -11,10 +11,11 @@ import { z } from "zod";
 
 import { objectToSearchParams } from "@/shared/lib";
 import { UIStatus } from "@/shared/types";
-import { PasswordField, PrivacyPolicyLink } from "@/shared/ui";
+import { PasswordField } from "@/shared/ui";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 import { getUserDeviceInfo } from "@/entities/user";
+import { PrivacyPolicyLink } from "@/entities/user/ui/PrivacyPolicyLink/PrivacyPolicyLink";
 
 import { registerApi } from "../../api";
 

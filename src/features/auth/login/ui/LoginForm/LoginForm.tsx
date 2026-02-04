@@ -12,11 +12,12 @@ import { z } from "zod";
 
 import { getHomePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
-import { PasswordField, PrivacyPolicyLink } from "@/shared/ui";
+import { PasswordField } from "@/shared/ui";
 import { InputErrorText } from "@/shared/ui/InputErrorText";
 
 import { getUserDeviceInfo } from "@/entities/user";
 import { AuthErrorDeviceLimit } from "@/entities/user/model";
+import { PrivacyPolicyLink } from "@/entities/user/ui/PrivacyPolicyLink/PrivacyPolicyLink";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
