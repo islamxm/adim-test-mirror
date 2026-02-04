@@ -10,6 +10,7 @@ import { HTMLContent } from "@/shared/ui";
 
 import { VideoPlayer, lessonApi } from "@/entities/lesson";
 
+import { FinishLessonButton } from "../FinishLessonButton/FinishLessonButton";
 import { LessonPageError } from "./LessonPage.error";
 import { LessonPageSkeleton } from "./LessonPage.skeleton";
 
@@ -48,6 +49,7 @@ export const LessonPage = () => {
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      sx={{ position: "relative", pb: "3rem" }}
     >
       <Typography variant={"h2"}>{data.name}</Typography>
       {data.type === "VIDEO" && (
@@ -58,6 +60,7 @@ export const LessonPage = () => {
         />
       )}
       <HTMLContent value={data.blog} />
+      {/* <FinishLessonButton onFinishLesson={finishLesson} /> */}
     </Stack>
   );
 };

@@ -8,6 +8,7 @@ import {
   isHLSProvider,
 } from "@vidstack/react";
 import "@vidstack/react/player/styles/base.css";
+import HLS from "hls.js";
 
 import { VideoMask } from "./VideoMask";
 import classes from "./classes.module.scss";
@@ -24,6 +25,7 @@ export const VideoPlayer: FC<Props> = ({ videoSrc, posterSrc, title }) => {
   /** функция для того чтобы ограничить размер предзагрузки видео */
   const onProviderChange = (provider: MediaProviderAdapter | null) => {
     if (isHLSProvider(provider)) {
+      provider.library = HLS;
       provider.config = {
         // запас загрузки в секундах, то есть сколько видео будет загружено вперед
         maxBufferLength: 30,
@@ -39,7 +41,7 @@ export const VideoPlayer: FC<Props> = ({ videoSrc, posterSrc, title }) => {
     <MediaPlayer
       ref={ref}
       aspectRatio="16/9"
-      load="visible"
+      load="eager"
       title={title}
       src={videoSrc}
       preload="metadata"

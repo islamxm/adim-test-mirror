@@ -16,7 +16,6 @@ import {
   useMediaState,
   useVideoQualityOptions,
 } from "@vidstack/react";
-import { AnimatePresence, motion } from "motion/react";
 
 import {
   CheckIcon,
@@ -164,6 +163,8 @@ export const SettingsControl = () => {
   const isAutoQuality = options.selectedValue === "auto";
   const closeTimer = useRef<NodeJS.Timeout>(null);
 
+  console.log("Quality options:", options);
+
   const onClose = () => {
     setIsOpen(false);
   };
@@ -221,10 +222,6 @@ export const SettingsControl = () => {
                 maxWidth: "unset",
               },
             },
-
-            // transition: {
-            //   timeout: 0,
-            // },
           }}
           disableFocusListener
           disableHoverListener
