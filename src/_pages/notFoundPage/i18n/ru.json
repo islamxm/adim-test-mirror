@@ -1,0 +1,10 @@
+{
+  "pages": {
+    "notFoundPage": {
+      "NotFoundPage": {
+        "title": "Страница не найдена",
+        "button": "На главную"
+      }
+    }
+  }
+}

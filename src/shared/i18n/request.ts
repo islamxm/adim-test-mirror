@@ -18,8 +18,11 @@ export default getRequestConfig(async () => {
   const promoSection = (await import(`@/widgets/promoSection/i18n/${locale}.json`)).default;
 
   //pages
+  const notFoundPage = await import(`@/_pages/notFoundPage/i18n/${locale}.json`);
   const homePage = await import(`@/_pages/homePage/i18n/${locale}.json`);
   const authPage = await import(`@/_pages/authPage/i18n/${locale}.json`);
+  const gameCategoriesPage = await import(`@/_pages/gameCategoriesPage/i18n/${locale}.json`);
+  const coursesPage = await import(`@/_pages/coursesPage/i18n/${locale}.json`);
 
   //features
   const register = await import(`@/features/auth/register/i18n/${locale}.json`);
@@ -29,8 +32,11 @@ export default getRequestConfig(async () => {
   // общий файл перевода
   const messages = deepmerge.all([
     //pages
+    notFoundPage,
     homePage,
     authPage,
+    gameCategoriesPage,
+    coursesPage,
 
     //widgets
     appHeader,

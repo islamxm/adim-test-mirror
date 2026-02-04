@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
 import { Box, Grid, Stack } from "@mui/material";
@@ -20,6 +21,8 @@ const CourseItemSkeletonComponent = () => {
 
 export const CoursesPage = () => {
   const params = useParams<{ category: string }>();
+  const t = useTranslations("pages.coursesPage.CoursesPage");
+
   const { data, isLoading, isSuccess, isError, fetchNextPage, hasNextPage } =
     courseApi.useGetCoursesByCategoryIdInfiniteQuery({
       categoryId: params?.category,
@@ -36,11 +39,7 @@ export const CoursesPage = () => {
           }}
           gap={"4.4rem"}
         >
-          <SectionHead
-            sx={{ m: 0 }}
-            title="explore courses categories"
-            subtitle="Lorem ipsum dolor sit amet consectetur. Facilisi sollicitudin tempus sit ac. Tellus ac cras in metus curabitur aliquet."
-          />
+          <SectionHead sx={{ m: 0 }} title={t("title")} subtitle={t("subtitle")} />
           <ResourceList
             isLoading={isLoading}
             isSuccess={isSuccess}

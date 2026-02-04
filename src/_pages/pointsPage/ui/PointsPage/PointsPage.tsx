@@ -19,8 +19,8 @@ import { ShowHistoryButton } from "@/features/game/show-history";
 
 import { PageEnterAnimationLayout } from "@/widgets/pageEnterAnimationLayout";
 
-import leftImg from "../../assets/points-start-left.png";
-import rightImg from "../../assets/points-start-right.png";
+import leftImg from "../../../../../public/points-start-left.png";
+import rightImg from "../../../../../public/points-start-right.png";
 import { ProgressPanel } from "../ProgressPanel/ProgressPanel";
 
 const getPercent = (total: number, part: number) => {
@@ -57,7 +57,6 @@ export const PointsPage = () => {
               sx={{
                 "& img": {
                   width: "100%",
-                  height: "100%",
                   objectFit: "contain",
                 },
               }}
@@ -154,7 +153,6 @@ export const PointsPage = () => {
               sx={{
                 "& img": {
                   width: "100%",
-                  height: "100%",
                   objectFit: "contain",
                 },
               }}
