@@ -49,6 +49,8 @@ const refreshAccessToken = async (token: any) => {
 };
 
 export const authConfig = NextAuth({
+  debug: true,
+  trustHost: true,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",

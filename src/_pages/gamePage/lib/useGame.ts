@@ -56,6 +56,7 @@ let wsReconnectDelay = 1000;
 export const useGame = () => {
   const dispatch = useDispatch();
   const { accessToken } = useSelector((s) => s.user);
+  const accessTokenRef = useRef(accessToken);
   const { subcategory } = useParams();
   const { data } = userApi.useGetUserProfileQuery(undefined);
   const [getUserdata] = userApi.useLazyGetHomeUserDataQuery();
@@ -94,6 +95,10 @@ export const useGame = () => {
 
   /** после отправки ивента - включаем, при получении отключаем */
   const [isPending, setIsPending] = useState(false);
+
+  useEffect(() => {
+    accessTokenRef.current = accessToken;
+  }, [accessToken]);
 
   const resetGame = () => {
     setGameStatus("LOBBY");
@@ -379,11 +384,11 @@ export const useGame = () => {
   }, [gameStatus, opponentData, result]);
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!accessTokenRef.current) {
       return;
     }
 
-    competitionWs.connect(accessToken);
+    competitionWs.connect(accessTokenRef.current);
 
     competitionWs.onOpen(onWsOpen);
     competitionWs.onClose(onWsClose);
@@ -415,8 +420,7 @@ export const useGame = () => {
         clearTimeout(sessionTimer.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+  }, []);
 
   return {
     enterQueue,

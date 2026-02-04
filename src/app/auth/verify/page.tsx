@@ -30,7 +30,8 @@ export default function VerifyPage() {
           deviceInfo,
           redirect: false,
         });
-        if (!res.ok || res.code === new VerificationError().code) {
+        console.log(res);
+        if (!res.ok || res?.error) {
           toast.error("Verification error!");
         } else {
           router.push(getProfilePage());
