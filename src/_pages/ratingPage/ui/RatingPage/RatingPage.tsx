@@ -24,7 +24,7 @@ import { SelectLeague } from "../SelectLeague/SelectLeague";
 export const RatingPage = () => {
   const { data: userData } = userApi.useGetUserProfileQuery({});
   const pathname = usePathname();
-  const t = useTranslations();
+  const t = useTranslations("pages.ratingPage.RatingPage");
   const activeLeague = useSearchParams().get("league") as League;
 
   const {

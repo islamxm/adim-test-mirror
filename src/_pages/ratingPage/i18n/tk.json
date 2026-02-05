@@ -3,6 +3,9 @@
     "ratingPage": {
       "RatingPage": {
         "title": "Reýting"
+      },
+      "RatingTopThreeEmpty": {
+        "title": "Bu ýerde liganyň agzalarynyň sanawy bolar"
       }
     }
   }

@@ -1,5 +1,6 @@
 "use client";
 import { FC, ReactNode, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import { useTranslations } from "next-intl";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -34,6 +35,13 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
       router.push(getLoginPage());
     }
   }, [type, router]);
+
+  useEffect(() => {
+    if (window.location.search.includes("error=")) {
+      router.replace(getLoginPage());
+      toast.error("Sign in error!");
+    }
+  }, [pathname]);
 
   if (!type) {
     return null;

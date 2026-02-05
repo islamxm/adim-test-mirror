@@ -1,11 +1,11 @@
 import { FC } from "react";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
+import { useRouterProgress } from "@/shared/lib";
 import { getGameCategoryPage, getGameMatchPage } from "@/shared/model";
 
 import { CompetitionCategory } from "@/entities/competition/model";
@@ -13,7 +13,7 @@ import { CompetitionCategory } from "@/entities/competition/model";
 type Props = CompetitionCategory & { parentId?: string };
 
 export const GameCategory: FC<Props> = ({ name, iconPath, subCategories, id, parentId }) => {
-  const router = useRouter();
+  const router = useRouterProgress();
 
   const onClick = () => {
     if (subCategories && subCategories.length > 0) {

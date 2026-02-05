@@ -3,6 +3,9 @@
     "ratingPage": {
       "RatingPage": {
         "title": "Рейтинг"
+      },
+      "RatingTopThreeEmpty": {
+        "title": "Здесь будут отображатся участники этой лиги"
       }
     }
   }

@@ -18,7 +18,7 @@ export const MainLayout: FC<Props> = ({ children, header, footer }) => {
   const pathname = usePathname();
   const { pageBgColor } = usePageBgColor();
   const isAuthPage = pathname.includes("/auth");
-  const isGamePage = pathname.includes("/game/");
+  const isGamePage = pathname.includes("/game");
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const { isShowHeader } = useToggleHeader(scrollRef);
 

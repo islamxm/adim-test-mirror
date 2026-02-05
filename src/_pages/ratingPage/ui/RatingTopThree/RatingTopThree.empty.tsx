@@ -1,9 +1,12 @@
+import { useTranslations } from "next-intl";
+
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "motion/react";
 
 import { Avatar, userApi } from "@/entities/user";
 
 export const RatingTopThreeEmpty = () => {
+  const t = useTranslations("pages.ratingPage.RatingTopThreeEmpty");
   const { data } = userApi.useGetUserProfileQuery({});
   return (
     <Stack
@@ -38,7 +41,7 @@ export const RatingTopThreeEmpty = () => {
               width: "100%",
             }}
           >
-            Здесь будут отображатся участники этой лиги
+            {t("title")}
           </Typography>
         </Stack>
       </Box>
