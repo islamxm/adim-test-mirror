@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
 
 import { jwtDecode } from "jwt-decode";
 
@@ -11,6 +10,7 @@ import {
   AuthErrorFetchResponse,
   AuthErrorInvalidInputData,
   AuthErrorInvalidOutputData,
+  AuthGoogleError,
   VerificationError,
 } from "./model";
 
@@ -52,10 +52,6 @@ export const authConfig = NextAuth({
   debug: true,
   trustHost: true,
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
     CredentialsProvider({
       id: "credentials",
       name: "User email & password login",
@@ -144,7 +140,36 @@ export const authConfig = NextAuth({
           };
         } catch (err) {
           throw new VerificationError();
-          // return null;
+        }
+      },
+    }),
+    CredentialsProvider({
+      id: "google-signup",
+      name: "Google Signup",
+      async authorize(credentials) {
+        const payload = {
+          token: credentials?.token,
+          deviceInfo: JSON.parse(credentials?.deviceInfo as string),
+        };
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/google_sign_in`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            throw new AuthGoogleError();
+          }
+          return {
+            id: "session",
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
+            expire_date: (jwtDecode(data.accessToken).exp as number) * 1000,
+            deviceInfo: JSON.parse(credentials?.deviceInfo as string),
+          };
+        } catch (err) {
+          throw new AuthGoogleError();
         }
       },
     }),
@@ -157,49 +182,48 @@ export const authConfig = NextAuth({
     error: "/auth?type=login",
   },
   callbacks: {
-    async jwt({ token, account, user, trigger, session }) {
+    async jwt({ token, account, user }) {
       //user - это то что я вернул из authorize
       //token - текущий зашифрованный обьект, то что лежит в куке
-      //trigger - что был инициатором этого коллбэка
       //account - способ которым он произвел вход
 
       // значит юзер только что произвел вход
       if (user) {
-        if (account?.provider === "google") {
-          const id_token = account?.id_token;
-          if (id_token) {
-            try {
-              const { cookies } = await import("next/headers");
-              const cookieStore = await cookies();
-              const rawDeviceInfo = cookieStore.get("deviceInfo")?.value;
-              const deviceInfo = rawDeviceInfo ? JSON.parse(rawDeviceInfo) : {};
-              const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/google_sign_in`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  token: id_token,
-                  deviceInfo: deviceInfo,
-                }),
-              });
-              const data = await res.json();
-              if (!res.ok) {
-                throw data;
-              }
-              token.accessToken = data.accessToken;
-              token.refreshToken = data.refreshToken;
-              token.expire_date = (jwtDecode(data.accessToken).exp as number) * 1000;
-              token.deviceInfo = deviceInfo;
-              token.error = false;
-              return token;
-            } catch (err) {
-              console.log("Google sign in error: ", err);
-              return {
-                ...token,
-                error: "GoogleSignInError",
-              };
-            }
-          }
-        }
+        // if (account?.provider === "google") {
+        //   const id_token = account?.id_token;
+        //   if (id_token) {
+        //     try {
+        //       const { cookies } = await import("next/headers");
+        //       const cookieStore = await cookies();
+        //       const rawDeviceInfo = cookieStore.get("deviceInfo")?.value;
+        //       const deviceInfo = rawDeviceInfo ? JSON.parse(rawDeviceInfo) : {};
+        //       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/google_sign_in`, {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify({
+        //           token: id_token,
+        //           deviceInfo: deviceInfo,
+        //         }),
+        //       });
+        //       const data = await res.json();
+        //       if (!res.ok) {
+        //         throw data;
+        //       }
+        //       token.accessToken = data.accessToken;
+        //       token.refreshToken = data.refreshToken;
+        //       token.expire_date = (jwtDecode(data.accessToken).exp as number) * 1000;
+        //       token.deviceInfo = deviceInfo;
+        //       token.error = false;
+        //       return token;
+        //     } catch (err) {
+        //       console.log("Google sign in error: ", err);
+        //       return {
+        //         ...token,
+        //         error: "GoogleSignInError",
+        //       };
+        //     }
+        //   }
+        // }
         if (account?.type === "credentials") {
           token.accessToken = (user as any)?.accessToken;
           token.refreshToken = (user as any)?.refreshToken;

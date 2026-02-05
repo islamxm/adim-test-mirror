@@ -3,7 +3,10 @@
     "auth": {
       "google": {
         "AuthWithGoogleBtn": {
-          "text": "Google bilen dowam et"
+          "text": "Google bilen dowam et",
+          "errors": {
+            "default": "Google bilen girmekde ýalňyşlyk ýüze çykdy!"
+          }
         }
       }
     }

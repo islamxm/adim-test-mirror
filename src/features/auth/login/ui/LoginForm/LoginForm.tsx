@@ -107,10 +107,10 @@ export const LoginForm: FC<Props> = ({ setStatus, isActive, oauth }) => {
         helperText={<InputErrorText>{errors?.password?.message}</InputErrorText>}
       />
       <PrivacyPolicyLink />
-      {oauth}
       <Button type={"submit"} variant={"contained"}>
         {t("submit_button")}
       </Button>
+      {oauth}
     </Stack>
   );
 };
