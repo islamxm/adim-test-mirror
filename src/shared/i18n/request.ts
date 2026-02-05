@@ -24,6 +24,7 @@ export default getRequestConfig(async () => {
   const gameCategoriesPage = await import(`@/_pages/gameCategoriesPage/i18n/${locale}.json`);
   const coursesPage = await import(`@/_pages/coursesPage/i18n/${locale}.json`);
   const ratingPage = await import(`@/_pages/ratingPage/i18n/${locale}.json`);
+  const accountDeletionPage = await import(`@/_pages/accountDeletionPage/i18n/${locale}.json`);
 
   //features
   const register = await import(`@/features/auth/register/i18n/${locale}.json`);
@@ -42,6 +43,7 @@ export default getRequestConfig(async () => {
     gameCategoriesPage,
     coursesPage,
     ratingPage,
+    accountDeletionPage,
 
     //widgets
     appHeader,

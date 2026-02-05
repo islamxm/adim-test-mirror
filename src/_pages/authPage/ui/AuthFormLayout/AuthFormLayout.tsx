@@ -37,9 +37,9 @@ export const AuthFormLayout: FC<Props> = ({ children, extra, bg }) => {
   }, [type, router]);
 
   useEffect(() => {
-    if (window.location.search.includes("error=")) {
+    if (window.location.search.includes("error=Configuration")) {
       router.replace(getLoginPage());
-      toast.error("Sign in error!");
+      toast.error("Tehniki ýalňyşlyklar ýüze çykdy, täzeden synanyşmagyňyzy haýyş edýäris!");
     }
   }, [pathname]);
 

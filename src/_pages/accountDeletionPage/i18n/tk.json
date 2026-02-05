@@ -1,0 +1,21 @@
+{
+  "pages": {
+    "accountDeletionPage": {
+      "AccountDeletionPage": {
+        "title": "Hasaby pozmak",
+        "p1": "Ulanyjylar Ädim hasabyny we onuň bilen baglanyşykly şahsy maglumatlaryny pozmagy talap edip bilerler.",
+        "p2": "Hasaby nädip pozmaly",
+        "p3": "Ädim programmasyny açyň → Profil → Hasaby poz",
+        "p4": "Eger programmanyň içine girip bilmeseňiz, hasabyňyza degişli e-poçta salgysyndan ",
+        "mail": "berktechnology7@gmail.com",
+        "p6": " salgysyna ýüz tutup bilersiňiz",
+        "p7": "Haýsy maglumatlar pozulýar",
+        "p8": "Hasap profili we e-poçta salgysy",
+        "p9": "Oýun ösüşi, ballar we reýtingler",
+        "p10": "Saklama möhleti",
+        "p11": "Maglumatlar 30 günüň dowamynda doly pozulýar",
+        "p12": "Käbir maglumatlar kanun tarapyndan talap edilýän ýagdaýlarda (mysal üçin, töleg ýa-da hasabat maglumatlary) saklanyp bilner"
+      }
+    }
+  }
+}
