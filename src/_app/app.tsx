@@ -23,8 +23,10 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
 
   return (
-    <GoogleOAuthProvider clientId={process.env?.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
-      <SessionProvider>
+    <SessionProvider>
+      <GoogleOAuthProvider
+        clientId={"708956669594-0eqccfklm1kd4bf96sktfotp14mjmhvh.apps.googleusercontent.com"}
+      >
         <StoreProvider preloadedState={store}>
           <AuthInitializer>
             <LocaleDetector />
@@ -42,7 +44,7 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
             </StyleProvider>
           </AuthInitializer>
         </StoreProvider>
-      </SessionProvider>
-    </GoogleOAuthProvider>
+      </GoogleOAuthProvider>
+    </SessionProvider>
   );
 };
