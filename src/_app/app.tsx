@@ -25,6 +25,7 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
   return (
     <SessionProvider>
       <GoogleOAuthProvider
+        onScriptLoadError={() => console.error("Google auth script load error!")}
         clientId={"708956669594-0eqccfklm1kd4bf96sktfotp14mjmhvh.apps.googleusercontent.com"}
       >
         <StoreProvider preloadedState={store}>
