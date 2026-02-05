@@ -64,12 +64,7 @@ export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
       startIcon={<Image src={googleIcon.src} alt="Google" width={20} height={20} />}
     >
       {t("text")}
-      <GoogleLogin
-        ux_mode={"popup"}
-        onSuccess={onGoogleSuccess}
-        theme={"outline"}
-        use_fedcm_for_prompt={true}
-      />
+      <GoogleLogin ux_mode={"popup"} onSuccess={onGoogleSuccess} theme={"outline"} />
     </Button>
   );
 };
