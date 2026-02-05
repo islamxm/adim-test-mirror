@@ -3,6 +3,8 @@ import { FC, PropsWithChildren } from "react";
 
 import { SessionProvider } from "next-auth/react";
 
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import { LocaleDetector } from "@/shared/i18n/ui";
 import { Toaster } from "@/shared/ui";
 
@@ -21,24 +23,26 @@ export const App: FC<PropsWithChildren> = ({ children }) => {
   const store = createStore();
 
   return (
-    <SessionProvider>
-      <StoreProvider preloadedState={store}>
-        <AuthInitializer>
-          <LocaleDetector />
-          <StyleProvider>
-            <PageLoadingProgressbar />
-            <AnimationProvider animate={true}>
-              <MainLayout
-                header={(isShowHeader) => <AppHeader isShowHeader={isShowHeader} />}
-                footer={<AppFooter />}
-              >
-                {children}
-                <Toaster />
-              </MainLayout>
-            </AnimationProvider>
-          </StyleProvider>
-        </AuthInitializer>
-      </StoreProvider>
-    </SessionProvider>
+    <GoogleOAuthProvider clientId={process.env?.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+      <SessionProvider>
+        <StoreProvider preloadedState={store}>
+          <AuthInitializer>
+            <LocaleDetector />
+            <StyleProvider>
+              <PageLoadingProgressbar />
+              <AnimationProvider animate={true}>
+                <MainLayout
+                  header={(isShowHeader) => <AppHeader isShowHeader={isShowHeader} />}
+                  footer={<AppFooter />}
+                >
+                  {children}
+                  <Toaster />
+                </MainLayout>
+              </AnimationProvider>
+            </StyleProvider>
+          </AuthInitializer>
+        </StoreProvider>
+      </SessionProvider>
+    </GoogleOAuthProvider>
   );
 };

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import { Open_Sans } from "next/font/google";
+import localFont from "next/font/local";
 
 import { App } from "@/_app/app";
 
 import "../_app/styles/main.scss";
 
-const openSans = Open_Sans({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "cyrillic", "math"],
+const openSans = localFont({
+  src: "../_app/fonts/OpenSans-Variable.ttf",
+  variable: "--font-open-sans",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${openSans.variable} ${openSans.variable}`}>
+      <body className={`${openSans.className} ${openSans.variable}`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <App>{children}</App>
         </NextIntlClientProvider>

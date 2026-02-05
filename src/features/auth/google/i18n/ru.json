@@ -3,7 +3,10 @@
     "auth": {
       "google": {
         "AuthWithGoogleBtn": {
-          "text": "Продолжить через Google"
+          "text": "Продолжить через Google",
+          "errors": {
+            "default": "Произошла ошибка при попытке входа через Google!"
+          }
         }
       }
     }

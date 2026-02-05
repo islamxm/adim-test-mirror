@@ -1,57 +1,75 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { toast } from "react-toastify";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { Button } from "@mui/material";
-import Cookies from "js-cookie";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
+import { useRouterProgress } from "@/shared/lib";
+import { getProfilePage } from "@/shared/model";
 import { UIStatus } from "@/shared/types";
 
-import { getUserDeviceInfo, userSlice } from "@/entities/user";
+import { getUserDeviceInfo } from "@/entities/user";
+import { AuthGoogleError } from "@/entities/user";
 
 import googleIcon from "../../../../../../public/google.png";
+import classes from "./classes.module.scss";
 
 type Props = {
   setStatus?: (status: UIStatus) => void;
 };
 
 export const AuthWithGoogleBtn: FC<Props> = ({ setStatus }) => {
-  const { data } = useSession();
+  const router = useRouterProgress();
   const t = useTranslations("features.auth.google.AuthWithGoogleBtn");
 
-  const onSubmit = async () => {
-    setStatus?.("loading");
-    Cookies.set("deviceInfo", JSON.stringify(getUserDeviceInfo()), {
-      expires: 1 / 24,
-      path: "/",
-    });
+  const onGoogleSuccess = async (response: CredentialResponse) => {
     try {
-      await signIn("google");
-      setStatus?.("success");
-    } catch (e) {
-      toast.error("Google sign in error!");
+      setStatus?.("loading");
+      const token = response?.credential;
+
+      if (!token) {
+        throw new AuthGoogleError();
+      }
+      const deviceInfo = JSON.stringify(getUserDeviceInfo());
+      const payload = {
+        deviceInfo,
+        token,
+      };
+      const res = await signIn("google-signup", {
+        ...payload,
+        redirect: false,
+      });
+      if (!res || res?.code === new AuthGoogleError().code) {
+        throw new AuthGoogleError();
+      }
+      router.replace(getProfilePage());
+    } catch (err) {
+      toast.error(t("errors.default"));
       setStatus?.("error");
     }
   };
 
-  useEffect(() => {
-    if (data?.error) {
-      toast.error("Google sign in error!");
-    }
-  }, [data]);
-
   return (
     <Button
-      startIcon={<Image src={googleIcon.src} alt="Google" width={20} height={20} />}
+      sx={{ p: 0 }}
+      fullWidth
       variant={"contained"}
       color={"secondary"}
-      onClick={onSubmit}
+      className={classes.button}
       type="button"
+      startIcon={<Image src={googleIcon.src} alt="Google" width={20} height={20} />}
     >
       {t("text")}
+      <GoogleLogin
+        ux_mode={"popup"}
+        onSuccess={onGoogleSuccess}
+        theme={"outline"}
+        use_fedcm_for_prompt={true}
+      />
     </Button>
   );
 };

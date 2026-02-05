@@ -1,6 +1,7 @@
 import { api } from "@/shared/api";
 
 import { Response_MonthlyStreakSchema, Response_UserHomeDataSchema, UserSchema } from "./contracts";
+import { Payload_Auth } from "./model";
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({

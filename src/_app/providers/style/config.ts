@@ -22,7 +22,7 @@ const customShadow = "0px 0px 10px 0px rgba(0, 0, 0, 0.15)";
 export const themeConfig = createTheme({
   typography: {
     fontSize: 10,
-    fontFamily: "var(--font-geist-sans)",
+    fontFamily: "var(--font-open-sans)",
     allVariants: {
       transition: "all .2s ease",
     },

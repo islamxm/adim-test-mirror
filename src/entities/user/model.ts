@@ -102,3 +102,6 @@ export class AuthErrorDeviceLimit extends CredentialsSignin {
 export class VerificationError extends CredentialsSignin {
   code = "verification_error";
 }
+export class AuthGoogleError extends CredentialsSignin {
+  code = "google_error";
+}
