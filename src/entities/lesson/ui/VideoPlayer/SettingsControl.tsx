@@ -1,158 +1,13 @@
-import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
-import {
-  Button,
-  ClickAwayListener,
-  IconButton,
-  Slider,
-  Stack,
-  Tooltip,
-  Typography,
-  alpha,
-} from "@mui/material";
-import {
-  VideoQualityOptions,
-  useMediaPlayer,
-  useMediaState,
-  useVideoQualityOptions,
-} from "@vidstack/react";
+import { ClickAwayListener, IconButton, Tooltip } from "@mui/material";
+import { useMediaPlayer, useMediaState, useVideoQualityOptions } from "@vidstack/react";
 
-import {
-  CheckIcon,
-  ChevronRightIcon,
-  ClockIcon,
-  SettingsIcon,
-  SliderIcon,
-} from "@/shared/ui/icons";
+import { SettingsIcon } from "@/shared/ui/icons";
 
-type Content = "main" | "quality" | "speed";
-
-const MainContent: FC<{
-  onSelect?: (value: Content) => void;
-  quality?: any;
-  speed?: any;
-}> = ({ onSelect, speed, quality }) => {
-  return (
-    <Stack sx={{ width: "30rem" }} gap={".5rem"}>
-      <Button
-        sx={{ borderRadius: "1.4rem", justifyContent: "space-between" }}
-        color={"secondary"}
-        startIcon={<SliderIcon />}
-        variant={"text"}
-        endIcon={<ChevronRightIcon />}
-        onClick={() => onSelect?.("quality")}
-      >
-        <Stack sx={{ width: "100%" }} direction={"row"} justifyContent={"space-between"}>
-          <Typography>Quality</Typography>
-          <Typography>{quality}</Typography>
-        </Stack>
-      </Button>
-      <Button
-        sx={{ borderRadius: "1.4rem", justifyContent: "space-between" }}
-        color={"secondary"}
-        startIcon={<ClockIcon />}
-        variant={"text"}
-        endIcon={<ChevronRightIcon />}
-        onClick={() => onSelect?.("speed")}
-      >
-        <Stack sx={{ width: "100%" }} direction={"row"} justifyContent={"space-between"}>
-          <Typography>Speed</Typography>
-          <Typography>{speed}x</Typography>
-        </Stack>
-      </Button>
-    </Stack>
-  );
-};
-
-const QualitiesContent: FC<{
-  avilableQualities?: VideoQualityOptions;
-  isAuto?: boolean;
-}> = ({ avilableQualities, isAuto }) => {
-  return (
-    <Stack sx={{ width: "30rem" }} gap={".5rem"}>
-      {avilableQualities?.map((quality, index) => {
-        if (index === 0) {
-          return (
-            <Button
-              key={index}
-              sx={{ borderRadius: "1.4rem", justifyContent: "space-between" }}
-              color={"secondary"}
-              variant={"text"}
-              onClick={() => quality.select()}
-              endIcon={isAuto && <CheckIcon />}
-            >
-              Auto
-            </Button>
-          );
-        }
-        return (
-          <Button
-            key={index}
-            sx={{ borderRadius: "1.4rem", justifyContent: "space-between" }}
-            color={"secondary"}
-            variant={"text"}
-            onClick={() => quality.select()}
-            endIcon={!isAuto && quality.quality?.selected && <CheckIcon />}
-          >
-            {quality.label}
-          </Button>
-        );
-      })}
-    </Stack>
-  );
-};
-
-const SpeedContent: FC<{ onChange: (value: number) => void; value?: number }> = ({
-  onChange,
-  value,
-}) => {
-  return (
-    <Stack
-      sx={{ width: "13.2rem", height: "9rem" }}
-      alignItems={"center"}
-      justifyContent={"center"}
-    >
-      <Typography>{value}x</Typography>
-      <Slider
-        min={0.5}
-        max={1.5}
-        value={value}
-        step={0.25}
-        onChange={(_, value) => onChange(value)}
-        orientation={"horizontal"}
-        sx={{
-          width: "8.4rem",
-        }}
-        slotProps={{
-          track: {
-            style: {
-              height: ".3rem",
-              border: "none",
-              borderRadius: ".2rem",
-              backgroundColor: "#fff",
-            },
-          },
-          rail: {
-            style: {
-              height: ".3rem",
-              border: "none",
-              borderRadius: ".2rem",
-              backgroundColor: alpha("#fff", 0.3),
-            },
-          },
-          thumb: {
-            style: {
-              width: ".9rem",
-              height: ".9rem",
-              backgroundColor: "#D9D9D9",
-              boxShadow: "none",
-            },
-          },
-        }}
-      />
-    </Stack>
-  );
-};
+import { Content, OptionsMenu } from "./OptionsMenu";
+import { QualitiesContent } from "./QualtitiesContent";
+import { SpeedContent } from "./SpeedContent";
 
 export const SettingsControl = () => {
   const player = useMediaPlayer();
@@ -162,8 +17,6 @@ export const SettingsControl = () => {
   const options = useVideoQualityOptions();
   const isAutoQuality = options.selectedValue === "auto";
   const closeTimer = useRef<NodeJS.Timeout>(null);
-
-  console.log("Quality options:", options);
 
   const onClose = () => {
     setIsOpen(false);
@@ -191,7 +44,7 @@ export const SettingsControl = () => {
 
   const views: Record<Content, ReactNode> = {
     main: (
-      <MainContent
+      <OptionsMenu
         quality={options.find((f) => f.value === options.selectedValue)?.label}
         speed={playbackRate}
         onSelect={setActiveView}
